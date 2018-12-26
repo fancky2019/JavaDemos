@@ -13,7 +13,7 @@ public class Configs {
 
     private String redisIP;
     private String redisPort;
-    private String redisPossword;
+    private String redisPassword;
     private  Integer dbIndex;
     private  Integer timeout;
 
@@ -29,8 +29,8 @@ public class Configs {
         return dbIndex;
     }
 
-    public String getRedisPossword() {
-        return redisPossword;
+    public String getRedisPassword() {
+        return redisPassword;
     }
 
     public String getDriverName() {
@@ -72,7 +72,7 @@ public class Configs {
 
         redisIP = properties.getProperty("redisIP");
         redisPort = properties.getProperty("redisPort");
-        redisPossword = properties.getProperty("redisPossword");
+        redisPassword = properties.getProperty("redisPassword");
         dbIndex= Integer.parseInt( properties.getProperty("dbIndex"));
         timeout= Integer.parseInt( properties.getProperty("timeout"));
         inputStream.close();

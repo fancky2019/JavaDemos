@@ -41,7 +41,7 @@ public class RedisTest {
         //可设置DBIndex,默认0
         //   jedisPool = new JedisPool(configJedisPoolConfig(), configs.getRedisIP(), Integer.parseInt(configs.getRedisPort()));
         jedisPool = new JedisPool(configJedisPoolConfig(), configs.getRedisIP(), Integer.parseInt(configs.getRedisPort()),
-                configs.getTimeout(), configs.getRedisPossword(), configs.getDbIndex());
+                configs.getTimeout(), configs.getRedisPassword(), configs.getDbIndex());
 
     }
 

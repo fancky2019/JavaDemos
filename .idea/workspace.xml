@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2b9abde2-ea87-4337-9409-ce0646eca00d" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Test/RedisTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/Configs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="2b9abde2-ea87-4337-9409-ce0646eca00d" name="Default" comment="添加redis模块">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demos.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Demos.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Demos/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Demos/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Demos/resources/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Demos/resources/jdbc.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/RedisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/RedisTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/Configs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/Configs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/jdbc.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -50,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Test/RedisTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
-              <caret line="66" selection-start-line="66" selection-end-line="66" />
+            <state relative-caret-position="132">
+              <caret line="65" column="35" lean-forward="true" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1193#1209#0" expanded="true" />
@@ -102,8 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/common/Configs.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="76" column="66" selection-start-line="76" selection-start-column="66" selection-end-line="76" selection-end-column="66" />
+            <state relative-caret-position="429">
+              <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#424#425#0" expanded="true" />
@@ -132,8 +127,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/resources/jdbc.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="10" column="8" lean-forward="true" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+            <state relative-caret-position="25">
+              <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -295,7 +290,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545815989591" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545816142539" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/jars/redis/slf4j-nop-1.7.25.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -357,7 +352,7 @@
       <workItem from="1545293819447" duration="2183000" />
       <workItem from="1545644702952" duration="1241000" />
       <workItem from="1545732360796" duration="284000" />
-      <workItem from="1545732797726" duration="14268000" />
+      <workItem from="1545732797726" duration="14421000" />
     </task>
     <task id="LOCAL-00001" summary="redis jar">
       <created>1545804030066</created>
@@ -366,11 +361,18 @@
       <option name="project" value="LOCAL" />
       <updated>1545804030066</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="添加redis模块">
+      <created>1545816027316</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1545816027316</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98789000" />
+    <option name="totallyTimeSpent" value="98942000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -413,7 +415,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="redis jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="redis jar" />
+    <MESSAGE value="添加redis模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加redis模块" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -882,8 +885,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/common/Configs.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="76" column="66" selection-start-line="76" selection-start-column="66" selection-end-line="76" selection-end-column="66" />
+        <state relative-caret-position="429">
+          <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#424#425#0" expanded="true" />
@@ -910,8 +913,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Test/RedisTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="66" selection-start-line="66" selection-end-line="66" />
+        <state relative-caret-position="132">
+          <caret line="65" column="35" lean-forward="true" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1193#1209#0" expanded="true" />
@@ -921,8 +924,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/resources/jdbc.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="8" lean-forward="true" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+        <state relative-caret-position="25">
+          <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
         </state>
       </provider>
     </entry>
