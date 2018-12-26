@@ -1,5 +1,6 @@
 import Test.*;
 import com.sun.org.apache.bcel.internal.generic.NEW;
+import common.Configs;
 
 public class Main {
 
@@ -43,11 +44,13 @@ public class Main {
             //    new LambdaTest().test();
 
             // new Java8Test().test();
-            new OptionalTest().tetst();
-
+            //   new OptionalTest().tetst();
+            //   new Configs().test();
+            new RedisTest().test();
             Integer a = 0;
         } catch (Exception ex) {
             String str = ex.getMessage();
+            System.out.println(str);
             Integer a = 0;
         }
     }
