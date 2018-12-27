@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 public class SetTest {
 
     public void test() {
-
        // operation();
         sets();
       //  getListObjectProperty();
