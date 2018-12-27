@@ -30,7 +30,7 @@ public class Main {
 //
 //            referenceTest.classParam(student);
 //            Student returnObj=referenceTest.changeObj(student);
-
+            new SetTest().test();
             //    new FileTest().test();
             // new ReflectDemo().test();
             //  new EnumTest().test();
@@ -46,7 +46,7 @@ public class Main {
             // new Java8Test().test();
             //   new OptionalTest().tetst();
             //   new Configs().test();
-            new RedisTest().test();
+            // new RedisTest().test();
             Integer a = 0;
         } catch (Exception ex) {
             String str = ex.getMessage();

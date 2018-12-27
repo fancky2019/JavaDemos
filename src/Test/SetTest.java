@@ -8,7 +8,8 @@ public class SetTest {
 
     public void test() {
 
-        operation();
+       // operation();
+        sets();
     }
 
     private void operation() {
@@ -35,7 +36,7 @@ public class SetTest {
         Integer m = 0;
     }
 
-    private void declare() {
+    private void sets() {
 
         //region hashMap <Key,Value> --->c# Dictionary
         //hashMap <Key,Value>
@@ -69,9 +70,9 @@ public class SetTest {
         list1.add(2);
         list1.add(3);
         list1.add(5);
-        //取
-        Integer first = list.get(0);
-        Integer second = list.get(0);
+        //取,注意索引从0开始，和数组一样
+        Integer first = list1.get(0);
+        Integer second = list1.get(1);
 
         //删除
         list.remove(2);
