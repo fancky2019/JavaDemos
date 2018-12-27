@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 public class SetTest {
 
     public void test() {
+
         operation();
     }
 
@@ -34,7 +35,7 @@ public class SetTest {
         Integer m = 0;
     }
 
-    public void declare() {
+    private void declare() {
 
         //region hashMap <Key,Value> --->c# Dictionary
         //hashMap <Key,Value>
@@ -45,6 +46,10 @@ public class SetTest {
         Map<String, Integer> map1 = new HashMap<String, Integer>();
         map1.put("key1", 2);
         map1.put("key2", 2);
+        //取值
+        Integer val = map1.get("key2");
+        //删除
+        map1.remove("key2");
         //Key存在一样的，值会被更新
         map.putAll(map1);
         //遍历Key
@@ -64,6 +69,12 @@ public class SetTest {
         list1.add(2);
         list1.add(3);
         list1.add(5);
+        //取
+        Integer first = list.get(0);
+        Integer second = list.get(0);
+
+        //删除
+        list.remove(2);
         //all 相当于C#里的Range
         list.addAll(list1);
         for (Integer i : list) {
@@ -94,7 +105,7 @@ public class SetTest {
         hashSet.add(1);
         hashSet.add(3);
         // hashSet.remove(1);
-
+        //取值只能遍历
         Iterator<Integer> hsIterator = hashSet.iterator();
         while (hsIterator.hasNext()) {
             Integer str = hsIterator.next();
