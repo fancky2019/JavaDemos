@@ -185,7 +185,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-120" />
     <option name="y" value="117" />
     <option name="width" value="1470" />
@@ -342,7 +342,7 @@
       <workItem from="1545644702952" duration="1241000" />
       <workItem from="1545732360796" duration="284000" />
       <workItem from="1545732797726" duration="15062000" />
-      <workItem from="1545891389710" duration="3833000" />
+      <workItem from="1545891389710" duration="4433000" />
     </task>
     <task id="LOCAL-00001" summary="redis jar">
       <created>1545804030066</created>
@@ -390,10 +390,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103416000" />
+    <option name="totallyTimeSpent" value="104016000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19829424" />
