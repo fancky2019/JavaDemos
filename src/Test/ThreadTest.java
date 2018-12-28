@@ -1,11 +1,9 @@
 package Test;
 
+import Model.Student;
 import com.sun.xml.internal.ws.util.CompletedFuture;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -164,6 +162,14 @@ public class ThreadTest {
         }).join();
         System.out.println(result);
     }
+
+    private void funcationBlockingQueue() {
+
+        LinkedBlockingQueue<Student> linkedBlockingQueue = new LinkedBlockingQueue<Student>(Integer.MAX_VALUE);
+        LinkedTransferQueue<Student> linkedTransferQueue=new LinkedTransferQueue<>() ;
+      
+    }
+
 
 }
 
