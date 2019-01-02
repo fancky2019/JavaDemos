@@ -156,37 +156,46 @@ public class RedisTest {
      */
     public void set() {
         //添加
-        jedis.sadd("setKey", "liuling");
-        jedis.sadd("setKey", "xinxin");
-        jedis.sadd("setKey", "ling");
-        jedis.sadd("setKey", "zhangxinxin");
-        jedis.sadd("setKey", "who");
-
-        //删除值liuling
-        jedis.srem("setKey", "liuling");
-        Set<String> allVal = jedis.smembers("setKey");//获取所有加入的value
-        Boolean exist = jedis.sismember("setKey", "who");//判断who是否是user集合的元素
-        String val = jedis.srandmember("setKey");// set 集合中的“随机”元素
-        Long count = jedis.scard("setKey");//返回集合的元素个数
+        jedis.sadd("setKey1", "setValue1");
+        jedis.sadd("setKey2", "setValue2");
+        jedis.sadd("setKey3", "setValue3");
+        jedis.sadd("setKey5", "setValue5");
+        jedis.sadd("setKey4", "setValue4");
+        jedis.sadd("setKey4", "setValue41");
+        jedis.sadd("setKey4", "setValue42");
+        //删除值
+        jedis.srem("setKey1", "setValue1");
+        //删除
+        jedis.del("setKey2");
+        Set<String> allVal = jedis.smembers("setKey3");//获取所有加入的value
+        Boolean exist = jedis.sismember("setKey4", "setValue4");//判断who是否是user集合的元素
+        String val = jedis.srandmember("setKey4");// set 集合中的“随机”元素
+        Long count = jedis.scard("setKey4");//返回集合的元素个数
     }
 
 
-    /**
-     * redis排序
-     */
     public void sortedSet() {
 
-        //jedis 排序
-        //注意，此处的rpush和lpush是List的操作。是一个双向链表（但从表现来看的)
-        jedis.del("sortedSetKey");//先清除数据，再加入数据进行测试
-        jedis.rpush("sortedSetKey", "1");
-        jedis.lpush("sortedSetKey", "6");
-        jedis.lpush("sortedSetKey", "3");
-        jedis.lpush("sortedSetKey", "9");
-        //取出所有
-        List<String> listAll = jedis.lrange("sortedSetKey", 0, -1);
-        //取出后排序
-        List<String> sortedList = jedis.sort("sortedSetKey");//[1,3,6,9]
+        jedis.zadd("sortedSetKey1", 1d, "sortedSetValue1");
+        jedis.zadd("sortedSetKey1", 2d, "sortedSetValue12");
+        jedis.zadd("sortedSetKey1", 3d, "sortedSetValue13");
+        jedis.zadd("sortedSetKey4", 4d, "sortedSetValue4");
+        jedis.zadd("sortedSetKey2", 2d, "sortedSetValue2");
+        jedis.zadd("sortedSetKey3", 3d, "sortedSetValue3");
+
+        //取值该Key的所有
+        Set<String> setStr = jedis.zrange("sortedSetKey1", 0, -1);
+        //取2个
+        Set<String> setStr2 = jedis.zrange("sortedSetKey1", 0, 1);
+        Iterator<String> zSetStringIterator = setStr.iterator();
+        while (zSetStringIterator.hasNext()) {
+            String str = zSetStringIterator.next();
+            Integer n = 0;
+        }
+        //删除Key中的一个值
+        jedis.zrem("sortedSetKey1", "sortedSetValue12");
+        //删除
+        jedis.del("sortedSetKey2");
     }
 
 
