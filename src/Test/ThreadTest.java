@@ -1,11 +1,10 @@
 package Test;
 
+import Model.Student;
 import com.sun.xml.internal.ws.util.CompletedFuture;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.Random;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -39,10 +38,13 @@ public class ThreadTest {
         try {
 
             // futureTask();
-            CompletableFuture<Integer> completableFuture = completableFutureDemo();
-            Thread.sleep(11 * 1000);
+//            CompletableFuture<Integer> completableFuture = completableFutureDemo();
+//            Thread.sleep(11 * 1000);
+//
+//            Integer m = completableFuture.get();
 
-            Integer m = completableFuture.get();
+
+            funcationBlockingQueue();
             Integer n = 1;
             //whenComplete();
         } catch (Exception ex) {
@@ -163,6 +165,59 @@ public class ThreadTest {
             return "hello world";
         }).join();
         System.out.println(result);
+    }
+
+    LinkedBlockingQueue<Student> linkedBlockingQueue = null;
+
+    private void funcationBlockingQueue() {
+
+        linkedBlockingQueue = new LinkedBlockingQueue<Student>(100000);
+        producer();
+        consumer();
+        //   LinkedTransferQueue<Student> linkedTransferQueue = new LinkedTransferQueue<>();
+
+    }
+
+    private void producer() {
+        //没有返回值
+//        CompletableFuture<Void> voidCompletableFuture = CompletableFuture.runAsync(() ->
+        CompletableFuture.runAsync(() ->
+        {
+            for (Integer i = 1; i <= 10000; i++) {
+                try {
+                    Random rd = new Random();
+                    Integer next = rd.nextInt(10000);
+                    Student student = new Student();
+                     student.setAge(next);
+                    student.setName("test"+next);
+                    linkedBlockingQueue.put(student);
+                    Thread.sleep(500);
+                } catch (Exception ex) {
+                    String msg = ex.toString();
+                    Integer m = 0;
+                }
+            }
+        });
+    }
+
+    private void consumer() {
+        CompletableFuture.runAsync(() ->
+        {
+            try {
+                Integer i = 0;
+                while (true) {
+                    Student student = linkedBlockingQueue.take();
+                    i++;
+                    System.out.printf("%d:%s\n", student.getAge(), student.getName());
+                    if (i == 100) {
+                        break;
+                    }
+                }
+            } catch (Exception ex) {
+                String msg = ex.toString();
+            }
+
+        });
     }
 
 }

@@ -2,6 +2,10 @@ import Test.*;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import common.Configs;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Random;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -15,7 +19,7 @@ public class Main {
             //  new SetTest().test();
 //
 //
-            //   new ThreadTest().test();
+            new ThreadTest().test();
 
 //            new CalendarTest().operation();
 
@@ -30,7 +34,8 @@ public class Main {
 //
 //            referenceTest.classParam(student);
 //            Student returnObj=referenceTest.changeObj(student);
-          //  new SetTest().test();
+            //  new SetTest().test();
+
             //    new FileTest().test();
             // new ReflectDemo().test();
             //  new EnumTest().test();
@@ -46,7 +51,15 @@ public class Main {
             // new Java8Test().test();
             //   new OptionalTest().tetst();
             //   new Configs().test();
-             new RedisTest().test();
+
+            new RedisTest().test();
+
+            // new RedisTest().test();
+
+
+            BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
+            String str = strin.readLine();
+
             Integer a = 0;
         } catch (Exception ex) {
             String str = ex.getMessage();
