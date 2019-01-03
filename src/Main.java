@@ -19,7 +19,7 @@ public class Main {
             //  new SetTest().test();
 //
 //
-         //   new ThreadTest().test();
+            //   new ThreadTest().test();
 
 //            new CalendarTest().operation();
 
@@ -52,11 +52,11 @@ public class Main {
             //   new OptionalTest().tetst();
             //   new Configs().test();
 
-            new RedisTest().test();
+            // new RedisTest().test();
 
             // new RedisTest().test();
 
-
+            new ProduceConsumerTest(100).Test();
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 
