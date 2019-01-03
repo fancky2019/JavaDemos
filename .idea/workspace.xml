@@ -4,11 +4,11 @@
     <list default="true" id="2b9abde2-ea87-4337-9409-ce0646eca00d" name="Default" comment="删除OUT">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-<<<<<<< HEAD
+
       <change beforePath="$PROJECT_DIR$/src/Test/RedisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/RedisTest.java" afterDir="false" />
-=======
+
       <change beforePath="$PROJECT_DIR$/src/Test/ThreadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/ThreadTest.java" afterDir="false" />
->>>>>>> fancky
+
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,12 +34,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-<<<<<<< HEAD
+
         <entry file="file://$PROJECT_DIR$/src/Test/SetTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
               <caret line="112" column="8" selection-start-line="112" selection-start-column="8" selection-end-line="115" selection-end-column="9" />
-=======
+
         <entry file="file://$PROJECT_DIR$/src/Test/RedisTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-351">
@@ -47,18 +47,18 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
->>>>>>> fancky
+
             </state>
           </provider>
         </entry>
       </file>
-<<<<<<< HEAD
+
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Test/Person.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="116">
               <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-=======
+
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Test/ThreadTest.java">
           <provider selected="true" editor-type-id="text-editor">
