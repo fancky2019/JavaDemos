@@ -1,22 +1,21 @@
 package Test;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/**
- * java LinkedBlockingQueue Demo  在TheadTest类里
- */
-public class ProduceConsumerTest {
+public class ProducerConsumerTPSTest {
     private ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<>();
+    Queue<Date> executeTimeList = new LinkedList<>();
     private Integer maxLength;
-    private  final Object lockObject = new Object();
+    private Integer tps;
+    private final Object lockObject = new Object();
+    SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
 
-    public ProduceConsumerTest(Integer maxLength) {
+    public ProducerConsumerTPSTest(Integer maxLength, Integer tps) {
         this.maxLength = maxLength;
+        this.tps = tps;
     }
 
     public void Test() {
@@ -39,7 +38,7 @@ public class ProduceConsumerTest {
             while (true) {
                 consumer();
                 try {
-                    Thread.sleep(800);
+                    Thread.sleep(100);
                 } catch (InterruptedException ex) {
 
                 }
@@ -56,7 +55,7 @@ public class ProduceConsumerTest {
                 try {
                     lockObject.wait();
                 } catch (InterruptedException ex) {
-
+                    String msg = ex.getMessage();
                 }
             }
             queue.add(num);
@@ -72,11 +71,27 @@ public class ProduceConsumerTest {
                 try {
                     lockObject.wait();
                 } catch (InterruptedException ex) {
-                    String msg = ex.getMessage();
                 }
             }
+            //如果执行等于TPS
+            if (executeTimeList.size() == tps) {
+                Date firstTime = executeTimeList.poll();
+                Date now = new Date();
+                Long millisecond = now.getTime() - firstTime.getTime();
+                //执行间隔小于1s，等待
+                if (millisecond < 1000) {
+                    try {
+                        Thread.sleep(1000 - millisecond + 1);
+                    } catch (InterruptedException ex) {
+                        String msg = ex.getMessage();
+                    }
+                }
+            }
+
             Integer num = queue.poll();
-            System.out.printf("dequeue %d \n", num);
+            Date date=new Date();
+            executeTimeList.add(date);
+            System.out.printf("dequeue: %d  time:%s \n", num, simpleDateFormat.format(date));
             lockObject.notify();
 
             //不用每次都通知，当队列满了再通知，释放锁
@@ -88,6 +103,4 @@ public class ProduceConsumerTest {
         }
 
     }
-
-
 }

@@ -4,6 +4,8 @@ import common.Configs;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class Main {
@@ -56,7 +58,9 @@ public class Main {
 
             // new RedisTest().test();
 
+
             new ProduceConsumerTest(100).Test();
+          //  new ProducerConsumerTPSTest(100,5).Test();
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 
