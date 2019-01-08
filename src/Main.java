@@ -59,8 +59,15 @@ public class Main {
             // new RedisTest().test();
 
 
-            new ProduceConsumerTest(100).Test();
-          //  new ProducerConsumerTPSTest(100,5).Test();
+            //  new ProduceConsumerTest(100).Test();
+            //  new ProducerConsumerTPSTest(100,5).Test();
+
+         //   new AnonymousInteralClassTest().test();
+
+
+            ExtendTest extendTest=new ExtendTest() ;
+            extendTest.publicFunction();
+            extendTest.publicFunction1();
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 

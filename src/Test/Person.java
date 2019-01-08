@@ -11,7 +11,7 @@ package Test;
 }
 
 interface Animal {
-    void getAge();
+    Integer getAge();
 }
 
 interface Children {
@@ -41,8 +41,8 @@ class Imp extends BaseImp implements Person, Worker {
     }
 
     @Override
-    public void getAge() {
-
+    public Integer getAge() {
+         return  0;
     }
 
     @Override

@@ -6,8 +6,8 @@ public class PersonImp implements Person {
     public static final Integer SUM1 = 10;
 
     @Override
-    public void getAge() {
-
+    public Integer getAge() {
+        return  0;
     }
 
     @Override
