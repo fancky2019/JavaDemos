@@ -50,7 +50,7 @@ public class Main {
 
             //    new LambdaTest().test();
            // new CalendarTest().test();
-            new Java8Test().test();
+           // new Java8Test().test();
             //   new OptionalTest().tetst();
             //   new Configs().test();
 
@@ -69,7 +69,7 @@ public class Main {
 //            extendTest.publicFunction();
 //            extendTest.publicFunction1();
 
-
+           new ConvertTest().test();
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 
