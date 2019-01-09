@@ -2,12 +2,18 @@ package Test;
 
 import Model.Student;
 
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Java8Test {
     public void test() {
-        getListObjectProperty();
+      //  getListObjectProperty();
+        localDateTimeTest();
     }
 
     private void getListObjectProperty() {
@@ -67,6 +73,28 @@ public class Java8Test {
 
         students.addAll(students1);
         Integer m = 0;
+    }
+
+    private void  localDateTimeTest()
+    {
+        LocalDateTime localDateTime=LocalDateTime.now();
+
+        //转换string
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String dateStr = localDateTime.format(dateTimeFormatter);
+
+//
+
+        DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        //string 转换
+        LocalDateTime localDateTime4=LocalDateTime.parse("2018-12-31 13:12:00.000",dateTimeFormatter1);
+        //小的时间在前 Duration是秒，纳秒
+        Duration duration = Duration.between(localDateTime4,localDateTime);
+
+        Long days=duration.getSeconds()/(24l*60l*60l);
+
+        Integer idays=days.intValue();
+        Integer m=0;
     }
 
 //    Optional<Integer>

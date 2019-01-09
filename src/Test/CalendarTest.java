@@ -4,14 +4,24 @@ import Model.Student;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
 public class CalendarTest {
-    public void operation() throws ParseException {
+
+    public void test() {
+        try {
+            operation();
+        } catch (Exception ex) {
+
+        }
+
+    }
+
+    private void operation() throws ParseException {
 
         Date date = new Date();
-
         //格式化输出
         //"yyyy-MM-dd "
         //"yyyyMM"

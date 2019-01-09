@@ -49,8 +49,8 @@ public class Main {
             //    new JDBCTest().test();
 
             //    new LambdaTest().test();
-
-            // new Java8Test().test();
+           // new CalendarTest().test();
+            new Java8Test().test();
             //   new OptionalTest().tetst();
             //   new Configs().test();
 
@@ -62,12 +62,14 @@ public class Main {
             //  new ProduceConsumerTest(100).Test();
             //  new ProducerConsumerTPSTest(100,5).Test();
 
-         //   new AnonymousInteralClassTest().test();
+            //   new AnonymousInteralClassTest().test();
 
 
-            ExtendTest extendTest=new ExtendTest() ;
-            extendTest.publicFunction();
-            extendTest.publicFunction1();
+//            ExtendTest extendTest=new ExtendTest() ;
+//            extendTest.publicFunction();
+//            extendTest.publicFunction1();
+
+
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 
