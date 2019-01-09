@@ -61,8 +61,8 @@ public class Main {
 
             //  new ProduceConsumerTest(100).Test();
             //  new ProducerConsumerTPSTest(100,5).Test();
-
-            //   new AnonymousInteralClassTest().test();
+            
+            //   new AnonymousInternalClassTest().test();
 
 
 //            ExtendTest extendTest=new ExtendTest() ;

@@ -10,7 +10,7 @@ package Test;
  *
  * 当接口只有一个方法时候（没有实现）匿名内部类可以用lambda表达式代替
  */
-public class AnonymousInteralClassTest {
+public class AnonymousInternalClassTest {
     public  void  test()
     {
         getAnimalInterfaceInfo(new Animal() {
