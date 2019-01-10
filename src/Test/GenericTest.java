@@ -11,7 +11,7 @@ public class GenericTest {
         funVoid(Integer.class);
 
     }
-
+    
     public <T> void funVoid(Class<T> clazz) {
 
     }
