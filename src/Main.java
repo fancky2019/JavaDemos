@@ -1,4 +1,5 @@
 import Test.*;
+import Test.reflection.AnnotationTest;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import common.Configs;
 
@@ -69,7 +70,8 @@ public class Main {
 //            extendTest.publicFunction();
 //            extendTest.publicFunction1();
 
-           new ConvertTest().test();
+          // new ConvertTest().test();
+            new AnnotationTest().test();
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 
