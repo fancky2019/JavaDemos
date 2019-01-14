@@ -1,20 +1,17 @@
+
 import Test.*;
 import Test.reflection.AnnotationTest;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import common.Configs;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
         try {
 
-
+            //获取包名
+            String packageName = ImpTest.class.getPackage().getName();
 //        System.out.println("Hello World!");
 //        Person person=new PersonImp();
 //        person.getName();
@@ -50,8 +47,8 @@ public class Main {
             //    new JDBCTest().test();
 
             //    new LambdaTest().test();
-           // new CalendarTest().test();
-           // new Java8Test().test();
+            // new CalendarTest().test();
+            // new Java8Test().test();
             //   new OptionalTest().tetst();
             //   new Configs().test();
 
@@ -62,7 +59,7 @@ public class Main {
 
             //  new ProduceConsumerTest(100).Test();
             //  new ProducerConsumerTPSTest(100,5).Test();
-            
+
             //   new AnonymousInternalClassTest().test();
 
 
@@ -70,7 +67,8 @@ public class Main {
 //            extendTest.publicFunction();
 //            extendTest.publicFunction1();
 
-          // new ConvertTest().test();
+
+            // new ConvertTest().test();
             new AnnotationTest().test();
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();

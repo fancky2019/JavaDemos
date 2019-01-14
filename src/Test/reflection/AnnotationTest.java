@@ -85,13 +85,13 @@ public class AnnotationTest {
         //获取包的名字 并进行替换
         String packageDirName = packageName.replace('.', '/');
         //定义一个枚举的集合 并进行循环来处理这个目录下的things
-        Enumeration<URL> dirs;
+        Enumeration<URL> urls;
         try {
-            dirs = Thread.currentThread().getContextClassLoader().getResources(packageDirName);
+            urls = Thread.currentThread().getContextClassLoader().getResources(packageDirName);
             //循环迭代下去
-            while (dirs.hasMoreElements()) {
+            while (urls.hasMoreElements()) {
                 //获取下一个元素
-                URL url = dirs.nextElement();
+                URL url = urls.nextElement();
                 //得到协议的名称
                 String protocol = url.getProtocol();
                 //如果是以文件的形式保存在服务器上

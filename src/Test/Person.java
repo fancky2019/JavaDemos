@@ -3,6 +3,7 @@ package Test;
 //接口多继承
 //接口成员访问修饰符默认：public static final
 //接口、类默认访问修饰符是default:包内,和C#一样internal程序集内
+//类成员的默认访问修饰符是default:包内，C#是private
  public  interface Person extends Animal, Children {
     //接口成员访问修饰符默认：public static final
     Integer COUNT = 10;
@@ -28,25 +29,4 @@ class BaseImp {
 
 }
 
-//跟C#一样类在前，接口在后
-class Imp extends BaseImp implements Person, Worker {
-//    @Override
-//    public void getCout() {
-//
-//    }
 
-    @Override
-    public void getName() {
-
-    }
-
-    @Override
-    public Integer getAge() {
-         return  0;
-    }
-
-    @Override
-    public void getJob() {
-
-    }
-}
