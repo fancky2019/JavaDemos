@@ -1,5 +1,6 @@
 
 import Test.*;
+import Test.rabbitMQ.RabbitMQTest;
 import Test.reflection.AnnotationTest;
 
 import java.io.BufferedReader;
@@ -69,7 +70,9 @@ public class Main {
 
 
             // new ConvertTest().test();
-            new AnnotationTest().test();
+            //  new AnnotationTest().test();
+
+            new RabbitMQTest().test();
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 
