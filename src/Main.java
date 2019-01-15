@@ -69,10 +69,10 @@ public class Main {
 //            extendTest.publicFunction1();
 
 
-            // new ConvertTest().test();
+             new ConvertTest().test();
             //  new AnnotationTest().test();
 
-            new RabbitMQTest().test();
+           // new RabbitMQTest().test();
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 
