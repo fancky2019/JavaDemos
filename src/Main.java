@@ -18,8 +18,6 @@ public class Main {
 //        person.getName();
 //
             //  new SetTest().test();
-//
-//
             //   new ThreadTest().test();
 
 //            new CalendarTest().operation();
