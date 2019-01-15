@@ -5,7 +5,7 @@ import Model.Student;
 import java.util.Optional;
 
 public class OptionalTest {
-    public void tetst() {
+    public void test() {
         Student stu = new Student("fancky", 1);
         Student student = null;
         Optional<Student> optionalStudent = Optional.ofNullable(stu);
