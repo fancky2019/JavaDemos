@@ -18,12 +18,9 @@ public class Main {
 //        person.getName();
 //
             //  new SetTest().test();
-//
-//
             //   new ThreadTest().test();
 
 //            new CalendarTest().operation();
-
 
 //            ReferenceTest referenceTest=new ReferenceTest();
 //            String str="123";
