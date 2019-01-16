@@ -1,8 +1,5 @@
 package Test;
 
-import com.sun.javafx.scene.layout.region.Margins;
-import org.omg.CORBA.PRIVATE_MEMBER;
-
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -15,6 +12,7 @@ public class LambdaTest {
         {
             System.out.println(p);
         });
+        funcClass.testFuncInterface(p->  System.out.println(p));
         sysytemFunctionalInterface();
     }
 
@@ -66,6 +64,7 @@ public class LambdaTest {
 //因为在方法中可以使用Object作为参数，所以把Lambda表达式作为方法的参数也是可以的。
 //函数式接口只有一个抽象方法，并且没有重写Object类中的方法(Object类中的public的方法除外)，可以有默认方法和静态方法。
 //函数式接口一般用注解@FunctionalInterface标注。
+//该注解可有可无
 @FunctionalInterface
 interface FuncInterface {
     void funcInterfaceTest(String str);
@@ -75,7 +74,7 @@ interface FuncInterface {
     /**
      * default修饰必须有方法体，实现类可以修改
      */
-    default public void display() {
+    default void display() {
         System.out.println("  default public  void  display()");
     }
 

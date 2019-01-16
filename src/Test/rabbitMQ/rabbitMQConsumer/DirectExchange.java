@@ -15,8 +15,15 @@ public class DirectExchange {
 
     public void consumer() {
         try {
+            //{ HostName = "192.168.1.105", Port = 5672, UserName = "fancky", Password = "123456" };
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
+
+
+            factory.setPort(5672);
+            factory.setUsername("fancky");
+            factory.setPassword("123456");
+
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
 

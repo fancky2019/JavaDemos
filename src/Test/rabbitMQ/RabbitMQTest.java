@@ -3,8 +3,7 @@ package Test.rabbitMQ;
 import java.util.concurrent.CompletableFuture;
 
 public class RabbitMQTest {
-    public  void  test()
-    {
+    public void test() {
         //生产者
         CompletableFuture.runAsync(() ->
         {
@@ -20,11 +19,25 @@ public class RabbitMQTest {
             //NuGet安装RabbitMQ.Client
 
 
-            new  Test.rabbitMQ.rabbitMQProducer.DirectExchange().producer();
-            new  Test.rabbitMQ.rabbitMQProducer.FanoutExchange().producer();
-            new Test.rabbitMQ.rabbitMQProducer.TopicExchange().producer();
-        });
+            Integer i = 0;
+            for (; ; ) {
+                //生产者不停推送，消费者会在DeliverCallback回调内收到消息
+                new Test.rabbitMQ.rabbitMQProducer.DirectExchange().sendMsg(i.toString());
+                i++;
+                if (i == 10) {
+                    break;
+                }
+                try {
+                    Thread.sleep(3 * 1000);
+                } catch (Exception ex) {
 
+                }
+            }
+
+            //  new  Test.rabbitMQ.rabbitMQProducer.DirectExchange().producer();
+//            new  Test.rabbitMQ.rabbitMQProducer.FanoutExchange().producer();
+//            new Test.rabbitMQ.rabbitMQProducer.TopicExchange().producer();
+        });
 
 
         //消费者
@@ -42,8 +55,8 @@ public class RabbitMQTest {
             //NuGet安装RabbitMQ.Client
 
             new Test.rabbitMQ.rabbitMQConsumer.DirectExchange().consumer();
-            new Test.rabbitMQ.rabbitMQConsumer.FanoutExchange().consumer();
-            new Test.rabbitMQ.rabbitMQConsumer.TopicExchange().consumer();
+//            new Test.rabbitMQ.rabbitMQConsumer.FanoutExchange().consumer();
+//            new Test.rabbitMQ.rabbitMQConsumer.TopicExchange().consumer();
         });
     }
 

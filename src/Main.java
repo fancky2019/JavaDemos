@@ -2,6 +2,8 @@
 import Test.*;
 import Test.rabbitMQ.RabbitMQTest;
 import Test.reflection.AnnotationTest;
+import Test.test2019.TryCatchFinallyReturnTest;
+import Test.test2019.proxy.ProxyTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,8 +13,21 @@ public class Main {
     public static void main(String[] args) {
         try {
 
+            //region 2018
             //获取包名
-            String packageName = ImpTest.class.getPackage().getName();
+          //  String packageName = ImpTest.class.getPackage().getName();
+
+//            //region  根路径
+//            //:相对路径(即不写明时候到底相对谁)均可通过以下方式获得（不论是一般的java项目还是web项目）
+//            String relativelyPath = System.getProperty("user.dir");
+//            System.out.println(relativelyPath);
+
+//            File f = new File(Main.class.getResource("").getPath());
+//            System.out.println(f);
+//
+//            System.out.println(f.getParent());
+            //endregion
+
 //        System.out.println("Hello World!");
 //        Person person=new PersonImp();
 //        person.getName();
@@ -65,10 +80,18 @@ public class Main {
 //            extendTest.publicFunction1();
 
 
-             new ConvertTest().test();
+           //  new ConvertTest().test();
             //  new AnnotationTest().test();
 
-           // new RabbitMQTest().test();
+           new RabbitMQTest().test();
+            //endregion
+
+            //region 2019
+          //  new TryCatchFinallyReturnTest().test();
+         //  new  ProxyTest().test();
+            //endregion
+
+
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 
