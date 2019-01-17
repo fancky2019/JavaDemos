@@ -19,6 +19,8 @@ public class TopicExchange {
             try (Connection connection = factory.newConnection();
                  Channel channel = connection.createChannel()) {
                 channel.exchangeDeclare(EXCHANGE_NAME, ExchangeType.TOPIC);
+                //公平调度：客户端未处理完，不会再给它发送任务
+                channel.basicQos(0, 1, false);
                 String message = "MSG_TopicExchange";
                 channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, null, message.getBytes("UTF-8"));
                 System.out.println("Sent:"+message);
