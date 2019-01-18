@@ -2,51 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98c882d1-a396-41d6-845d-443a9bebca16" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Test/test2019/queue/QueueTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/AnonymousInternalClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/AnonymousInternalClassTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/CalendarTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/CalendarTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/ConvertTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/ConvertTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/Description.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/Description.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/EnumTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/EnumTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/ExecutionSequenceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/ExecutionSequenceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/ExtendTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/ExtendTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/FileTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/FileTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/GenericTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/GenericTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/ImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/ImpTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/JDBCTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/JDBCTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/Java8Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/Java8Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/LambdaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/LambdaTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/OptionalTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/OptionalTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/PersonImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/PersonImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/ProduceConsumerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/ProduceConsumerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/ProducerConsumerTPSTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/ProducerConsumerTPSTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/PropertiesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/PropertiesTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/RedisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/opensource/redis/RedisTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/ReferenceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/ReferenceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/ReflectDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/ReflectDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/SetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/SetTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/StringTets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/StringTets.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/ThreadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/ThreadTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/rabbitMQ/ExchangeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/opensource/rabbitMQ/ExchangeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/rabbitMQ/RabbitMQTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/opensource/rabbitMQ/RabbitMQTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/rabbitMQ/rabbitMQConsumer/DirectExchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/opensource/rabbitMQ/rabbitMQConsumer/DirectExchange.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/rabbitMQ/rabbitMQConsumer/FanoutExchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/opensource/rabbitMQ/rabbitMQConsumer/FanoutExchange.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/rabbitMQ/rabbitMQConsumer/TopicExchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/opensource/rabbitMQ/rabbitMQConsumer/TopicExchange.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/rabbitMQ/rabbitMQProducer/DirectExchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/opensource/rabbitMQ/rabbitMQProducer/DirectExchange.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/rabbitMQ/rabbitMQProducer/FanoutExchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/opensource/rabbitMQ/rabbitMQProducer/FanoutExchange.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/rabbitMQ/rabbitMQProducer/TopicExchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/opensource/rabbitMQ/rabbitMQProducer/TopicExchange.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/reflection/AnnotationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/reflection/AnnotationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/reflection/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/reflection/Job.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/reflection/Job1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/reflection/Job1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/reflection/Job2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/reflection/Job2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/reflection/Job3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/reflection/Job3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/reflection/JobAnnotation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/test2018/reflection/JobAnnotation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/Configs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/Configs.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,15 +27,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Test/test2018/StringTets.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Test/test2018/ImpTest.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -132,7 +79,7 @@
         <entry file="file://$PROJECT_DIR$/src/Test/opensource/rabbitMQ/RabbitMQTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1400">
-              <caret line="56" column="68" lean-forward="true" selection-start-line="56" selection-start-column="68" selection-end-line="56" selection-end-column="68" />
+              <caret line="56" column="68" selection-start-line="56" selection-start-column="68" selection-end-line="56" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -146,14 +93,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Test/test2019/queue/QueueTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+            <state relative-caret-position="350">
+              <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Test/test2018/SetTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="50">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -269,19 +225,6 @@
               <item name="Demos" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Test" type="462c0819:PsiDirectoryNode" />
-              <item name="test2019" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -292,7 +235,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547793600236" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547793784593" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/jars/rabbitMQ/amqp-client-5.5.2.jar!/" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -415,11 +358,18 @@
       <option name="project" value="LOCAL" />
       <updated>1547790414254</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="移动">
+      <created>1547793721947</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1547793721948</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97633000" />
+    <option name="totallyTimeSpent" value="97969000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -469,7 +419,8 @@
     <MESSAGE value="动态代理，rabbitMQ服务Direct循环发" />
     <MESSAGE value="rabbitMQ公平分发" />
     <MESSAGE value="集合" />
-    <option name="LAST_COMMIT_MESSAGE" value="集合" />
+    <MESSAGE value="移动" />
+    <option name="LAST_COMMIT_MESSAGE" value="移动" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -794,13 +745,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Test/test2018/SetTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Test/test2018/StringTets.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
@@ -863,7 +807,7 @@
     <entry file="file://$PROJECT_DIR$/src/Test/opensource/rabbitMQ/RabbitMQTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1400">
-          <caret line="56" column="68" lean-forward="true" selection-start-line="56" selection-start-column="68" selection-end-line="56" selection-end-column="68" />
+          <caret line="56" column="68" selection-start-line="56" selection-start-column="68" selection-end-line="56" selection-end-column="68" />
         </state>
       </provider>
     </entry>
@@ -876,11 +820,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Test/test2019/queue/QueueTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+        <state relative-caret-position="350">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Test/test2018/SetTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
