@@ -1,7 +1,7 @@
 package Controller;
 
-import Test.Person;
-import Test.PersonImp;
+import Test.test2018.Person;
+import Test.test2018.PersonImp;
 
 public class UserController {
 

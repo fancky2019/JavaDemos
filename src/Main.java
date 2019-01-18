@@ -1,9 +1,5 @@
 
-import Test.*;
-import Test.rabbitMQ.RabbitMQTest;
-import Test.reflection.AnnotationTest;
-import Test.test2019.TryCatchFinallyReturnTest;
-import Test.test2019.proxy.ProxyTest;
+import Test.test2018.LambdaTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

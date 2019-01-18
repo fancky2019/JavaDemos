@@ -1,6 +1,6 @@
 package common;
 
-import Test.PropertiesTest;
+import Test.test2018.PropertiesTest;
 
 import java.io.InputStream;
 import java.util.Properties;
