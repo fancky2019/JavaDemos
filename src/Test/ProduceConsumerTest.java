@@ -59,7 +59,7 @@ public class ProduceConsumerTest {
 
                 }
             }
-            queue.add(num);
+            queue.offer(num);
             System.out.printf("enqueue %d \n", num);
             lockObject.notify();
         }

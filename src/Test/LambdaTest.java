@@ -12,8 +12,17 @@ public class LambdaTest {
         {
             System.out.println(p);
         });
-        funcClass.testFuncInterface(p->  System.out.println(p));
+        funcClass.testFuncInterface(p -> System.out.println(p));
         sysytemFunctionalInterface();
+
+        //匿名方法赋值给函数接口，像是C#直接将匿名方法赋值给委托
+        Consumer<String> consumer = p -> System.out.println(p);
+        //函数接口调用方法，C#里委托是方法，就直接调用,不用掉方法
+        consumer.accept("Consumer");
+        Predicate<Boolean> predicate = p -> !p;
+        Boolean re = predicate.test(false);
+        Function<String, Integer> function = p -> Integer.parseInt(p);
+        Integer num = function.apply("1");
     }
 
     /**
@@ -75,6 +84,13 @@ interface FuncInterface {
      * default修饰必须有方法体，实现类可以修改
      */
     default void display() {
+        System.out.println("  default public  void  display()");
+    }
+
+    /**
+     * 可以有静态方法
+     */
+    static void display1() {
         System.out.println("  default public  void  display()");
     }
 

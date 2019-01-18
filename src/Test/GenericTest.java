@@ -9,9 +9,20 @@ public class GenericTest {
         GenTest<? extends Object> a = new GenTest<>();
         GenaTest<Integer> genaTest = new GenaTest<>();
         funVoid(Integer.class);
+        try {
+            funT(Integer.class);
+        } catch (Exception ex) {
 
+        }
+
+        //java 泛型类可不带类型变量
+        GenaTest.Display();
+        GenaTest.Display1();
+        GenaTest genaTest1 = new GenaTest();
+        genaTest1.Display2();
+        GenaTest<String> genaTest2 = new GenaTest<>();
     }
-    
+
     public <T> void funVoid(Class<T> clazz) {
 
     }
@@ -27,7 +38,20 @@ public class GenericTest {
         }
     }
 
-    class GenaTest<T> {
+
+}
+
+class GenaTest<T> {
+
+    static void Display() {
+
+    }
+
+    static <T> void Display1() {
+
+    }
+
+    <T> void Display2() {
 
     }
 }

@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 public class SetTest {
 
     public void test() {
-       // operation();
+        // operation();
         sets();
-      //  getListObjectProperty();
+        //  getListObjectProperty();
     }
 
     private void operation() {
@@ -134,6 +134,13 @@ public class SetTest {
         while (ll.hasNext()) {
             Integer str = ll.next();
         }
+        /**
+         * 尽量别用迭代器，用forEach
+         */
+        linkedHashSet.forEach(p->
+        {
+
+        });
         //endregion
 
     }
@@ -159,22 +166,22 @@ public class SetTest {
         List<Integer> ageList = list.stream().map(p -> p.getAge()).collect(Collectors.toList());
         //过滤
         List<Student> filterList = list.stream().filter(p -> p.getAge() > 3).collect(Collectors.toList());
-//        //实现Comparable接口，然后重写compareTo方法。
-//        ageList.sort((a, b) ->
-//        {
-//            if (a >= b) {
-//                return 1;
-//            } else
-//
-//            {
-//                return -1;
-//            }
-//        });
+        //第一个
+        Student first = filterList.get(0);
+        //最后一个
+        Student last = filterList.get(filterList.size());
+        //对象集合排序：实现Comparable接口，然后重写compareTo方法。
+        filterList.sort((a, b) -> a.getAge().compareTo(b.getAge()));
+        //java8 Comparator
+        filterList.sort(Comparator.comparing(Student::getAge));
+        //建议filterList.sort
+        Collections.sort(filterList, Comparator.comparing(p -> p.getAge()));
 
         //正序
         Collections.sort(ageList);
         //逆序
         Collections.reverse(ageList);
+
         //最大、最小
         Integer maxAge = Collections.max(ageList);
         Integer minAge = Collections.min(ageList);

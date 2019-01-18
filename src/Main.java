@@ -59,7 +59,7 @@ public class Main {
             //  new PropertiesTest().test1();
             //    new JDBCTest().test();
 
-            //    new LambdaTest().test();
+                new LambdaTest().test();
             // new CalendarTest().test();
             // new Java8Test().test();
 //               new OptionalTest().test();
@@ -83,7 +83,7 @@ public class Main {
            //  new ConvertTest().test();
             //  new AnnotationTest().test();
 
-           new RabbitMQTest().test();
+       //    new RabbitMQTest().test();
             //endregion
 
             //region 2019
