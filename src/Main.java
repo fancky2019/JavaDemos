@@ -1,5 +1,9 @@
 
 import Test.test2018.LambdaTest;
+import Test.test2019.StreamOptionalTest;
+import Test.test2019.queue.BoxingUnboxingTest;
+import Test.test2019.queue.EqualsOperatorTest;
+import Test.test2019.queue.QueueTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,10 +14,13 @@ public class Main {
         try {
 
             //region 2018
+
             //获取包名
           //  String packageName = ImpTest.class.getPackage().getName();
 
-//            //region  根路径
+            //region  根路径
+
+/**
 //            //:相对路径(即不写明时候到底相对谁)均可通过以下方式获得（不论是一般的java项目还是web项目）
 //            String relativelyPath = System.getProperty("user.dir");
 //            System.out.println(relativelyPath);
@@ -22,7 +29,10 @@ public class Main {
 //            System.out.println(f);
 //
 //            System.out.println(f.getParent());
-            //endregion
+ //
+ **/
+//endregion
+
 
 //        System.out.println("Hello World!");
 //        Person person=new PersonImp();
@@ -55,7 +65,7 @@ public class Main {
             //  new PropertiesTest().test1();
             //    new JDBCTest().test();
 
-                new LambdaTest().test();
+             //   new LambdaTest().test();
             // new CalendarTest().test();
             // new Java8Test().test();
 //               new OptionalTest().test();
@@ -80,14 +90,22 @@ public class Main {
             //  new AnnotationTest().test();
 
        //    new RabbitMQTest().test();
+          //  new  QueueTest().test();
             //endregion
 
-            //region 2019
+
+            //region test2019
           //  new TryCatchFinallyReturnTest().test();
          //  new  ProxyTest().test();
             //endregion
 
 
+
+          new  StreamOptionalTest().test();
+           // new  EqualsOperatorTest().test();
+        //    new  BoxingUnboxingTest().test();
+
+            //endregion
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 

@@ -35,4 +35,18 @@ public class Student {
         this.name = name;
         this.age = age;
     }
+
+
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (obj instanceof Student) {
+//            Student student = (Student) obj;
+//            return this.getName() == student.getName() && this.getAge() == student.getAge();
+//        } else {
+//            return false;
+//        }
+//    }
 }

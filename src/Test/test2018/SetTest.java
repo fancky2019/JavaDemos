@@ -22,7 +22,7 @@ public class SetTest {
         Integer min = listInt.stream().reduce(Integer.MAX_VALUE, Integer::min);
         Integer max = listInt.stream().reduce(Integer.MIN_VALUE, Integer::max);
         //查找
-        listInt.stream().filter(p -> p == 2).count();
+        long l = listInt.stream().filter(p -> p == 2).count();
         List<Integer> re = listInt.stream().filter(p -> p >= 2).collect(Collectors.toList());
         listInt.sort((m, n) ->
         {
@@ -62,6 +62,13 @@ public class SetTest {
         //遍历Value
         for (Integer i : map.values()) {
         }
+
+       //实体遍历
+        for (Map.Entry<String, Integer> m : map.entrySet()) {
+            System.out.println("key:" + m.getKey() + " value:" + m.getValue());
+        }
+
+
         //endregion
 
         //region List--->C# List
@@ -137,7 +144,7 @@ public class SetTest {
         /**
          * 尽量别用迭代器，用forEach
          */
-        linkedHashSet.forEach(p->
+        linkedHashSet.forEach(p ->
         {
 
         });
