@@ -6,15 +6,39 @@ import java.util.Random;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class ThreadTest {
 
+    public void test() {
+        try {
+            parameterThread();
+            // futureTask();
+//            CompletableFuture<Integer> completableFuture = completableFutureDemo();
+//            Thread.sleep(11 * 1000);
+//
+//            Integer m = completableFuture.get();
 
-    public void declareStartThread() {
+
+            //   functionBlockingQueue();
+            Integer n = 1;
+            //whenComplete();
+        } catch (Exception ex) {
+            String str = ex.getMessage();
+            Integer m = 0;
+        }
+
+        // threadPool();
+
+    }
+
+
+    //region  Thread
+    private void declareStartThread() {
 
         Thread thread = new Thread(() ->
         {
-
             doWork();
         });
         thread.start();
@@ -32,36 +56,82 @@ public class ThreadTest {
             lock.unlock();
         }
     }
+//endregion
 
-    public synchronized void test() {
-        try {
+    //region ParameterThread
+    private void parameterThread() {
+        String param = "ParameterThread";
+        new Thread(new ParameterRunnable(param)).start();
+        CompletableFuture.runAsync(new ParameterRunnable(param + "_CompletableFuture"));
 
-            // futureTask();
-//            CompletableFuture<Integer> completableFuture = completableFutureDemo();
-//            Thread.sleep(11 * 1000);
-//
-//            Integer m = completableFuture.get();
+        CompletableFuture.runAsync(new CallBackRunnable(()->
+        {
+            System.out.println("CallBackRunnable");
+        }));
 
-
-            funcationBlockingQueue();
-            Integer n = 1;
-            //whenComplete();
-        } catch (Exception ex) {
-            String str = ex.getMessage();
-            Integer m = 0;
-        }
-
-        // threadPool();
-
+        CompletableFuture.runAsync(new CallBackRunnable<>((p)->
+        {
+            System.out.print("CallBackRunnable<> ");
+            System.out.println(p);
+        },"ParameterThread"));
     }
 
+    class ParameterRunnable implements Runnable {
+        private Object param;
+
+        public ParameterRunnable(Object param) {
+            this.param = param;
+        }
+
+        @Override
+        public void run() {
+            System.out.println(param.toString());
+        }
+    }
+
+    @FunctionalInterface
+    interface Action {
+        void callBack();
+    }
+
+
+    class CallBackRunnable<T> implements Runnable {
+        private Action action;
+        private  Consumer consumer;
+        private  T parameter;
+        public CallBackRunnable(Action action) {
+            this.action = action;
+        }
+        public CallBackRunnable(Consumer consumer,T parameter) {
+            this.consumer = consumer;
+            this.parameter=parameter;
+        }
+        @Override
+        public void run() {
+            if(action!=null) {
+                action.callBack();
+            }
+            if(consumer!=null) {
+                consumer.accept(parameter);
+            }
+
+        }
+    }
+
+    //endregion
+
+    //region synchronized
+    private Object lockObj = new Object();
+
     private synchronized void synchronizedTest() {
-        synchronized (ThreadTest.class) {
+        synchronized (lockObj) {
             float f = 3.4f;
             double d = 3.4;
         }
     }
+    //endregion
 
+    //region  threadPool
     public void threadPool() throws Exception {
 
         // 4个线程池差异看源码ThreadPoolExecutor实例的参数
@@ -79,7 +149,9 @@ public class ThreadTest {
         //创建固定10个核心线程
         Executors.newScheduledThreadPool(10);
     }
+//endregion
 
+    //region futureTask
     private void futureTask() throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();
         //C#里的IAsyncResult 轮询执行原理一样
@@ -95,7 +167,9 @@ public class ThreadTest {
             }
         }
     }
+//endregion
 
+    //region CompletableFuture
     private CompletableFuture<Integer> completableFutureDemo() {
         try {
             //没有返回值
@@ -165,11 +239,12 @@ public class ThreadTest {
         }).join();
         System.out.println(result);
     }
+    //endregion
 
+    //region 阻塞队列生产者消费者 LinkedBlockingQueue
     LinkedBlockingQueue<Student> linkedBlockingQueue = null;
 
-    private void funcationBlockingQueue() {
-
+    private void functionBlockingQueue() {
         linkedBlockingQueue = new LinkedBlockingQueue<Student>(100000);
         producer();
         consumer();
@@ -187,8 +262,8 @@ public class ThreadTest {
                     Random rd = new Random();
                     Integer next = rd.nextInt(10000);
                     Student student = new Student();
-                     student.setAge(next);
-                    student.setName("test"+next);
+                    student.setAge(next);
+                    student.setName("test" + next);
                     linkedBlockingQueue.put(student);
                     Thread.sleep(500);
                 } catch (Exception ex) {
@@ -218,6 +293,7 @@ public class ThreadTest {
 
         });
     }
+    //endregion
 
 }
 
