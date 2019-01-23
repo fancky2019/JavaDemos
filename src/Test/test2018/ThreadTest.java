@@ -22,6 +22,7 @@ public class ThreadTest {
 
 
             //   functionBlockingQueue();
+            // threadPool();
             Integer n = 1;
             //whenComplete();
         } catch (Exception ex) {
@@ -29,7 +30,7 @@ public class ThreadTest {
             Integer m = 0;
         }
 
-        // threadPool();
+
 
     }
 
