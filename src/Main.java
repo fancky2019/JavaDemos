@@ -17,19 +17,19 @@ public class Main {
             //region 2018
 
             //获取包名
-          //  String packageName = ImpTest.class.getPackage().getName();
+            //  String packageName = ImpTest.class.getPackage().getName();
 
             //region  根路径
 
 /**
-//            //:相对路径(即不写明时候到底相对谁)均可通过以下方式获得（不论是一般的java项目还是web项目）
-//            String relativelyPath = System.getProperty("user.dir");
-//            System.out.println(relativelyPath);
+ //            //:相对路径(即不写明时候到底相对谁)均可通过以下方式获得（不论是一般的java项目还是web项目）
+ //            String relativelyPath = System.getProperty("user.dir");
+ //            System.out.println(relativelyPath);
 
-//            File f = new File(Main.class.getResource("").getPath());
-//            System.out.println(f);
-//
-//            System.out.println(f.getParent());
+ //            File f = new File(Main.class.getResource("").getPath());
+ //            System.out.println(f);
+ //
+ //            System.out.println(f.getParent());
  //
  **/
 //endregion
@@ -66,7 +66,7 @@ public class Main {
             //  new PropertiesTest().test1();
             //    new JDBCTest().test();
 
-             //   new LambdaTest().test();
+            //   new LambdaTest().test();
             // new CalendarTest().test();
             // new Java8Test().test();
 //               new OptionalTest().test();
@@ -75,7 +75,7 @@ public class Main {
             // new RedisTest().test();
 
             // new RedisTest().test();
-            
+
             //  new ProduceConsumerTest(100).Test();
             //  new ProducerConsumerTPSTest(100,5).Test();
 
@@ -87,26 +87,25 @@ public class Main {
 //            extendTest.publicFunction1();
 
 
-           //  new ConvertTest().test();
+            //  new ConvertTest().test();
             //  new AnnotationTest().test();
 
-       //    new RabbitMQTest().test();
-          //  new  QueueTest().test();
-            new  ThreadTest().test();
+            //    new RabbitMQTest().test();
+            //  new  QueueTest().test();
+            //   new  ThreadTest().test();
 
             //endregion
 
 
             //region test2019
-          //  new TryCatchFinallyReturnTest().test();
-         //  new  ProxyTest().test();
+            //  new TryCatchFinallyReturnTest().test();
+            //  new  ProxyTest().test();
             //endregion
 
 
-
-         // new  StreamOptionalTest().test();
-           // new  EqualsOperatorTest().test();
-        //    new  BoxingUnboxingTest().test();
+             new  StreamOptionalTest().test();
+            // new  EqualsOperatorTest().test();
+            //    new  BoxingUnboxingTest().test();
 
             //endregion
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
