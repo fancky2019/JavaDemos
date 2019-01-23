@@ -11,10 +11,11 @@ import java.util.stream.Stream;
 
 public class StreamOptionalTest {
     public void test() {
-        stramFun();
+        //streamFun();
+        operationFun();
     }
 
-    private void stramFun() {
+    private void streamFun() {
         List<Integer> listInteger = new ArrayList<Integer>();
         listInteger.add(4);
         listInteger.add(2);
@@ -73,7 +74,6 @@ public class StreamOptionalTest {
         Boolean exist = list.parallelStream().anyMatch(p -> p.getName().contains("fancky"));
 
 
-        //约简
         //最大
         list.stream().filter(p -> p.getName() != null).map(p -> p.getName().length()).max(Integer::compareTo);
         list.stream().filter(p -> p.getName() != null).map(p -> p.getName().length()).max(Math::max);
@@ -193,15 +193,15 @@ public class StreamOptionalTest {
          * groupBy:li-st1-1  value:1
          * groupBy:li-st-1  value:2
          */
-        groupByMap.keySet().forEach(key1->
+        groupByMap.keySet().forEach(key1 ->
         {
-            Map<String, Map<Integer, Long>> groupByMap2=  groupByMap.get(key1);
-            groupByMap2.keySet().forEach(key2->
+            Map<String, Map<Integer, Long>> groupByMap2 = groupByMap.get(key1);
+            groupByMap2.keySet().forEach(key2 ->
             {
-                Map<Integer, Long> groupByMap3=groupByMap2.get(key2);
-                groupByMap3.keySet().forEach(key3->
+                Map<Integer, Long> groupByMap3 = groupByMap2.get(key2);
+                groupByMap3.keySet().forEach(key3 ->
                 {
-                    String str=String.format("groupBy:%s-%s-%s  value:%d",key1,key2,key3,groupByMap3.get(key3));
+                    String str = String.format("groupBy:%s-%s-%s  value:%d", key1, key2, key3, groupByMap3.get(key3));
                     System.out.println(str);
                 });
             });
@@ -209,5 +209,36 @@ public class StreamOptionalTest {
 
         Integer m = 0;
         m.equals(3);
+    }
+
+    private void operationFun() {
+        Integer m = null;
+
+        //赋值
+        Optional<Integer> optionalInteger = Optional.ofNullable(m);
+        Optional<Integer> op1 = Optional.ofNullable(5);
+        //empty 相当于赋值Null
+        Optional<Integer> emp = Optional.empty();
+
+        //取值
+        Integer n = optionalInteger.orElse(null);
+        Integer n1 = op1.orElse(null);
+        if (op1.isPresent()) {
+            Integer num = op1.get();
+        }
+
+        //如果有值则执行
+        op1.ifPresent(p ->
+        {
+            Integer q = p;//5
+        });
+        //会自动将返回值包装成Optional
+        Optional op2 = op1.map(p -> 2 * p);//10
+        //返回必须设置Optional类型
+        Optional op3 = op1.flatMap(p -> Optional.of(2 * p));//10
+        Optional op4= optionalInteger.map(p -> 2 * p);//empty
+
+
+        Integer p = 0;
     }
 }
