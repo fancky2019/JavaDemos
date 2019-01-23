@@ -1,5 +1,6 @@
 
 import Test.test2018.LambdaTest;
+import Test.test2018.ThreadTest;
 import Test.test2019.StreamOptionalTest;
 import Test.test2019.queue.BoxingUnboxingTest;
 import Test.test2019.queue.EqualsOperatorTest;
@@ -91,6 +92,8 @@ public class Main {
 
        //    new RabbitMQTest().test();
           //  new  QueueTest().test();
+            new  ThreadTest().test();
+
             //endregion
 
 
@@ -101,7 +104,7 @@ public class Main {
 
 
 
-          new  StreamOptionalTest().test();
+         // new  StreamOptionalTest().test();
            // new  EqualsOperatorTest().test();
         //    new  BoxingUnboxingTest().test();
 
