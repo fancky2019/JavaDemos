@@ -2,8 +2,10 @@ package Test.test2018;
 
 import Model.Product;
 import com.alibaba.fastjson.JSON;
+import common.Configs;
 
 
+import javax.swing.plaf.nimbus.State;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -13,17 +15,14 @@ import java.util.*;
 
 public class JDBCTest {
 
-    String driverName;
-    String dburl;
-    String user;
-    String password;
 
     public void test() {
         try {
-            // insert();
+            //  insert();
             // delete();
             // update();
-            query();
+            //  query();
+             queryMultipleResult();
             //procedure();
             //  procedureParamOutPut();
             //   transaction();
@@ -33,24 +32,13 @@ public class JDBCTest {
         }
     }
 
-    private void loadProperties() throws Exception {
-        Properties properties = new Properties();
-        InputStream inputStream = PropertiesTest.class.getClassLoader().getResourceAsStream("resources/jdbc.properties");
-        //  InputStream inputStream = new FileInputStream(new File("resources/jdbc.properties"));
-        properties.load(inputStream);
-
-        driverName = properties.getProperty("driverName");
-        dburl = properties.getProperty("dburl");
-        user = properties.getProperty("user");
-        password = properties.getProperty("password");
-        inputStream.close();
-    }
 
     private Connection getConnection() {
         try {
-            loadProperties();
-            Class.forName(driverName);
-            Connection dbConn = DriverManager.getConnection(dburl, user, password);
+
+            Connection dbConn = DriverManager.getConnection(Configs.Instance.getDburl(),
+                    Configs.Instance.getUser(),
+                    Configs.Instance.getPassword());
             return dbConn;
 
         } catch (Exception e) {
@@ -138,6 +126,75 @@ public class JDBCTest {
         List<T> resultList = JSON.parseArray(jsonString, t);
         return resultList;
     }
+
+    private void queryMultipleResult() throws Exception {
+        String insertCommand = "  insert into Product ( GUID, StockID," +
+                "      BarCodeID, SkuID, ProductName," +
+                "      ProductStyle, Price, CreateTime, " +
+                "      Status, COUNT , ModifyTime " +
+                "      )" +
+                "      values (?,?,?,?,?,?,?,?,?,?,?)";
+        String selectCommand = insertCommand + ";select *  from  Product ;select count(ID) [Count] from Product;";
+        Connection con = getConnection();
+
+        //设置事务
+        con.setAutoCommit(false);
+//        PreparedStatement preparedStatement = con.prepareStatement(selectCommand);
+        PreparedStatement preparedStatement = con.prepareStatement(selectCommand);
+        try {
+
+            //设置参数
+            preparedStatement.setString(1, UUID.randomUUID().toString());
+            preparedStatement.setInt(2, 1);
+            preparedStatement.setNull(3, Types.INTEGER);
+            preparedStatement.setInt(4, 1);
+            preparedStatement.setString(5, "fanckyJDBC");
+            preparedStatement.setNull(6, Types.NVARCHAR);
+            preparedStatement.setBigDecimal(7, new BigDecimal(123));
+            //                 setDate只能得到年月日
+            preparedStatement.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+            Short status = 1;
+            preparedStatement.setShort(9, status);
+            preparedStatement.setInt(10, 12);
+            preparedStatement.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
+
+            // 执行数据库查询语句
+            boolean isResult = preparedStatement.execute();
+
+            //获取第一个返回受影响的行数
+            if (isResult) {
+                Integer m=0;
+
+            } else {
+                Integer count1 = preparedStatement.getUpdateCount();
+                Integer num = count1;
+            }
+
+            //获取第二个个结果集
+             boolean isResult2 = preparedStatement.getMoreResults();
+            ResultSet resultSet2 = preparedStatement.getResultSet();
+            List<Product> productList = convertToList(resultSet2, Product.class);
+
+            //获取第三个个结果集
+            boolean isResult3 = preparedStatement.getMoreResults();
+            ResultSet resultSet3 = preparedStatement.getResultSet();
+            resultSet3.next();
+            Integer count = resultSet3.getInt("Count");
+            // Integer m=Integer.valueOf("m");
+            con.commit();
+        } catch (Exception ex) {
+            //已经插入了数据库
+            //回滚了再从数据库中删除
+            con.rollback();
+            String msg = ex.getMessage();
+            Integer m = 0;
+        } finally {
+
+
+            preparedStatement.close();
+            con.close();
+        }
+    }
     //endregion
 
     //region更新
@@ -177,9 +234,10 @@ public class JDBCTest {
                 "      )" +
                 "      values (?,?,?,?,?,?,?,?,?,?,?)";
         Connection con = getConnection();
-
-        // 创建执行命令对象
-        PreparedStatement preparedStatement = con.prepareStatement(insertCommand);
+        //不返回自动生成的主键
+        //  PreparedStatement preparedStatement = con.prepareStatement(insertCommand);
+        //插入语句Statement.RETURN_GENERATED_KEYS返回生成的主键
+        PreparedStatement preparedStatement = con.prepareStatement(insertCommand, Statement.RETURN_GENERATED_KEYS);
         //设置参数
         preparedStatement.setString(1, UUID.randomUUID().toString());
         preparedStatement.setInt(2, 1);
@@ -197,6 +255,11 @@ public class JDBCTest {
 
         //执行命令并接受结果
         Integer result = preparedStatement.executeUpdate();
+        ResultSet rs = preparedStatement.getGeneratedKeys();
+        if (rs.next()) {
+            Integer id = rs.getInt(1);
+            Integer m = 0;
+        }
         preparedStatement.close();
         con.close();
         Integer m = 0;
