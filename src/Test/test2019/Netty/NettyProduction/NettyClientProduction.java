@@ -67,31 +67,18 @@ public class NettyClientProduction {
         try {
             ChannelFuture channelFuture = bootstrap.connect(host, port);
             //实现监听通道连接的方法
-            channelFuture.addListener(new ChannelFutureListener() {
-
-                @Override
-                public void operationComplete(ChannelFuture channelFuture) {
-                    if (channelFuture.isSuccess()) {
-                        channel = channelFuture.channel();
-                        System.out.println("连接成功");
-                        if (action != null) {
-                            action.callBack();
-                        }
-                    } else {
-                        System.out.println("每隔2s重连....");
-                        channelFuture.channel().eventLoop().schedule(new Runnable() {
-                            @Override
-                            public void run() {
-                                // TODO Auto-generated method stub
-                                connect(action);
-                            }
-                        }, 2, TimeUnit.SECONDS);
+            channelFuture.addListener(p -> {
+                ChannelFuture ch = (ChannelFuture) p;
+                if (ch.isSuccess()) {
+                    channel = ch.channel();
+                    System.out.println("连接成功");
+                    if (action != null) {
+                        action.callBack();
                     }
-
-
+                } else {
+                    System.out.println("每隔2s重连....");
+                    ch.channel().eventLoop().schedule(() -> connect(action), 2, TimeUnit.SECONDS);
                 }
-
-
             });
 
         } catch (Exception ex) {
