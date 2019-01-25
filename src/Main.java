@@ -1,4 +1,5 @@
 
+import Test.test2018.JDBCTest;
 import Test.test2018.LambdaTest;
 import Test.test2018.ThreadTest;
 import Test.test2019.Netty.NettyTest;
@@ -24,18 +25,18 @@ public class Main {
 
             //region  根路径
 
-/**
- //            //:相对路径(即不写明时候到底相对谁)均可通过以下方式获得（不论是一般的java项目还是web项目）
- //            String relativelyPath = System.getProperty("user.dir");
- //            System.out.println(relativelyPath);
+            /**
+             //            //:相对路径(即不写明时候到底相对谁)均可通过以下方式获得（不论是一般的java项目还是web项目）
+             //            String relativelyPath = System.getProperty("user.dir");
+             //            System.out.println(relativelyPath);
 
- //            File f = new File(Main.class.getResource("").getPath());
- //            System.out.println(f);
- //
- //            System.out.println(f.getParent());
- //
- **/
-//endregion
+             //            File f = new File(Main.class.getResource("").getPath());
+             //            System.out.println(f);
+             //
+             //            System.out.println(f.getParent());
+             //
+             **/
+            //endregion
 
 
 //        System.out.println("Hello World!");
@@ -67,7 +68,7 @@ public class Main {
             //   ExecutionSequenceTest.testStatic();
 
             //  new PropertiesTest().test1();
-            //    new JDBCTest().test();
+                new JDBCTest().test();
 
             //   new LambdaTest().test();
             // new CalendarTest().test();
@@ -103,17 +104,19 @@ public class Main {
             //region test2019
             //  new TryCatchFinallyReturnTest().test();
             //  new  ProxyTest().test();
-            //endregion
+
 
 
            //  new  StreamOptionalTest().test();
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-            new  NettyTest().test();
+          //  new  NettyTest().test();
            // new StringTest().test();
           //  new TimerTest().test();
             //endregion
+
+
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 

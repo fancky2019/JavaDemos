@@ -14,8 +14,8 @@ public class Configs {
     private String redisIP;
     private String redisPort;
     private String redisPassword;
-    private  Integer dbIndex;
-    private  Integer timeout;
+    private Integer dbIndex;
+    private Integer timeout;
 
     public Integer getTimeout() {
         return timeout;
@@ -49,19 +49,30 @@ public class Configs {
         return password;
     }
 
-    public Configs() {
+    private static Object lockObj = new Object();
+    public static Configs Instance;
+
+    static {
+        if (Instance == null) {
+            synchronized (lockObj) {
+                if (Instance == null) {
+                    Instance = new Configs();
+                }
+            }
+        }
+    }
+
+    Configs() {
         try {
             loadProperties();
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
 
         }
     }
 
     private void loadProperties() throws Exception {
         Properties properties = new Properties();
-        InputStream inputStream = PropertiesTest.class.getClassLoader().getResourceAsStream("resources/jdbc.properties");
+        InputStream inputStream = Configs.class.getClassLoader().getResourceAsStream("resources/jdbc.properties");
         //  InputStream inputStream = new FileInputStream(new File("resources/jdbc.properties"));
         properties.load(inputStream);
 
@@ -73,8 +84,8 @@ public class Configs {
         redisIP = properties.getProperty("redisIP");
         redisPort = properties.getProperty("redisPort");
         redisPassword = properties.getProperty("redisPassword");
-        dbIndex= Integer.parseInt( properties.getProperty("dbIndex"));
-        timeout= Integer.parseInt( properties.getProperty("timeout"));
+        dbIndex = Integer.parseInt(properties.getProperty("dbIndex"));
+        timeout = Integer.parseInt(properties.getProperty("timeout"));
         inputStream.close();
     }
 
@@ -82,11 +93,10 @@ public class Configs {
         return redisIP;
     }
 
-    public  void  test()
-    {
-        String redis=getRedisIP();
-        String dr=getDriverName();
-        Integer m=0;
+    public void test() {
+        String redis = getRedisIP();
+        String dr = getDriverName();
+        Integer m = 0;
     }
 
 }

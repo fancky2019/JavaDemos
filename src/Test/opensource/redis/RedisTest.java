@@ -37,11 +37,10 @@ public class RedisTest {
      * 初始化非切片池
      */
     private void initialPool() {
-        Configs configs = new Configs();
         //可设置DBIndex,默认0
         //   jedisPool = new JedisPool(configJedisPoolConfig(), configs.getRedisIP(), Integer.parseInt(configs.getRedisPort()));
-        jedisPool = new JedisPool(configJedisPoolConfig(), configs.getRedisIP(), Integer.parseInt(configs.getRedisPort()),
-                configs.getTimeout(), configs.getRedisPassword(), configs.getDbIndex());
+        jedisPool = new JedisPool(configJedisPoolConfig(), Configs.Instance.getRedisIP(), Integer.parseInt(Configs.Instance.getRedisPort()),
+                Configs.Instance.getTimeout(), Configs.Instance.getRedisPassword(), Configs.Instance.getDbIndex());
 
     }
 
