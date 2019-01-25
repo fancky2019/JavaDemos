@@ -1,7 +1,10 @@
 
 import Test.test2018.LambdaTest;
 import Test.test2018.ThreadTest;
+import Test.test2019.Netty.NettyTest;
 import Test.test2019.StreamOptionalTest;
+import Test.test2019.StringTest;
+import Test.test2019.TimerTest;
 import Test.test2019.queue.BoxingUnboxingTest;
 import Test.test2019.queue.EqualsOperatorTest;
 import Test.test2019.queue.QueueTest;
@@ -103,10 +106,13 @@ public class Main {
             //endregion
 
 
-             new  StreamOptionalTest().test();
+           //  new  StreamOptionalTest().test();
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
+            new  NettyTest().test();
+           // new StringTest().test();
+          //  new TimerTest().test();
             //endregion
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
