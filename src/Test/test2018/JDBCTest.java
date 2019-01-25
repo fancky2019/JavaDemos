@@ -189,8 +189,6 @@ public class JDBCTest {
             String msg = ex.getMessage();
             Integer m = 0;
         } finally {
-
-
             preparedStatement.close();
             con.close();
         }
