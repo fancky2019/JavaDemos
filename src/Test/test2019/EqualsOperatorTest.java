@@ -1,4 +1,4 @@
-package Test.test2019.queue;
+package Test.test2019;
 
 import Model.Student;
 import Test.test2018.Person;

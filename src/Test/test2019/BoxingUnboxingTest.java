@@ -1,4 +1,4 @@
-package Test.test2019.queue;
+package Test.test2019;
 
 /**
  * primitive类型数据的包装器只有Float、Double装箱不用缓存是直接new,其他缓存值范围：-128---127
