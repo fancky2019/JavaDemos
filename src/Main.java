@@ -1,5 +1,6 @@
 
 import Test.test2018.JDBCTest;
+import Test.test2019.StringTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -59,7 +60,7 @@ public class Main {
             //   ExecutionSequenceTest.testStatic();
 
             //  new PropertiesTest().test1();
-                new JDBCTest().test();
+            //    new JDBCTest().test();
 
             //   new LambdaTest().test();
             // new CalendarTest().test();
@@ -103,7 +104,7 @@ public class Main {
             //    new  BoxingUnboxingTest().test();
 
           //  new  NettyTest().test();
-           // new StringTest().test();
+            new StringTest().test();
           //  new TimerTest().test();
             //endregion
 
