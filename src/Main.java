@@ -1,14 +1,5 @@
 
 import Test.test2018.JDBCTest;
-import Test.test2018.LambdaTest;
-import Test.test2018.ThreadTest;
-import Test.test2019.Netty.NettyTest;
-import Test.test2019.StreamOptionalTest;
-import Test.test2019.StringTest;
-import Test.test2019.TimerTest;
-import Test.test2019.queue.BoxingUnboxingTest;
-import Test.test2019.queue.EqualsOperatorTest;
-import Test.test2019.queue.QueueTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
