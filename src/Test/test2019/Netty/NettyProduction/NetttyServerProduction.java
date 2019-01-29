@@ -9,6 +9,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
 import java.util.concurrent.TimeUnit;
@@ -50,6 +52,9 @@ public class NetttyServerProduction {
                             ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
                             ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
 
+
+//                            ch.pipeline().addLast("decoder", new StringDecoder());
+//                            ch.pipeline().addLast("encoder", new StringEncoder());
 
                             ch.pipeline().addLast(new ServerBusinessHandler());
 

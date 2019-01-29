@@ -68,10 +68,17 @@ public class ServerBusinessHandler extends ChannelInboundHandlerAdapter {
                 heartBeatInfo.setBody("HeartBeat");
                 channelHandlerContext.writeAndFlush(heartBeatInfo);
             }
+            else {
+                //doWork()
+                //reply    channelHandlerContext.writeAndFlush(msg);
+                MessageInfo heartBeatInfo = new MessageInfo();
+                heartBeatInfo.setMessageType(MessageType.Data);
+                heartBeatInfo.setBody("Data");
+                channelHandlerContext.writeAndFlush(heartBeatInfo);
+            }
         }
 
-        //doWork()
-        //reply    channelHandlerContext.writeAndFlush(msg);
+
 
     }
 
