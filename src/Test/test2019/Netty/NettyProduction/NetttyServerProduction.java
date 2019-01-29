@@ -42,17 +42,11 @@ public class NetttyServerProduction {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
 //                            //必须指定解码器，不然收不到信息
-//                            // 字符串解码和编码
-//                            // encoder 编码器， decoder 解码器
-//                            ch.pipeline().addLast("decoder", new StringDecoder());
-//                            ch.pipeline().addLast("encoder", new StringEncoder());
-
                             ch.pipeline().addLast(new IdleStateHandler(2, 2, 6, TimeUnit.SECONDS));
 
                             ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
                             ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
-
-
+                            
 //                            ch.pipeline().addLast("decoder", new StringDecoder());
 //                            ch.pipeline().addLast("encoder", new StringEncoder());
 
