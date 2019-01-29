@@ -1,5 +1,6 @@
 
 import Test.test2018.JDBCTest;
+import Test.test2019.Netty.NettyTest;
 import Test.test2019.StringTest;
 
 import java.io.BufferedReader;
@@ -103,8 +104,8 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-          //  new  NettyTest().test();
-            new StringTest().test();
+           new NettyTest().test();
+           // new StringTest().test();
           //  new TimerTest().test();
             //endregion
 
