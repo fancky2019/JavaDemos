@@ -46,7 +46,7 @@ public class NetttyServerProduction {
 
                             ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
                             ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
-                            
+
 //                            ch.pipeline().addLast("decoder", new StringDecoder());
 //                            ch.pipeline().addLast("encoder", new StringEncoder());
 
