@@ -1,5 +1,6 @@
 
 import Test.test2018.JDBCTest;
+import Test.test2019.CharTest;
 import Test.test2019.Netty.NettyTest;
 import Test.test2019.StringTest;
 
@@ -104,10 +105,12 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-           new NettyTest().test();
+       //    new NettyTest().test();
            // new StringTest().test();
           //  new TimerTest().test();
             //endregion
+
+            new CharTest().test();
 
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
