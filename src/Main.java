@@ -1,5 +1,6 @@
 
 import Test.test2018.JDBCTest;
+import Test.test2018.SetTest;
 import Test.test2019.CharTest;
 import Test.test2019.Netty.NettyTest;
 import Test.test2019.StringTest;
@@ -37,7 +38,7 @@ public class Main {
 //        Person person=new PersonImp();
 //        person.getName();
 //
-            //  new SetTest().test();
+              new SetTest().test();
             //   new ThreadTest().test();
 
 //            new CalendarTest().operation();
@@ -110,7 +111,7 @@ public class Main {
           //  new TimerTest().test();
             //endregion
 
-            new CharTest().test();
+         //   new CharTest().test();
 
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
