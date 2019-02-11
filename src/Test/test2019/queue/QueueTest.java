@@ -6,10 +6,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class QueueTest {
     public void test() {
-        CompleteableFutureQueueTest();
+        CompletableFutureQueueTest();
     }
 
-    private  void CompleteableFutureQueueTest()
+    private  void CompletableFutureQueueTest()
     {
         //并发队列
         ConcurrentLinkedQueue<Integer> concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
