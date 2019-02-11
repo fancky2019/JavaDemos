@@ -11,9 +11,9 @@ public class QueueTest {
 
     private  void CompletableFutureQueueTest()
     {
-        //并发队列
+        //并发队列  可参照test2018下的 ProduceConsumerConditionTest 类
         ConcurrentLinkedQueue<Integer> concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
-        //阻塞队列
+        //阻塞队列  可参照BlockingQueueTest
         LinkedBlockingQueue<Integer> linkedBlockingQueue = new LinkedBlockingQueue<>();
         CompletableFuture.runAsync(() ->
         {

@@ -1,9 +1,12 @@
 
 import Test.test2018.JDBCTest;
+import Test.test2018.ProduceConsumerConditionTest;
+import Test.test2018.ProduceConsumerTest;
 import Test.test2018.SetTest;
 import Test.test2019.CharTest;
 import Test.test2019.Netty.NettyTest;
 import Test.test2019.StringTest;
+import Test.test2019.queue.BlockingQueueTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -38,7 +41,7 @@ public class Main {
 //        Person person=new PersonImp();
 //        person.getName();
 //
-              new SetTest().test();
+           //   new SetTest().test();
             //   new ThreadTest().test();
 
 //            new CalendarTest().operation();
@@ -76,6 +79,8 @@ public class Main {
             // new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
+         //   new ProduceConsumerConditionTest(100).Test();
+
             //  new ProducerConsumerTPSTest(100,5).Test();
 
             //   new AnonymousInternalClassTest().test();
@@ -112,7 +117,7 @@ public class Main {
             //endregion
 
          //   new CharTest().test();
-
+            new BlockingQueueTest().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
