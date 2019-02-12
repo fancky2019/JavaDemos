@@ -9,14 +9,15 @@ import java.util.stream.Collectors;
 public class SetTest {
 
     public void test() {
-        // operation();
+        operation();
         sets();
         //  getListObjectProperty();
     }
 
     private void operation() {
         List<Integer> listInt = Arrays.asList(1, 2, 3, 8, 6, 5);
-
+        //反转
+         Collections.reverse(listInt);
         Integer sum = listInt.stream().reduce(0, Integer::sum);
         Integer sum1 = listInt.stream().reduce(Integer::sum).get();
         Integer min = listInt.stream().reduce(Integer.MAX_VALUE, Integer::min);
