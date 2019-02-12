@@ -41,7 +41,7 @@ public class Main {
 //        Person person=new PersonImp();
 //        person.getName();
 //
-           //   new SetTest().test();
+              new SetTest().test();
             //   new ThreadTest().test();
 
 //            new CalendarTest().operation();
