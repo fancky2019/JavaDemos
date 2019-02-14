@@ -1,6 +1,8 @@
 package Test.opensource.rabbitMQ.rabbitMQConsumer;
 
+import Model.Student;
 import Test.opensource.rabbitMQ.*;
+import com.alibaba.fastjson.JSONObject;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -38,6 +40,7 @@ public class DirectExchange {
             channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY);
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
+                Student student= JSONObject.parseObject(message,Student.class);
                 channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);//发送客户端消息任务完成的应答
                 System.out.println("Received: key=" + delivery.getEnvelope().getRoutingKey() + "     msg=" + message);
             };

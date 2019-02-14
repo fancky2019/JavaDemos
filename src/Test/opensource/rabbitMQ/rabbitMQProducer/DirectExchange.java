@@ -1,6 +1,8 @@
 package Test.opensource.rabbitMQ.rabbitMQProducer;
 
+import Model.Student;
 import Test.opensource.rabbitMQ.ExchangeType;
+import com.alibaba.fastjson.JSONObject;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -54,6 +56,9 @@ public class DirectExchange {
                 //公平调度：客户端未处理完，不会再给它发送任务
                 channel.basicQos(0, 1, false);
                 String message = "MSG_DirectExchange";
+                Student student=new Student() ;
+                student.setName("fancky");
+                message= JSONObject.toJSONString(student);
                 channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, null, message.getBytes("UTF-8"));
                 System.out.println(" Sent:" + message);
 
