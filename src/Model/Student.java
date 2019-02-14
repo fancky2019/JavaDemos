@@ -3,7 +3,9 @@ package Model;
 
 import Test.test2018.Description;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
     // @SuppressWarnings("")
     @Description("姓名")
     private String name;
