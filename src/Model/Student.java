@@ -5,7 +5,10 @@ import Test.test2018.Description;
 
 import java.io.Serializable;
 
-public class Student implements Serializable {
+/**
+ * json序列化，不需要Serializable接口
+ */
+public class Student   {
     // @SuppressWarnings("")
     @Description("姓名")
     private String name;

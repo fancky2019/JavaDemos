@@ -95,7 +95,7 @@ public class Main {
             //  new ConvertTest().test();
             //  new AnnotationTest().test();
 
-            //   new RabbitMQTest().test();
+           //   new RabbitMQTest().test();
             //  new  QueueTest().test();
             //   new  ThreadTest().test();
 
