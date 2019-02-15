@@ -7,6 +7,7 @@ import Test.test2018.SetTest;
 import Test.test2019.CharTest;
 import Test.test2019.Netty.NettyTest;
 import Test.test2019.StringTest;
+import Test.test2019.TypeJudgeTest;
 import Test.test2019.queue.BlockingQueueTest;
 
 import java.io.BufferedReader;
@@ -119,6 +120,7 @@ public class Main {
 
          //   new CharTest().test();
          //   new BlockingQueueTest().test();
+            new TypeJudgeTest().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
