@@ -5,6 +5,8 @@ import Test.test2018.ProduceConsumerConditionTest;
 import Test.test2018.ProduceConsumerTest;
 import Test.test2018.SetTest;
 import Test.test2019.CharTest;
+import Test.test2019.DivisionTest;
+import Test.test2019.DivisionTest;
 import Test.test2019.Netty.NettyTest;
 import Test.test2019.StringTest;
 import Test.test2019.TypeJudgeTest;
@@ -43,7 +45,7 @@ public class Main {
 //        Person person=new PersonImp();
 //        person.getName();
 //
-             // new SetTest().test();
+            // new SetTest().test();
             //   new ThreadTest().test();
 
 //            new CalendarTest().operation();
@@ -81,7 +83,7 @@ public class Main {
             // new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
-         //   new ProduceConsumerConditionTest(100).Test();
+            //   new ProduceConsumerConditionTest(100).Test();
 
             //  new ProducerConsumerTPSTest(100,5).Test();
 
@@ -96,7 +98,7 @@ public class Main {
             //  new ConvertTest().test();
             //  new AnnotationTest().test();
 
-           //   new RabbitMQTest().test();
+            //   new RabbitMQTest().test();
             //  new  QueueTest().test();
             //   new  ThreadTest().test();
 
@@ -108,19 +110,20 @@ public class Main {
             //  new  ProxyTest().test();
 
 
-
-           //  new  StreamOptionalTest().test();
+            //  new  StreamOptionalTest().test();
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-       //    new NettyTest().test();
-           // new StringTest().test();
-          //  new TimerTest().test();
+            //    new NettyTest().test();
+            // new StringTest().test();
+            //  new TimerTest().test();
             //endregion
 
-         //   new CharTest().test();
-         //   new BlockingQueueTest().test();
-            new TypeJudgeTest().test();
+            //   new CharTest().test();
+            //   new BlockingQueueTest().test();
+           // new TypeJudgeTest().test();
+
+            new DivisionTest().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
