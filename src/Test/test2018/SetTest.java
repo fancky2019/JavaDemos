@@ -17,7 +17,7 @@ public class SetTest {
     private void operation() {
         List<Integer> listInt = Arrays.asList(1, 2, 3, 8, 6, 5);
         //反转
-         Collections.reverse(listInt);
+        Collections.reverse(listInt);
         Integer sum = listInt.stream().reduce(0, Integer::sum);
         Integer sum1 = listInt.stream().reduce(Integer::sum).get();
         Integer min = listInt.stream().reduce(Integer.MAX_VALUE, Integer::min);
@@ -58,14 +58,21 @@ public class SetTest {
         //Key存在一样的，值会被更新
         map.putAll(map1);
         //遍历Key
-        for (String m : map.keySet()) {
-
+        for (String key : map.keySet()) {
+            Integer value = map.get(key);
         }
         //遍历Value
-        for (Integer i : map.values()) {
+        for (Integer value : map.values()) {
+
         }
 
-       //实体遍历
+        Iterator<Map.Entry<String, Integer>> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, Integer> entry = iterator.next();
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+        }
+        //实体遍历
         for (Map.Entry<String, Integer> m : map.entrySet()) {
             System.out.println("key:" + m.getKey() + " value:" + m.getValue());
         }
