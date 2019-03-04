@@ -33,7 +33,7 @@ public class CalendarTest {
         //转换
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         Date date1 = format1.parse("2018-11-26");
-        
+
         DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         //string 转换
         LocalDateTime localDateTime4=LocalDateTime.parse("2018-12-31 13:12:00.000",dateTimeFormatter1);
