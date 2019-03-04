@@ -4,7 +4,7 @@ enum EnumDemo {
 
     Blue,
     Black,
-    Yellow;
+    Yellow
 }
 
 public class EnumTest {
