@@ -4,12 +4,9 @@ import Test.test2018.JDBCTest;
 import Test.test2018.ProduceConsumerConditionTest;
 import Test.test2018.ProduceConsumerTest;
 import Test.test2018.SetTest;
-import Test.test2019.CharTest;
-import Test.test2019.DivisionTest;
+import Test.test2019.*;
 import Test.test2019.DivisionTest;
 import Test.test2019.Netty.NettyTest;
-import Test.test2019.StringTest;
-import Test.test2019.TypeJudgeTest;
 import Test.test2019.queue.BlockingQueueTest;
 
 import java.io.BufferedReader;
@@ -123,8 +120,8 @@ public class Main {
             //   new BlockingQueueTest().test();
            // new TypeJudgeTest().test();
 
-            new DivisionTest().test();
-
+          //  new DivisionTest().test();
+            new HashCodeTest().test();
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 
