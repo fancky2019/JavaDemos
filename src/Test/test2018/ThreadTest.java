@@ -14,6 +14,7 @@ public class ThreadTest {
 
     public void test() {
         try {
+            Long threadID = Thread.currentThread().getId();
             parameterThread();
             // futureTask();
 //            CompletableFuture<Integer> completableFuture = completableFutureDemo();
@@ -30,7 +31,6 @@ public class ThreadTest {
             String str = ex.getMessage();
             Integer m = 0;
         }
-
 
 
     }
@@ -66,16 +66,16 @@ public class ThreadTest {
         new Thread(new ParameterRunnable(param)).start();
         CompletableFuture.runAsync(new ParameterRunnable(param + "_CompletableFuture"));
 
-        CompletableFuture.runAsync(new CallBackRunnable(()->
+        CompletableFuture.runAsync(new CallBackRunnable(() ->
         {
             System.out.println("CallBackRunnable");
         }));
 
-        CompletableFuture.runAsync(new CallBackRunnable<>((p)->
+        CompletableFuture.runAsync(new CallBackRunnable<>((p) ->
         {
             System.out.print("CallBackRunnable<> ");
             System.out.println(p);
-        },"ParameterThread"));
+        }, "ParameterThread"));
     }
 
     class ParameterRunnable implements Runnable {
@@ -90,7 +90,6 @@ public class ThreadTest {
             System.out.println(param.toString());
         }
     }
-
 
 
     //endregion

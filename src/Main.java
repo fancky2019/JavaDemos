@@ -1,13 +1,5 @@
 
-import Test.opensource.rabbitMQ.RabbitMQTest;
-import Test.test2018.JDBCTest;
-import Test.test2018.ProduceConsumerConditionTest;
-import Test.test2018.ProduceConsumerTest;
-import Test.test2018.SetTest;
-import Test.test2019.*;
-import Test.test2019.DivisionTest;
-import Test.test2019.Netty.NettyTest;
-import Test.test2019.queue.BlockingQueueTest;
+import Test.test2019.LeftMoveTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -121,7 +113,9 @@ public class Main {
            // new TypeJudgeTest().test();
 
           //  new DivisionTest().test();
-            new HashCodeTest().test();
+           // new HashCodeTest().test();
+            new LeftMoveTest().test();
+
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 
