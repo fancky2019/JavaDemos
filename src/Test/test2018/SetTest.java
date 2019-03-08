@@ -43,7 +43,7 @@ public class SetTest {
 
         //region hashMap <Key,Value> --->c# Dictionary
         //hashMap <Key,Value>
-        Map<String, Integer> map = new HashMap<String, Integer>();
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
         map.put("key1", 1);
         //如果添加了重复的Key,后面添加的KeyValue会更新之前添加的
         map.put("key1", 2);//Value=2
