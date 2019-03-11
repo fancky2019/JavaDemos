@@ -1,4 +1,5 @@
 
+import Test.test2018.ProduceConsumerConditionTest;
 import Test.test2019.LeftMoveTest;
 
 import java.io.BufferedReader;
@@ -72,7 +73,7 @@ public class Main {
             // new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
-            //   new ProduceConsumerConditionTest(100).Test();
+               new ProduceConsumerConditionTest(100).Test();
 
             //  new ProducerConsumerTPSTest(100,5).Test();
 
@@ -114,7 +115,7 @@ public class Main {
 
           //  new DivisionTest().test();
            // new HashCodeTest().test();
-            new LeftMoveTest().test();
+         //   new LeftMoveTest().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
