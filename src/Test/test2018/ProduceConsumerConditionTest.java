@@ -2,6 +2,7 @@ package Test.test2018;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -29,15 +30,15 @@ public class ProduceConsumerConditionTest {
 
 
             //生产者线程
-            CompletableFuture.runAsync(() ->
-            {
-                while (true) {
-                    for (int i = 1; i <= 1000; i++) {
-                        producer(i);
-                    }
-
-                }
-            });
+//            CompletableFuture.runAsync(() ->
+//            {
+//                while (true) {
+//                    for (int i = 1; i <= 1000; i++) {
+//                        producer(i);
+//                    }
+//
+//                }
+//            });
 
 
             //消费者线程
@@ -86,6 +87,8 @@ public class ProduceConsumerConditionTest {
             while (queue.isEmpty()) {
                 try {
                     notEmpty.await();
+                    //等待5S如果还没有收到通知，继续执行
+                  //  notEmpty.await(5*1000, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException ex) {
                     System.out.println(ex.getMessage());
                 }
