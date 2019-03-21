@@ -1,6 +1,7 @@
 
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
+import Test.opensource.redis.RedissonTest;
 import Test.test2018.JDBCTest;
 import Test.test2018.ProduceConsumerConditionTest;
 import Test.test2019.LeftMoveTest;
@@ -64,7 +65,7 @@ public class Main {
             //   ExecutionSequenceTest.testStatic();
 
             //  new PropertiesTest().test1();
-               new JDBCTest().test();
+             //  new JDBCTest().test();
 
             //   new LambdaTest().test();
             // new CalendarTest().test();
@@ -120,6 +121,7 @@ public class Main {
           //  new DivisionTest().test();
            // new HashCodeTest().test();
          //   new LeftMoveTest().test();
+            new RedissonTest().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
