@@ -22,7 +22,7 @@ public class JDBCTest {
 
     public void test() {
         try {
-              insert();
+            //  insert();
             // delete();
             // update();
             //  query();
@@ -30,6 +30,7 @@ public class JDBCTest {
             //procedure();
             //  procedureParamOutPut();
             //   transaction();
+            pageData();
         } catch (Exception ex) {
             String msg = ex.getMessage();
             Integer m = 0;
@@ -346,6 +347,24 @@ public class JDBCTest {
         } catch (Exception ex) {
             con.rollback();//回滚事务
         }
+    }
+    //endregion
+
+    //region 分页存储过程
+    private void pageData() throws Exception {
+        Connection con = getConnection();
+        CallableStatement callableStatement = con.prepareCall("{call pageData(?,?,?)}");
+        //注意参数没有@符号。
+        callableStatement.setInt("pageIndex", 2);
+        callableStatement.setInt("pageSize", 15);
+        callableStatement.registerOutParameter("totalCount", Types.INTEGER);
+        //3.执行存储过程
+        callableStatement.execute();
+        ResultSet rs = callableStatement.getResultSet();
+        List<Product> list = convertToList(rs, Product.class);
+        Integer totalCount = callableStatement.getInt("totalCount");
+
+        Integer m = 0;
     }
     //endregion
 }
