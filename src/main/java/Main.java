@@ -65,7 +65,7 @@ public class Main {
             //   ExecutionSequenceTest.testStatic();
 
             //  new PropertiesTest().test1();
-             //  new JDBCTest().test();
+             new JDBCTest().test();
 
             //   new LambdaTest().test();
             // new CalendarTest().test();
@@ -121,7 +121,7 @@ public class Main {
           //  new DivisionTest().test();
            // new HashCodeTest().test();
          //   new LeftMoveTest().test();
-            new RedissonTest().test();
+          //  new RedissonTest().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
