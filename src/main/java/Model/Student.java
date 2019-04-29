@@ -12,7 +12,7 @@ public class Student   {
     // @SuppressWarnings("")
     @Description("姓名")
     private String name;
-    @Description("年龄")
+    @Description(value = "年龄",color="red",age = 25)
     private Integer age;
 
     public String getName() {

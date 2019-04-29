@@ -2,8 +2,11 @@
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
+import Test.test2018.CalendarTest;
+import Test.test2018.GenericTest;
 import Test.test2018.JDBCTest;
 import Test.test2018.ProduceConsumerConditionTest;
+import Test.test2019.HashCodeTest;
 import Test.test2019.LeftMoveTest;
 import common.Configs;
 
@@ -65,10 +68,10 @@ public class Main {
             //   ExecutionSequenceTest.testStatic();
 
             //  new PropertiesTest().test1();
-             new JDBCTest().test();
+            //new JDBCTest().test();
 
             //   new LambdaTest().test();
-            // new CalendarTest().test();
+//             new CalendarTest().test();
             // new Java8Test().test();
 //               new OptionalTest().test();
             //   new Configs().test();
@@ -95,7 +98,8 @@ public class Main {
 
              //  new RabbitMQTest().test();
             //  new  QueueTest().test();
-            //   new  ThreadTest().test();
+
+               new  GenericTest().test();
 
             //endregion
 
@@ -119,7 +123,7 @@ public class Main {
            // new TypeJudgeTest().test();
 
           //  new DivisionTest().test();
-           // new HashCodeTest().test();
+//            new HashCodeTest().test();
          //   new LeftMoveTest().test();
           //  new RedissonTest().test();
 
