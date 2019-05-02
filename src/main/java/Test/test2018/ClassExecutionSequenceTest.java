@@ -21,11 +21,18 @@ public class ClassExecutionSequenceTest
      子类构造块、字段（按出现顺序）--》子类构造函数
      */
 
-     //访问
+     //实例化时候：按照java的执行顺序
 //        Child child=new Child() ;
-        //先执行父类的静态字段、父类静态块（按出现的顺序）、子类的静态字段、子类静态块（按出现顺序）
-     Child.funChild();
-//     Child.funParent();
+
+
+   //静态块、静态字段只执行一次：new、或首次访问静态成员的时候
+   //访问父类字段：只执行父类静态块和父类静态字段（按出现的顺序）。
+//     Integer parentField=   Child.parentField;
+             Child.funParent();
+//        //访问当前类(子类)静态字段、方法：先执行父类的静态字段和父类静态块（按出现的顺序）、子类的静态字段和子类静态块（按出现顺序）。
+//        Integer childField=Child.childField;
+        //     Child.funChild();
+
     }
 }
  class Child extends Parent {
@@ -82,7 +89,7 @@ public class ClassExecutionSequenceTest
 
     }
 
-    public   static  Integer k1=10;
+    public   static  Integer childField=10;
     public  static void funChild()
     {
         System.out.println(" public  static void funChild() ");
@@ -118,7 +125,7 @@ class Parent {
     static {
         System.out.println("Parent静态块！");
     }
-    public   static  Integer k=10;
+    public   static  Integer parentField=10;
     public  static void funParent()
     {
         System.out.println(" public  static void funParent() ");
