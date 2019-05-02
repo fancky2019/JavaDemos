@@ -24,7 +24,7 @@ public class ClassExecutionSequenceTest
      //实例化时候：按照java的执行顺序
 //        Child child=new Child() ;
 
-
+//和C#一样
    //静态块、静态字段只执行一次：new、或首次访问静态成员的时候
    //访问父类字段：只执行父类静态块和父类静态字段（按出现的顺序）。
 //     Integer parentField=   Child.parentField;
