@@ -57,11 +57,11 @@ public class Main {
 //            Student returnObj=referenceTest.changeObj(student);
             //  new SetTest().test();
 
-            //    new FileTest().test();
+                new FileTest().test();
             // new ReflectDemo().test();
             //  new EnumTest().test();
 
-               new ClassExecutionSequenceTest().test();
+             //  new ClassExecutionSequenceTest().test();
 
 
             //  new PropertiesTest().test1();
