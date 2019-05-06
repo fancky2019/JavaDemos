@@ -28,7 +28,8 @@ public class FileTest {
 
     public void writeText(String fileName, String content) throws IOException {
        // File file = new File(fileName);
-        OutputStreamWriter outputStreamWriter=new OutputStreamWriter(new FileOutputStream(fileName));
+        //Charset.forName("UTF-8");
+        OutputStreamWriter outputStreamWriter=new OutputStreamWriter(new FileOutputStream(fileName,true),"UTF-8");
         BufferedWriter out = new BufferedWriter(outputStreamWriter);
         out.write(content);
         out.flush(); // 把缓存区内容压入文件
@@ -100,7 +101,6 @@ public class FileTest {
         } catch (Exception ex) {
             String msg = ex.getMessage();
         }
-
-
     }
+
 }

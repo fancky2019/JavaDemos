@@ -3,6 +3,7 @@ import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
 import Test.test2018.*;
+import Test.test2019.ConstructorTest;
 import Test.test2019.HashCodeTest;
 import Test.test2019.LeftMoveTest;
 import common.Configs;
@@ -57,7 +58,7 @@ public class Main {
 //            Student returnObj=referenceTest.changeObj(student);
             //  new SetTest().test();
 
-                new FileTest().test();
+              //  new FileTest().test();
             // new ReflectDemo().test();
             //  new EnumTest().test();
 
@@ -123,6 +124,7 @@ public class Main {
 //            new HashCodeTest().test();
          //   new LeftMoveTest().test();
           //  new RedissonTest().test();
+              new ConstructorTest().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
