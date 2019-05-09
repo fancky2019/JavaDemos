@@ -29,9 +29,13 @@ public class ConvertTest {
         //日期
         DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         LocalDateTime localDateTime1 = LocalDateTime.parse("2018-12-31 13:12:00.000", dateTimeFormatter1);
+        String localDateTimeStr=localDateTime1.format(dateTimeFormatter1);
+
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = simpleDateFormat.parse("2018-11-26 13:25:22");
+            String dateStr=simpleDateFormat.format(date);
+
             Integer m = 0;
         } catch (Exception ex) {
 

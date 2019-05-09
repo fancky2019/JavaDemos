@@ -6,6 +6,7 @@ import Test.test2018.*;
 import Test.test2019.ConstructorTest;
 import Test.test2019.HashCodeTest;
 import Test.test2019.LeftMoveTest;
+import Test.test2019.StringTest;
 import common.Configs;
 
 import java.io.BufferedReader;
@@ -15,7 +16,6 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-
             //region 2018
 
             //获取包名
@@ -58,11 +58,11 @@ public class Main {
 //            Student returnObj=referenceTest.changeObj(student);
             //  new SetTest().test();
 
-              //  new FileTest().test();
+            //  new FileTest().test();
             // new ReflectDemo().test();
             //  new EnumTest().test();
 
-             //  new ClassExecutionSequenceTest().test();
+            //  new ClassExecutionSequenceTest().test();
 
 
             //  new PropertiesTest().test1();
@@ -74,9 +74,9 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-           //  new RedisTest().test();
+            //  new RedisTest().test();
 
-         //    new RedisTest().test();
+            //    new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
@@ -91,10 +91,10 @@ public class Main {
 //            extendTest.publicFunction1();
 
 
-            //  new ConvertTest().test();
+//              new ConvertTest().test();
             //  new AnnotationTest().test();
 
-             //  new RabbitMQTest().test();
+            //  new RabbitMQTest().test();
             //  new  QueueTest().test();
 
 //               new  GenericTest().test();
@@ -112,19 +112,19 @@ public class Main {
             //    new  BoxingUnboxingTest().test();
 
             //    new NettyTest().test();
-            // new StringTest().test();
+            new StringTest().test();
             //  new TimerTest().test();
             //endregion
 
             //   new CharTest().test();
             //   new BlockingQueueTest().test();
-           // new TypeJudgeTest().test();
+            // new TypeJudgeTest().test();
 
-          //  new DivisionTest().test();
+            //  new DivisionTest().test();
 //            new HashCodeTest().test();
-         //   new LeftMoveTest().test();
-          //  new RedissonTest().test();
-              new ConstructorTest().test();
+            //   new LeftMoveTest().test();
+            //  new RedissonTest().test();
+//              new ConstructorTest().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
