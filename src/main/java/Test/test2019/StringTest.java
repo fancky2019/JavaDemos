@@ -16,6 +16,8 @@ public class StringTest {
         String str2 = StringTest.trimStart(".sd..", '.');
         //和C#trim()一样
         String str3 = " add .".trim();
+        //双引号转义：\"
+        String str4="d'd'sdsd\"ds";
     }
 
     private void format() {
