@@ -62,7 +62,7 @@ public class Main {
             // new ReflectDemo().test();
             //  new EnumTest().test();
 
-            //  new ClassExecutionSequenceTest().test();
+              new ClassExecutionSequenceTest().test();
 
 
             //  new PropertiesTest().test1();
@@ -112,7 +112,7 @@ public class Main {
             //    new  BoxingUnboxingTest().test();
 
             //    new NettyTest().test();
-            new StringTest().test();
+//            new StringTest().test();
             //  new TimerTest().test();
             //endregion
 
