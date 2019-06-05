@@ -3,6 +3,8 @@ package Test.test2018;
 import Model.Student;
 import common.CallBackRunnable;
 
+import javax.xml.bind.annotation.XmlType;
+import java.text.MessageFormat;
 import java.util.Random;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
@@ -15,7 +17,7 @@ public class ThreadTest {
     public void test() {
         try {
             Long threadID = Thread.currentThread().getId();
-            parameterThread();
+//            parameterThread();
             // futureTask();
 //            CompletableFuture<Integer> completableFuture = completableFutureDemo();
 //            Thread.sleep(11 * 1000);
@@ -25,6 +27,30 @@ public class ThreadTest {
 
             //   functionBlockingQueue();
             // threadPool();
+
+
+//            threadException();
+
+
+//            CompletableFuture<Integer> future = completeOnTimeout(() ->
+//            {
+//                try {
+//                    Thread.sleep(5000);
+//                    return 1;
+//                } catch (Exception ex) {
+//                    return -1;
+//                }
+//            }, 2, 3, TimeUnit.SECONDS);
+//            Integer re = future.get();
+//
+//
+//            CompletableFuture<String> a = supplyAsync(() -> "hi", 1,
+//                    TimeUnit.SECONDS, "default");
+
+//            interrupt();
+
+              threadTimeOut();
+
             Integer n = 1;
             //whenComplete();
         } catch (Exception ex) {
@@ -46,6 +72,7 @@ public class ThreadTest {
         thread.start();
     }
 
+
     private void doWork() {
         Lock lock = new ReentrantLock();
         try {
@@ -58,7 +85,118 @@ public class ThreadTest {
             lock.unlock();
         }
     }
-//endregion
+
+    //region Interrupt
+    private void interrupt() {
+        Thread thread = new Thread(() ->
+        {
+            try {
+                int i = 0;
+                for (; ; ) {
+                    System.out.println(++i);
+                    Thread.sleep(1000);
+                }
+            } catch (Exception ex) {
+
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+        try {
+            thread.join(10 * 1000);//阻塞调用线程30s.
+            thread.interrupt();//相当于C#的Abort，此时线程可能还在继续执行，并没有立即终止。
+            thread.join();//等待直到thread终止，
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }
+    //endregion
+
+    //region 子线程内的异常，不会被外部捕捉。
+
+    /**
+     * //线程内的异常
+     */
+    private void threadException() {
+//        Thread thread=new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        });
+
+
+        try {
+            Thread thread = new Thread(() ->
+            {
+                //线程内的异常，不会被外部捕捉。
+                try {
+                    Integer m = Integer.parseInt("m");
+                    Integer n = 0;
+                } catch (Exception ex) {
+                    System.out.println(MessageFormat.format("Thread inner :{0}",ex.getMessage()));
+                    throw ex;
+                }
+
+//                Integer n = Integer.valueOf("m");
+            });
+
+            thread.start();
+        } catch (Exception ex) {
+            System.out.println(MessageFormat.format("threadException inner :{0}",ex.getMessage()));
+            Integer n = 0;
+        }
+
+       //异常抛不出都主线程
+        try {
+
+            ExecutorService executorService=    Executors.newCachedThreadPool();
+            executorService.execute(()->
+            {
+                try {
+                    Integer m = Integer.parseInt("m");
+                    Integer n = 0;
+                } catch (Exception ex) {
+                    System.out.println(MessageFormat.format("newCachedThreadPool inner :{0}",ex.getMessage()));
+                    throw ex;
+                }
+            });
+
+
+        } catch (Exception ex) {
+            System.out.println(MessageFormat.format("threadException inner 2 :{0}",ex.getMessage()));
+            Integer n = 0;
+        }
+
+
+        //异常可以抛出到主线程
+        try {
+            ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
+            Future<Integer> future = scheduledExecutorService.submit(() ->
+            {
+                try {
+                    Integer m = Integer.parseInt("m");
+                    Integer n = 0;
+                    return 1;
+                } catch (Exception ex) {
+                    // sleep interrupted；
+                    System.out.println(MessageFormat.format("newScheduledThreadPool inner  :{0}",ex.getMessage()));
+                    throw ex; //可以把异常抛到主线程
+                }
+            });
+
+
+            Integer re = future.get();
+
+        } catch (Exception ex) {
+            System.out.println(MessageFormat.format("threadException inner 3 :{0}",ex.getMessage()));
+            Integer m=0;
+        }
+    }
+    //endregion
+
+    //endregion
 
     //region ParameterThread
     private void parameterThread() {
@@ -141,7 +279,7 @@ public class ThreadTest {
             }
         }
     }
-//endregion
+    //endregion
 
     //region CompletableFuture
     private CompletableFuture<Integer> completableFutureDemo() {
@@ -269,5 +407,93 @@ public class ThreadTest {
     }
     //endregion
 
+
+    //region  threadTimeOut
+    private void threadTimeOut() {
+        try {
+
+            ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
+            Future<Integer> future = scheduledExecutorService.submit(() ->
+            {
+                try {
+                    Thread.sleep(5000);
+                    return 1;
+                } catch (Exception ex) {
+                    // sleep interrupted；
+                    System.out.println(ex.getMessage());
+                      throw ex; //可以把异常抛到主线程
+//                    return -1;
+                }
+            });
+
+
+            scheduledExecutorService.schedule(() ->
+            {
+                if (!future.isDone()) {
+                    //sleep interrupted；终断线程
+                    future.cancel(true);
+                }
+            }, 3, TimeUnit.SECONDS);
+
+            Integer re = future.get();
+            //void:execute没有返回值无法取消
+            scheduledExecutorService.execute(() ->
+            {
+                //();
+            });
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+
+    }
+
+    private <T> CompletableFuture<T> completeOnTimeout(Supplier<T> supplier, T defaultValue, Integer timeOut, TimeUnit timeUnit) {
+        CompletableFuture<T> completableFuture = CompletableFuture.supplyAsync(supplier);
+        ScheduledExecutorService schedulerExecutor = Executors.newScheduledThreadPool(10);
+        schedulerExecutor.schedule(() ->
+        {
+            if (!completableFuture.isDone()) {
+                //使任务完成，并返回初始值
+                completableFuture.complete(defaultValue);
+                //取消任务并跑出异常，任务完成
+                //  completableFuture.cancel(true);
+            }
+        }, timeOut, timeUnit);
+        return completableFuture;
+    }
+
+    private static final ScheduledExecutorService schedulerExecutor = Executors.newScheduledThreadPool(10);
+    private static final ExecutorService executorService = Executors.newCachedThreadPool();
+
+
+    public static <T> CompletableFuture<T> supplyAsync(final Supplier<T> supplier, long timeoutValue, TimeUnit timeUnit, T defaultValue) {
+
+        final CompletableFuture<T> cf = new CompletableFuture<T>();
+
+        // as pointed out by Peti, the ForkJoinPool.commonPool() delivers a
+        // ForkJoinTask implementation of Future, that doesn't interrupt when cancelling
+        // Using Executors.newCachedThreadPool instead in the example
+        // submit task
+        Future<?> future = executorService.submit(() -> {
+            try {
+                cf.complete(supplier.get());
+            } catch (Throwable ex) {
+                cf.completeExceptionally(ex);
+            }
+        });
+
+        //schedule watcher
+        schedulerExecutor.schedule(() -> {
+            if (!cf.isDone()) {
+                cf.complete(defaultValue);
+                future.cancel(true);
+            }
+
+        }, timeoutValue, timeUnit);
+
+        return cf;
+    }
+    //endregion
 }
 
