@@ -1,7 +1,6 @@
 package Test.test2018;
 
 enum EnumDemo {
-
     Blue,
     Black,
     Yellow

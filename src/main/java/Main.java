@@ -11,6 +11,7 @@ import common.Configs;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.MessageFormat;
 
 public class Main {
 
@@ -42,7 +43,7 @@ public class Main {
 //        person.getName();
 //
             // new SetTest().test();
-            //   new ThreadTest().test();
+               new ThreadTest().test();
 
 //            new CalendarTest().operation();
 
@@ -62,7 +63,7 @@ public class Main {
             // new ReflectDemo().test();
             //  new EnumTest().test();
 
-              new ClassExecutionSequenceTest().test();
+//              new ClassExecutionSequenceTest().test();
 
 
             //  new PropertiesTest().test1();
@@ -132,7 +133,7 @@ public class Main {
             Integer a = 0;
         } catch (Exception ex) {
             String str = ex.getMessage();
-            System.out.println(str);
+            System.out.println( MessageFormat.format("main :{0}",str));
             Integer a = 0;
         }
     }
