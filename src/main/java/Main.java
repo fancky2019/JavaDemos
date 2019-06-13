@@ -3,10 +3,7 @@ import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
 import Test.test2018.*;
-import Test.test2019.ConstructorTest;
-import Test.test2019.HashCodeTest;
-import Test.test2019.LeftMoveTest;
-import Test.test2019.StringTest;
+import Test.test2019.*;
 import common.Configs;
 
 import java.io.BufferedReader;
@@ -43,7 +40,7 @@ public class Main {
 //        person.getName();
 //
             // new SetTest().test();
-               new ThreadTest().test();
+            //   new ThreadTest().test();
 
 //            new CalendarTest().operation();
 
@@ -67,7 +64,7 @@ public class Main {
 
 
             //  new PropertiesTest().test1();
-            //new JDBCTest().test();
+//            new JDBCTest().test();
 
             //   new LambdaTest().test();
 //             new CalendarTest().test();
@@ -126,6 +123,7 @@ public class Main {
             //   new LeftMoveTest().test();
             //  new RedissonTest().test();
 //              new ConstructorTest().test();
+            new MysqlTest().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
