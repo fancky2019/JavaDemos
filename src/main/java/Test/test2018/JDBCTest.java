@@ -41,12 +41,13 @@ public class JDBCTest {
     private Connection getConnection() {
         try {
 
-           Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
-            String connectionUrl = "jdbc:sqlserver://localhost:1433;" +
-                    "databaseName=WMS;user=sa;password=123456;";
-            Connection con = DriverManager.getConnection(connectionUrl);
-
+//           Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//
+//            String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=WMS;user=sa;password=123456;";
+            Class.forName(Configs.Instance.getDriverName());
+            Connection con = DriverManager.getConnection(Configs.Instance.getDburl());
+          //或者下面的创建连接重载
+//            Connection con =     DriverManager.getConnection(Configs.Instance.getDburl(),Configs.Instance.getUser(),Configs.Instance.getPassword());
 
 
 

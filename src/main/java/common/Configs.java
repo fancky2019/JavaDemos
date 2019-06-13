@@ -1,9 +1,5 @@
 package common;
 
-import Test.test2018.PropertiesTest;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -15,6 +11,11 @@ public class Configs {
     private String dburl;
     private String user;
     private String password;
+
+    private String mysqlDriverName;
+    private String mysqldburl;
+    private String mysqlUser;
+    private String mysqlPassword;
 
     private String redisIP;
     private String redisPort;
@@ -54,6 +55,39 @@ public class Configs {
         return password;
     }
 
+    public String getMysqlDriverName() {
+        return mysqlDriverName;
+    }
+
+    public void setMysqlDriverName(String mysqlDriverName) {
+        this.mysqlDriverName = mysqlDriverName;
+    }
+
+    public String getMysqldburl() {
+        return mysqldburl;
+    }
+
+    public void setMysqldburl(String mysqldburl) {
+        this.mysqldburl = mysqldburl;
+    }
+
+    public String getMysqlUser() {
+        return mysqlUser;
+    }
+
+    public void setMysqlUser(String mysqlUser) {
+        this.mysqlUser = mysqlUser;
+    }
+
+    public String getMysqlPassword() {
+        return mysqlPassword;
+    }
+
+    public void setMysqlPassword(String mysqlPassword) {
+        this.mysqlPassword = mysqlPassword;
+    }
+
+
     private static Object lockObj = new Object();
     public static Configs Instance;
 
@@ -75,31 +109,35 @@ public class Configs {
         }
     }
 
-    private void loadProperties()  {
+    private void loadProperties() {
         try {
-        Properties properties = new Properties();
+            Properties properties = new Properties();
             InputStream inputStream = Configs.class.getClassLoader().getResourceAsStream("jdbc.properties");
 
 
-       //   InputStream inputStream = new FileInputStream(new File("resources/jdbc.properties"));
-        properties.load(inputStream);
+            //   InputStream inputStream = new FileInputStream(new File("resources/jdbc.properties"));
+            properties.load(inputStream);
 
-        driverName = properties.getProperty("driverName");
-        dburl = properties.getProperty("dburl");
-        user = properties.getProperty("user");
-        password = properties.getProperty("password");
+            driverName = properties.getProperty("driverName");
+            dburl = properties.getProperty("dburl");
+            user = properties.getProperty("user");
+            password = properties.getProperty("password");
 
-        redisIP = properties.getProperty("redisIP");
-        redisPort = properties.getProperty("redisPort");
-        redisPassword = properties.getProperty("redisPassword");
-        dbIndex = Integer.parseInt(properties.getProperty("dbIndex"));
-        timeout = Integer.parseInt(properties.getProperty("timeout"));
-        inputStream.close();
-        }
-        catch (Exception ex)
-        {
-            String msg=ex.getMessage();
-            Integer m=0;
+
+            mysqlDriverName = properties.getProperty("mysqlDriverName");
+            mysqldburl = properties.getProperty("mysqldburl");
+            mysqlUser = properties.getProperty("mysqlUser");
+            mysqlPassword = properties.getProperty("mysqlPassword");
+
+            redisIP = properties.getProperty("redisIP");
+            redisPort = properties.getProperty("redisPort");
+            redisPassword = properties.getProperty("redisPassword");
+            dbIndex = Integer.parseInt(properties.getProperty("dbIndex"));
+            timeout = Integer.parseInt(properties.getProperty("timeout"));
+            inputStream.close();
+        } catch (Exception ex) {
+            String msg = ex.getMessage();
+            Integer m = 0;
         }
     }
 
