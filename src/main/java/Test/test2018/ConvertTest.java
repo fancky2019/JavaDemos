@@ -16,13 +16,24 @@ public class ConvertTest {
     private void convert() {
         Integer intNum = Integer.valueOf("5");
         Integer intNum1 = Integer.parseInt("6");
+
         Double douNum = Double.valueOf("50");
         Double douNum1 = Double.parseDouble("50.56");
+
         Integer intNum2 = douNum1.intValue();
         Double douBum2 = intNum1.doubleValue();
 
         String intNumStr = intNum.toString();
         String douNum1Str = String.valueOf(douNum);
+
+
+        char ch=intNumStr.charAt(0);
+        char[] chArray=intNumStr.toCharArray();
+
+        String chStr=String.valueOf(ch);
+        String chStr1=Character.toString(ch);
+
+
 
         Long numLong1 = 2L;
 

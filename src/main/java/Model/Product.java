@@ -1,6 +1,7 @@
 package Model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class Product {
     private Integer id;
@@ -19,46 +20,19 @@ public class Product {
 
     private BigDecimal price;
 
-    private java.util.Date createtime;
+    private LocalDateTime createtime;
 
     private Short status;
 
     private Integer count;
 
-    private java.util.Date modifytime;
+    private LocalDateTime modifytime;
+  //  java.util.Date
+    //  sql  byte[]
+    //mysql  Long
+//    private byte[] timestamp;
 
-    private byte[] timestamp;
-
-    public Product(Integer id, String guid, Integer stockid, Integer barcodeid, Integer skuid, String productname, String productstyle, BigDecimal price, java.util.Date createtime, Short status, Integer count, java.util.Date modifytime) {
-        this.id = id;
-        this.guid = guid;
-        this.stockid = stockid;
-        this.barcodeid = barcodeid;
-        this.skuid = skuid;
-        this.productname = productname;
-        this.productstyle = productstyle;
-        this.price = price;
-        this.createtime = createtime;
-        this.status = status;
-        this.count = count;
-        this.modifytime = modifytime;
-    }
-
-    public Product(Integer id, String guid, Integer stockid, Integer barcodeid, Integer skuid, String productname, String productstyle, BigDecimal price, java.util.Date createtime, Short status, Integer count, java.util.Date modifytime, byte[] timestamp) {
-        this.id = id;
-        this.guid = guid;
-        this.stockid = stockid;
-        this.barcodeid = barcodeid;
-        this.skuid = skuid;
-        this.productname = productname;
-        this.productstyle = productstyle;
-        this.price = price;
-        this.createtime = createtime;
-        this.status = status;
-        this.count = count;
-        this.modifytime = modifytime;
-        this.timestamp = timestamp;
-    }
+    private Long timestamp;
 
     public Product() {
         super();
@@ -128,11 +102,11 @@ public class Product {
         this.price = price;
     }
 
-    public java.util.Date getCreatetime() {
+    public LocalDateTime getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(java.util.Date createtime) {
+    public void setCreatetime(LocalDateTime createtime) {
         this.createtime = createtime;
     }
 
@@ -152,19 +126,29 @@ public class Product {
         this.count = count;
     }
 
-    public java.util.Date getModifytime() {
+    public LocalDateTime getModifytime() {
         return modifytime;
     }
 
-    public void setModifytime(java.util.Date modifytime) {
+    public void setModifytime(LocalDateTime modifytime) {
         this.modifytime = modifytime;
     }
 
-    public byte[] getTimestamp() {
+//    public byte[] getTimestamp() {
+////        return timestamp;
+////    }
+////
+////    public void setTimestamp(byte[] timestamp) {
+////        this.timestamp = timestamp;
+////    }
+
+
+
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(byte[] timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 }

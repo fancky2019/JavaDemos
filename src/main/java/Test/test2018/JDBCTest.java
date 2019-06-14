@@ -25,12 +25,13 @@ public class JDBCTest {
             //  insert();
             // delete();
             // update();
-            //  query();
+              query();
           //  queryMultipleResult();
             //procedure();
             //  procedureParamOutPut();
             //   transaction();
-            pageData();
+//            pageData();
+            Integer m=0;
         } catch (Exception ex) {
             String msg = ex.getMessage();
             Integer m = 0;
@@ -81,7 +82,7 @@ public class JDBCTest {
         String selectCommand = "select *  from  Product WHERE ProductName LIKE ?";
         Connection con = getConnection();
         PreparedStatement preparedStatement = con.prepareStatement(selectCommand);
-        String productName = "jdbc";
+        String productName = "fancky";
         preparedStatement.setString(1, "%" + productName + "%");
         // 执行数据库查询语句
         ResultSet rs = preparedStatement.executeQuery();
@@ -177,7 +178,7 @@ public class JDBCTest {
             preparedStatement.setInt(2, 1);
             preparedStatement.setNull(3, Types.INTEGER);
             preparedStatement.setInt(4, 1);
-            preparedStatement.setString(5, "fanckyJDBC");
+            preparedStatement.setString(5, "pfanckyJDBC");
             preparedStatement.setNull(6, Types.NVARCHAR);
             preparedStatement.setBigDecimal(7, new BigDecimal(123));
             //                 setDate只能得到年月日
