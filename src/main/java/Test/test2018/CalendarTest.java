@@ -4,7 +4,7 @@ import Model.Student;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,6 +21,10 @@ public class CalendarTest {
     }
 
     private void operation() throws ParseException {
+        //获取秒数
+        Long second = LocalDateTime.now().toEpochSecond(ZoneOffset.of("+8"));
+        //获取毫秒数
+        Long milliSecond = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
 
         Date date = new Date();
         //格式化输出
@@ -86,5 +90,21 @@ public class CalendarTest {
         String timeSpanStr = String.format("%d：天，%d：小时，%d：分钟，%d：秒", diffDays, diffHours, diffMinutes, diffSeconds);
         System.out.println("" + diffDays + "天" + diffHours + "小时" + diffMinutes + "分");
         System.out.println(timeSpanStr);
+
+
+      //region  Period  精度到日期  yyyy-DD-dd
+        LocalDate startDate = LocalDate.of(2015, 2, 20);
+        LocalDate endDate = LocalDate.of(2017, 1, 15);
+        Period period = Period.between(startDate, endDate);
+
+     //endregion
+
+        //region  Duration  精度到时间  HH:mm:ss.sss
+        Instant start = Instant.parse("2017-10-03T10:15:30.00Z");
+        Instant end = Instant.parse("2017-10-03T10:16:30.00Z");
+        Duration duration = Duration.between(start, end);
+
+
+        //endregion
     }
 }

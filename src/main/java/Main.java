@@ -64,7 +64,7 @@ public class Main {
 
 
             //  new PropertiesTest().test1();
-//            new JDBCTest().test();
+
 
             //   new LambdaTest().test();
 //             new CalendarTest().test();
@@ -123,6 +123,7 @@ public class Main {
             //   new LeftMoveTest().test();
             //  new RedissonTest().test();
 //              new ConstructorTest().test();
+//            new JDBCTest().test();
             new MysqlTest().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
