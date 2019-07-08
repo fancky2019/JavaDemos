@@ -124,7 +124,8 @@ public class Main {
             //  new RedissonTest().test();
 //              new ConstructorTest().test();
 //            new JDBCTest().test();
-            new MysqlTest().test();
+//            new MysqlTest().test();
+            new ReferenceDemo().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
