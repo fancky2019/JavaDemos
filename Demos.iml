@@ -46,5 +46,7 @@
     <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy:1.9.10" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-bean:5.0.8" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-core:5.0.8" level="project" />
+    <orderEntry type="library" name="Maven: com.auth0:java-jwt:3.8.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: commons-codec:commons-codec:1.12" level="project" />
   </component>
 </module>
