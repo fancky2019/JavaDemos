@@ -10,11 +10,14 @@ public class InnerClassTest {
         //静态内部类实例化
 
         OuterClass.StaticInnerClass staticInnerClass = new OuterClass.StaticInnerClass();
-//       // String name = OuterClass.StaticInnerClass.Name;
+        // String name = OuterClass.StaticInnerClass.Name;
 
         //非静态内部类实例化
         OuterClass outerClass = new OuterClass();
         OuterClass.InnerClass innerClass = outerClass.new InnerClass();
+
+        //接口内部类的实例化和静态内部类一样。
+        OuterInterface.OuterInterfaceImp outerInterfaceImp=new OuterInterface.OuterInterfaceImp() ;
 
     }
 }

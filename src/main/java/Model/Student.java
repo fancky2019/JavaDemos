@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * json序列化，不需要Serializable接口
  */
-public class Student   {
+public class Student extends StudentParent implements StudentInterface   {
     // @SuppressWarnings("")
     @Description("姓名")
     private String name;
