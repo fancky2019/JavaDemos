@@ -57,7 +57,7 @@ public class Main {
             //  new SetTest().test();
 
             //  new FileTest().test();
-            // new ReflectDemo().test();
+             new ReflectDemo().test();
             //  new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
@@ -125,7 +125,7 @@ public class Main {
 //              new ConstructorTest().test();
 //            new JDBCTest().test();
 //            new MysqlTest().test();
-            new ReferenceDemo().test();
+//            new ReferenceDemo().test();
 
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();

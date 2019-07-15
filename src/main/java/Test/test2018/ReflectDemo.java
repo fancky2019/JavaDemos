@@ -1,6 +1,8 @@
 package Test.test2018;
 
 import Model.Student;
+import Model.StudentInterface;
+import Model.StudentParent;
 import Test.test2018.Description;
 
 import java.lang.reflect.Constructor;
@@ -28,6 +30,14 @@ public class ReflectDemo {
             String className = clas.getName();
             Class cls = Class.forName(className);
 
+            //是否继承类、接口
+            Boolean extendss = StudentParent.class.isAssignableFrom(cls);
+            Boolean extendsI = StudentInterface.class.isAssignableFrom(cls);
+
+            //对象判断
+            Boolean ree = student instanceof StudentParent;
+            Boolean rei = student instanceof StudentInterface;
+
             //反射字段、方法
             Field[] fields = clas.getDeclaredFields();
             //给字段赋值
@@ -46,6 +56,7 @@ public class ReflectDemo {
             Object object = cls.newInstance();
             method.invoke(object, 2);
 
+            //必须是某实例才能强制转换，否则抛异常
             if (object instanceof Student) {
                 //前面已经通过反射给字段age赋值
                 Student stu = (Student) object;
@@ -57,6 +68,8 @@ public class ReflectDemo {
             Description description = field.getAnnotation(Description.class);
             String des = description.value();
 
+            //是否加了某某注解
+            Boolean isAnnotationPresent = field.isAnnotationPresent(Description.class);
 
             System.out.println();  //插入断点
         } catch (Exception ex) {
