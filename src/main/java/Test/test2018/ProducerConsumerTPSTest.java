@@ -11,7 +11,7 @@ public class ProducerConsumerTPSTest {
     private Integer maxLength;
     private Integer tps;
     private final Object lockObject = new Object();
-    SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
 
     public ProducerConsumerTPSTest(Integer maxLength, Integer tps) {
         this.maxLength = maxLength;
@@ -89,7 +89,7 @@ public class ProducerConsumerTPSTest {
             }
 
             Integer num = queue.poll();
-            Date date=new Date();
+            Date date = new Date();
             executeTimeList.add(date);
             System.out.printf("dequeue: %d  time:%s \n", num, simpleDateFormat.format(date));
             lockObject.notify();

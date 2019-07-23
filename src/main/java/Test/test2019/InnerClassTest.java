@@ -17,7 +17,7 @@ public class InnerClassTest {
         OuterClass.InnerClass innerClass = outerClass.new InnerClass();
 
         //接口内部类的实例化和静态内部类一样。
-        OuterInterface.OuterInterfaceImp outerInterfaceImp=new OuterInterface.OuterInterfaceImp() ;
+        OuterInterface.OuterInterfaceImp outerInterfaceImp = new OuterInterface.OuterInterfaceImp();
 
     }
 }

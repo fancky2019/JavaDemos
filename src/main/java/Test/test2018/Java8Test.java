@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class Java8Test {
     public void test() {
-      //  getListObjectProperty();
+        //  getListObjectProperty();
         localDateTimeTest();
     }
 
@@ -75,9 +75,8 @@ public class Java8Test {
         Integer m = 0;
     }
 
-    private void  localDateTimeTest()
-    {
-        LocalDateTime localDateTime=LocalDateTime.now();
+    private void localDateTimeTest() {
+        LocalDateTime localDateTime = LocalDateTime.now();
 
         //转换string
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
@@ -87,14 +86,14 @@ public class Java8Test {
 
         DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         //string 转换
-        LocalDateTime localDateTime4=LocalDateTime.parse("2018-12-31 13:12:00.000",dateTimeFormatter1);
+        LocalDateTime localDateTime4 = LocalDateTime.parse("2018-12-31 13:12:00.000", dateTimeFormatter1);
         //小的时间在前 Duration是秒，纳秒
-        Duration duration = Duration.between(localDateTime4,localDateTime);
+        Duration duration = Duration.between(localDateTime4, localDateTime);
 
-        Long days=duration.getSeconds()/(24l*60l*60l);
+        Long days = duration.getSeconds() / (24l * 60l * 60l);
 
-        Integer idays=days.intValue();
-        Integer m=0;
+        Integer idays = days.intValue();
+        Integer m = 0;
     }
 
 //    Optional<Integer>

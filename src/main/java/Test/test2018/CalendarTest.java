@@ -40,7 +40,7 @@ public class CalendarTest {
 
         DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         //string 转换
-        LocalDateTime localDateTime4=LocalDateTime.parse("2018-12-31 13:12:00.000",dateTimeFormatter1);
+        LocalDateTime localDateTime4 = LocalDateTime.parse("2018-12-31 13:12:00.000", dateTimeFormatter1);
 
         //比较
         Integer result = date.compareTo(date1);
@@ -92,12 +92,12 @@ public class CalendarTest {
         System.out.println(timeSpanStr);
 
 
-      //region  Period  精度到日期  yyyy-DD-dd
+        //region  Period  精度到日期  yyyy-DD-dd
         LocalDate startDate = LocalDate.of(2015, 2, 20);
         LocalDate endDate = LocalDate.of(2017, 1, 15);
         Period period = Period.between(startDate, endDate);
 
-     //endregion
+        //endregion
 
         //region  Duration  精度到时间  HH:mm:ss.sss
         Instant start = Instant.parse("2017-10-03T10:15:30.00Z");

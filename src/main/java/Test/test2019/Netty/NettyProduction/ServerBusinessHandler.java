@@ -29,7 +29,6 @@ public class ServerBusinessHandler extends ChannelInboundHandlerAdapter {
     }
 
 
-
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
@@ -67,8 +66,7 @@ public class ServerBusinessHandler extends ChannelInboundHandlerAdapter {
                 heartBeatInfo.setMessageType(MessageType.HeartBeat);
                 heartBeatInfo.setBody("HeartBeat");
                 channelHandlerContext.writeAndFlush(heartBeatInfo);
-            }
-            else {
+            } else {
                 //doWork()
                 //reply    channelHandlerContext.writeAndFlush(msg);
                 MessageInfo heartBeatInfo = new MessageInfo();
@@ -77,7 +75,6 @@ public class ServerBusinessHandler extends ChannelInboundHandlerAdapter {
                 channelHandlerContext.writeAndFlush(heartBeatInfo);
             }
         }
-
 
 
     }

@@ -142,8 +142,7 @@ public class MysqlTest {
 
         //2000-1-1 0:0:0.000
         LocalDateTime localDateTime = LocalDateTime.of(year, month, day, hour, minute, second);
-        localDateTime =   localDateTime.plusNanos(nanos);
-
+        localDateTime = localDateTime.plusNanos(nanos);
 
 
         product.setCreatetime(localDateTime);
@@ -178,7 +177,7 @@ public class MysqlTest {
         //如果字段为空不报错
         preparedStatement.setString(6, product.getProductstyle());
         preparedStatement.setBigDecimal(7, product.getPrice());
-       Long milliSecond=  product.getCreatetime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+        Long milliSecond = product.getCreatetime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
         //                 setDate只能得到年月日
         preparedStatement.setTimestamp(8,
 //         new  Timestamp(  product.getCreatetime().getYear(),
@@ -188,7 +187,7 @@ public class MysqlTest {
 //                product.getCreatetime().getMinute(),
 //                product.getCreatetime().getSecond(),
 //                 product.getCreatetime().getNano())
-                new  Timestamp(milliSecond)
+                new Timestamp(milliSecond)
         );
         Short status = 1;
         preparedStatement.setShort(9, product.getStatus());

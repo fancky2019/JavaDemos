@@ -23,7 +23,7 @@ public class TopicExchange {
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
             channel.exchangeDeclare(EXCHANGE_NAME, ExchangeType.TOPIC);
-        //    String queueName = channel.queueDeclare().getQueue();
+            //    String queueName = channel.queueDeclare().getQueue();
             Boolean durable = true;
             Boolean exclusive = false;
             Boolean autoDelete = false;

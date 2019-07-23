@@ -12,5 +12,6 @@ import static java.lang.annotation.ElementType.TYPE;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface JobAnnotation {
     String value();
+
     String description();
 }

@@ -6,30 +6,28 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class TimerTest {
-    public  void  test()
-    {
+    public void test() {
 
         schedule();
     }
 
-    private  void schedule()
-    {
+    private void schedule() {
         //Timer
-      new  Timer().schedule(new TimerTask() {
-          @Override
-          public void run() {
-              System.out.println("TimerTask");
-              //doWork()
-          }
-      }, 0, 3*1000);
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("TimerTask");
+                //doWork()
+            }
+        }, 0, 3 * 1000);
 
 
-      //newScheduledThreadPool
-        Executors.newScheduledThreadPool(1).scheduleAtFixedRate(()->
+        //newScheduledThreadPool
+        Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() ->
         {
             System.out.println("scheduleAtFixedRate");
             //doWork()
-        },0,2, TimeUnit.SECONDS);
+        }, 0, 2, TimeUnit.SECONDS);
 
 
     }

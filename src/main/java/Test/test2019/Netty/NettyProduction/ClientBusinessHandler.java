@@ -59,7 +59,6 @@ public class ClientBusinessHandler extends ChannelInboundHandlerAdapter {
     }
 
 
-
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         nettyClientProduction.connect(null);
@@ -106,7 +105,6 @@ public class ClientBusinessHandler extends ChannelInboundHandlerAdapter {
         messageInfo.setBody("HeartBeat");
         channelHandlerContext.writeAndFlush(messageInfo);
     }
-
 
 
 }

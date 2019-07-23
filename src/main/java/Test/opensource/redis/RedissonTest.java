@@ -35,8 +35,8 @@ public class RedissonTest {
 //        condition=reentrantLock.newCondition();
     }
 
-    public void test() throws  Exception {
-       // lock();
+    public void test() throws Exception {
+        // lock();
 
         useRedLock();
     }

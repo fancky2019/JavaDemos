@@ -22,7 +22,7 @@ public class FanoutExchange {
                 String message = "MSG_FanoutExchangeJava";
                 //参数：s:交换机,s1:RoutingKey
                 channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes("UTF-8"));
-                System.out.println("Send:"+message);
+                System.out.println("Send:" + message);
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

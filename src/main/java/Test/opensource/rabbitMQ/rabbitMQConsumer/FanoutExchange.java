@@ -30,7 +30,7 @@ public class FanoutExchange {
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
                 channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);//发送客户端消息任务完成的应答
-                System.out.println("Received:" + message );
+                System.out.println("Received:" + message);
             };
             channel.basicConsume(QUEUE_NAME, false, deliverCallback, consumerTag -> {
             });

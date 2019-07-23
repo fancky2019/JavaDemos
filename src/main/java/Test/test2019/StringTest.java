@@ -17,7 +17,7 @@ public class StringTest {
         //和C#trim()一样
         String str3 = " add .".trim();
         //双引号转义：\"
-        String str4="d'd'sdsd\"ds";
+        String str4 = "d'd'sdsd\"ds";
     }
 
     private void format() {

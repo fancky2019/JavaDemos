@@ -27,9 +27,9 @@ public class FileTest {
     }
 
     public void writeText(String fileName, String content) throws IOException {
-       // File file = new File(fileName);
+        // File file = new File(fileName);
         //Charset.forName("UTF-8");
-        OutputStreamWriter outputStreamWriter=new OutputStreamWriter(new FileOutputStream(fileName,true),"UTF-8");
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(fileName, true), "UTF-8");
         BufferedWriter out = new BufferedWriter(outputStreamWriter);
         out.write(content);
         out.flush(); // 把缓存区内容压入文件
@@ -44,7 +44,7 @@ public class FileTest {
      * @throws IOException
      */
     public String readTXT(String fileNmae) throws IOException {
-      //  File file = new File(fileNmae);
+        //  File file = new File(fileNmae);
 //        InputStreamReader reader = new InputStreamReader(new FileInputStream(file));
         InputStreamReader reader = new InputStreamReader(new FileInputStream(fileNmae));
         //FileReader
@@ -59,9 +59,8 @@ public class FileTest {
         return content.toString();
     }
 
-    public  String readText(String fileName) throws Exception
-    {
-        FileReader fileReader=new FileReader(fileName);
+    public String readText(String fileName) throws Exception {
+        FileReader fileReader = new FileReader(fileName);
         BufferedReader br = new BufferedReader(fileReader);
         StringBuilder content = new StringBuilder();
         String line;
@@ -95,7 +94,7 @@ public class FileTest {
 
             writeText(fileName1, writeContent);
 
-            String rc=readTXT(fileName1);
+            String rc = readTXT(fileName1);
             Integer m = 0;
 
         } catch (Exception ex) {

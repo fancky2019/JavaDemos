@@ -4,11 +4,10 @@ import Model.Student;
 import Test.test2018.Person;
 
 /**
- *
- *     = =:对于预定义的值类型，如果操作数的值相等，则相等运算符 (==) 返回 true，否则返回 false。
- *         对于引用类型，如果两个操作数引用同一个对象，则 == 返回 true。
- *         String 类型，== 同一个对象，注意内存驻留。
- *  equals:number类型值一样，String逐个字符比较是否一样，具体看String类的equals方法
+ * = =:对于预定义的值类型，如果操作数的值相等，则相等运算符 (==) 返回 true，否则返回 false。
+ * 对于引用类型，如果两个操作数引用同一个对象，则 == 返回 true。
+ * String 类型，== 同一个对象，注意内存驻留。
+ * equals:number类型值一样，String逐个字符比较是否一样，具体看String类的equals方法
  */
 public class EqualsOperatorTest {
     public void test() {
@@ -35,7 +34,7 @@ public class EqualsOperatorTest {
         Boolean r32 = student1 == student2;//false
         Boolean r33 = student1 == student3;//true
 
-        Integer m=0;
+        Integer m = 0;
     }
 
     private void Equal() {
@@ -43,8 +42,8 @@ public class EqualsOperatorTest {
         Integer a2 = 9;
         Integer a11 = 10;
         //拆箱比较intValue
-        Boolean ri=a1.equals(a2);
-        Boolean ri1=a1.equals(a11);
+        Boolean ri = a1.equals(a2);
+        Boolean ri1 = a1.equals(a11);
 
         String s1 = "abc";
         String s2 = "d";
@@ -58,6 +57,6 @@ public class EqualsOperatorTest {
         Boolean r3 = student1.equals(student11);// true,Person重写了Equals，如果不重写false
         Boolean r32 = student1.equals(student2);//false
         Boolean r33 = student1.equals(student3);//true
-        Integer m=0;
+        Integer m = 0;
     }
 }

@@ -7,18 +7,17 @@ import sun.security.krb5.internal.NetClient;
 import java.util.concurrent.CompletableFuture;
 
 public class NettyTest {
-    public  void test()
-    {
+    public void test() {
 
-        CompletableFuture.runAsync(()->
+        CompletableFuture.runAsync(() ->
         {
-          //  new NettyServer().test();
+            //  new NettyServer().test();
             new NetttyServerProduction().test();
 
         });
-        CompletableFuture.runAsync(()->
+        CompletableFuture.runAsync(() ->
         {
-         //   new NettyClient().test();
+            //   new NettyClient().test();
 //            NettyClientProduction nettyClientProduction = new NettyClientProduction();
 ////            nettyClientProduction.connect(()->
 ////            {
