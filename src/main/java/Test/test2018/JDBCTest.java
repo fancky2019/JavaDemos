@@ -25,13 +25,13 @@ public class JDBCTest {
             //  insert();
             // delete();
             // update();
-              query();
-          //  queryMultipleResult();
+            query();
+            //  queryMultipleResult();
             //procedure();
             //  procedureParamOutPut();
             //   transaction();
 //            pageData();
-            Integer m=0;
+            Integer m = 0;
         } catch (Exception ex) {
             String msg = ex.getMessage();
             Integer m = 0;
@@ -47,24 +47,20 @@ public class JDBCTest {
 //            String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=WMS;user=sa;password=123456;";
             Class.forName(Configs.Instance.getDriverName());
             Connection con = DriverManager.getConnection(Configs.Instance.getDburl());
-          //或者下面的创建连接重载
+            //或者下面的创建连接重载
 //            Connection con =     DriverManager.getConnection(Configs.Instance.getDburl(),Configs.Instance.getUser(),Configs.Instance.getPassword());
 
 
-
-
-
-
             //加载SQLJDBC驱动SQLServerDriver
-          //    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            //    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             // Create a variable for the connection string.
-      //      String connectionUrl = MessageFormat.format("{0};username={1};password={2}", Configs.Instance.getDburl(), Configs.Instance.getUser(), Configs.Instance.getPassword());
+            //      String connectionUrl = MessageFormat.format("{0};username={1};password={2}", Configs.Instance.getDburl(), Configs.Instance.getUser(), Configs.Instance.getPassword());
 
-     //       Connection dbConn = DriverManager.getConnection(connectionUrl);
-           // Class.forName(Configs.Instance.getDriverName());
-          //  com.microsoft.sqlserver.jdbc.SQLServerDriver
+            //       Connection dbConn = DriverManager.getConnection(connectionUrl);
+            // Class.forName(Configs.Instance.getDriverName());
+            //  com.microsoft.sqlserver.jdbc.SQLServerDriver
             //加载SQLJDBC驱动SQLServerDriver
-          //  Class.forName("com.microsoft.sqlserver.mssql-jdbc.SQLServerDriver");
+            //  Class.forName("com.microsoft.sqlserver.mssql-jdbc.SQLServerDriver");
 
 //            Connection dbConn = DriverManager.getConnection(Configs.Instance.getDburl(),
 //                    Configs.Instance.getUser(),

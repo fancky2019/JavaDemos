@@ -27,7 +27,9 @@ public @interface Description {
     //    @Description(value = "年龄",color="red",age = 25)
     // @Description( "年龄")
     String value();
+
     String color() default "blue";//为属性指定缺省值
+
     int age() default 25;
 //    Integer age1() default 25;//不支持
 //    LocalDateTime time()  ;//不支持

@@ -34,8 +34,8 @@ public class RabbitMQTest {
 //                }
 //            }
 
-              new  Test.opensource.rabbitMQ.rabbitMQProducer.DirectExchange().producer();
-            new  Test.opensource.rabbitMQ.rabbitMQProducer.FanoutExchange().producer();
+            new Test.opensource.rabbitMQ.rabbitMQProducer.DirectExchange().producer();
+            new Test.opensource.rabbitMQ.rabbitMQProducer.FanoutExchange().producer();
             new Test.opensource.rabbitMQ.rabbitMQProducer.TopicExchange().producer();
         });
 

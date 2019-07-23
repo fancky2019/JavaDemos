@@ -10,7 +10,7 @@ public class TryTest {
     private void tryFun() {
         try {
 
-           //像C#嵌套using 一样
+            //像C#嵌套using 一样
             try (InputStream inputStream = new FileInputStream("")) {
                 try (OutputStream outputStream = new FileOutputStream("")) {
 
@@ -21,7 +21,7 @@ public class TryTest {
             try (InputStream inputStream = new FileInputStream("");
                  OutputStream outputStream = new FileOutputStream("")) {
 
-                }
+            }
 
         } catch (IOException io) {
 

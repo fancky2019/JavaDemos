@@ -2,9 +2,9 @@ package Test.test2019.Netty;
 
 import java.io.Serializable;
 
-public class MessageInfo  implements Serializable {
-    private  MessageType messageType;
-    private  String body;
+public class MessageInfo implements Serializable {
+    private MessageType messageType;
+    private String body;
 
     public String getBody() {
         return body;
@@ -23,9 +23,8 @@ public class MessageInfo  implements Serializable {
     }
 
     @Override
-    public String  toString()
-    {
-        return  body;
+    public String toString() {
+        return body;
     }
 
 }

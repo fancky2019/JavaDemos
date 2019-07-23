@@ -236,7 +236,7 @@ public class StreamOptionalTest {
         Optional op2 = op1.map(p -> 2 * p);//10
         //返回必须设置Optional类型
         Optional op3 = op1.flatMap(p -> Optional.of(2 * p));//10
-        Optional op4= optionalInteger.map(p -> 2 * p);//empty
+        Optional op4 = optionalInteger.map(p -> 2 * p);//empty
 
 
         Integer p = 0;

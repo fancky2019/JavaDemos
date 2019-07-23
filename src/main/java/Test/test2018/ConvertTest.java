@@ -27,12 +27,11 @@ public class ConvertTest {
         String douNum1Str = String.valueOf(douNum);
 
 
-        char ch=intNumStr.charAt(0);
-        char[] chArray=intNumStr.toCharArray();
+        char ch = intNumStr.charAt(0);
+        char[] chArray = intNumStr.toCharArray();
 
-        String chStr=String.valueOf(ch);
-        String chStr1=Character.toString(ch);
-
+        String chStr = String.valueOf(ch);
+        String chStr1 = Character.toString(ch);
 
 
         Long numLong1 = 2L;
@@ -40,12 +39,12 @@ public class ConvertTest {
         //日期
         DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         LocalDateTime localDateTime1 = LocalDateTime.parse("2018-12-31 13:12:00.000", dateTimeFormatter1);
-        String localDateTimeStr=localDateTime1.format(dateTimeFormatter1);
+        String localDateTimeStr = localDateTime1.format(dateTimeFormatter1);
 
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = simpleDateFormat.parse("2018-11-26 13:25:22");
-            String dateStr=simpleDateFormat.format(date);
+            String dateStr = simpleDateFormat.format(date);
 
             Integer m = 0;
         } catch (Exception ex) {
@@ -58,7 +57,7 @@ public class ConvertTest {
 
         //true，java类型转换前最好先判断下，尤其是反射时候
         if (objectStudent instanceof Student) {
-            Student studentC =(Student) objectStudent;
+            Student studentC = (Student) objectStudent;
         }
         //false
         if (objectStudent instanceof Product) {

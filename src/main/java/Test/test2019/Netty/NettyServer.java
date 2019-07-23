@@ -44,7 +44,6 @@ public class NettyServer {
 //                            ch.pipeline().addLast("encoder", new StringEncoder());
 
 
-
                             ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
                             ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
 
@@ -86,7 +85,7 @@ class ServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext channelHandlerContext, Object msg) throws Exception {
         System.out.println(String.format("Server received from %s , msg:%s", channelHandlerContext.channel().remoteAddress(), msg));
         //应答心跳
-        if(msg instanceof  MessageInfo) {
+        if (msg instanceof MessageInfo) {
             MessageInfo messageInfo = (MessageInfo) msg;
             if (messageInfo.getMessageType() == MessageType.HeartBeat) {
                 MessageInfo heartBeatInfo = new MessageInfo();

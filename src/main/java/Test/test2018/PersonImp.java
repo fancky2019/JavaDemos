@@ -9,7 +9,7 @@ public class PersonImp implements Person {
 
     @Override
     public Integer getAge() {
-        return  0;
+        return 0;
     }
 
     @Override

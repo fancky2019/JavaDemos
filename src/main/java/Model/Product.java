@@ -27,7 +27,7 @@ public class Product {
     private Integer count;
 
     private LocalDateTime modifytime;
-  //  java.util.Date
+    //  java.util.Date
     //  sql  byte[]
     //mysql  Long
 //    private byte[] timestamp;
@@ -141,7 +141,6 @@ public class Product {
 ////    public void setTimestamp(byte[] timestamp) {
 ////        this.timestamp = timestamp;
 ////    }
-
 
 
     public Long getTimestamp() {

@@ -57,7 +57,7 @@ public class Main {
             //  new SetTest().test();
 
             //  new FileTest().test();
-             new ReflectDemo().test();
+            new ReflectDemo().test();
             //  new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
@@ -133,7 +133,7 @@ public class Main {
             Integer a = 0;
         } catch (Exception ex) {
             String str = ex.getMessage();
-            System.out.println( MessageFormat.format("main :{0}",str));
+            System.out.println(MessageFormat.format("main :{0}", str));
             Integer a = 0;
         }
     }

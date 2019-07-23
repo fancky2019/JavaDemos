@@ -23,7 +23,7 @@ public class TopicExchange {
                 channel.basicQos(0, 1, false);
                 String message = "MSG_TopicExchange";
                 channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, null, message.getBytes("UTF-8"));
-                System.out.println("Sent:"+message);
+                System.out.println("Sent:" + message);
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

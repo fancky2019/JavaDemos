@@ -72,11 +72,11 @@ public class ProduceConsumerConditionTest {
             }
             queue.offer(num);
             System.out.printf("enqueue %d \n", num);
-           // notEmpty.signal();
+            // notEmpty.signal();
         } finally {
             producerLock.unlock();
         }
-          signalNotEmpty();
+        signalNotEmpty();
 
 
     }
@@ -88,18 +88,18 @@ public class ProduceConsumerConditionTest {
                 try {
                     notEmpty.await();
                     //等待5S如果还没有收到通知，继续执行
-                  //  notEmpty.await(5*1000, TimeUnit.MILLISECONDS);
+                    //  notEmpty.await(5*1000, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException ex) {
                     System.out.println(ex.getMessage());
                 }
             }
             Integer num = queue.poll();
             System.out.printf("dequeue %d \n", num);
-           // notFull.signal();
+            // notFull.signal();
         } finally {
             consumerLock.unlock();
         }
-          signalNotFull();
+        signalNotFull();
     }
 
     private void signalNotEmpty() {

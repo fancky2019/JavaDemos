@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class ProduceConsumerTest {
     private ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<>();
     private Integer maxLength;
-    private  final Object lockObject = new Object();
+    private final Object lockObject = new Object();
 
     public ProduceConsumerTest(Integer maxLength) {
         this.maxLength = maxLength;

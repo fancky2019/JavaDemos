@@ -38,7 +38,7 @@ public class NettyClient {
                 public void initChannel(SocketChannel ch) throws Exception {
 
 
-                    ch.pipeline().addLast(new IdleStateHandler(2,2,2, TimeUnit.SECONDS));
+                    ch.pipeline().addLast(new IdleStateHandler(2, 2, 2, TimeUnit.SECONDS));
 
 //                    // 字符串解码和编码
 //                    // encoder 编码器， decoder 解码器
@@ -56,14 +56,14 @@ public class NettyClient {
 
 
             String line = "sendMessage";
-            for (Integer i=1;i<=20;i++) {
-                MessageInfo msg=new MessageInfo() ;
+            for (Integer i = 1; i <= 20; i++) {
+                MessageInfo msg = new MessageInfo();
                 msg.setMessageType(MessageType.HeartBeat);
-                msg.setBody(line+i.toString());
+                msg.setBody(line + i.toString());
                 channel.writeAndFlush(msg);
 
 
-               // channel.writeAndFlush(line+i.toString());
+                // channel.writeAndFlush(line+i.toString());
                 Thread.sleep(500);
             }
             // Wait until the connection is closed.
@@ -85,29 +85,30 @@ class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext channelHandlerContext, Object msg) throws Exception {
-        System.out.println(String.format("Client received from %s , msg:%s", channelHandlerContext.channel().remoteAddress() ,  msg));
-
+        System.out.println(String.format("Client received from %s , msg:%s", channelHandlerContext.channel().remoteAddress(), msg));
 
 
     }
 
     /**
      * 通道激活发送心跳检测
+     *
      * @param ctx
      * @throws Exception
      */
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        Executors.newScheduledThreadPool(1).scheduleWithFixedDelay(new CallBackRunnable<>(p->
+        Executors.newScheduledThreadPool(1).scheduleWithFixedDelay(new CallBackRunnable<>(p ->
         {
-            ChannelHandlerContext ch=(ChannelHandlerContext)p;
-            MessageInfo messageInfo=new MessageInfo() ;
+            ChannelHandlerContext ch = (ChannelHandlerContext) p;
+            MessageInfo messageInfo = new MessageInfo();
             messageInfo.setMessageType(MessageType.HeartBeat);
             messageInfo.setBody("HeartBeat");
             ch.writeAndFlush(messageInfo);
-         //   channelHandlerContext
-        },ctx),0, 2, TimeUnit.SECONDS);
+            //   channelHandlerContext
+        }, ctx), 0, 2, TimeUnit.SECONDS);
         super.channelActive(ctx);
     }
+
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();

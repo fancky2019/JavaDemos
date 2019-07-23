@@ -36,10 +36,10 @@ class Imp extends BaseImp implements Person, Worker {
 
 public class ImpTest {
     public void test() {
-        Imp imp=new Imp() ;
-     String nmae=   imp.impDefaultFieldName;
-     String address=imp.impProtectedFieldAddress;
-     String job=imp.impPublicFieldJob;
+        Imp imp = new Imp();
+        String nmae = imp.impDefaultFieldName;
+        String address = imp.impProtectedFieldAddress;
+        String job = imp.impPublicFieldJob;
     }
 
 }

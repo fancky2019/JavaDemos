@@ -10,7 +10,7 @@ public class ExchangeType {
      */
     public static final String FANOUT = "fanout";
     /**
-     *   Exchange type used for AMQP headers exchanges.
+     * Exchange type used for AMQP headers exchanges.
      */
     public static final String HEADERS = "headers";
     /**

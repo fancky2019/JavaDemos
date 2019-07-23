@@ -49,7 +49,7 @@ public class ThreadTest {
 
 //            interrupt();
 
-              threadTimeOut();
+            threadTimeOut();
 
             Integer n = 1;
             //whenComplete();
@@ -135,7 +135,7 @@ public class ThreadTest {
                     Integer m = Integer.parseInt("m");
                     Integer n = 0;
                 } catch (Exception ex) {
-                    System.out.println(MessageFormat.format("Thread inner :{0}",ex.getMessage()));
+                    System.out.println(MessageFormat.format("Thread inner :{0}", ex.getMessage()));
                     throw ex;
                 }
 
@@ -144,28 +144,28 @@ public class ThreadTest {
 
             thread.start();
         } catch (Exception ex) {
-            System.out.println(MessageFormat.format("threadException inner :{0}",ex.getMessage()));
+            System.out.println(MessageFormat.format("threadException inner :{0}", ex.getMessage()));
             Integer n = 0;
         }
 
-       //异常抛不出都主线程
+        //异常抛不出都主线程
         try {
 
-            ExecutorService executorService=    Executors.newCachedThreadPool();
-            executorService.execute(()->
+            ExecutorService executorService = Executors.newCachedThreadPool();
+            executorService.execute(() ->
             {
                 try {
                     Integer m = Integer.parseInt("m");
                     Integer n = 0;
                 } catch (Exception ex) {
-                    System.out.println(MessageFormat.format("newCachedThreadPool inner :{0}",ex.getMessage()));
+                    System.out.println(MessageFormat.format("newCachedThreadPool inner :{0}", ex.getMessage()));
                     throw ex;
                 }
             });
 
 
         } catch (Exception ex) {
-            System.out.println(MessageFormat.format("threadException inner 2 :{0}",ex.getMessage()));
+            System.out.println(MessageFormat.format("threadException inner 2 :{0}", ex.getMessage()));
             Integer n = 0;
         }
 
@@ -181,7 +181,7 @@ public class ThreadTest {
                     return 1;
                 } catch (Exception ex) {
                     // sleep interrupted；
-                    System.out.println(MessageFormat.format("newScheduledThreadPool inner  :{0}",ex.getMessage()));
+                    System.out.println(MessageFormat.format("newScheduledThreadPool inner  :{0}", ex.getMessage()));
                     throw ex; //可以把异常抛到主线程
                 }
             });
@@ -190,8 +190,8 @@ public class ThreadTest {
             Integer re = future.get();
 
         } catch (Exception ex) {
-            System.out.println(MessageFormat.format("threadException inner 3 :{0}",ex.getMessage()));
-            Integer m=0;
+            System.out.println(MessageFormat.format("threadException inner 3 :{0}", ex.getMessage()));
+            Integer m = 0;
         }
     }
     //endregion
@@ -421,7 +421,7 @@ public class ThreadTest {
                 } catch (Exception ex) {
                     // sleep interrupted；
                     System.out.println(ex.getMessage());
-                      throw ex; //可以把异常抛到主线程
+                    throw ex; //可以把异常抛到主线程
 //                    return -1;
                 }
             });

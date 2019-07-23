@@ -35,11 +35,11 @@ public class AsyncTest {
 
             }).thenApply(s ->
             {
-               //Do other work()
-                return s+2;
+                //Do other work()
+                return s + 2;
             });
 
-            CompletableFuture.runAsync(()->
+            CompletableFuture.runAsync(() ->
             {
                 asyncCallBack();
             });
