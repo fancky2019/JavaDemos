@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+/*
+泛型擦除：T-->object、上界(如果指定上界)、下界（如果指定下界）
+通配符?:用于类型变量。
+泛型：类型参数化
+ */
 public class GenericTest {
 
     public void test() {
@@ -72,6 +77,12 @@ public class GenericTest {
 
     }
 
+    public <T> void funVoid3(List<? extends T> t) {
+
+    }
+
+    //泛型擦除：T-->object、上界、下界
+    //funVoid3 和 funVoid2 泛型擦除后除名字不一样，都一样
     //super
     public <T> void funVoid2(List<? super T> list) {
 
