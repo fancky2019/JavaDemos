@@ -193,6 +193,10 @@ public class SetTest {
         //建议filterList.sort
         Collections.sort(filterList, Comparator.comparing(p -> p.getAge()));
 
+        //获取简单的统计
+        IntSummaryStatistics intSummaryStatistics = filterList.stream().mapToInt(p->p.getAge()).summaryStatistics();
+        Integer max=intSummaryStatistics.getMax();
+       // intSummaryStatistics.getCount();
         //正序
         Collections.sort(ageList);
         //逆序

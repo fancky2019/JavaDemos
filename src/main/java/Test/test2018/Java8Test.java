@@ -2,18 +2,23 @@ package Test.test2018;
 
 import Model.Student;
 
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class Java8Test {
     public void test() {
         //  getListObjectProperty();
-        localDateTimeTest();
+//        localDateTimeTest();
+        methodReference();
     }
 
     private void getListObjectProperty() {
@@ -96,5 +101,72 @@ public class Java8Test {
         Integer m = 0;
     }
 
-//    Optional<Integer>
+    private void optionalTest() {
+        Student stu = new Student("fancky", 1);
+        Student student = null;
+        Optional<Student> optionalStudent = Optional.ofNullable(stu);
+        //如果值存在，执行函数接口consumer，和C#的?.
+        optionalStudent.ifPresent(p -> System.out.println(p.getName()));
+
+        //取值
+        Student val = null;
+        if (optionalStudent.isPresent()) {
+            val = optionalStudent.get();
+        }
+        //如果值不存在就用Null
+        Student st = optionalStudent.orElse(null);
+        optionalStudent = Optional.ofNullable(null);
+        //  Student st1 = optionalStudent.orElse(null);
+
+
+//      Optional<Student> fla=  optionalStudent.flatMap(p->Optional.of(p));
+        Optional<String> fla = optionalStudent.flatMap(p -> Optional.of(p.getName()));
+        Integer m = 0;
+    }
+
+    // region 方法引用
+    private void methodReference() {
+        //方法引用就是lambda表达式的简写。
+        //方法应用的原型必须和函数接口相匹配。
+        //函数接口就当成C#里的委托用。
+        Consumer<String> consumer1 = (s) ->
+        {
+            String s1 = "abc";
+            s1 += s;
+            System.out.println(s1);
+        };
+        consumer1.accept("123");
+        Consumer<String> consumer = System.out::println;
+        consumer.accept("abc");
+        //报错
+//        Function<Integer,String> function1=functionMethod;
+        //方法应用的原型必须和函数接口相匹配。
+        Function<Integer, String> function = this::functionMethod;
+        function.apply(10);
+
+        Function<Function<Integer, String>, String> function2 = this::functionMethod2;
+        function2.apply(function);
+
+
+        //
+        Supplier<Java8Test> supplier = Java8Test::new;
+        Java8Test java8Test = supplier.get();
+
+        Supplier<Java8Test> supplier1 = () -> new Java8Test();
+        Java8Test java8Test1 = supplier1.get();
+    }
+
+    private String functionMethod(Integer m) {
+        System.out.println(MessageFormat.format("functionMethod executed ,parameter is {0}", m));
+        return m.toString();
+    }
+
+    private String functionMethod2(Function<Integer, String> function) {
+        System.out.println(" functionMethod2 executed");
+        return function.apply(20);
+    }
+
+    //endregion
+
+
 }
