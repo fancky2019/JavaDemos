@@ -1,6 +1,10 @@
 package Test.test2019.queue;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -33,6 +37,18 @@ public class QueueTest {
             Integer m = p;
             System.out.printf("thenAcceptAsync: m=%d\n", m);
         });
+    }
+
+    private void fun1() {
+        //
+        ArrayList arrayList = new ArrayList();
+        List<Integer> list = new ArrayList<>();
+        List<String> stringList = new LinkedList<>();
+
+        LinkedBlockingQueue<Integer> linkedBlockingQueue = new LinkedBlockingQueue<>();
+        ConcurrentLinkedQueue<Integer> concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
+        ConcurrentHashMap<String, Integer> concurrentHashMap = new ConcurrentHashMap<>();
+//        List<Integer>  list1=
     }
 
 

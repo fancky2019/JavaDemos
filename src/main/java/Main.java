@@ -68,7 +68,7 @@ public class Main {
 
             //   new LambdaTest().test();
 //             new CalendarTest().test();
-            // new Java8Test().test();
+             new Java8Test().test();
 //               new OptionalTest().test();
             //   new Configs().test();
 
