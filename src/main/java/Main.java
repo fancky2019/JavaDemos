@@ -57,7 +57,7 @@ public class Main {
             //  new SetTest().test();
 
             //  new FileTest().test();
-            new ReflectDemo().test();
+//            new ReflectDemo().test();
             //  new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
@@ -68,7 +68,7 @@ public class Main {
 
             //   new LambdaTest().test();
 //             new CalendarTest().test();
-             new Java8Test().test();
+//             new Java8Test().test();
 //               new OptionalTest().test();
             //   new Configs().test();
 
@@ -101,7 +101,7 @@ public class Main {
 
 
             //region test2019
-            //  new TryCatchFinallyReturnTest().test();
+              new TryCatchFinallyReturnTest().test();
             //  new  ProxyTest().test();
 
 
