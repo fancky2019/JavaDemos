@@ -3,10 +3,14 @@ package Model;
 
 import Test.test2018.Description;
 
-import java.io.Serializable;
+import java.util.Objects;
+import java.util.Random;
 
 /**
  * json序列化，不需要Serializable接口
+ * Idea 生成equals和hashCode ：Alt+ Insert-->选中"equals and hashCode"-->选中字段
+ *
+ * 如果不重写hashCode，则返回的是对象的内存地址。
  */
 public class Student extends StudentParent implements StudentInterface {
     // @SuppressWarnings("")
@@ -41,6 +45,36 @@ public class Student extends StudentParent implements StudentInterface {
         this.age = age;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(name, student.name) &&
+                Objects.equals(age, student.age);
+    }
+
+    /**
+     * 如果不重写hashCode，则返回的是对象的内存地址。
+     * HashCode不同， HashSet<Person> 对此调用同一对象add,只添加一次
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+
+
+    /**
+     * HashCode相同， HashSet<Person> 对此调用同一对象add,添加多次，不能判断重复。
+     * @return
+     */
+//    @Override
+//    public int hashCode() {
+//      // nextInt(100): [0, 100)
+//        return new Random().nextInt(100);
+//    }
 
 //    @Override
 //    public boolean equals(Object obj) {
