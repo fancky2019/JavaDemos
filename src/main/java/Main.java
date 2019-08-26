@@ -101,7 +101,7 @@ public class Main {
 
 
             //region test2019
-              new TryCatchFinallyReturnTest().test();
+          //    new TryCatchFinallyReturnTest().test();
             //  new  ProxyTest().test();
 
 
@@ -119,7 +119,7 @@ public class Main {
             // new TypeJudgeTest().test();
 
             //  new DivisionTest().test();
-//            new HashCodeTest().test();
+            new HashCodeTest().test();
             //   new LeftMoveTest().test();
             //  new RedissonTest().test();
 //              new ConstructorTest().test();
