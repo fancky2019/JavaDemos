@@ -1,5 +1,7 @@
 package Test.test2019;
 
+import Test.test2018.Person;
+
 /*
 Java不能声明静态类：只能声明静态内部类
 静态内部类： 静态类内可以有非静态成员，只能访问外部类的静态成员
@@ -8,6 +10,10 @@ Java不能声明静态类：只能声明静态内部类
 public class InnerClassTest {
     public void test() {
         //静态内部类实例化
+        Person person=null;
+        person.getAge();
+      //  BaseImp
+       // Animal
 
         OuterClass.StaticInnerClass staticInnerClass = new OuterClass.StaticInnerClass();
         // String name = OuterClass.StaticInnerClass.Name;
