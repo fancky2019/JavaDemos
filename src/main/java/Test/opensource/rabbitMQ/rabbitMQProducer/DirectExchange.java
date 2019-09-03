@@ -3,9 +3,10 @@ package Test.opensource.rabbitMQ.rabbitMQProducer;
 import Model.Student;
 import Test.opensource.rabbitMQ.ExchangeType;
 import com.alibaba.fastjson.JSONObject;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DirectExchange {
     public static final String EXCHANGE_NAME = "DirectExchangeJava";
@@ -59,7 +60,23 @@ public class DirectExchange {
                 Student student = new Student();
                 student.setName("fancky");
                 message = JSONObject.toJSONString(student);
-                channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, null, message.getBytes("UTF-8"));
+
+
+
+                Map<String, Object> headers = new HashMap<String, Object>();
+                headers.put("my1", "1111");
+                headers.put("my2", "2222");
+
+                AMQP.BasicProperties basicProperties = new AMQP.BasicProperties().builder()
+                      //  .deliveryMode(2) // 传送方式
+                     //   .contentEncoding("UTF-8") // 编码方式
+                      //  .expiration("10000") // 过期时间
+                        // .headers(headers) //自定义属性
+                        .build();
+
+
+              //  BasicProperties 默认为：   MessageProperties.MINIMAL_BASIC
+                  channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, null, message.getBytes("UTF-8"));
                 System.out.println(" Sent:" + message);
 
             }
