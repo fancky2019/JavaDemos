@@ -92,7 +92,7 @@ public class Main {
 //              new ConvertTest().test();
             //  new AnnotationTest().test();
 
-            //  new RabbitMQTest().test();
+              new RabbitMQTest().test();
             //  new  QueueTest().test();
 
 //               new  GenericTest().test();
@@ -119,7 +119,7 @@ public class Main {
             // new TypeJudgeTest().test();
 
             //  new DivisionTest().test();
-            new HashCodeTest().test();
+//            new HashCodeTest().test();
             //   new LeftMoveTest().test();
             //  new RedissonTest().test();
 //              new ConstructorTest().test();

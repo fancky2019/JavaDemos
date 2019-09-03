@@ -1,6 +1,7 @@
 package Test.opensource.rabbitMQ.rabbitMQProducer;
 
 import Test.opensource.rabbitMQ.ExchangeType;
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
