@@ -11,6 +11,13 @@ import com.rabbitmq.client.DeliverCallback;
 import java.util.Map;
 
 public class DirectExchange {
+    /*
+     * 持久化：
+     * Exchange：ExchangeDeclare 参数durable: true，宕机只保存Exchange元数据 ，Queue、Message丢失
+     * Queue:QueueDeclare 参数durable: true         宕机只保存Queue元数据，Message丢失
+     * Message:BasicProperties 属性 deliveryMode = 2 //2:持久化，1：不持久化;   宕机只保存Queue元数据。
+     */
+
     public static final String EXCHANGE_NAME = "DirectExchangeJava";
     public static final String ROUTING_KEY = "DirectExchangeRoutingKeyJava";
     public static final String QUEUE_NAME = "DirectExchangeQueueJava";

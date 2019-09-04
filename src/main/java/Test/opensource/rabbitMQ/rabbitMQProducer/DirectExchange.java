@@ -9,6 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DirectExchange {
+
+    /*
+     * 持久化：
+     * Exchange：ExchangeDeclare 参数durable: true，宕机只保存Exchange元数据 ，Queue、Message丢失
+     * Queue:QueueDeclare 参数durable: true         宕机只保存Queue元数据，Message丢失
+     * Message:BasicProperties 属性 deliveryMode = 2 //2:持久化，1：不持久化;   宕机只保存Queue元数据。
+     */
+
     public static final String EXCHANGE_NAME = "DirectExchangeJava";
     public static final String ROUTING_KEY = "DirectExchangeRoutingKeyJava";
 
@@ -68,15 +76,16 @@ public class DirectExchange {
                 headers.put("my2", "2222");
 
                 AMQP.BasicProperties basicProperties = new AMQP.BasicProperties().builder()
-                      //  .deliveryMode(2) // 传送方式
+                      //  .deliveryMode(2) //   // Sets RabbitMQ.Client.IBasicProperties.DeliveryMode to either persistent (2)  or non-persistent (1).
+                        //                //2:持久化，1：不持久化
                      //   .contentEncoding("UTF-8") // 编码方式
                       //  .expiration("10000") // 过期时间
                         // .headers(headers) //自定义属性
                         .build();
 
 
-              //  BasicProperties 默认为：   MessageProperties.MINIMAL_BASIC
-                  channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, null, message.getBytes("UTF-8"));
+              //  BasicProperties 默认为：   MessageProperties.MINIMAL_BASIC,不持久化
+                  channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, MessageProperties.MINIMAL_PERSISTENT_BASIC, message.getBytes("UTF-8"));
                 System.out.println(" Sent:" + message);
 
             }
