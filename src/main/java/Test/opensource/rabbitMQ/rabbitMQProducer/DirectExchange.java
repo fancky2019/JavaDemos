@@ -102,6 +102,7 @@ void basicPublish(String var1, String var2, boolean mandatory, boolean immediate
                 //mandatory设置为true,第三个参数
                 channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY,true, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"));
               //没有路由的消息返回。RabbitMQ会调用Basic.Return命令将消息返回给生产者。当mandatory参数设置为false时，出现上述情形的话，消息直接被丢弃
+              //  //没有路由的消息将会回退,消息没有找到可路由转发的队里，立即回发给生产者。
                 channel.addReturnListener((int replyCode, String replyText, String exchange, String routingKey, AMQP.BasicProperties basicProperties, byte[] body) -> {
                     String msg = new String(body);
                     System.out.println("Basic.Return返回的结果是：" + msg);
