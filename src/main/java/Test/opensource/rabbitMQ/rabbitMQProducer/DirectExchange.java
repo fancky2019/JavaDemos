@@ -5,9 +5,14 @@ import Test.opensource.rabbitMQ.ExchangeType;
 import com.alibaba.fastjson.JSONObject;
 import com.rabbitmq.client.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 官方API:
+ * https://www.rabbitmq.com/api-guide.html
+ */
 public class DirectExchange {
 
     /*
@@ -70,22 +75,38 @@ public class DirectExchange {
                 message = JSONObject.toJSONString(student);
 
 
-
                 Map<String, Object> headers = new HashMap<String, Object>();
                 headers.put("my1", "1111");
                 headers.put("my2", "2222");
 
-                AMQP.BasicProperties basicProperties = new AMQP.BasicProperties().builder()
-                      //  .deliveryMode(2) //   // Sets RabbitMQ.Client.IBasicProperties.DeliveryMode to either persistent (2)  or non-persistent (1).
+                AMQP.BasicProperties basicProperties1 = new AMQP.BasicProperties().builder()
+                        //  .deliveryMode(2) //   // Sets RabbitMQ.Client.IBasicProperties.DeliveryMode to either persistent (2)  or non-persistent (1).
                         //                //2:持久化，1：不持久化
-                     //   .contentEncoding("UTF-8") // 编码方式
-                      //  .expiration("10000") // 过期时间
+                        //   .contentEncoding("UTF-8") // 编码方式
+                        //  .expiration("10000") // 过期时间
                         // .headers(headers) //自定义属性
                         .build();
 
+/*
+回退采用此方法。
+void basicPublish(String exchange, String routingKey, boolean mandatory, BasicProperties props, byte[] body) throws IOException;
 
-              //  BasicProperties 默认为：   MessageProperties.MINIMAL_BASIC,不持久化
-                  channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, MessageProperties.MINIMAL_PERSISTENT_BASIC, message.getBytes("UTF-8"));
+
+下面这个方法被官方废弃，性能问题
+void basicPublish(String var1, String var2, boolean mandatory, boolean immediate, BasicProperties props, byte[] body) throws IOException;
+ */
+
+
+
+                //  BasicProperties 默认为：   MessageProperties.MINIMAL_BASIC,不持久化
+                //mandatory设置为true,第三个参数
+                channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY,true, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"));
+              //没有路由的消息返回。RabbitMQ会调用Basic.Return命令将消息返回给生产者。当mandatory参数设置为false时，出现上述情形的话，消息直接被丢弃
+                channel.addReturnListener((int replyCode, String replyText, String exchange, String routingKey, AMQP.BasicProperties basicProperties, byte[] body) -> {
+                    String msg = new String(body);
+                    System.out.println("Basic.Return返回的结果是：" + msg);
+                });
+
                 System.out.println(" Sent:" + message);
 
             }

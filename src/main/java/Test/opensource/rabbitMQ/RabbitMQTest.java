@@ -2,6 +2,10 @@ package Test.opensource.rabbitMQ;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * 官方API:
+ * https://www.rabbitmq.com/api-guide.html
+ */
 public class RabbitMQTest {
     public void test() {
 
