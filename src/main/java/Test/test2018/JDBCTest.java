@@ -16,6 +16,11 @@ import java.util.*;
 
 /*
 github:https://github.com/Microsoft/mssql-jdbc
+不用配置本地mssql-jdbc驱动，动过maven从仓库里下载。具体在pom.xml配置文件。
+ */
+
+/**
+ * MSSQL 数据库操作
  */
 public class JDBCTest {
 

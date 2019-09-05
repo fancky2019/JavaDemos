@@ -92,7 +92,7 @@ public class Main {
 //              new ConvertTest().test();
             //  new AnnotationTest().test();
 
-              new RabbitMQTest().test();
+//              new RabbitMQTest().test();
             //  new  QueueTest().test();
 
 //               new  GenericTest().test();
@@ -126,7 +126,7 @@ public class Main {
 //            new JDBCTest().test();
 //            new MysqlTest().test();
 //            new ReferenceDemo().test();
-
+            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 
