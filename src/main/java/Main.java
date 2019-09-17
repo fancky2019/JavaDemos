@@ -1,4 +1,5 @@
 
+import Test.opensource.jwt.JwtTest;
 import Test.opensource.kafka.KafkaTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
@@ -128,7 +129,8 @@ public class Main {
 //            new MysqlTest().test();
 //            new ReferenceDemo().test();
 
-            new SerializableTest().test();
+//            new SerializableTest().test();
+            new JwtTest().test();
 
 //            new KafkaTest().test();
 
