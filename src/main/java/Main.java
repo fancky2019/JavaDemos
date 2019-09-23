@@ -6,11 +6,13 @@ import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
 import Test.test2018.*;
 import Test.test2019.*;
+import Test.test2019.queue.BlockingQueueTest;
 import common.Configs;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -130,10 +132,12 @@ public class Main {
 //            new ReferenceDemo().test();
 
 //            new SerializableTest().test();
-            new JwtTest().test();
+//            new JwtTest().test();
 
 //            new KafkaTest().test();
 
+
+            new BlockingQueueTest().delayQueueFun();
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
