@@ -4,11 +4,11 @@ import Model.Student;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.Period;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalUnit;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class Java8Test {
     public void test() {
         //  getListObjectProperty();
-//        localDateTimeTest();
-        methodReference();
+        localDateTimeTest();
+//        methodReference();
     }
 
     private void getListObjectProperty() {
@@ -95,9 +95,35 @@ public class Java8Test {
         //小的时间在前 Duration是秒，纳秒
         Duration duration = Duration.between(localDateTime4, localDateTime);
 
+        Long day = duration.toDays();
         Long days = duration.getSeconds() / (24l * 60l * 60l);
-
         Integer idays = days.intValue();
+
+
+        //2019-09-20T09:46:20.203
+        LocalDateTime localDateTimeNow = LocalDateTime.now();
+
+        //转换成带时区的时间
+        //2019-09-20T09:46:20.203+08:00[Asia/Shanghai]
+        ZonedDateTime zonedDateTime = localDateTimeNow.atZone(ZoneId.systemDefault());
+        //格式化
+        //2019-09-20 09:53:30.997
+        String nowStr = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+
+        //日期运算，年月日部分运算。
+        LocalDateTime addDateTime = localDateTimeNow.plusDays(1);
+        LocalDateTime minusDateTime = localDateTimeNow.minusHours(3);
+
+        // 东八区时
+        TimeZone timeZone = TimeZone.getTimeZone("GMT-8");
+
+
+        //和时间戳相互转换
+        //  Convert LocalDateTime to milliseconds since January 1, 1970, 00:00:00 GMT
+        Long milliseconds = LocalDateTime.now().atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
+        // epoch milliseconds to LocalDateTime
+        LocalDateTime newNow = LocalDateTime.ofInstant(Instant.ofEpochMilli(milliseconds), ZoneOffset.UTC);
+
         Integer m = 0;
     }
 

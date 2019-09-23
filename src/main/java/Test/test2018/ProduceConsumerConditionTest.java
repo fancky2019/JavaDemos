@@ -85,7 +85,7 @@ public class ProduceConsumerConditionTest {
             //element() 和 peek() 用于在队列的头部查询元素。与 remove() 方法类似，在队列为空时， element() 抛出一个异常，而 peek() 返回 null
             queue.offer(num);
             System.out.printf("enqueue %d \n", num);
-            // notEmpty.signal();
+            // notEmpty.signal();//应在此处通知消费者锁释放信号，signalNotEmpty（）造成再次加锁，性能损耗。
         } finally {
             producerLock.unlock();
         }
