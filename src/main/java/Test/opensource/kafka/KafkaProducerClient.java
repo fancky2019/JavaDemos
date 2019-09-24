@@ -19,29 +19,34 @@ public class KafkaProducerClient {
     public static final String CLIENT_ID = "SimpleConsumerDemoClient";
 
     public void producer() {
-        KafkaProducer<Integer, String> producer;
+        KafkaProducer<String, String> producer;
         String topic = "javaTest";
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "DemoProducer");
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
+        //整形序列化在Kafka Tool 工具中看不到Key的值
+//        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        //顺序
+//        props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, "1");
+
         producer = new KafkaProducer<>(props);
 
         Boolean isAsync = true;
 
         int messageNo = 1;
         while (messageNo<10) {
-            Integer key=messageNo;
+            String keyStr=String.valueOf(messageNo);
             String messageStr = "Message_" + messageNo;
             long startTime = System.currentTimeMillis();
             if (isAsync) { // Send asynchronously
-                producer.send(new ProducerRecord<>(topic, messageNo, messageStr),
+                producer.send(new ProducerRecord<>(topic, keyStr, messageStr),
                         (RecordMetadata recordMetadata, Exception e) ->
                         {
                             long elapsedTime = System.currentTimeMillis() - startTime;
                             if (recordMetadata != null) {
-                                System.out.println(    "message(" + key + ", " + messageStr + ") sent to partition(" + recordMetadata.partition() +
+                                System.out.println(    "message(" + keyStr + ", " + messageStr + ") sent to partition(" + recordMetadata.partition() +
                                                 "), " +
                                                 "offset(" + recordMetadata.offset() + ") in " + elapsedTime + " ms");
                             } else {
@@ -53,7 +58,7 @@ public class KafkaProducerClient {
             } else { // Send synchronously
                 try {
 
-                    producer.send(new ProducerRecord<>(topic,  messageNo,  messageStr)).get();
+                    producer.send(new ProducerRecord<>(topic,  keyStr,  messageStr)).get();
                     System.out.println("Sent message: (" + messageNo + ", " + messageStr + ")");
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
