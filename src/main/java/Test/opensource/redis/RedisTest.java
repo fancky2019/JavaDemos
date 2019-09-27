@@ -63,21 +63,58 @@ public class RedisTest {
 
     public void test() {
         Integer db = jedis.getDB();
-        stringTest();
-        hash();
-        list();
-        set();
-        sortedSet();
+//        stringTest();
+//        hash();
+//        list();
+//        set();
+//        sortedSet();
+//        increment();
+        transactionTest();
+
+    }
+
+    /**
+     * 自增、自减
+     */
+    private void increment() {
+        jedis.incr("incrKey");//如果没有key 创建一个key,值=1
+        jedis.incrBy("incrKey", 2);//value + 2
+        jedis.decr("incrKey");//value - 1
+
+        jedis.del("incrKey");
+        Integer m = 0;
+    }
+
+    /**
+     * 事务
+     */
+    private void transactionTest() {
+        //启动事务前watch  key,如果key在exec执行是否改变了，将不执行，否则执行。exec后将取消watch key。
+        //乐观锁:原理有点像CAS(比较交换compare and swap).CAS 存在ABA问题，解决 乐观锁（version、时间戳).
+        jedis.watch("lockKey");
+        Transaction transaction = jedis.multi();
+
+//        transaction.incr("jedis");
+        transaction.set("lockKey", "22");
+        transaction.exec();
+
+        // 放弃事务
+//        transaction.discard();
+
+
     }
 
     /**
      * redis操作字符串
      */
     public void stringTest() {
-        //添加数据
+        //写
         jedis.set("stringKey", "fancky");
         //拼接字符串
         jedis.append("stringKey", ".com");
+
+        //读
+        String val = jedis.get("stringKey");
         //删除数据
         jedis.del("stringKey");
         //设置多个键值对
