@@ -87,6 +87,9 @@ public class RedisTest {
 
     /**
      * 事务
+     * Redis 单线程。
+     * 如果只有一个连接时候不会有并发问题，但是有两个连接的时候就会有并发问题要加事务。
+     * 一主多从，主写从读。
      */
     private void transactionTest() {
         //启动事务前watch  key,如果key在exec执行是否改变了，将不执行，否则执行。exec后将取消watch key。
