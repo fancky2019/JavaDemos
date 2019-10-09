@@ -7,6 +7,9 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.*;
 
+/**
+ * 数据类型的首字母找对应的数据类型的操作
+ */
 public class RedisTest {
     private Jedis jedis;//非切片额客户端连接
     private JedisPool jedisPool;//非切片连接池
@@ -20,7 +23,7 @@ public class RedisTest {
 //        获取Jedis实例
         jedis = jedisPool.getResource();
         //设置数据库索引
-        jedis.select(10);
+        jedis.select(0);
     }
 
     private JedisPoolConfig configJedisPoolConfig() {
@@ -73,6 +76,15 @@ public class RedisTest {
 
     }
 
+    //region utility
+    private void utility() {
+        jedis.flushDB();//清空当前数据库
+        jedis.select(0);//切换数据库
+    }
+    //endregion
+
+    //region increment
+
     /**
      * 自增、自减
      */
@@ -84,53 +96,63 @@ public class RedisTest {
         jedis.del("incrKey");
         Integer m = 0;
     }
+    //endregion
 
-    /**
-     * 事务
-     * Redis 单线程。
-     * 如果只有一个连接时候不会有并发问题，但是有两个连接的时候就会有并发问题要加事务。
-     * 一主多从，主写从读。
-     */
-    private void transactionTest() {
-        //启动事务前watch  key,如果key在exec执行是否改变了，将不执行，否则执行。exec后将取消watch key。
-        //乐观锁:原理有点像CAS(比较交换compare and swap).CAS 存在ABA问题，解决 乐观锁（version、时间戳).
-        jedis.watch("lockKey");
-        Transaction transaction = jedis.multi();
-
-//        transaction.incr("jedis");
-        transaction.set("lockKey", "22");
-        transaction.exec();
-
-        // 放弃事务
-//        transaction.discard();
-
-
-    }
+    //region string
 
     /**
      * redis操作字符串
      */
     public void stringTest() {
+
+        // 数据结构
+        //StringRedisKey1  StringValue1
+        //StringRedisKey1  StringValue2
+        //StringRedisKey1  StringValue3
+        //    *                *
+        //    *                *
+        //    *                *
+
         //写
         jedis.set("stringKey", "fancky");
+        //设置多个键值对
+        jedis.mset("stringKey2", "stringValue", "stringKey3", "22", "stringKey4", "stringValue4");
         //拼接字符串
         jedis.append("stringKey", ".com");
+        jedis.incr("stringKey3");//加1操作,如果Key不存在就新建一个Key
+
 
         //读
         String val = jedis.get("stringKey");
         //删除数据
         jedis.del("stringKey");
-        //设置多个键值对
-        jedis.mset("stringKey2", "stringValue", "stringKey3", "22", "stringKey4", "stringValue4");
-        jedis.incr("stringKey3");//加1操作,如果Key不存在就新建一个Key
-    }
 
+    }
+    //endregion
+
+    //region hash
 
     /**
      * redis操作map集合
      */
     public void hash() {
-        //添加数据
+
+        // 数据结构
+        //HashSetRedisKey1  HashSetKey1 HashSetValue1
+        //                  HashSetKey2 HashSetValu2
+        //                  HashSetKey3 HashSetValu3
+        //                       *            *
+        //                       *            *
+        //                       *            *
+        //HashSetRedisKey2  HashSetKey1 HashSetValue1
+        //                  HashSetKey2 HashSetValu2
+        //                  HashSetKey3 HashSetValu3
+        //                      *             *
+        //                      *             *
+        //                      *             *
+
+
+        //写
         HashMap<String, String> hash = new HashMap();
 
         hash.put("fieldName", "yc");
@@ -139,6 +161,7 @@ public class RedisTest {
         //添加
         jedis.hmset("hashKey1", hash);
 
+        //读
         //取出users中的Name,执行结果:[minxr]-->注意结果是一个泛型的List
         //第一个参数是存入redis中map对象的key,后面跟的是放入map中对象的key,后面的key可以是多个，是可变的
         //查询
@@ -146,8 +169,10 @@ public class RedisTest {
         System.out.println(rsmap);
 
 
+        //删
         //删除Hash表的key:hashKey1的field是age的值
         jedis.hdel("hashKey1", "age");
+        jedis.del("hashKey1");
         System.out.println(jedis.hmget("hashKey1", "age"));//因为删除了，所以返回的是Null
         System.out.println(jedis.hlen("hashKey1"));//返回key为user的键中存放的值的个数2
         System.out.println(jedis.exists("hashKey1"));//是否存在key为user的记录，返回true
@@ -160,41 +185,79 @@ public class RedisTest {
         }
 
     }
+    //endregion
+
+    //region list
 
     /**
      * redis操作List集合
      */
     public void list() {
-        //开始前，先移除所有的内容
-        jedis.del("listKey");
+
+        //数据结构
+        //ListRedisKey1   ListValue1
+        //                ListValue2
+        //                ListValue3
+        //                    *
+        //                    *
+        //                    *
+        //ListRedisKey2   ListValue1
+        //                ListValue2
+        //                ListValue3
+        //                    *
+        //                    *
+        //                    *
+
+
+        //写
         //先向key java framework 中存放三条数据
         jedis.lpush("listKey", "spring");
         jedis.lpush("listKey", "struts");
         jedis.lpush("listKey", "hibernate");
+        jedis.rpush("listKey", "spring");
+        jedis.rpush("listKey", "struts");
+        jedis.rpush("listKey", "hibernate");
 
+        //读
         //再取出所有数据jedis.lrange是按范围取出
         //第一个是key,第二个是起始位置，第三个是结束位置，jedis.llen获取长度 -1表示取得所有
         //取出所有，但是不删除库
         List<String> listAll = jedis.lrange("listKey", 0, -1);
 
+        //删
         //取出并从库中移除
         jedis.lpop("listKey");
-
         jedis.del("listKey");
-        jedis.rpush("listKey", "spring");
-        jedis.rpush("listKey", "struts");
-        jedis.rpush("listKey", "hibernate");
+
         System.out.println(jedis.lrange("listKey", 0, -1));
 
 
     }
+    //endregion
 
+    //region set
 
     /**
      * redis操作set集合
      */
     public void set() {
-        //添加
+
+        //数据结构
+        //SetRedisKey1    SetValue1
+        //                SetValue2
+        //                SetValue3
+        //                    *
+        //                    *
+        //                    *
+        //SetRedisKey2    SetValue1
+        //                SetValue2
+        //                SetValue3
+        //                    *
+        //                    *
+        //                    *
+
+
+        //写
         jedis.sadd("setKey1", "setValue1");
         jedis.sadd("setKey2", "setValue2");
         jedis.sadd("setKey3", "setValue3");
@@ -202,19 +265,55 @@ public class RedisTest {
         jedis.sadd("setKey4", "setValue4");
         jedis.sadd("setKey4", "setValue41");
         jedis.sadd("setKey4", "setValue42");
-        //删除值
-        jedis.srem("setKey1", "setValue1");
-        //删除
-        jedis.del("setKey2");
+
+
+        //读
         Set<String> allVal = jedis.smembers("setKey3");//获取所有加入的value
         Boolean exist = jedis.sismember("setKey4", "setValue4");//判断who是否是user集合的元素
         String val = jedis.srandmember("setKey4");// set 集合中的“随机”元素
         Long count = jedis.scard("setKey4");//返回集合的元素个数
+
+
+        //集合运算
+        //交集
+        Set<String> intersect = jedis.sinter("setKey1", "setKey2");
+        jedis.sinterstore("setIntersectSoreKey", "setKey1", "setKey2");
+        //并集
+        Set<String> union = jedis.sunion("setKey1", "setKey2");
+        jedis.sunionstore("setUnionSoreKey", "setKey1", "setKey2");
+        //差集
+        Set<String> difference = jedis.sdiff("setKey1", "setKey2");
+        jedis.sdiffstore("setDifferenceSoreKey", "setKey1", "setKey2");
+
+
+        //删
+        //删除值
+        jedis.srem("setKey1", "setValue1");
+        //删除
+        jedis.del("setKey2");
+
     }
+    //endregion
 
-
+    //region sortedSet
     public void sortedSet() {
 
+        //数据结构
+        //                                           Score
+        //SortedSetRedisKey1    SortedSetValue1        1
+        //                      SortedSetValue2        2
+        //                      SortedSetValue3        3
+        //                           *                 *
+        //                           *
+        //                           *
+        //SortedSetRedisKey2    SortedSetValue1        1
+        //                      SortedSetValue2        2
+        //                      SortedSetValue3        3
+        //                           *                 *
+        //                           *                 *
+        //                           *                 *
+
+        //写
         jedis.zadd("sortedSetKey1", 1d, "sortedSetValue1");
         jedis.zadd("sortedSetKey1", 2d, "sortedSetValue12");
         jedis.zadd("sortedSetKey1", 3d, "sortedSetValue13");
@@ -222,6 +321,7 @@ public class RedisTest {
         jedis.zadd("sortedSetKey2", 2d, "sortedSetValue2");
         jedis.zadd("sortedSetKey3", 3d, "sortedSetValue3");
 
+        //读
         //取值该Key的所有
         Set<String> setStr = jedis.zrange("sortedSetKey1", 0, -1);
         //取2个
@@ -231,11 +331,47 @@ public class RedisTest {
             String str = zSetStringIterator.next();
             Integer n = 0;
         }
+
+        //集合运算
+        //交集
+        jedis.zinterstore("setIntersectSoreKey", "setKey1", "setKey2");
+        //并集
+        jedis.zunionstore("setUnionSoreKey", "setKey1", "setKey2");
+
         //删除Key中的一个值
         jedis.zrem("sortedSetKey1", "sortedSetValue12");
         //删除
         jedis.del("sortedSetKey2");
     }
+    //endregion
 
+    //region 事务
 
+    /**
+     * 事务
+     * Redis 单线程。
+     * 如果只有一个连接时候不会有并发问题，但是有两个连接的时候就会有并发问题要加事务。
+     * 一主多从，主写从读。
+     */
+    private void transactionTest() {
+        //启动事务前watch  key,如果key在exec执行是否改变了，将不执行，否则执行。exec后将取消watch key。
+        //乐观锁:原理有点像CAS(比较交换compare and swap).CAS 存在ABA问题，解决 乐观锁（version、时间戳).
+
+        //watch的可以一定要存在，否则无法控制事务。
+        String watchKey = "lockKey";
+        if (!jedis.exists(watchKey)) {
+            jedis.incr(watchKey);
+        }
+        jedis.watch(watchKey);
+        Transaction transaction = jedis.multi();
+
+        transaction.incr("jedis");
+        //如果watch的值改变，将不执行事务。
+        transaction.exec();
+
+        // 放弃事务
+//        transaction.discard();
+
+    }
+    //endregion
 }
