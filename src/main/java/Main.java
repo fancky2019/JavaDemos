@@ -76,7 +76,7 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-              new RedisTest().test();
+//              new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
@@ -132,7 +132,7 @@ public class Main {
 //            new SerializableTest().test();
 //            new JwtTest().test();
 
-//            new KafkaTest().test();
+            new KafkaTest().test();
 
 
 //            new BlockingQueueTest().delayQueueFun();
