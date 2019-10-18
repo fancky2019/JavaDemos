@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
 
@@ -133,7 +134,8 @@ public class Main {
 //            new JwtTest().test();
 
 //            new KafkaTest().test();
-            new SemaphoreTest().test();
+//            new SemaphoreTest().test();
+            new AtomicIntegerTest().test();
 
 //            new BlockingQueueTest().delayQueueFun();
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
