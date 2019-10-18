@@ -284,6 +284,16 @@ public class ThreadTest {
     //region CompletableFuture
     private CompletableFuture<Integer> completableFutureDemo() {
         try {
+
+            //CompletableFuture 内部默认最多启动处理器个数 -1 个线程执行任务。
+            CompletableFuture.runAsync(() ->
+            {
+            });
+            // 指定Executor， CompletableFuture 内部创建 Integer.MAX_VALUE个线程
+            CompletableFuture.runAsync(() ->
+            {
+            },Executors.newCachedThreadPool());
+
             //没有返回值
             CompletableFuture<Void> voidCompletableFuture = CompletableFuture.runAsync(() ->
             {

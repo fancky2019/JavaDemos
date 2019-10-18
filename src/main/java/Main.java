@@ -132,8 +132,8 @@ public class Main {
 //            new SerializableTest().test();
 //            new JwtTest().test();
 
-            new KafkaTest().test();
-
+//            new KafkaTest().test();
+            new SemaphoreTest().test();
 
 //            new BlockingQueueTest().delayQueueFun();
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
