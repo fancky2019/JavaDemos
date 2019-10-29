@@ -46,6 +46,24 @@ public class VolatileTest {
         System.out.println(volParam);
     }
 
+    /*
+    submit(Callable<T> task) 内部实现：
+    *public class FutureTask<V> implements RunnableFuture<V>
+    public interface RunnableFuture<V> extends Runnable, Future<V> {
+    void run();
+     }
+     public interface ExecutorService extends Executor
+     public abstract class AbstractExecutorService implements ExecutorService
+     ExecutorService 调用 父类 AbstractExecutorService 类实现接口ExecutorService的submit方法，
+     submit内部调用 Executor接口的execute方法，execute 由 ThreadPoolExecutor类实现
+
+      ThreadPoolExecutor的方法execute(Runnable command) 调用  addWorker(Runnable firstTask, boolean core)将Runnable
+       添加到worker 队列，addWorker内启动线程将Runnable 传给内部线程，启动执行。
+
+      FutureTask<V> implements RunnableFuture<V>  实现  RunnableFuture<V>接口的run 方法
+      run 方法内部调用 Callable<T> 的call实现,并调用set(V v) 方法把执行结果赋值给全局变量。
+
+     */
     private void fun3() {
         //extends RunnableFuture<V> extends Runnable, Future<V>
         FutureTask<Void> future = new FutureTask<Void>(() ->
