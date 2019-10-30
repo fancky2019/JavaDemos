@@ -66,6 +66,7 @@ public class Main {
             //  new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
+            new ClassLoaderTest().test();
 
 
             //  new PropertiesTest().test1();
@@ -136,7 +137,7 @@ public class Main {
 //            new KafkaTest().test();
 //            new SemaphoreTest().test();
 //            new AtomicIntegerTest().test();
-            new VolatileTest().test();
+          //  new VolatileTest().test();
 
 //            new BlockingQueueTest().delayQueueFun();
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
