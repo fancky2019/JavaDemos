@@ -39,7 +39,19 @@ public class ClassLoaderTest {
         SuperClass
         ChildClass
          */
-        new ChildClass().getChildStr1();
+        // new ChildClass().getChildStr1();
+
+        try {
+            //Launcher&AppClassLoader
+            ClassLoader cl=   ClassLoaderTest.class.getClassLoader();
+            if(cl==null)
+            {
+                cl.loadClass("Test.test2018.ChildClass");
+            }
+
+        } catch (Exception ex) {
+
+        }
     }
 }
 
