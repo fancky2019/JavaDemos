@@ -12,6 +12,9 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+/**
+ * callable和runnable 区别在VolatileTest类内有描述。
+ */
 public class ThreadTest {
 
     public void test() {
