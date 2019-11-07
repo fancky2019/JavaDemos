@@ -19,6 +19,7 @@ public class Java8Test {
         //  getListObjectProperty();
         localDateTimeTest();
 //        methodReference();
+
     }
 
     private void getListObjectProperty() {
