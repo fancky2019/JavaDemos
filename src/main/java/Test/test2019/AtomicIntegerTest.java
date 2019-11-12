@@ -64,6 +64,8 @@ public class AtomicIntegerTest {
      * 释放锁
      */
     private void release() {
-        atomicInteger.compareAndSet(1, 0);
+//        atomicInteger.compareAndSet(1, 0);
+// 其实不用比较，此方法只有在获取锁的块内调用
+        atomicInteger.set(0);
     }
 }
