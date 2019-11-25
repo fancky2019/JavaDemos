@@ -30,7 +30,7 @@ public class TimeSpan {
         this.second = totalMilliSecond / MillisPerSecond % 60;
         this.milliSecond = totalMilliSecond % 1000;
         decimalFormat2 = new DecimalFormat("00");
-        decimalFormat3 = new DecimalFormat("00");
+        decimalFormat3 = new DecimalFormat("000");
     }
 
     public int getDay() {
@@ -94,26 +94,26 @@ public class TimeSpan {
                     decimalFormat2.format(hour),
                     decimalFormat2.format(minute),
                     decimalFormat2.format(second),
-                    decimalFormat2.format(milliSecond));
+                    decimalFormat3.format(milliSecond));
         }
         if (hour > 0) {
             return MessageFormat.format("{0}:{1}:{2}.{3}",
                     decimalFormat2.format(hour),
                     decimalFormat2.format(minute),
                     decimalFormat2.format(second),
-                    decimalFormat2.format(milliSecond));
+                    decimalFormat3.format(milliSecond));
         }
         if (minute > 0) {
             return MessageFormat.format("{0}m{1}s{2}ms",
                     decimalFormat2.format(minute),
                     decimalFormat2.format(second),
-                    decimalFormat2.format(milliSecond));
+                    decimalFormat3.format(milliSecond));
         }
         if (second > 0) {
             return MessageFormat.format("{0}s{1}ms",
                     decimalFormat2.format(second),
-                    decimalFormat2.format(milliSecond));
+                    decimalFormat3.format(milliSecond));
         }
-        return MessageFormat.format("{0}ms", decimalFormat2.format(milliSecond));
+        return MessageFormat.format("{0}ms", decimalFormat3.format(milliSecond));
     }
 }
