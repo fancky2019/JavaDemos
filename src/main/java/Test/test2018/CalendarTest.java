@@ -2,6 +2,7 @@ package Test.test2018;
 
 import Model.Student;
 
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -99,12 +100,19 @@ public class CalendarTest {
 
         //endregion
 
+
         //region  Duration  精度到时间  HH:mm:ss.sss
         Instant start = Instant.parse("2017-10-03T10:15:30.00Z");
         Instant end = Instant.parse("2017-10-03T10:16:30.00Z");
         Duration duration = Duration.between(start, end);
-
-
         //endregion
+
+        LocalDateTime startLocalDateTime=LocalDateTime.parse("2019-11-23 13:12:00.000",  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+        LocalDateTime endLocalDateTime=LocalDateTime.now();
+        Duration durationLocalDateTime = Duration.between(startLocalDateTime, endLocalDateTime);
+       System.out.println(MessageFormat.format("{0} {1}:{2}:{3}", durationLocalDateTime.toDays(),
+               durationLocalDateTime.toHours(),
+               durationLocalDateTime.toMinutes(),
+               durationLocalDateTime.toMillis()));
     }
 }
