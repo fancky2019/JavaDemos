@@ -66,7 +66,7 @@ public class Main {
             //  new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
-            new ClassLoaderTest().test();
+//            new ClassLoaderTest().test();
 
 
             //  new PropertiesTest().test1();
@@ -93,7 +93,7 @@ public class Main {
 //            extendTest.publicFunction1();
 
 
-//              new ConvertTest().test();
+              new ConvertTest().test();
             //  new AnnotationTest().test();
 
 //              new RabbitMQTest().test();

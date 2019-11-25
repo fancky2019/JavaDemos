@@ -44,8 +44,13 @@ public class JwtTest {
                 //
                 //私有的Claims,即自定义字段
 
+                //
+                //私有的Claims,即自定义字段
+
+                //设置key=exp 等同于设置 .withExpiresAt(expireDate)
+//                .withClaim("exp",expireDate)
                 //设置到期日期，此时验证时候不会判断是否过期
-                //.withClaim("exp",expireDate.toString())
+//                .withClaim("expireDate",expireDate)
                 .withClaim("age", student.getAge().toString())
                 .withClaim("name", student.getName())
                 .withClaim("role", "administrator")
@@ -75,5 +80,7 @@ public class JwtTest {
         //获取Token中自定义信息
         String role = decodedJWT.getClaim("role").asString();
         String name = decodedJWT.getClaim("name").asString();
+
+        Date expireDate = decodedJWT.getClaim("expireDate").asDate();
     }
 }
