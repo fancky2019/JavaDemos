@@ -78,12 +78,25 @@ public class ConvertTest {
                     durationLocalDateTime.toMinutes(),
                     durationLocalDateTime.toMillis()));
 
-            DurationExtension durationExtension=new DurationExtension(durationLocalDateTime) ;
-            int day=durationExtension.getDay();
+            //默认时区偏移量
+            //"+08:00"
+            ZoneOffset zoneOffset = OffsetDateTime.now().getOffset();
+            //"Asia/Shanghai"
+            ZoneId zoneId = ZoneId.systemDefault();
+
+            endLocalDateTime.toInstant(ZoneOffset.UTC).getEpochSecond();
+            endLocalDateTime.toInstant(ZoneOffset.of("+08:00")).getEpochSecond();
+            ZoneId zoneId1 = ZoneId.of("Asia/Shanghai");
+            ZoneId zoneId2 = ZoneId.systemDefault();
+
+            ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.systemDefault());
+
+            DurationExtension durationExtension = new DurationExtension(durationLocalDateTime);
+            int day = durationExtension.getDay();
             System.out.println(durationExtension.toString());
 
             TimeSpan timeSpan = TimeSpan.Minus(startLocalDateTime, endLocalDateTime);
-            int day1=timeSpan.getDay();
+            int day1 = timeSpan.getDay();
             System.out.println(timeSpan.toString());
             Integer m = 0;
         } catch (Exception ex) {

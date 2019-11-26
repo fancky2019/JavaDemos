@@ -77,8 +77,8 @@ public class TimeSpan {
 
 
     public static TimeSpan Minus(LocalDateTime start, LocalDateTime end) {
-        long endTotalMilliSecond = end.toInstant(ZoneOffset.of("+8")).toEpochMilli();
-        long startTotalMilliSecond = start.toInstant(ZoneOffset.of("+8")).toEpochMilli();
+        long endTotalMilliSecond = end.toInstant(ZoneOffset.of("+08:00")).toEpochMilli();
+        long startTotalMilliSecond = start.toInstant(ZoneOffset.of("+08:00")).toEpochMilli();
         totalMilliSecond = (int) (endTotalMilliSecond - startTotalMilliSecond);
 
 
