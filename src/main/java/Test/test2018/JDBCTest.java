@@ -21,16 +21,18 @@ github:https://github.com/Microsoft/mssql-jdbc
 
 /**
  * MSSQL 数据库操作
+ * mysql:demo2019 MysqlTest
  */
 public class JDBCTest {
 
 
     public void test() {
         try {
-            //  insert();
+//              insert();
+            batchInsert();
             // delete();
             // update();
-            query();
+//            query();
             //  queryMultipleResult();
             //procedure();
             //  procedureParamOutPut();
@@ -289,10 +291,82 @@ public class JDBCTest {
             Integer id = rs.getInt(1);
             Integer m = 0;
         }
+        rs.close();
         preparedStatement.close();
         con.close();
         Integer m = 0;
     }
+    //endregion
+
+    //region 批量插入
+
+    /**
+     * 利用SQL Insert() values(),()
+     *
+     * @throws Exception
+     */
+    private void batchInsert() throws Exception {
+        String insertCommand = "  insert into Product ( GUID, StockID," +
+                "      BarCodeID, SkuID, ProductName," +
+                "      ProductStyle, Price, CreateTime, " +
+                "      Status, COUNT , ModifyTime " +
+                "      )" +
+                "      values (?,?,?,?,?,?,?,?,?,?,?)";
+        Connection con = getConnection();
+        con.setAutoCommit(false);
+        //不返回自动生成的主键
+          PreparedStatement preparedStatement = con.prepareStatement(insertCommand);
+          // sqlserver批量插入获取自增key报异常,mysql不报错。
+        //插入语句Statement.RETURN_GENERATED_KEYS返回生成的主键
+//        PreparedStatement preparedStatement = con.prepareStatement(insertCommand, PreparedStatement.RETURN_GENERATED_KEYS);
+
+        try {
+            for (int i = 0; i < 3; i++) {
+                //设置参数
+                //每个参数生成一个Parameter对象加入Parameter[]中。
+                preparedStatement.setString(1, UUID.randomUUID().toString());
+                preparedStatement.setInt(2, 1);
+                preparedStatement.setNull(3, Types.INTEGER);
+                preparedStatement.setInt(4, 1);
+                if (i != 1) {
+                    preparedStatement.setString(5, MessageFormat.format("batchInsert{0}", i));
+                } else {
+                    //其中一条异常，其他没有回滚，和数据库里执行节本不同。数据库里当成一个事务。
+                    //针对其中有可能有异常数据，要开启事务。
+                    preparedStatement.setString(5, "dddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffff");
+                }
+                preparedStatement.setNull(6, Types.NVARCHAR);
+                preparedStatement.setBigDecimal(7, new BigDecimal(123));
+                //                 setDate只能得到年月日
+                preparedStatement.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+                Short status = 1;
+                preparedStatement.setShort(9, status);
+                preparedStatement.setInt(10, 12);
+                preparedStatement.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
+                //将每条sql的Parameter[]加入    ArrayList<Parameter[]> batchParamValues;中
+                preparedStatement.addBatch();
+            }
+            //执行命令并接受结果
+            int[] result = preparedStatement.executeBatch();
+            con.commit();
+
+            //sqlserver批量插入获取自增key报异常
+//            ResultSet rs = preparedStatement.getGeneratedKeys();
+//            if (rs.next()) {
+//                Integer id = rs.getInt(1);
+//                Integer m = 0;
+//            }
+//            rs.close();
+        } catch (Exception ex) {
+            String msg = ex.getMessage();
+            System.out.println(msg);
+        } finally {
+            preparedStatement.close();
+            con.close();
+        }
+        Integer m = 0;
+    }
+
     //endregion
 
     //region 存储过程
