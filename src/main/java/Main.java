@@ -1,4 +1,5 @@
 
+import Test.opensource.elasticsearch.JestTest;
 import Test.opensource.jwt.JwtTest;
 import Test.opensource.kafka.KafkaTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
@@ -137,9 +138,14 @@ public class Main {
 //            new KafkaTest().test();
 //            new SemaphoreTest().test();
 //            new AtomicIntegerTest().test();
-          //  new VolatileTest().test();
+            //  new VolatileTest().test();
 
 //            new BlockingQueueTest().delayQueueFun();
+           // new ParamsTest().test();
+
+            new JestTest().test();
+
+
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
