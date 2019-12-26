@@ -7,6 +7,15 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
+
+
+/**
+ * 生产者确认生产成功，通过配置acks参数。
+ *acks=0: producer 不等待 Leader 确认，只管发出即可；最可能丢失消息，适用于高吞吐可丢失的业务；
+ * cks=1(默认值): producer 等待 Leader 写入本地日志后就确认；之后 Leader 向 Followers 同步时，如果 Leader 宕机会导致消息没同步而丢失，producer 却依旧认为成功；
+ * acks=all/-1: producer 等待 Leader 写入本地日志、而且 Leader 向 Followers 同步完成后才会确认；最可靠。
+ *  kafka采用主写主读，不为-1可能造成数据丢失
+ */
 public class KafkaProducerClient {
 
     public static final String TOPIC = "topic1";
@@ -24,6 +33,7 @@ public class KafkaProducerClient {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "DemoProducer");
+        props.put(ProducerConfig.ACKS_CONFIG, "-1");//生产成功确认，默认1
         //整形序列化在Kafka Tool 工具中看不到Key的值
 //        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
@@ -46,10 +56,12 @@ public class KafkaProducerClient {
                         {
                             long elapsedTime = System.currentTimeMillis() - startTime;
                             if (recordMetadata != null) {
+                                //生产成功
                                 System.out.println(    "message(" + keyStr + ", " + messageStr + ") sent to partition(" + recordMetadata.partition() +
                                                 "), " +
                                                 "offset(" + recordMetadata.offset() + ") in " + elapsedTime + " ms");
                             } else {
+                                //生产异常
                               System.out.println(e.getMessage());
                             }
                         }

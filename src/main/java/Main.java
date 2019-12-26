@@ -97,7 +97,7 @@ public class Main {
 //              new ConvertTest().test();
             //  new AnnotationTest().test();
 
-//              new RabbitMQTest().test();
+              new RabbitMQTest().test();
             //  new  QueueTest().test();
 
 //               new  GenericTest().test();
@@ -143,7 +143,7 @@ public class Main {
 //            new BlockingQueueTest().delayQueueFun();
            // new ParamsTest().test();
 
-            new JestTest().test();
+//            new JestTest().test();
 
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
