@@ -23,8 +23,8 @@ public class RabbitMQTest {
             //http://www.rabbitmq.com/tutorials/tutorial-three-dotnet.html
             //NuGet安装RabbitMQ.Client
 
-            new Test.opensource.rabbitMQ.rabbitMQConsumer.DelayRetryConsumer().consumer();
-//            new Test.opensource.rabbitMQ.rabbitMQConsumer.DirectExchange().consumer();
+//            new Test.opensource.rabbitMQ.rabbitMQConsumer.DelayRetryConsumer().consumer();
+            new Test.opensource.rabbitMQ.rabbitMQConsumer.DirectExchange().consumer();
 //            new Test.opensource.rabbitMQ.rabbitMQConsumer.FanoutExchange().consumer();
 //            new Test.opensource.rabbitMQ.rabbitMQConsumer.TopicExchange().consumer();
         });
@@ -61,7 +61,11 @@ public class RabbitMQTest {
 //                }
 //            }
 
-            new Test.opensource.rabbitMQ.rabbitMQProducer.DirectExchange().producer();
+//            new Test.opensource.rabbitMQ.rabbitMQProducer.DirectExchange().produceIndividually();
+//            new Test.opensource.rabbitMQ.rabbitMQProducer.DirectExchange().produceInBatch();
+            new Test.opensource.rabbitMQ.rabbitMQProducer.DirectExchange().produceInBatchAsync();
+
+
 //            new Test.opensource.rabbitMQ.rabbitMQProducer.FanoutExchange().producer();
 //            new Test.opensource.rabbitMQ.rabbitMQProducer.TopicExchange().producer();
         });
