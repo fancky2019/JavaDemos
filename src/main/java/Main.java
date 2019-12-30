@@ -97,7 +97,7 @@ public class Main {
 //              new ConvertTest().test();
             //  new AnnotationTest().test();
 
-              new RabbitMQTest().test();
+//              new RabbitMQTest().test();
             //  new  QueueTest().test();
 
 //               new  GenericTest().test();
@@ -144,7 +144,7 @@ public class Main {
            // new ParamsTest().test();
 
 //            new JestTest().test();
-
+            new ThreadLocalTest().test();
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
