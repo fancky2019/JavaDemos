@@ -2,7 +2,9 @@ package Model;
 
 
 import Test.test2018.Description;
+import com.fasterxml.jackson.databind.ser.Serializers;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 import java.util.Random;
 
@@ -97,4 +99,10 @@ public class Student extends StudentParent implements StudentInterface {
 //            return false;
 //        }
 //    }
+
+    @Override
+    public  String toString()
+    {
+        return MessageFormat.format( "Name:{0},Age:{1}",this.name,this.age);
+    }
 }
