@@ -2,6 +2,7 @@
 import Test.opensource.elasticsearch.JestTest;
 import Test.opensource.jwt.JwtTest;
 import Test.opensource.kafka.KafkaTest;
+import Test.opensource.log.Log4j2Demo;
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
@@ -20,6 +21,10 @@ public class Main {
 
     public static void main(String[] args) {
         try {
+//          String dir=  System.getProperty("user.home");
+//          int m=0;
+//            Log4j2 完全异步模式
+//            System.setProperty("Log4jContextSelector", "org.apache.logging.log4j.core.async.AsyncLoggerContextSelector");
             //region 2018
 
             //获取包名
@@ -144,7 +149,8 @@ public class Main {
            // new ParamsTest().test();
 
 //            new JestTest().test();
-            new ThreadLocalTest().test();
+//            new ThreadLocalTest().test();
+            new Log4j2Demo().test();
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
