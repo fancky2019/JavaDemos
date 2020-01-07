@@ -14,6 +14,8 @@ import common.Configs;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -150,7 +152,9 @@ public class Main {
 
 //            new JestTest().test();
 //            new ThreadLocalTest().test();
-            new Log4j2Demo().test();
+//            new Log4j2Demo().test();
+
+            new LinkedBlockingQueueTest().test();
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
