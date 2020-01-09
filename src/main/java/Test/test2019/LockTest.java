@@ -2,6 +2,8 @@ package Test.test2019;
 
 import java.text.MessageFormat;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /*
 Lock:实现线程同步。
@@ -40,13 +42,24 @@ public class LockTest {
 
     public static Object lockObj = new Object();
 
-    public  static  int i=0;
+    public static int i = 0;
+
     public void test() {
+        // synchronizedTest();
+        //ReentrantLockTest();
+
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedReentrantTest();
+        });
+    }
+
+    private void synchronizedTest() {
         CompletableFuture.runAsync(() ->
         {
             for (int i = 0; i < 100; i++) {
 //                synchronizedClass1.synchronizedMethod();
-               // synchronizedClass1.synchronizedBlock();
+                // synchronizedClass1.synchronizedBlock();
                 // synchronizedClass1.synchronizedBlockLockTest();
                 synchronizedClass1.synchronizedStaticMethod();
             }
@@ -61,29 +74,28 @@ public class LockTest {
                 //synchronizedClass2.synchronizedMethod();
 
 
+                //synchronizedClass1.synchronizedBlock();
+                //  synchronizedClass2.synchronizedBlock();
 
-               //synchronizedClass1.synchronizedBlock();
-              //  synchronizedClass2.synchronizedBlock();
 
+                // synchronizedClass1.synchronizedBlockLockTest();
+                //  synchronizedClass2.synchronizedBlockLockTest();
 
-               // synchronizedClass1.synchronizedBlockLockTest();
-              //  synchronizedClass2.synchronizedBlockLockTest();
-
-              //  synchronizedClass1.synchronizedStaticMethod();
+                //  synchronizedClass1.synchronizedStaticMethod();
             }
         });
         try {
             Thread.sleep(3000);
 
-            System.out.println(MessageFormat.format("synchronizedClass1.i:{0}",synchronizedClass1.i));
-            System.out.println(MessageFormat.format("synchronizedClass1.j:{0}",synchronizedClass1.j));
+            System.out.println(MessageFormat.format("synchronizedClass1.i:{0}", synchronizedClass1.i));
+            System.out.println(MessageFormat.format("synchronizedClass1.j:{0}", synchronizedClass1.j));
 
-            System.out.println(MessageFormat.format("synchronizedClass2.i:{0}",synchronizedClass2.i));
-            System.out.println(MessageFormat.format("synchronizedClass2.j:{0}",synchronizedClass2.j));
+            System.out.println(MessageFormat.format("synchronizedClass2.i:{0}", synchronizedClass2.i));
+            System.out.println(MessageFormat.format("synchronizedClass2.j:{0}", synchronizedClass2.j));
 
 
-            System.out.println(MessageFormat.format("SynchronizedClass.m:{0}",SynchronizedClass.m));
-            System.out.println(MessageFormat.format("SynchronizedClass.n:{0}",SynchronizedClass.n));
+            System.out.println(MessageFormat.format("SynchronizedClass.m:{0}", SynchronizedClass.m));
+            System.out.println(MessageFormat.format("SynchronizedClass.n:{0}", SynchronizedClass.n));
 
         } catch (Exception ex) {
 
@@ -92,6 +104,55 @@ public class LockTest {
     }
 
 
+    /*
+    参见demos2018下的
+    ProduceConsumerConditionTest
+     */
+    private void ReentrantLockTest() {
+        CompletableFuture.runAsync(() ->
+        {
+            ReentrantLockFunction();
+        });
+    }
+
+    Lock lock = new ReentrantLock();
+    int j = 1;
+
+    /*
+    可以递归调用（Recursive call）
+     */
+    private void ReentrantLockFunction() {
+        try {
+            lock.lock();
+            j++;
+            if (j == 2) {
+                ReentrantLockFunction();
+            }
+            Thread.sleep(20);
+            System.out.println(MessageFormat.format("i={0}", j));
+        } catch (Exception ex) {
+
+        } finally {
+            lock.unlock();
+        }
+
+    }
+
+
+    /*
+    可以递归调用（Recursive call）
+     */
+    public synchronized void synchronizedReentrantTest() {
+        try {
+            j++;
+            if (j == 2) {
+                synchronizedReentrantTest();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            int m = 0;
+        }
+    }
 }
 
 class SynchronizedClass {
@@ -128,9 +189,7 @@ class SynchronizedClass {
             n++;
 //            Thread.sleep(200);
 //            System.out.println(MessageFormat.format("Thread{0} leave ", Thread.currentThread().getId()));
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
 
         }
     }
