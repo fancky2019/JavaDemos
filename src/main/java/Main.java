@@ -23,6 +23,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
+            System.out.println("main");
 //          String dir=  System.getProperty("user.home");
 //          int m=0;
 //            Log4j2 完全异步模式
@@ -148,13 +149,15 @@ public class Main {
             //  new VolatileTest().test();
 
 //            new BlockingQueueTest().delayQueueFun();
-           // new ParamsTest().test();
+            // new ParamsTest().test();
 
 //            new JestTest().test();
 //            new ThreadLocalTest().test();
 //            new Log4j2Demo().test();
 
-            new LinkedBlockingQueueTest().test();
+//            new LinkedBlockingQueueTest().test();
+
+            new LockTest().test();
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
