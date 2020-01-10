@@ -1,10 +1,7 @@
 package Test.test2019;
 
 import java.io.*;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketAddress;
+import java.net.*;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -88,8 +85,14 @@ public class SocketTcpTest {
 
             //服务器的IP，端口
             Socket clientSocket = new Socket("127.0.0.1", 8888);
+//            clientSocket.connect(new InetSocketAddress("127.0.0.1", 8888));
 
+            boolean isConnected=clientSocket.isConnected();
             //构建IO
+           if( !clientSocket.isConnected())
+           {
+               throw new Exception("unconnected!");
+           }
             InputStream inputStream = clientSocket.getInputStream();
             OutputStream outputStream = clientSocket.getOutputStream();
 
