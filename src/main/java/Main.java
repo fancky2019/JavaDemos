@@ -157,7 +157,8 @@ public class Main {
 
 //            new LinkedBlockingQueueTest().test();
 
-            new LockTest().test();
+//            new LockTest().test();
+            new SocketTcpTest().test();
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
