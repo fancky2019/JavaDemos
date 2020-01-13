@@ -67,7 +67,7 @@ public class Student extends StudentParent implements StudentInterface {
     }
 
     /**
-     * 如果不重写hashCode，则返回的是对象的内存地址。
+     * 如果不重写hashCode，则返回的是对象的内存地址的整数值。
      * HashCode不同， HashSet<Person> 对此调用同一对象add,只添加一次
      * @return
      */
