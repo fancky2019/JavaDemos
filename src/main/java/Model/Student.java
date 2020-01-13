@@ -3,6 +3,7 @@ package Model;
 
 import Test.test2018.Description;
 import com.fasterxml.jackson.databind.ser.Serializers;
+import com.rabbitmq.client.impl.AMQImpl;
 
 import java.text.MessageFormat;
 import java.util.Objects;
@@ -57,6 +58,11 @@ public class Student extends StudentParent implements StudentInterface {
     }
 
 
+    /*
+    不重写equals，比较的是内存地址，不同对象地址不同。
+    HashSet会重复添加，尽管两个对象的字段值一样
+    如果重写了，只能添加一次。
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,13 +84,23 @@ public class Student extends StudentParent implements StudentInterface {
 
 
     /**
-     * HashCode相同， HashSet<Person> 对此调用同一对象add,添加多次，不能判断重复。
+     * HashCode不相同， HashSet<Person> 对此调用同一对象add,添加多次，不能判断重复。
+     * 会重复添加进去
      * @return
      */
 //    @Override
 //    public int hashCode() {
 //      // nextInt(100): [0, 100)
 //        return new Random().nextInt(100);
+//    }
+
+//    /**
+//     * HashCode相同，如果不同对象，可以添加进去
+//     * @return
+//     */
+//    @Override
+//    public int hashCode() {
+//        return 1;
 //    }
 
 //    @Override
