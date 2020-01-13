@@ -20,10 +20,12 @@ JAVA 要求同一对象必须要有相同的hashCode，如果hashCode不同也�
  */
 public class HashCodeTest {
     public void test() {
-        getHashCode();
+
+       // getHashCode();
+        hashMapSameHashCode();
     }
 
-    public void getHashCode() {
+    private void getHashCode() {
 
         Student student = new Student("fancky", 32);
         //c#获取hashCode通过VS生成，具体参照“笔记--》C#-->VS2017--》VS生成 Equals 和 GetHashCode 方法重写”
@@ -44,5 +46,41 @@ public class HashCodeTest {
         }
         hashSet.add(student);
         Integer m = 0;
+    }
+
+    private  void hashMapSameHashCode()
+    {
+        HashSet<Student> hashSet = new HashSet<Student>();
+        Student student1 = new Student("fancky", 32);
+        hashSet.add(student1);
+        Student student2 = new Student("fancky", 321);
+        hashSet.add(student2);
+        Student student3 = new Student("fancky", 332);
+        hashSet.add(student3);
+        Student student4= new Student("fancky", 3321);
+        hashSet.add(student4);
+
+
+    /*
+    不重写equals，比较的是内存地址，不同对象地址不同。
+    HashSet会重复添加，尽管两个对象的字段值一样。
+    如果重写了，只能添加一次。
+     */
+        HashSet<Student> hashSet1 = new HashSet<Student>();
+        hashSet1.add(student1);
+        Student student111 = new Student("fancky", 32);
+        hashSet1.add(student111);
+
+        HashMap<Integer ,Student> hashMap = new HashMap<>();
+        Student student11 = new Student("fancky", 32);
+        hashMap.put(1,student11);
+        Student student22 = new Student("fancky", 321);
+        hashMap.put(1,student22);
+        Student student33 = new Student("fancky", 332);
+        hashMap.put(1,student33);
+        Student student44= new Student("fancky", 3321);
+        hashMap.put(1,student44);
+       Student student= hashMap.get(1);
+
     }
 }

@@ -132,7 +132,7 @@ public class Main {
             // new TypeJudgeTest().test();
 
             //  new DivisionTest().test();
-//            new HashCodeTest().test();
+            new HashCodeTest().test();
             //   new LeftMoveTest().test();
             //  new RedissonTest().test();
 //              new ConstructorTest().test();
@@ -158,7 +158,7 @@ public class Main {
 //            new LinkedBlockingQueueTest().test();
 
 //            new LockTest().test();
-            new SocketTcpTest().test();
+//            new SocketTcpTest().test();
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
