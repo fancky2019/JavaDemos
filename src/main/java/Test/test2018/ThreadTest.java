@@ -14,6 +14,8 @@ import java.util.function.Supplier;
 
 /**
  * callable和runnable 区别在VolatileTest类内有描述。
+ *
+ * ThreadPoolExecutor :线程池具体的执行内部逻辑。参照ThreadPoolExecutor类内的<dt>Queuing</dt>介绍
  */
 public class ThreadTest {
 

@@ -94,10 +94,10 @@ public class Student extends StudentParent implements StudentInterface {
 //        return new Random().nextInt(100);
 //    }
 
-//    /**
-//     * HashCode相同，如果不同对象，可以添加进去
-//     * @return
-//     */
+    /**
+     * HashCode相同，如果不同对象，hashset可以添加进去
+     * @return
+     */
 //    @Override
 //    public int hashCode() {
 //        return 1;
