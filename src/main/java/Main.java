@@ -83,7 +83,7 @@ public class Main {
 
             //   new LambdaTest().test();
 //             new CalendarTest().test();
-//             new Java8Test().test();
+             new Java8Test().test();
 //               new OptionalTest().test();
             //   new Configs().test();
 
@@ -132,7 +132,7 @@ public class Main {
             // new TypeJudgeTest().test();
 
             //  new DivisionTest().test();
-            new HashCodeTest().test();
+//            new HashCodeTest().test();
             //   new LeftMoveTest().test();
             //  new RedissonTest().test();
 //              new ConstructorTest().test();

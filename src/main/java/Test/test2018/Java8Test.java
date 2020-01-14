@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 
 public class Java8Test {
     public void test() {
-        //  getListObjectProperty();
-        localDateTimeTest();
+          getListObjectProperty();
+//        localDateTimeTest();
 //        methodReference();
 
     }
@@ -36,6 +36,8 @@ public class Java8Test {
                 new Student("fancky8", 7)
         ));
         //获取对象集合的某一属性集合
+
+        //select
         //lambda表达式
         List<String> nameList = list.stream().map(p -> p.getName()).collect(Collectors.toList());
         //方法引用::
@@ -54,6 +56,29 @@ public class Java8Test {
 //                return -1;
 //            }
 //        });
+
+
+        //并行处理，类似C#的Parallel
+        list.stream().parallel().forEach(p->
+        {
+            //todo
+        });
+        //exist
+       boolean exist= list.stream().anyMatch(p->p.getName()=="fancky");
+
+       //groupingBy
+        Map<String, List<Student>> studentsGroupBy=  list.stream().collect(Collectors.groupingBy(Student::getName));
+
+        //分组求和
+        Map<String, IntSummaryStatistics> groupBySummaryStatistics=  list.stream().collect(Collectors.groupingBy(Student::getName,Collectors.summarizingInt(Student::getAge)));
+
+        groupBySummaryStatistics.forEach((groupBy,intSummaryStatistics)->
+        {
+            System.out.println(MessageFormat.format("name:{0},age sum:{1}",groupBy,intSummaryStatistics.getSum()));
+        });
+
+
+
 
         //正序
         Collections.sort(ageList);
