@@ -83,7 +83,7 @@ public class Main {
 
             //   new LambdaTest().test();
 //             new CalendarTest().test();
-             new Java8Test().test();
+//             new Java8Test().test();
 //               new OptionalTest().test();
             //   new Configs().test();
 
@@ -157,7 +157,7 @@ public class Main {
 
 //            new LinkedBlockingQueueTest().test();
 
-//            new LockTest().test();
+            new LockTest().test();
 //            new SocketTcpTest().test();
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));

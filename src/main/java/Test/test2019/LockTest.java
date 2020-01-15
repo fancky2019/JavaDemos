@@ -48,10 +48,12 @@ public class LockTest {
         // synchronizedTest();
         //ReentrantLockTest();
 
-        CompletableFuture.runAsync(() ->
-        {
-            synchronizedReentrantTest();
-        });
+//        CompletableFuture.runAsync(() ->
+//        {
+//            synchronizedReentrantTest();
+//        });
+
+        synchronizedSleepTest();
     }
 
     private void synchronizedTest() {
@@ -153,6 +155,27 @@ public class LockTest {
             int m = 0;
         }
     }
+
+    private void synchronizedSleepTest() {
+//      CompletableFuture.runAsync(() ->
+//      {
+//          synchronizedClass1.synchronizedTest();
+//      });
+//      CompletableFuture.runAsync(() ->
+//      {
+//          synchronizedClass1.synchronizedTest();
+//      });
+
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedClass1.synchronizedTest();
+        });
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedClass2.synchronizedTest();
+        });
+
+    }
 }
 
 class SynchronizedClass {
@@ -226,6 +249,40 @@ class SynchronizedClass {
     public static synchronized void synchronizedStaticMethod() {
         m++;
         n++;
+    }
+
+
+    /*
+    不加锁进行同步，两个线程都会进入。
+     */
+    public void synchronizedTest() {
+
+        /*
+        锁当前调用对象的实例，锁对调用对象起作用，不同调用对象不收限制。
+         */
+//        synchronized (this) {
+//            try {
+//                System.out.println(MessageFormat.format("ThreadID{0} enter", Thread.currentThread().getId()));
+//                Thread.sleep(5000);
+//                System.out.println(MessageFormat.format("ThreadID{0} exist", Thread.currentThread().getId()));
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+        /*
+        锁公共变量，有点类似分布式锁的原理
+         */
+        synchronized (LockTest.lockObj) {
+            try {
+                System.out.println(MessageFormat.format("ThreadID{0} enter", Thread.currentThread().getId()));
+                Thread.sleep(5000);
+                System.out.println(MessageFormat.format("ThreadID{0} exist", Thread.currentThread().getId()));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
 
