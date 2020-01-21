@@ -13,6 +13,7 @@ synchronized实现同步的基础：
 静态同步方法，锁是当前类的class对象 ，进入同步代码前要获得当前类对象的锁:  LockTest.class
 同步方法块，锁是括号里面的对象，对给定对象加锁，进入同步代码库前要获得给定对象的锁:lockObj
 
+synchronized：内部生成monitorEnter 和monitorExit 指令。
 
 
 静态变量：线程非安全:静态变量即类变量，位于方法区，为所有对象共享，共享一份内存，
@@ -48,10 +49,12 @@ public class LockTest {
         // synchronizedTest();
         //ReentrantLockTest();
 
-        CompletableFuture.runAsync(() ->
-        {
-            synchronizedReentrantTest();
-        });
+//        CompletableFuture.runAsync(() ->
+//        {
+//            synchronizedReentrantTest();
+//        });
+
+        synchronizedSleepTest();
     }
 
     private void synchronizedTest() {
@@ -153,6 +156,49 @@ public class LockTest {
             int m = 0;
         }
     }
+
+    private void synchronizedSleepTest() {
+
+        /*
+        锁当前对象实例，多个线程操作同一对象可以锁住。
+         */
+//      CompletableFuture.runAsync(() ->
+//      {
+//          synchronizedClass1.synchronizedTest();
+//      });
+//      CompletableFuture.runAsync(() ->
+//      {
+//          synchronizedClass1.synchronizedTest();
+//      });
+
+
+        /*
+         锁当前对象实例，多个线程操作不同对象锁不住。
+         */
+//        CompletableFuture.runAsync(() ->
+//        {
+//            synchronizedClass1.synchronizedTest();
+//        });
+//
+//        CompletableFuture.runAsync(() ->
+//        {
+//            synchronizedClass2.synchronizedTest();
+//        });
+
+
+         /*
+         锁当前对象实例，多个线程操作不同对象锁不住，尽管调用的不是同一个方法。
+         */
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedClass1.synchronizedTest();
+        });
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedClass1.synchronizedTest1();
+        });
+
+    }
 }
 
 class SynchronizedClass {
@@ -226,6 +272,59 @@ class SynchronizedClass {
     public static synchronized void synchronizedStaticMethod() {
         m++;
         n++;
+    }
+
+
+    /*
+    不加锁进行同步，两个线程都会进入。
+     */
+    public void synchronizedTest() {
+
+        /*
+        锁当前调用对象的实例，锁对调用对象起作用，不同调用对象不收限制。
+         */
+        synchronized (this) {
+            try {
+                System.out.println(MessageFormat.format("ThreadID{0} enter synchronizedTest", Thread.currentThread().getId()));
+                Thread.sleep(5000);
+                System.out.println(MessageFormat.format("ThreadID{0} exist synchronizedTest", Thread.currentThread().getId()));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /*
+        锁公共变量，有点类似分布式锁的原理
+         */
+//        synchronized (LockTest.lockObj) {
+//            try {
+//                System.out.println(MessageFormat.format("ThreadID{0} enter synchronizedTest", Thread.currentThread().getId()));
+//                Thread.sleep(5000);
+//                System.out.println(MessageFormat.format("ThreadID{0} exist synchronizedTest", Thread.currentThread().getId()));
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+    }
+
+    public void synchronizedTest1() {
+
+        /*
+        锁当前调用对象的实例，锁对调用对象起作用，不同调用对象不收限制。
+         */
+        synchronized (this) {
+            try {
+                System.out.println(MessageFormat.format("ThreadID{0} enter synchronizedTest1", Thread.currentThread().getId()));
+                Thread.sleep(5000);
+                System.out.println(MessageFormat.format("ThreadID{0} exist synchronizedTest1", Thread.currentThread().getId()));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
     }
 }
 
