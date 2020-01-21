@@ -125,6 +125,8 @@ public class Java8Test {
         Long days = duration.getSeconds() / (24l * 60l * 60l);
         Integer idays = days.intValue();
 
+        LocalDate tomorrow1111 = LocalDate.parse("2020-01-14", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDateTime localDateTime1111=  LocalDateTime.of(tomorrow1111, LocalTime.of(0,0,0));
 
         //2019-09-20T09:46:20.203
         LocalDateTime localDateTimeNow = LocalDateTime.now();

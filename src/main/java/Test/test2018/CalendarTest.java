@@ -14,7 +14,8 @@ public class CalendarTest {
 
     public void test() {
         try {
-            operation();
+//            operation();
+            formatter();
         } catch (Exception ex) {
 
         }
@@ -107,12 +108,25 @@ public class CalendarTest {
         Duration duration = Duration.between(start, end);
         //endregion
 
-        LocalDateTime startLocalDateTime=LocalDateTime.parse("2019-11-23 13:12:00.000",  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-        LocalDateTime endLocalDateTime=LocalDateTime.now();
+        LocalDateTime startLocalDateTime = LocalDateTime.parse("2019-11-23 13:12:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+        LocalDateTime endLocalDateTime = LocalDateTime.now();
         Duration durationLocalDateTime = Duration.between(startLocalDateTime, endLocalDateTime);
-       System.out.println(MessageFormat.format("{0} {1}:{2}:{3}", durationLocalDateTime.toDays(),
-               durationLocalDateTime.toHours(),
-               durationLocalDateTime.toMinutes(),
-               durationLocalDateTime.toMillis()));
+        System.out.println(MessageFormat.format("{0} {1}:{2}:{3}", durationLocalDateTime.toDays(),
+                durationLocalDateTime.toHours(),
+                durationLocalDateTime.toMinutes(),
+                durationLocalDateTime.toMillis()));
+    }
+
+    private void formatter() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String str1 = localDateTime.format(formatter);
+        String str2 = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String str3 = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String str4 = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH"));
+        String str5 = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String str6 = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+        String str7 = localDateTime.format(DateTimeFormatter.ofPattern("yyyy"));
+        Integer m = 0;
     }
 }

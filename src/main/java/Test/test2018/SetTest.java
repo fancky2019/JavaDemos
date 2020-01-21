@@ -195,7 +195,10 @@ public class SetTest {
 
         //获取简单的统计
         IntSummaryStatistics intSummaryStatistics = filterList.stream().mapToInt(p->p.getAge()).summaryStatistics();
+        //获取最大
         Integer max=intSummaryStatistics.getMax();
+        //获取最小
+        Integer min=   intSummaryStatistics.getMin();
        // intSummaryStatistics.getCount();
         //正序
         Collections.sort(ageList);
