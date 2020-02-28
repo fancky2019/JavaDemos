@@ -11,7 +11,7 @@ import java.text.MessageFormat;
 public class StringTest {
     public void test() {
         //  format();
-        //  stringIntern();
+          stringIntern();
         String str1 = StringTest.trimEnd("sd..", '.');
         String str2 = StringTest.trimStart(".sd..", '.');
         //和C#trim()一样
@@ -28,6 +28,20 @@ public class StringTest {
         Integer mr = 0;
     }
 
+/*
+字面量字符串和字符串常量会被驻留。
+All literal strings and string-valued constant expressions are interned.
+Intern（）：从驻留池中取当前值的字符串。如果池中不存在，当前对象会加入
+            池中并返回当前对象的引用。
+
+
+
+    * When the intern method is invoked, if the pool already contains a
+     * string equal to this {@code String} object as determined by
+     * the {@link #equals(Object)} method, then the string from the pool is
+     * returned. Otherwise, this {@code String} object is added to the
+     * pool and a reference to this {@code String} object is returned.
+ */
     private void stringIntern() {
         String s1 = "abc";
         String s2 = new String("abc");//new  一个新的实例
@@ -41,16 +55,16 @@ public class StringTest {
         Boolean r3 = s1 == s3;//true
 
         String s5 = new String(s1).intern();
-        Boolean r4 = s1 == s5;
+        Boolean r4 = s1 == s5;//true
 
         String s8 = new StringBuilder("abc").toString();
         Boolean r7 = s1 == s8;//false
 
         String s6 = new StringBuilder("abc").toString().intern();
-        Boolean r5 = s1 == s5;
+        Boolean r5 = s1 == s5;//true
 
         String s7 = new StringBuilder(s1).toString().intern();
-        Boolean r6 = s1 == s6;
+        Boolean r6 = s1 == s6;//true
 
 
         Integer m = 0;
