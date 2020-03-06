@@ -20,8 +20,8 @@ remove/poll/take的区别
 3、take: 获取并移除此队列的头部，在元素变得可用之前一直等待 。queue的长度 == 0 的时候，一直阻塞
 
 peek，element区别：
-检测操作，element() 和 peek() 用于在队列的头部查询元素。与 remove() 方法类似，在队列为空时， element() 抛出一个IllegalStateException异常，而 peek() 返回 null
-Queue.java源码
+检测操作，element() 和 peek() 用于在队列的头部查询元素。与 remove() 方法类似，在队列为空时， element() 抛出一个IllegalStateException异常，
+而 peek() 返回 null，Queue.java源码
 
      */
     BlockingQueue<String> blockingQueue = new LinkedBlockingQueue<>(10);
