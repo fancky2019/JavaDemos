@@ -1,30 +1,10 @@
 
-import Test.opensource.elasticsearch.JestTest;
-import Test.opensource.jwt.JwtTest;
-import Test.opensource.kafka.KafkaTest;
-import Test.opensource.log.Log4j2Demo;
-import Test.opensource.rabbitMQ.RabbitMQTest;
-import Test.opensource.redis.RedisTest;
-import Test.opensource.redis.RedissonTest;
-import Test.test2018.*;
-import Test.test2019.*;
-import Test.test2019.queue.BlockingQueueTest;
-import common.Configs;
+import Test.test2020.ClassCastTest;
+import Test.test2020.UDPTest;
 
-import javax.swing.text.AbstractDocument;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
 
@@ -79,12 +59,14 @@ public class Main {
 //            int length = len.length();
 //            int rightParenthesisIndex = len.indexOf(":",66);
 //            String subStr=len.substring(66,rightParenthesisIndex);
-            System.out.println("main");
+//            System.out.println("main");
 //          String dir=  System.getProperty("user.home");
 //          int m=0;
 //            Log4j2 完全异步模式
 //            System.setProperty("Log4jContextSelector", "org.apache.logging.log4j.core.async.AsyncLoggerContextSelector");
-            //region 2018
+
+
+            //region test2018
 
             //获取包名
             //  String packageName = ImpTest.class.getPackage().getName();
@@ -168,7 +150,6 @@ public class Main {
 
             //endregion
 
-
             //region test2019
             //    new TryCatchFinallyReturnTest().test();
             //  new  ProxyTest().test();
@@ -179,9 +160,9 @@ public class Main {
             //    new  BoxingUnboxingTest().test();
 
             //    new NettyTest().test();
-            new StringTest().test();
+//            new StringTest().test();
             //  new TimerTest().test();
-            //endregion
+
 
             //   new CharTest().test();
             //   new BlockingQueueTest().test();
@@ -215,6 +196,16 @@ public class Main {
 
 //            new LockTest().test();
 //            new SocketTcpTest().test();
+
+            //endregion
+
+            //region test2020
+
+//            new ClassCastTest().test();
+
+            new UDPTest().test();
+
+            //endregion
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
