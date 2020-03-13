@@ -2,6 +2,9 @@ package Test.test2019;
 
 import java.io.*;
 
+/*
+try-with-resources  语句释放资源的类必须实现AutoCloseable 接口。
+ */
 public class TryTest {
     public void test() {
 
