@@ -9,6 +9,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class CalendarTest {
 
@@ -108,6 +109,11 @@ public class CalendarTest {
         Duration duration = Duration.between(start, end);
         //endregion
 
+        //ZonedDateTime 转LocalDateTime
+        ZonedDateTime zonedDateTime=ZonedDateTime.now();
+        zonedDateTime.toLocalDateTime();
+
+
         LocalDateTime startLocalDateTime = LocalDateTime.parse("2019-11-23 13:12:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
         LocalDateTime endLocalDateTime = LocalDateTime.now();
         Duration durationLocalDateTime = Duration.between(startLocalDateTime, endLocalDateTime);
@@ -115,6 +121,11 @@ public class CalendarTest {
                 durationLocalDateTime.toHours(),
                 durationLocalDateTime.toMinutes(),
                 durationLocalDateTime.toMillis()));
+
+        //LocalDateTime 转ZonedDateTime
+        startLocalDateTime.atZone(ZoneId.systemDefault());
+        ZonedDateTime atZone = startLocalDateTime.atZone(ZoneId.of("Asia/Shanghai"));
+
     }
 
     private void formatter() {
