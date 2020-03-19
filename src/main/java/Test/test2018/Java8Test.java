@@ -134,6 +134,12 @@ public class Java8Test {
         //转换成带时区的时间
         //2019-09-20T09:46:20.203+08:00[Asia/Shanghai]
         ZonedDateTime zonedDateTime = localDateTimeNow.atZone(ZoneId.systemDefault());
+        ZonedDateTime atZone = localDateTimeNow.atZone(ZoneId.of("Asia/Shanghai"));
+
+        //ZonedDateTime 转LocalDateTime
+        ZonedDateTime zonedDateTime1=ZonedDateTime.now();
+        zonedDateTime1.toLocalDateTime();
+
         //格式化
         //2019-09-20 09:53:30.997
         String nowStr = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));

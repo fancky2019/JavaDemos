@@ -1,5 +1,6 @@
 
 import Test.test2020.ClassCastTest;
+import Test.test2020.*;
 import Test.test2020.UDPTest;
 
 import java.io.BufferedReader;
@@ -203,7 +204,9 @@ public class Main {
 
 //            new ClassCastTest().test();
 
-            new UDPTest().test();
+//            new UDPTest().test();
+            new ParallelTest().test();
+//            new StopwatchTest().test();
 
             //endregion
 
