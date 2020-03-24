@@ -1,5 +1,8 @@
 
+import Test.opensource.*;
+import Test.opensource.redis.*;
 import Test.test2020.ClassCastTest;
+import Test.test2019.*;
 import Test.test2020.*;
 import Test.test2020.UDPTest;
 
@@ -126,7 +129,7 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-//              new RedisTest().test();
+              new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
@@ -205,7 +208,7 @@ public class Main {
 //            new ClassCastTest().test();
 
 //            new UDPTest().test();
-            new ParallelTest().test();
+//            new ParallelTest().test();
 //            new StopwatchTest().test();
 
             //endregion

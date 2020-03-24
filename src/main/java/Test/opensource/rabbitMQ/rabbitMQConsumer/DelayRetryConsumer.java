@@ -10,7 +10,20 @@ import java.util.List;
 import java.util.Map;
 
 /*
-延迟重试
+    /// RabbitMQ重试：工作队列设置通过死信进入重试队列，在重试队列设置TTL（达到延迟目的）进入工作队列达到重试目的。
+    ///
+    ///  死信:
+    ///       消息被拒绝（channel.BasicNack或channel.BasicReject）并且requeue=false.
+    ///       消息TTL过期
+    ///       队列达到最大长度（队列满了，无法再添加数据到mq中）
+    ///
+    ///       设置:x-dead-letter-exchange 指定死信送往的交换机
+    ///       设置:x-dead-letter-routing-key 指定死信的routingkey
+    ///
+    ///
+    /// 重复消费：
+    ///         原因：发生超时消费者未ack消息，造成消息重新投递。
+    ///         解决：对消息加主键，消费前到Redis判断是否消费，消费成功主键加入Redis.
  */
 public class DelayRetryConsumer {
     public static final String EXCHANGE_NAME = "DirectExchangeJava";
