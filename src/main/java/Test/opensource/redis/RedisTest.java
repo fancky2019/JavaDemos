@@ -1,11 +1,17 @@
 package Test.opensource.redis;
 
+import com.google.common.base.Stopwatch;
 import common.Configs;
 import redis.clients.jedis.*;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 数据类型的首字母找对应的数据类型的操作
@@ -72,8 +78,8 @@ public class RedisTest {
 //        set();
 //        sortedSet();
 //        increment();
-        transactionTest();
-
+//        transactionTest();
+        keyExpire();
     }
 
     //region utility
@@ -372,6 +378,57 @@ public class RedisTest {
         // 放弃事务
 //        transaction.discard();
 
+    }
+    //endregion
+
+    //region keyExpire 1.25s---2.25s为一个自然秒。不是1.25秒到了2秒就算1秒
+    private  void keyExpire()
+    {
+        Stopwatch stopwatch=Stopwatch.createStarted();
+        //获取毫秒数
+//        Long milliSecond = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+
+        Long seconds = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).getEpochSecond();
+        long currentMilliseconds = System.currentTimeMillis();
+
+        long millis=currentMilliseconds-seconds*1000;
+        System.out.println(MessageFormat.format("before setting key current milliseconds:{0}--{1}",millis,LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm:ss.SSS"))) );
+        jedis.setex("expireKey",1,"expireKeyValue");
+        while (true)
+        {
+//           String  expireKeyValue=jedis.get("expireKey");
+            if(!jedis.exists("expireKey"))
+            {
+                stopwatch.stop();
+                System.out.println(MessageFormat.format(" key expire milliseconds:{0}",stopwatch.elapsed(TimeUnit.MILLISECONDS)) );
+
+
+                Long seconds1 = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).getEpochSecond();
+                long currentMilliseconds1 = System.currentTimeMillis();
+                long millis1=currentMilliseconds1-seconds1*1000;
+                System.out.println(MessageFormat.format(" key expire current milliseconds:{0}--{1}",millis1,LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm:ss.SSS"))) );
+                break;
+            }
+            else {
+
+                //JDK9
+             //   一：Thread.Sleep(1000);
+              //  Thread.Sleep()方法：是强制放弃CPU的时间片，然后重新和其他线程一起参与CPU的竞争。
+            //    二：Thread.SpinWait(1000);       //JDK9
+            //    Thread.SpinWait()方法：只是让CPU去执行一段没有用的代码。当时间结束之后能马上继续执行，而不是重新参与CPU的竞争。
+//                用Sleep()方法是会让线程放弃CPU的使用权。
+//                用SpinWait()方法是不会放弃CPU的使用权。
+
+                try {
+                    Thread.sleep(1);
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+            }
+        }
     }
     //endregion
 }
