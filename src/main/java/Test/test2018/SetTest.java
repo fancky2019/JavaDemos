@@ -72,7 +72,7 @@ public class SetTest {
             String key = entry.getKey();
             Integer value = entry.getValue();
         }
-        //实体遍历
+        //foreach: 实体遍历
         for (Map.Entry<String, Integer> m : map.entrySet()) {
             System.out.println("key:" + m.getKey() + " value:" + m.getValue());
         }
@@ -82,6 +82,9 @@ public class SetTest {
 
         //region List--->C# List
         //list
+        //类型不能使基础类型,可以使用包装器。
+//        List<int> list11111=new LinkedList<>();
+
         List<Integer> list = new ArrayList<Integer>();
         list.add(9);
         List<Integer> list1 = new ArrayList<Integer>();

@@ -149,6 +149,16 @@ class Gena {
     <T> void Display2() {
 
     }
+
+    <T> T getT(Class classT) {
+        T t = null;
+        try {
+            t = (T) classT.newInstance();
+        } catch (Exception ex) {
+
+        }
+        return t;
+    }
 }
 
 

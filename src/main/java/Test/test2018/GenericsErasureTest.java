@@ -12,6 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /*
 泛型类型擦除
+泛型擦除：T-->object、上界(如果指定上界)、下界（如果指定下界）
  */
 public class GenericsErasureTest {
     public void Test() {
