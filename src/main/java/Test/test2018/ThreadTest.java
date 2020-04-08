@@ -2,6 +2,7 @@ package Test.test2018;
 
 import Model.Student;
 import common.CallBackRunnable;
+import utility.TXTFile;
 
 import javax.xml.bind.annotation.XmlType;
 import java.text.MessageFormat;
@@ -14,10 +15,10 @@ import java.util.function.Supplier;
 
 /**
  * callable和runnable 区别在VolatileTest类内有描述。
- *
+ * <p>
  * ThreadPoolExecutor :线程池具体的执行内部逻辑。参照ThreadPoolExecutor类内的<dt>Queuing</dt>介绍
- *
- *
+ * <p>
+ * <p>
  * sleep()和wait()  区别
  * sleep()方法导致了程序暂停执行指定的时间,让出cpu该其他线程,但是他的监控状态依然保持者,当指定的时间到了又会自动恢复...
  * .最主要是sleep方法没有释放锁,而wait方法释放了锁,使得其他线程可以使用同步控制块
@@ -59,8 +60,10 @@ public class ThreadTest {
 
 //            interrupt();
 
-            threadTimeOut();
+//            threadTimeOut();
 
+            deadLock();
+//            userThreadDaemonThread();
             Integer n = 1;
             //whenComplete();
         } catch (Exception ex) {
@@ -302,7 +305,7 @@ public class ThreadTest {
             // 指定Executor， CompletableFuture 内部创建 Integer.MAX_VALUE个线程
             CompletableFuture.runAsync(() ->
             {
-            },Executors.newCachedThreadPool());
+            }, Executors.newCachedThreadPool());
 
             //没有返回值
             CompletableFuture<Void> voidCompletableFuture = CompletableFuture.runAsync(() ->
@@ -427,7 +430,6 @@ public class ThreadTest {
     }
     //endregion
 
-
     //region  threadTimeOut
     private void threadTimeOut() {
         try {
@@ -515,5 +517,113 @@ public class ThreadTest {
         return cf;
     }
     //endregion
+
+    //region 死锁
+    static Object a = new Object();
+    static Object b = new Object();
+
+    /*
+    当发生的死锁后，JDK自带了两个工具(jstack和JConsole)，可以用来监测分析死锁的发生原因。
+    JConsole目录位置:C:\Java\jdk1.8.0_151\bin
+                     使用方法：1）、选中一个进程，连接
+                               2）、在线程tab页下方，点击检测到死锁。
+     */
+    private void deadLock() {
+        try {
+           /*
+           线程产生死锁
+           输出：
+               A-13 Enter Thread A
+               B-14 Enter Thread B
+           */
+            CompletableFuture.runAsync(() ->
+            {
+                synchronized (a) {
+                    try {
+                        System.out.println(MessageFormat.format("A-{0} Enter Thread A", Thread.currentThread().getId()));
+                        //睡100ms,确保下面线程执行，否则下面线程还没执行，此线程就执行完，无法锁住。
+                        Thread.sleep(100);
+                        int m = 0;
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                    //线程会阻塞在此处。
+                    synchronized (b) {
+                        System.out.println("A Enter Thread B");
+                    }
+                }
+                System.out.println("A  Thread  Complete");
+            });
+
+            CompletableFuture.runAsync(() ->
+            {
+                synchronized (b) {
+                    try {
+                        System.out.println(MessageFormat.format("B-{0} Enter Thread B", Thread.currentThread().getId()));
+                        //   Thread.sleep(100);
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                    synchronized (a) {
+                        System.out.println("B Enter Thread A");
+                    }
+                }
+                System.out.println("B  Thread  Complete");
+            });
+
+//            CompletableFuture.runAsync(()->
+//            {
+//                while (true)
+//                {
+//
+//                }
+//            });
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+
+    }
+    //endregion
+
+    //region 用户线程、守护线程
+    /*
+    当程序有用户程序存在时候，守护线程就不会退出。
+     */
+    volatile int i = 1;
+
+    private void userThreadDaemonThread() {
+        Thread userThread = new Thread(() ->
+        {
+            try {
+                while (true) {
+                    TXTFile.writeText("UserThread.txt", "userThread - " + String.valueOf(i));
+                    Thread.sleep(1000);
+                    ++i;
+                }
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
+        userThread.start();
+
+        Thread daemonThread = new Thread(() ->
+        {
+            try {
+                while (true) {
+                    TXTFile.writeText("DaemonThread.txt", "daemonThread - " + String.valueOf(i));
+                    Thread.sleep(1000);
+                }
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
+        daemonThread.setDaemon(true);
+        daemonThread.start();
+    }
+
+    //endregion
+
 }
 

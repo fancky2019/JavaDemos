@@ -1,6 +1,6 @@
 
-import Test.opensource.*;
 import Test.opensource.redis.*;
+import Test.test2018.ThreadTest;
 import Test.test2020.ClassCastTest;
 import Test.test2019.*;
 import Test.test2020.*;
@@ -96,7 +96,7 @@ public class Main {
 //        person.getName();
 //
             // new SetTest().test();
-            //   new ThreadTest().test();
+               new ThreadTest().test();
 
 //            new CalendarTest().test();
 
@@ -216,7 +216,8 @@ public class Main {
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
-
+//            System.exit(0) ;
+            Runtime.getRuntime().exit(0);
             Integer a = 0;
         } catch (Exception ex) {
             String str = ex.getMessage();
