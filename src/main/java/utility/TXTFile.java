@@ -26,16 +26,26 @@ public class TXTFile {
         out.write(content);
         out.flush(); // 把缓存区内容压入文件
         out.close();
+        fileWriter.close();
     }
 
+    /*
+    生成文件目录在根路径。
+     */
     public static void writeText(String fileName, String content) throws IOException {
         // File file = new File(fileName);
         //Charset.forName("UTF-8");
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(fileName, true), "UTF-8");
+        FileOutputStream fileOutputStream=  new FileOutputStream(fileName, true);
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
         BufferedWriter out = new BufferedWriter(outputStreamWriter);
-        out.write(content);
+        //换行
+        out.write(content+"\r\n");
         out.flush(); // 把缓存区内容压入文件
+
+       //注意关闭的先后顺序，先打开的后关闭，后打开的先关闭
         out.close();
+        outputStreamWriter.close();
+        fileOutputStream.close();
     }
 
     /**
