@@ -201,6 +201,9 @@ public class LockTest {
     }
 }
 
+/*
+ synchronized (obj) { }  obj 必须是引用类型
+ */
 class SynchronizedClass {
 
     int i = 0;
