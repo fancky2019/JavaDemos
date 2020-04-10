@@ -62,8 +62,10 @@ public class ThreadTest {
 
 //            threadTimeOut();
 
-            deadLock();
+//            deadLock();
 //            userThreadDaemonThread();
+
+            threadState();
             Integer n = 1;
             //whenComplete();
         } catch (Exception ex) {
@@ -623,6 +625,78 @@ public class ThreadTest {
         daemonThread.start();
     }
 
+    //endregion
+
+    //region  while(true)线程退出
+    boolean _stop = false;
+    //MSDN 官方实例
+    // volatile  bool _stop=false;
+
+    private void threadExit() {
+        /*
+         * 存储结构：寄存器缓存+主存
+         * volatile不在线程内缓存，会强制刷新到主存
+         * 每个线程内会有一个变量的副本，线程改变变量会将改变量刷新到主存。
+         *
+         *
+         * threadStop可能执行_stop为true,可能未及时刷新到主存，所以
+         * thread可能还会继续运行。所以做好把_stop声明为volatile  bool _stop
+         */
+        Thread thread = new Thread(() ->
+        {
+            while (!_stop) {
+                //DoWork()
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+
+        Thread threadStop = new Thread(() ->
+        {
+            //当满足某个条件将_stop设为false。
+            _stop = true;
+        });
+        thread.setDaemon(true);
+        threadStop.start();
+    }
+    //endregion
+
+    //region 线程状态
+    private void threadState() {
+        /*
+         *ThreadState: NEW
+         *ThreadState: TIMED_WAITING
+         *ThreadState: TERMINATED
+         */
+        Thread newThread = new Thread(() ->
+        {
+            try {
+                Thread.sleep(1000);
+            } catch (Exception ex) {
+
+            }
+
+        });
+
+        System.out.println(MessageFormat.format("ThreadState: {0}", newThread.getState()));
+        newThread.start();
+
+        // Wait for newThread to start and go to sleep.
+        try {
+            Thread.sleep(1000);
+        } catch (Exception ex) {
+
+        }
+        System.out.println(MessageFormat.format("ThreadState: {0}", newThread.getState()));
+
+        // Wait for newThread to restart.
+        try {
+            Thread.sleep(1000);
+        } catch (Exception ex) {
+
+        }
+        System.out.println(MessageFormat.format("ThreadState: {0}", newThread.getState()));
+    }
     //endregion
 
 }

@@ -3,6 +3,9 @@ package Test.test2019;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/*
+没有使用lock，通过CAS达到同步
+ */
 public class AtomicIntegerTest {
     public void test() {
         AtomicInteger atomicInteger1 = new AtomicInteger(0);

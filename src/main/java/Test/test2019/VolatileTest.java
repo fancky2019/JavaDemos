@@ -1,14 +1,21 @@
 package Test.test2019;
 
+import java.beans.Statement;
 import java.io.Console;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
+/*
+volatile 只能保证对单次读/写的原子性。i++ 这种操作不能保证原子性。
+ */
 public class VolatileTest {
 
     public void test() {
-        volatileTest();
+
+//        volatileTest();
+        unAtomic();
     }
 
     private volatile int volParam = 0;
@@ -73,7 +80,7 @@ public class VolatileTest {
         });
         Executors.newCachedThreadPool().submit(future);
 
-      //  ExecutorService 提供批量调用Callables ，只能单个Runnable
+        //  ExecutorService 提供批量调用Callables ，只能单个Runnable
 //        List<FutureTask<String>> futureTasks=new LinkedList<>();
 //        futureTasks.add(new FutureTask<>( ()->
 //        {
@@ -81,27 +88,27 @@ public class VolatileTest {
 //        }));
 //        Executors.newCachedThreadPool().invokeAll(futureTasks);
 
-        Executors.newCachedThreadPool().submit(new FutureTask<>( ()->
+        Executors.newCachedThreadPool().submit(new FutureTask<>(() ->
         {
             return "futureTasks";
         }));
-        Runnable runnable= ()->
+        Runnable runnable = () ->
         {
             System.out.println("runnables");
         };
         Executors.newCachedThreadPool().submit(runnable);
 
-        Executors.newCachedThreadPool().submit(()->
+        Executors.newCachedThreadPool().submit(() ->
         {
             System.out.println("runnables");
         });
 
-        CompletableFuture.supplyAsync(()->
+        CompletableFuture.supplyAsync(() ->
         {
-            return  1;
-        }).thenApply(r->
+            return 1;
+        }).thenApply(r ->
         {
-            return  r+3;
+            return r + 3;
         });
     }
 
@@ -116,6 +123,99 @@ public class VolatileTest {
         try {
             //确保or 循环内的线程执行完
             Thread.sleep(1000);
+        } catch (Exception ex) {
+
+        }
+        System.out.println(volParam);
+    }
+
+
+
+/*
+         //volatile不支持原子操作
+                //_volParam 取值、++、赋值三个操作，不是原子操作。
+                //因此此结果可能不是600000。因为多个线程取值可能都是没++之后的值。
+ */
+    private void unAtomic() {
+        AtomicInteger atomicInteger = new AtomicInteger();
+
+
+        Thread thread1 = new Thread(() ->
+        {
+            for (int j = 0; j < 100000; j++) {
+                volParam++;
+                atomicInteger.incrementAndGet();
+            }
+
+        });
+        Thread thread2 = new Thread(() ->
+        {
+            for (int j = 0; j < 100000; j++) {
+                volParam++;
+                atomicInteger.incrementAndGet();
+            }
+
+        });
+        Thread thread3 = new Thread(() ->
+        {
+            for (int j = 0; j < 100000; j++) {
+                volParam++;
+                atomicInteger.incrementAndGet();
+            }
+
+        });
+        Thread thread4 = new Thread(() ->
+        {
+            for (int j = 0; j < 100000; j++) {
+                volParam++;
+                atomicInteger.incrementAndGet();
+            }
+
+        });
+        Thread thread5 = new Thread(() ->
+        {
+            for (int j = 0; j < 100000; j++) {
+                volParam++;
+                atomicInteger.incrementAndGet();
+            }
+
+        });
+        Thread thread6 = new Thread(() ->
+        {
+            for (int j = 0; j < 100000; j++) {
+                volParam++;
+                atomicInteger.incrementAndGet();
+            }
+
+        });
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        thread4.start();
+        thread5.start();
+        thread6.start();
+
+        while (thread1.getState() != Thread.State.TERMINATED ||
+                thread2.getState() != Thread.State.TERMINATED ||
+                thread3.getState() != Thread.State.TERMINATED ||
+                thread4.getState() != Thread.State.TERMINATED ||
+                thread5.getState() != Thread.State.TERMINATED ||
+                thread6.getState() != Thread.State.TERMINATED) {
+
+        }
+        //存在并发问题，由于不支持原子操作所以可能_volParam!=600000
+        System.out.println(volParam);
+        //for 循环内的线程可能未执行完volParam可能不等于10；
+        try {
+            //确保or 循环内的线程执行完
+            Thread.sleep(2000);
+
+//            Integer integer=0;
+//            AtomicInteger atomicInteger=new AtomicInteger(0);
+//            atomicInteger.incrementAndGet();
+
+
+            thread1.isAlive();
         } catch (Exception ex) {
 
         }
