@@ -57,20 +57,22 @@ public class SetTest {
         map1.remove("key2");
         //Key存在一样的，值会被更新
         map.putAll(map1);
-        //遍历Key
+        //遍历方式一：遍历Key
         for (String key : map.keySet()) {
+            //通过key 获取值,获取方式类似List根据索引获取item
             Integer value = map.get(key);
         }
-        //遍历Value
+        //遍历方式二：遍历Value
         for (Integer value : map.values()) {
 
         }
 
+        //遍历方式三：遍历entrySet
         Iterator<Map.Entry<String, Integer>> iterator = map.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, Integer> entry = iterator.next();
-            String key = entry.getKey();
-            Integer value = entry.getValue();
+            String key = entry.getKey();//获取Key
+            Integer value = entry.getValue();//获取Value
         }
         //foreach: 实体遍历
         for (Map.Entry<String, Integer> m : map.entrySet()) {
