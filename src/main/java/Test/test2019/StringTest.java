@@ -1,5 +1,7 @@
 package Test.test2019;
 
+import Model.Student;
+
 import java.text.MessageFormat;
 
 /**
@@ -11,13 +13,19 @@ import java.text.MessageFormat;
 public class StringTest {
     public void test() {
         //  format();
-          stringIntern();
+        stringIntern();
         String str1 = StringTest.trimEnd("sd..", '.');
         String str2 = StringTest.trimStart(".sd..", '.');
         //和C#trim()一样
         String str3 = " add .".trim();
         //双引号转义：\"
         String str4 = "d'd'sdsd\"ds";
+
+        String name = "fancky";
+        Student student = new Student();
+        student.setName(name);
+        parametersFunction("name", student);
+        System.out.println(name);
     }
 
     private void format() {
@@ -28,20 +36,20 @@ public class StringTest {
         Integer mr = 0;
     }
 
-/*
-字面量字符串和字符串常量会被驻留。
-All literal strings and string-valued constant expressions are interned.
-Intern（）：从驻留池中取当前值的字符串。如果池中不存在，当前对象会加入
-            池中并返回当前对象的引用。
+    /*
+    字面量字符串和字符串常量会被驻留。
+    All literal strings and string-valued constant expressions are interned.
+    Intern（）：从驻留池中取当前值的字符串。如果池中不存在，当前对象会加入
+                池中并返回当前对象的引用。
 
 
 
-    * When the intern method is invoked, if the pool already contains a
-     * string equal to this {@code String} object as determined by
-     * the {@link #equals(Object)} method, then the string from the pool is
-     * returned. Otherwise, this {@code String} object is added to the
-     * pool and a reference to this {@code String} object is returned.
- */
+        * When the intern method is invoked, if the pool already contains a
+         * string equal to this {@code String} object as determined by
+         * the {@link #equals(Object)} method, then the string from the pool is
+         * returned. Otherwise, this {@code String} object is added to the
+         * pool and a reference to this {@code String} object is returned.
+     */
     private void stringIntern() {
         String s1 = "abc";
         String s2 = new String("abc");//new  一个新的实例
@@ -91,6 +99,22 @@ Intern（）：从驻留池中取当前值的字符串。如果池中不存在�
         characters[2] = 'c';
         String str2 = "c" + characters;
         Integer m = 0;
+    }
+
+    /*
+         String 作为参数(形参)，不改变原参数值（实参），
+         String以外 引用类型作为参数（形参），会改变原参数值（实参）。
+
+         基本类型按值传递;传值
+        string 以为 引用类型按引用传递：传地址
+        string 可以理解按值传递
+        */
+    private void parametersFunction(String name, Student student) {
+        //字符串直接赋值和用new出的对象赋值的区别仅仅在于存储方式不同。
+        name = "rui";//name形参副本指向新的地址，name实参指向的地址没变
+        name=new String("r");
+
+        student.setName("rui");
     }
 
 

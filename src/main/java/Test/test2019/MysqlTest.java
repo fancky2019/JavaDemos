@@ -22,8 +22,9 @@ public class MysqlTest {
         try {
 //              insert();
 //              query();
+            queryDifferentDB();
 //            insertDynamic();
-            batchInsert();
+//            batchInsert();
             Integer m = 0;
             //  createProduct();
         } catch (Exception ex) {
@@ -85,6 +86,27 @@ public class MysqlTest {
     }
 
 
+    //endregion
+
+    //region 跨库查询
+    private void queryDifferentDB() throws Exception {
+        String selectCommand = "select *  from  valvulas.`product` WHERE ProductName LIKE ?";
+        Connection con = getConnection();
+        PreparedStatement preparedStatement = con.prepareStatement(selectCommand);
+        String productName = "Br";
+        preparedStatement.setString(1, "%" + productName + "%");
+        // 执行数据库查询语句
+        ResultSet rs = preparedStatement.executeQuery();
+        //  String name = rs.getString("Name");
+        // List<Product> list = resultSetToList(rs, Product.class);
+        List<Product> list = convertToList(rs, Product.class);
+        rs.close();
+        preparedStatement.close();
+        con.close();
+
+        Integer m = 0;
+
+    }
     //endregion
 
     //region插入

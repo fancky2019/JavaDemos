@@ -96,7 +96,7 @@ public class Main {
 //        person.getName();
 //
             // new SetTest().test();
-               new ThreadTest().test();
+//               new ThreadTest().test();
 
 //            new CalendarTest().test();
 
@@ -164,7 +164,7 @@ public class Main {
             //    new  BoxingUnboxingTest().test();
 
             //    new NettyTest().test();
-//            new StringTest().test();
+            new StringTest().test();
             //  new TimerTest().test();
 
 
