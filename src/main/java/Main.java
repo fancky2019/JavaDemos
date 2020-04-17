@@ -96,7 +96,7 @@ public class Main {
 //        person.getName();
 //
             // new SetTest().test();
-//               new ThreadTest().test();
+               new ThreadTest().test();
 
 //            new CalendarTest().test();
 
@@ -187,7 +187,7 @@ public class Main {
 //            new KafkaTest().test();
 //            new SemaphoreTest().test();
 //            new AtomicIntegerTest().test();
-              new VolatileTest().test();
+//              new VolatileTest().test();
 
 //            new BlockingQueueTest().delayQueueFun();
             // new ParamsTest().test();

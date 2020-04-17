@@ -61,7 +61,7 @@ public class VolatileTest {
      }
      public interface ExecutorService extends Executor
      public abstract class AbstractExecutorService implements ExecutorService
-     ExecutorService 调用 父类 AbstractExecutorService 类实现接口ExecutorService的submit方法，
+     ThreadPoolExecutor 调用 父类 AbstractExecutorService 类实现接口ExecutorService的submit方法，
      submit内部调用 Executor接口的execute方法，execute 由 ThreadPoolExecutor类实现
 
       ThreadPoolExecutor的方法execute(Runnable command) 调用  addWorker(Runnable firstTask, boolean core)将Runnable

@@ -1,12 +1,17 @@
 package Test.test2018;
 
 import Model.Student;
+import com.rabbitmq.client.impl.AMQImpl;
 import common.CallBackRunnable;
+import io.netty.util.concurrent.CompleteFuture;
+import jdk.nashorn.internal.ir.ReturnNode;
 import utility.TXTFile;
 
 import javax.xml.bind.annotation.XmlType;
 import java.text.MessageFormat;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -65,7 +70,10 @@ public class ThreadTest {
 //            deadLock();
 //            userThreadDaemonThread();
 
-            threadState();
+//            threadState();
+
+
+
             Integer n = 1;
             //whenComplete();
         } catch (Exception ex) {
@@ -75,7 +83,6 @@ public class ThreadTest {
 
 
     }
-
 
     //region  Thread
     private void declareStartThread() {
@@ -304,7 +311,12 @@ public class ThreadTest {
             CompletableFuture.runAsync(() ->
             {
             });
+
+
             // 指定Executor， CompletableFuture 内部创建 Integer.MAX_VALUE个线程
+            /*
+             不指定线程池，就用默认的ForkJoinPool
+             */
             CompletableFuture.runAsync(() ->
             {
             }, Executors.newCachedThreadPool());
@@ -432,7 +444,13 @@ public class ThreadTest {
     }
     //endregion
 
-    //region  threadTimeOut
+    //region  ThreadTimeOut
+    /*
+    在指定时间内定时器监测Future是否执行完成，否则取消
+   <T> Future<T> submit(Callable<T> task);
+   Future<?> submit(Runnable task);
+    void execute(Runnable command);
+     */
     private void threadTimeOut() {
         try {
 
@@ -698,6 +716,30 @@ public class ThreadTest {
         System.out.println(MessageFormat.format("ThreadState: {0}", newThread.getState()));
     }
     //endregion
+
+    //region  Timer
+
+    private void schedule() {
+        //Timer
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("TimerTask");
+                //doWork()
+            }
+        }, 0, 3 * 1000);
+
+
+        //newScheduledThreadPool
+        Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() ->
+        {
+            System.out.println("scheduleAtFixedRate");
+            //doWork()
+        }, 0, 2, TimeUnit.SECONDS);
+
+
+    }
+    // endregion
 
 }
 
