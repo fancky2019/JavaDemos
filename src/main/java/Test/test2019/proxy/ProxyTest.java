@@ -1,5 +1,10 @@
 package Test.test2019.proxy;
 
+/*
+JDK动态代理的两个核心接口(类)分别是InvocationHandler和Proxy。注意：只能代理接口。
+
+CGLIB动态代理模拟
+ */
 public class ProxyTest {
     public void test() {
         //  IProxy proxy = (IProxy) new ProxyFactory( new ProxyImp()).getProxyInstance();
