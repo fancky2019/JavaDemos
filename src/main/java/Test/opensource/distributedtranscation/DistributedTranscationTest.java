@@ -12,7 +12,7 @@ public class DistributedTranscationTest {
      *    MicroServiceB消费成功时候从Redis中移除。
      *
      *
-     *    高可用设计方法：
+     *    高可用设计方法：（MicroServiceA和写入RabbitMQ放在一个DB事务中）
      *    A、MicroServiceA 入库完成，不提交事务。
      *    B、写入Redis。
      *    C、MicroServiceA提交事务。失败删除Redis数据。

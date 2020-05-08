@@ -12,6 +12,7 @@ import java.text.MessageFormat;
  */
 public class StringTest {
     public void test() {
+        concat();
         //  format();
         stringIntern();
         String str1 = StringTest.trimEnd("sd..", '.');
@@ -26,6 +27,22 @@ public class StringTest {
         student.setName(name);
         parametersFunction("name", student);
         System.out.println(name);
+    }
+
+    private  void  concat()
+    {
+        int m=1;
+        //可以直接转成str，类似javascript
+        String  str=m+"";
+
+        char ch='b';
+        int chi=ch-1;//b 转ascii 码 98-1=97(a)
+
+        //减不能成立
+//        String sub="A"-1;
+        //不能转数字
+       // Integer num="1"+2;
+        int n=0;
     }
 
     private void format() {
