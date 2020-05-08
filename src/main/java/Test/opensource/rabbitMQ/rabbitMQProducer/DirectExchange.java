@@ -200,7 +200,9 @@ public class DirectExchange {
     ConcurrentNavigableMap<Long, String> outstandingConfirms = new ConcurrentSkipListMap<>();
 
     /**
-     * 批量异步插入，性能最好
+     * 批量异步插入，性能最好,
+     * Waiting for a batch of messages to be confirmed improves throughput drastically over waiting for a confirm for individual message
+     * (up to 20-30 times with a remote RabbitMQ node).
      */
     public void produceInBatchAsync() {
         try {
