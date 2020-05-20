@@ -56,6 +56,35 @@ public class LockTest {
 
         synchronizedSleepTest();
     }
+    private final int lockInt=5;
+    private  final String lockStr="lockStr";
+
+    //私有成员实现对象锁。保证该对象线程安全。
+    private final  Object lockObj1=new Object();
+    //类锁：锁静态变量，类锁保证该类的对象线程安全。
+    private final static Object LOCKOBJECT=new Object();
+    private void synchronizedBlock()
+    {
+        //要求参数是object。
+//        synchronized (lockInt)
+//        {
+//
+//        }
+
+        //会造成死锁。
+        synchronized (lockStr)
+        {
+
+        }
+        synchronized (lockObj1)
+        {
+
+        }
+        synchronized (LOCKOBJECT)
+        {
+
+        }
+    }
 
     private void synchronizedTest() {
         CompletableFuture.runAsync(() ->
