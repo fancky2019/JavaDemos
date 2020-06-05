@@ -6,7 +6,12 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.CharsetUtil;
 import io.netty.util.HashedWheelTimer;
 
 import java.util.concurrent.Executors;
@@ -26,7 +31,7 @@ public class NettyClient {
 
     void run() throws Exception {
         String host = "localhost";
-        int port = 8080;
+        int port = 9310;
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap(); // (1)
@@ -37,18 +42,30 @@ public class NettyClient {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
 
+                    ChannelPipeline channelPipeline = ch.pipeline();
+                    channelPipeline.addLast(new IdleStateHandler(2, 2, 2, TimeUnit.SECONDS));
 
-                    ch.pipeline().addLast(new IdleStateHandler(2, 2, 2, TimeUnit.SECONDS));
 
+                    //解决TCP粘包等产生的半包问题。
+                    //消息体占4个字节：消息体长度
+//                    channelPipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+//                    channelPipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
 //                    // 字符串解码和编码
 //                    // encoder 编码器， decoder 解码器
 //                    ch.pipeline().addLast("decoder",new StringDecoder());
 //                    ch.pipeline().addLast("encoder",new StringEncoder());
-                    ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
-                    ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
-                    ch.pipeline().addLast(new ClientHandler());
+//                    channelPipeline.addLast("decoder", new StringDecoder(CharsetUtil.UTF_8));
+//                    channelPipeline.addLast("encoder", new StringEncoder(CharsetUtil.UTF_8));
+
+
+                    //MarshallingEncoder 继承LengthFieldBasedFrameDecoder，内部解决粘包问题
+                    channelPipeline.addLast(MarshallingCodeFactory.buildMarshallingDecoder());
+                    channelPipeline.addLast(MarshallingCodeFactory.buildMarshallingEncoder());
+                    channelPipeline.addLast(new ClientHandler());
                 }
             });
+
+
 
             // Start the client.
             ChannelFuture channelFuture = b.connect(host, port).sync(); // (5)
@@ -63,7 +80,7 @@ public class NettyClient {
                 channel.writeAndFlush(msg);
 
 
-                // channel.writeAndFlush(line+i.toString());
+//                 channel.writeAndFlush(line+i.toString());
                 Thread.sleep(500);
             }
             // Wait until the connection is closed.
