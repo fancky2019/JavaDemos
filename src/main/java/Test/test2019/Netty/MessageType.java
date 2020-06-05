@@ -1,6 +1,8 @@
 package Test.test2019.Netty;
 
-public enum MessageType {
+import java.io.Serializable;
+
+public enum MessageType  {
     HeartBeat,
     Data
 }

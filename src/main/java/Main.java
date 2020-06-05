@@ -1,6 +1,7 @@
 
 import Test.opensource.redis.*;
 import Test.test2018.ThreadTest;
+import Test.test2019.Netty.NettyTest;
 import Test.test2020.ClassCastTest;
 import Test.test2019.*;
 import Test.test2020.*;
@@ -163,7 +164,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-            //    new NettyTest().test();
+                new NettyTest().test();
 //            new StringTest().test();
             //  new TimerTest().test();
 

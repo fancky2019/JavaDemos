@@ -8,6 +8,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
@@ -15,7 +17,7 @@ public class NettyServer {
     private int port;
 
     public void test() {
-        this.port = 8080;
+        this.port = 9310;
         try {
             //打开Window的命令行，输入telnet命令:telnet localhost 8080,如果能够正确连接就代表成功
             run();
@@ -37,21 +39,31 @@ public class NettyServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
+
+                            ChannelPipeline channelPipeline = ch.pipeline();
 //                            //必须指定解码器，不然收不到信息
 //                            // 字符串解码和编码
-//                            // encoder 编码器， decoder 解码器
-//                            ch.pipeline().addLast("decoder", new StringDecoder());
-//                            ch.pipeline().addLast("encoder", new StringEncoder());
+                            //解决TCP粘包等产生的半包问题。
+                            //消息体占4个字节：消息体长度
+//                            channelPipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+//                            channelPipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
+//                           //字符串解码和编码
+//                         // encoder 编码器， decoder 解码器
+//                            channelPipeline.addLast("decoder", new StringDecoder());
+//                            channelPipeline.addLast("encoder", new StringEncoder());
+//                            channelPipeline.addLast("decoder", new StringDecoder(CharsetUtil.UTF_8));
+//                            channelPipeline.addLast("encoder", new StringEncoder(CharsetUtil.UTF_8));
+
+                            //MarshallingEncoder 继承LengthFieldBasedFrameDecoder，内部解决粘包问题
+                            channelPipeline.addLast(MarshallingCodeFactory.buildMarshallingDecoder());
+                            channelPipeline.addLast(MarshallingCodeFactory.buildMarshallingEncoder());
 
 
-                            ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
-                            ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
-
-
-                            ch.pipeline().addLast(new ServerHandler());
+                            channelPipeline.addLast(new ServerHandler());
 
                         }
                     })
+
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                     .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
