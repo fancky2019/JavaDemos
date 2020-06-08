@@ -1,8 +1,4 @@
-package Test.test2019.Netty;
-
-import Test.test2019.Netty.NettyProduction.NetttyServerProduction;
-import Test.test2019.Netty.NettyProduction.NettyClientProduction;
-import sun.security.krb5.internal.NetClient;
+package Test.opensource.Netty;
 
 import java.util.concurrent.CompletableFuture;
 

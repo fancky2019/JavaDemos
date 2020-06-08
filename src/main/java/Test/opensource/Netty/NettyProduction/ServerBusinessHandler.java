@@ -1,17 +1,18 @@
-package Test.test2019.Netty.NettyProduction;
+package Test.opensource.Netty.NettyProduction;
 
-import Test.test2019.Netty.MessageInfo;
-import Test.test2019.Netty.MessageType;
+import Test.opensource.Netty.MessageInfo;
+import Test.opensource.Netty.MessageType;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleStateEvent;
 
 import java.net.SocketAddress;
 
 public class ServerBusinessHandler extends ChannelInboundHandlerAdapter {
 
-
+//    SimpleChannelInboundHandler
     //建立连接
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
