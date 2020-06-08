@@ -1,11 +1,7 @@
 
-import Test.opensource.redis.*;
-import Test.test2018.ThreadTest;
-import Test.test2019.Netty.NettyTest;
-import Test.test2020.ClassCastTest;
-import Test.test2019.*;
-import Test.test2020.*;
-import Test.test2020.UDPTest;
+import Test.opensource.Netty.NettySample.NettySampleClient;
+import Test.opensource.Netty.NettySample.NettySampleServer;
+import Test.opensource.Netty.NettyTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -164,7 +160,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-                new NettyTest().test();
+//                new NettyTest().test();
 //            new StringTest().test();
             //  new TimerTest().test();
 
@@ -212,6 +208,8 @@ public class Main {
 //            new ParallelTest().test();
 //            new StopwatchTest().test();
 
+             new NettySampleServer().test();
+             new NettySampleClient().test();
             //endregion
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));

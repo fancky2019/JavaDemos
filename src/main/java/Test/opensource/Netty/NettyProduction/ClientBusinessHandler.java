@@ -1,15 +1,11 @@
-package Test.test2019.Netty.NettyProduction;
+package Test.opensource.Netty.NettyProduction;
 
-import Test.test2019.Netty.MessageInfo;
-import Test.test2019.Netty.MessageType;
-import common.CallBackRunnable;
+import Test.opensource.Netty.MessageInfo;
+import Test.opensource.Netty.MessageType;
 import io.netty.channel.*;
-import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 
 import java.net.SocketAddress;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class ClientBusinessHandler extends ChannelInboundHandlerAdapter {
 

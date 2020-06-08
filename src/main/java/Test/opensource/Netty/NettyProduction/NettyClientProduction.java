@@ -1,8 +1,8 @@
-package Test.test2019.Netty.NettyProduction;
+package Test.opensource.Netty.NettyProduction;
 
 
-import Test.test2019.Netty.MarshallingCodeFactory;
-import Test.test2019.Netty.MessageInfo;
+import Test.opensource.Netty.MarshallingCodeFactory;
+import Test.opensource.Netty.MessageInfo;
 import common.Action;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -10,6 +10,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 
 import java.util.concurrent.TimeUnit;
 
@@ -53,6 +55,7 @@ public class NettyClientProduction {
                 ch.pipeline().addLast(new IdleStateHandler(2, 2, 6, TimeUnit.SECONDS));
                 ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
                 ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
+                //注意不new ，通过this访问某个类的实例
                 ch.pipeline().addLast(new ClientBusinessHandler(NettyClientProduction.this));
             }
         });
@@ -66,7 +69,26 @@ public class NettyClientProduction {
         }
         try {
             ChannelFuture channelFuture = bootstrap.connect(host, port);
-            //实现监听通道连接的方法
+
+            /*
+            Netty 操作都是异步的。
+            connect 方法返回ChannelFuture，当连接完成，执行ChannelFutureListener的匿名内部类的operationComplete
+           ChannelFutureListener 接口继承GenericFutureListener接口
+            少用lambda表达式，不然看不到起实现原理
+             */
+//            channelFuture.addListener(new GenericFutureListener<ChannelFuture>() {
+//                @Override
+//                public void operationComplete(ChannelFuture channelFuture) throws Exception {
+//
+//                }
+//            });
+//            channelFuture.addListener(new ChannelFutureListener() {
+//                @Override
+//                public void operationComplete(ChannelFuture channelFuture) throws Exception {
+//
+//                }
+//            });
+            //Channel连接成功，执行Listener方法。
             channelFuture.addListener(p -> {
                 ChannelFuture ch = (ChannelFuture) p;
                 if (ch.isSuccess()) {
