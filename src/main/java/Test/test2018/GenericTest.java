@@ -8,10 +8,25 @@ import java.util.function.Consumer;
 泛型擦除：T-->object、上界(如果指定上界)、下界（如果指定下界）
 通配符?:用于类型变量。
 泛型：类型参数化
+
+泛型如果不指定类型参数，其类型就是object类型。C#里必须要指定类型参数
+E - Element (在集合中使用，因为集合中存放的是元素)
+T - Type（Java 类）
+R - Return
+K - Key（键）
+V - Value（值）
+N - Number（数值类型）
+？ - 表示不确定的java类型
+
  */
 public class GenericTest {
 
     public void test() {
+
+        //泛型如果不指定类型参数，其类型就是object类型。
+//        List list=new ArrayList();
+//        list.add(1);
+
         GenTest<? extends Object> a = new GenTest<>();
         GenTest<? super GenS> aa = new GenTest<>();
         GenaTest<Integer> genaTest = new GenaTest<>();
