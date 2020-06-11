@@ -2,6 +2,7 @@
 import Test.opensource.Netty.NettySample.NettySampleClient;
 import Test.opensource.Netty.NettySample.NettySampleServer;
 import Test.opensource.Netty.NettyTest;
+import Test.test2020.UDPTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -204,12 +205,12 @@ public class Main {
 
 //            new ClassCastTest().test();
 
-//            new UDPTest().test();
+            new UDPTest().test();
 //            new ParallelTest().test();
 //            new StopwatchTest().test();
 
-             new NettySampleServer().test();
-             new NettySampleClient().test();
+//             new NettySampleServer().test();
+//             new NettySampleClient().test();
             //endregion
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
