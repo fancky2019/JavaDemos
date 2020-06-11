@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 /*
 UDP：Test.test2020;
+MTU:1500 byte
  */
 public class SocketTcpTest {
     public void test() {
