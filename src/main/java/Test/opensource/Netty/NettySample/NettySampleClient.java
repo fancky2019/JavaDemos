@@ -52,7 +52,7 @@ public class NettySampleClient {
         bootstrap = new Bootstrap(); // (1)
         bootstrap.group(workerGroup); // (2)
         bootstrap.channel(NioSocketChannel.class); // (3)
-        bootstrap.option(ChannelOption.SO_KEEPALIVE, true); // (4)
+//        bootstrap.option(ChannelOption.SO_KEEPALIVE, true); // (4)
         bootstrap.handler(new ChannelInitializer<SocketChannel>() {
             @Override
             public void initChannel(SocketChannel ch) throws Exception {

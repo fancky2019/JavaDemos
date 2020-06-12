@@ -205,7 +205,7 @@ public class Main {
 
 //            new ClassCastTest().test();
 
-            new UDPTest().test();
+//            new UDPTest().test();
 //            new ParallelTest().test();
 //            new StopwatchTest().test();
 

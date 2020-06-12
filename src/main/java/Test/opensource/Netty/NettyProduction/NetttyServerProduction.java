@@ -49,17 +49,16 @@ public class NetttyServerProduction {
 //                            ch.pipeline().addLast("encoder", new StringEncoder());
 
                             ch.pipeline().addLast(new ServerBusinessHandler());
-
                         }
-                    })
+                    });
                     /*
                     ChannelOption.SO_BACKLOG对应的是tcp/ip协议listen函数中的backlog参数，
                     函数listen(int socketfd,int backlog)用来初始化服务端可连接队列，服务端处理客户端连接请求是顺序处理的，
                     所以同一时间只能处理一个客户端连接，多个客户端来的时候，
                     服务端将不能处理的客户端连接请求放在队列中等待处理，backlog参数指定了队列的大小
                      */
-                    .option(ChannelOption.SO_BACKLOG, 128)          // (5)
-                    .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
+//                    .option(ChannelOption.SO_BACKLOG, 128)          // (5)
+//                    .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
             // Bind and start to accept incoming connections.
             ChannelFuture f = b.bind(port).sync(); // (7)
