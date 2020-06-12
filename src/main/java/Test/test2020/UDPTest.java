@@ -109,6 +109,7 @@ public class UDPTest {
         try {
             InetAddress multicastInetAddress = InetAddress.getByName("225.0.0.1");
             MulticastSocket multicastSocket = new MulticastSocket(6000);
+            //默认的
 //            multicastSocket.setNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getByName("192.168.1.105")));
             multicastSocket.joinGroup(multicastInetAddress);
 
