@@ -95,7 +95,9 @@ public class UDPTest {
            //   multicastSocket.setNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getByName("127.0.0.1")));
 
             String message = "Multicast Multicast Message";
+            //相当于C# 的IPAddress。IPEndPoint包括IP和端口
             InetAddress multicastInetAddress = InetAddress.getByName("225.0.0.1");
+
             byte[] bytes = message.getBytes("UTF-8");
             DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, multicastInetAddress, 6000);
             multicastSocket.send(datagramPacket);

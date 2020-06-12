@@ -1,6 +1,8 @@
 
 import Test.opensource.Netty.NettySample.NettySampleClient;
 import Test.opensource.Netty.NettySample.NettySampleServer;
+import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPClient;
+import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPServer;
 import Test.opensource.Netty.NettyTest;
 import Test.test2020.UDPTest;
 
@@ -211,6 +213,10 @@ public class Main {
 
 //             new NettySampleServer().test();
 //             new NettySampleClient().test();
+
+            new NettyUDPClient().test();
+            new NettyUDPServer().test();
+
             //endregion
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
