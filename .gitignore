@@ -1,6 +1,5 @@
 .idea/workspace.xml
 out
-*.xml
 target/
-
+.idea/
 *.log
