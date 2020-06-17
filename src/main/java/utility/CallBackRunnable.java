@@ -1,4 +1,6 @@
-package common;
+package utility;
+
+import utility.Action;
 
 import java.util.function.Consumer;
 

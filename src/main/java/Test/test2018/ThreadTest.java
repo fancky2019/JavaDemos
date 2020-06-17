@@ -1,13 +1,9 @@
 package Test.test2018;
 
 import Model.Student;
-import com.rabbitmq.client.impl.AMQImpl;
-import common.CallBackRunnable;
-import io.netty.util.concurrent.CompleteFuture;
-import jdk.nashorn.internal.ir.ReturnNode;
+import utility.CallBackRunnable;
 import utility.TXTFile;
 
-import javax.xml.bind.annotation.XmlType;
 import java.text.MessageFormat;
 import java.util.Random;
 import java.util.Timer;
@@ -15,7 +11,6 @@ import java.util.TimerTask;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
