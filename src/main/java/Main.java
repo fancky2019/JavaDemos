@@ -4,6 +4,8 @@ import Test.opensource.Netty.NettySample.NettySampleServer;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPClient;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPServer;
 import Test.opensource.Netty.NettyTest;
+import Test.opensource.msgpack.MsgPackTest;
+import Test.test2020.ByteConverterTest;
 import Test.test2020.UDPTest;
 
 import java.io.BufferedReader;
@@ -214,8 +216,10 @@ public class Main {
 //             new NettySampleServer().test();
 //             new NettySampleClient().test();
 
-            new NettyUDPClient().test();
-            new NettyUDPServer().test();
+//            new NettyUDPClient().test();
+//            new NettyUDPServer().test();
+//            new MsgPackTest().test();
+            new ByteConverterTest().test();
 
             //endregion
 

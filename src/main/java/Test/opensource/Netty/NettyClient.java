@@ -1,6 +1,6 @@
 package Test.opensource.Netty;
 
-import common.CallBackRunnable;
+import utility.CallBackRunnable;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;

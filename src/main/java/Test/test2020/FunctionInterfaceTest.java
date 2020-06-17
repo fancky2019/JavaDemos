@@ -1,6 +1,6 @@
 package Test.test2020;
 
-import common.Action;
+import utility.Action;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

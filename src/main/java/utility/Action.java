@@ -1,4 +1,4 @@
-package common;
+package utility;
 
 @FunctionalInterface
 public interface Action {

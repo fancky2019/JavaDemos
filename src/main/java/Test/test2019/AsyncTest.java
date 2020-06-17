@@ -1,10 +1,8 @@
 package Test.test2019;
 
-import common.Action;
+import utility.Action;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 public class AsyncTest {
     public void test() {
