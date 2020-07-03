@@ -1,4 +1,5 @@
 
+import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.Netty.NettySample.NettySampleClient;
 import Test.opensource.Netty.NettySample.NettySampleServer;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPClient;
@@ -219,7 +220,8 @@ public class Main {
 //            new NettyUDPClient().test();
 //            new NettyUDPServer().test();
 //            new MsgPackTest().test();
-            new ByteConverterTest().test();
+//            new ByteConverterTest().test();
+            new JacksonTest().test();
 
             //endregion
 
