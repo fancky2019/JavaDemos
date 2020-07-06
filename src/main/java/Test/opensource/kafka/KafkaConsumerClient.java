@@ -17,6 +17,8 @@ import java.util.Properties;
       *
       *
       *
+      * enable.offset.commit设置为false,
+      * auto.offset.reset=earliest/latest
       *  默认是latest。
       *
       *  Earliest
