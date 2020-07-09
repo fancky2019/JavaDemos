@@ -18,6 +18,7 @@ import java.util.Random;
 public class Student extends StudentParent implements StudentInterface {
     // @SuppressWarnings("")
     @Description("姓名")
+//    @Description(value = "姓名")
     private String name;
     @Description(value = "年龄", color = "red", age = 25)
     private Integer age;

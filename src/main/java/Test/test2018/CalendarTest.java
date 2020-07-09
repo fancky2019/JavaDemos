@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class CalendarTest {
 
@@ -52,6 +53,32 @@ public class CalendarTest {
         if (date.after(date1)) {
             Integer m = 0;
         }
+
+        //大小比较
+        LocalDateTime localDateTime = LocalDateTime.now();
+        //小于
+        boolean resultCompare = localDateTime.isBefore(localDateTime4);
+        //大于
+        boolean resultCompare1 = localDateTime.isAfter(localDateTime4);
+
+
+        long millis = System.currentTimeMillis();
+
+        //采用时间戳比较
+        long localDateTimeMillis = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        long localDateTimeMillis1 = localDateTime.atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
+        if (System.currentTimeMillis() >= localDateTimeMillis) {
+
+        }
+
+        //转换成带时区的时间
+        //2019-09-20T09:46:20.203+08:00[Asia/Shanghai]
+        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
+        ZonedDateTime atZone = localDateTime.atZone(ZoneId.of("Asia/Shanghai"));
+
+        //ZonedDateTime 转LocalDateTime
+        ZonedDateTime zonedDateTime1 = ZonedDateTime.now();
+        zonedDateTime1.toLocalDateTime();
 
         //获取年月日
         Calendar calendar = Calendar.getInstance();
@@ -109,9 +136,14 @@ public class CalendarTest {
         Duration duration = Duration.between(start, end);
         //endregion
 
-        //ZonedDateTime 转LocalDateTime
-        ZonedDateTime zonedDateTime=ZonedDateTime.now();
-        zonedDateTime.toLocalDateTime();
+
+
+
+        //时间戳：默认是UTC时间
+        Instant instant = Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8));
+        //获取时间戳
+        instant.getEpochSecond();
+
 
 
         LocalDateTime startLocalDateTime = LocalDateTime.parse("2019-11-23 13:12:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
@@ -122,9 +154,6 @@ public class CalendarTest {
                 durationLocalDateTime.toMinutes(),
                 durationLocalDateTime.toMillis()));
 
-        //LocalDateTime 转ZonedDateTime
-        startLocalDateTime.atZone(ZoneId.systemDefault());
-        ZonedDateTime atZone = startLocalDateTime.atZone(ZoneId.of("Asia/Shanghai"));
 
     }
 
@@ -140,4 +169,6 @@ public class CalendarTest {
         String str7 = localDateTime.format(DateTimeFormatter.ofPattern("yyyy"));
         Integer m = 0;
     }
+
+
 }
