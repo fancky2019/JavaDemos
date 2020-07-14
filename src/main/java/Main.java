@@ -166,7 +166,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-//                new NettyTest().test();
+            new NettyTest().test();
 //            new StringTest().test();
             //  new TimerTest().test();
 
@@ -214,14 +214,10 @@ public class Main {
 //            new ParallelTest().test();
 //            new StopwatchTest().test();
 
-//             new NettySampleServer().test();
-//             new NettySampleClient().test();
 
-//            new NettyUDPClient().test();
-//            new NettyUDPServer().test();
 //            new MsgPackTest().test();
 //            new ByteConverterTest().test();
-            new JacksonTest().test();
+//            new JacksonTest().test();
 
             //endregion
 
