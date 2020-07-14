@@ -1,10 +1,24 @@
 package Test.opensource.Netty;
 
+import Test.opensource.Netty.NettySample.NettySampleClient;
+import Test.opensource.Netty.NettySample.NettySampleServer;
+import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPClient;
+import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPServer;
+import Test.opensource.Netty.WebSocketDemo.WebSocketsServer;
+
 import java.util.concurrent.CompletableFuture;
 
 public class NettyTest {
     public void test() {
 
+//        nettyTest();
+        nettyWebSocket();
+//        nettySampleTest();
+//        nettyUDPTest() ;
+
+    }
+
+    private void nettyTest() {
         CompletableFuture.runAsync(() ->
         {
             new NettyServer().test();
@@ -32,6 +46,101 @@ public class NettyTest {
 //            });
         });
 
-
     }
+
+    public void nettyWebSocket() {
+        try {
+            /*
+             * 客户端测试网页：在DW项目的websocketdemo.html。
+             * 启动WebSocket服务程序：监听8031端口
+             */
+
+            //region 客户端测试相关代码
+            /*
+             * 浏览器控制台测试连接
+             * 在浏览器控制台执行：
+             * var ws = new WebSocket("ws://127.0.0.1:8031/");
+                ws.onopen = function() {
+                    ws.send('websocekt测试');
+                };
+                ws.onmessage = function(e) {
+                    alert("收到服务端的消息：" + e.data);
+                };
+
+
+
+
+              // 客户端网页js代码
+                $(function () {
+
+                    var inc = document.getElementById('incomming');
+                    var input = document.getElementById('sendText');
+                    inc.innerHTML += "connecting to server ..<br/>";
+
+                    // create a new websocket and connect
+                    // window.ws = new wsImpl('ws://127.0.0.1:8031/');
+                    let ws=null;
+                    $('#btnConnect').on('click', function () {
+                       // create a new websocket and connect
+                         ws=new WebSocket('ws://127.0.0.1:8031/');
+                        // when data is comming from the server, this metod is called
+                        ws.onmessage = function (evt) {
+                            inc.innerHTML += evt.data + '<br/>';
+                        };
+
+                        // when the connection is established, this method is called
+                        ws.onopen = function () {
+                            inc.innerHTML += '.. connection open<br/>';
+                        };
+
+                        // when the connection is closed, this method is called
+                        ws.onclose = function () {
+                            inc.innerHTML += '.. connection closed<br/>';
+                        }
+                    });
+
+
+                    $('#btnSend').on('click', function () {
+                        var val = input.value;
+                        if(!window.WebSocket||ws==null){return;}
+                        if(ws.readyState == WebSocket.OPEN){
+                            ws.send(message);
+                        }else{
+                            alert("WebSocket 连接没有建立成功！");
+                        }
+                    });
+
+                    $('#btnDisconnect').on('click', function () {
+                        ws.close();
+                    });
+                });
+             */
+            //endregion
+
+            //启动WebSocket服务端
+            new WebSocketsServer().runServer();
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void nettySampleTest() {
+        try {
+            new NettySampleServer().test();
+            new NettySampleClient().test();
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void nettyUDPTest() {
+        try {
+            new NettyUDPClient().test();
+            new NettyUDPServer().test();
+        } catch (Exception e) {
+
+        }
+    }
+
+
 }
