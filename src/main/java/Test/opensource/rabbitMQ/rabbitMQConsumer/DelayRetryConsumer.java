@@ -55,6 +55,7 @@ public class DelayRetryConsumer {
             //region  重试
             channel.exchangeDeclare(EXCHANGE_RETRY_NAME, ExchangeType.DIRECT);
             Map<String, Object> mapRetry = new HashMap<>();
+            ////设置死信进入失败队列
             mapRetry.put("x-message-ttl", 10000);
             mapRetry.put("x-dead-letter-exchange", EXCHANGE_NAME);
             mapRetry.put("x-dead-letter-routing-key", ROUTING_KEY);
@@ -74,6 +75,7 @@ public class DelayRetryConsumer {
             Boolean exclusive = false;
             Boolean autoDelete = false;
             Map<String, Object> mapConsumer = new HashMap<>();
+            //设置死信进入重试队列
             mapConsumer.put("x-dead-letter-exchange", EXCHANGE_RETRY_NAME);
             mapConsumer.put("x-dead-letter-routing-key", ROUTING_RETRY_KEY);
             channel.queueDeclare(QUEUE_NAME, durable, exclusive, autoDelete, mapConsumer);
