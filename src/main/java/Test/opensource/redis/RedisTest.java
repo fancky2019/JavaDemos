@@ -1,6 +1,7 @@
 package Test.opensource.redis;
 
 import com.google.common.base.Stopwatch;
+import io.netty.util.concurrent.CompleteFuture;
 import utility.Configs;
 import redis.clients.jedis.*;
 
@@ -9,10 +10,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
  * 数据类型的首字母找对应的数据类型的操作
+ * 操作命令中文文档：http://www.redis.cn/commands/lpushx.html
  */
 public class RedisTest {
     private Jedis jedis;//非切片额客户端连接
@@ -77,7 +80,8 @@ public class RedisTest {
 //        sortedSet();
 //        increment();
 //        transactionTest();
-        keyExpire();
+//        keyExpire();
+        redisQueue();
     }
 
     //region utility
@@ -380,53 +384,100 @@ public class RedisTest {
     //endregion
 
     //region keyExpire 1.25s---2.25s为一个自然秒。不是1.25秒到了2秒就算1秒
-    private  void keyExpire()
-    {
-        Stopwatch stopwatch=Stopwatch.createStarted();
+    private void keyExpire() {
+        Stopwatch stopwatch = Stopwatch.createStarted();
         //获取毫秒数
 //        Long milliSecond = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
 
         Long seconds = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).getEpochSecond();
         long currentMilliseconds = System.currentTimeMillis();
 
-        long millis=currentMilliseconds-seconds*1000;
-        System.out.println(MessageFormat.format("before setting key current milliseconds:{0}--{1}",millis,LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm:ss.SSS"))) );
-        jedis.setex("expireKey",1,"expireKeyValue");
-        while (true)
-        {
+        long millis = currentMilliseconds - seconds * 1000;
+        System.out.println(MessageFormat.format("before setting key current milliseconds:{0}--{1}", millis, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm:ss.SSS"))));
+        jedis.setex("expireKey", 1, "expireKeyValue");
+        while (true) {
 //           String  expireKeyValue=jedis.get("expireKey");
-            if(!jedis.exists("expireKey"))
-            {
+            if (!jedis.exists("expireKey")) {
                 stopwatch.stop();
-                System.out.println(MessageFormat.format(" key expire milliseconds:{0}",stopwatch.elapsed(TimeUnit.MILLISECONDS)) );
+                System.out.println(MessageFormat.format(" key expire milliseconds:{0}", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
 
 
                 Long seconds1 = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).getEpochSecond();
                 long currentMilliseconds1 = System.currentTimeMillis();
-                long millis1=currentMilliseconds1-seconds1*1000;
-                System.out.println(MessageFormat.format(" key expire current milliseconds:{0}--{1}",millis1,LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm:ss.SSS"))) );
+                long millis1 = currentMilliseconds1 - seconds1 * 1000;
+                System.out.println(MessageFormat.format(" key expire current milliseconds:{0}--{1}", millis1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm:ss.SSS"))));
                 break;
-            }
-            else {
+            } else {
 
                 //JDK9
-             //   一：Thread.Sleep(1000);
-              //  Thread.Sleep()方法：是强制放弃CPU的时间片，然后重新和其他线程一起参与CPU的竞争。
-            //    二：Thread.SpinWait(1000);       //JDK9
-            //    Thread.SpinWait()方法：只是让CPU去执行一段没有用的代码。当时间结束之后能马上继续执行，而不是重新参与CPU的竞争。
+                //   一：Thread.Sleep(1000);
+                //  Thread.Sleep()方法：是强制放弃CPU的时间片，然后重新和其他线程一起参与CPU的竞争。
+                //    二：Thread.SpinWait(1000);       //JDK9
+                //    Thread.SpinWait()方法：只是让CPU去执行一段没有用的代码。当时间结束之后能马上继续执行，而不是重新参与CPU的竞争。
 //                用Sleep()方法是会让线程放弃CPU的使用权。
 //                用SpinWait()方法是不会放弃CPU的使用权。
 
                 try {
                     Thread.sleep(1);
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
 
                 }
 
             }
         }
     }
+    //endregion
+
+    //region 队列
+    public void redisQueue() {
+
+        // region Producer
+        CompletableFuture.runAsync(() ->
+        {
+            //在没带参数构造函数生成的Random对象的种子缺省是当前系统时间的毫秒数。
+            Random random = new Random();
+            for (int i = 0; i < 100; i++) {
+                try {
+
+                    String msg = MessageFormat.format("message - {0}", i);
+                    String queueKey = "queueKey";
+                    //返回队列长度
+                    //LPUSH key value [value ...]
+                    Long queueSize = jedis.lpush(queueKey, msg);
+                    System.out.println(MessageFormat.format("redisQueueProducer - {0}", msg));
+                    // [0,200)
+                    int sleepMills = random.nextInt(200);
+                    Thread.sleep(sleepMills);
+                } catch (Exception ex) {
+
+                }
+            }
+
+        });
+        //endregion
+
+        // region Consumer
+        CompletableFuture.runAsync(() ->
+        {
+            String queueKey = "queueKey";
+            //BRPOP key [key ...] timeout
+            //JRedis没有超时参数，时间默认Infinite（无穷大）：就阻塞了。
+            //删除，并获得该列表中的最后一个元素，或阻塞，直到有一个可用
+            List<String> vals = jedis.brpop(queueKey);
+            vals.forEach(p ->
+            {
+                System.out.println(MessageFormat.format("redisQueueConsumer - {0}", p));
+            });
+
+        });
+        //endregion
+    }
+    //endregion
+
+    //region 订阅
+    //endregion
+
+    //region 过期回调
+    //EVENT NOTIFICATION 配置节点
     //endregion
 }
