@@ -6,6 +6,7 @@ import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPClient;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPServer;
 import Test.opensource.Netty.NettyTest;
 import Test.opensource.msgpack.MsgPackTest;
+import Test.opensource.redis.RedisTest;
 import Test.test2020.ByteConverterTest;
 import Test.test2020.UDPTest;
 
@@ -132,7 +133,7 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-//              new RedisTest().test();
+              new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
@@ -166,7 +167,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-            new NettyTest().test();
+//            new NettyTest().test();
 //            new StringTest().test();
             //  new TimerTest().test();
 
