@@ -89,11 +89,16 @@ public class RedisTest {
 //        transactionTest();
 //        keyExpire();
         redisQueue();
+//        pubSub();
     }
 
-    private  synchronized Jedis getJedis()
-    {
-        return  jedis;
+    /**
+     * 不能用单例，多线程会出现问题
+     *
+     * @return
+     */
+    private synchronized Jedis getJedis() {
+        return jedis;
     }
 
     //region utility
@@ -441,23 +446,32 @@ public class RedisTest {
     //endregion
 
     //region 队列
+
+    /**
+     *测试RabbitMQ确认模式生产10000耗时 14s左右，性能远低于redis的队列：生产10W，5.5s左右
+     */
     public void redisQueue() {
-        getJedis().select(13);//切换数据库
-        getJedis().flushDB();//清空当前数据库
+        jedis.select(13);//切换数据库
+        jedis.flushDB();//清空当前数据库
+        Stopwatch stopwatch = Stopwatch.createStarted();
         // region Producer
         CompletableFuture.runAsync(() ->
         {
             //在没带参数构造函数生成的Random对象的种子缺省是当前系统时间的毫秒数。
             Random random = new Random();
-            for (int i = 0; i < 10000; i++) {
+            String queueKey = "queueKey";
+
+            for (int i = 0; i < 100000; i++) {
                 try {
 
-                    String msg = MessageFormat.format("message - {0} - {1}", i, System.currentTimeMillis());
-                    String queueKey = "queueKey";
+//                      String msg = MessageFormat.format("message - {0} - {1}", i, System.currentTimeMillis());
+                    String msg = MessageFormat.format("message - {0}", i);
+
+
                     //返回队列长度
                     //LPUSH key value [value ...]
-                    Long queueSize =   getJedis().lpush(queueKey, msg);
-                    System.out.println(MessageFormat.format("redisQueueProducer - {0}", msg));
+                    Long queueSize = jedis.lpush(queueKey, msg);
+                    //    System.out.println(MessageFormat.format("redisQueueProducer - {0}", msg));
 
 
                     // [0,200)
@@ -467,7 +481,9 @@ public class RedisTest {
 
                 }
             }
-
+            stopwatch.stop();
+            long millis = stopwatch.elapsed(TimeUnit.MILLISECONDS);
+            System.out.println(MessageFormat.format("redisQueueProducer - {0}", millis));
         });
         //endregion
 
@@ -480,11 +496,12 @@ public class RedisTest {
 
         //多线程访问redis 实例要么用从ShardedJedisPool取，要么对Jedis加锁取。
         //建议从ShardedJedisPool取
-        // region Consumer
+        //   region Consumer
         CompletableFuture.runAsync(() ->
         {
+
             try {
-                Jedis jedisConsumer =   jedisPool.getResource();
+                Jedis jedisConsumer = jedisPool.getResource();
                 jedisConsumer.select(13);//切换数据库
 //                jedis.flushDB();//清空当前数据库,看是否阻塞
                 String queueKey = "queueKey";
@@ -504,40 +521,48 @@ public class RedisTest {
     //endregion
 
     //region 订阅
+
+    /**
+     * 订阅不会保存在DB：如果只启动pub,没有启动sub。数据库不会有pub的msg。
+     */
     private void pubSub() {
-        String pubSubChannel = "";
+        try {
+            String pubSubChannel = "ocg";
+            CompletableFuture.runAsync(() ->
+            {
 
-        CompletableFuture.runAsync(() ->
-        {
-            String message = "";
-            Long publish = jedis.publish(pubSubChannel, message);//返回订阅者数量
+                String message = "";
+                Jedis jedis = jedisPool.getResource();
 
-
-        });
-
-
-        // region Consumer
-        CompletableFuture.runAsync(() ->
-        {
-            jedis.subscribe(new JedisPubSub() {
-                @Override
-                /** JedisPubSub类是一个没有抽象方法的抽象类,里面方法都是一些空实现
-                 * 所以可以选择需要的方法覆盖,这儿使用的是SUBSCRIBE指令，所以覆盖了onMessage
-                 * 如果使用PSUBSCRIBE指令，则覆盖onPMessage方法
-                 * 当然也可以选择BinaryJedisPubSub,同样是抽象类，但方法参数为byte[]
-                 **/
-                public void onMessage(String channel, String message) {
-                    System.out.println(Thread.currentThread().getName() + "-接收到消息:channel=" + channel + ",message=" + message);
-                    //接收到exit消息后退出
-                    if (pubSubChannel.equals(message)) {
-                        System.exit(0);
-                    }
+                jedis.select(13);
+                jedis.flushDB();
+                for (int i = 0; i < 1000; i++) {
+                    message = MessageFormat.format("message - {0}", i);
+                    Long publish = jedis.publish(pubSubChannel, message);//返回订阅者数量
                 }
 
-            }, pubSubChannel);//第一个参数是处理接收消息，第二个参数是订阅的消息频道
-        });
-        //endregion
 
+            });
+
+
+            // region Consumer
+            CompletableFuture.runAsync(() ->
+            {
+
+                Jedis jedis = jedisPool.getResource();
+                jedis.select(13);
+                jedis.subscribe(new JedisPubSub() {
+                    @Override
+                    public void onMessage(String channel, String message) {
+                        System.out.println("channel=" + channel + ",message=" + message);
+                    }
+
+                }, pubSubChannel);//第一个参数是处理接收消息，第二个参数是订阅的消息频道
+            });
+            //endregion
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
     }
 
 

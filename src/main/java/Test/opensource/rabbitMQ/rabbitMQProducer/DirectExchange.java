@@ -3,6 +3,7 @@ package Test.opensource.rabbitMQ.rabbitMQProducer;
 import Model.Student;
 import Test.opensource.rabbitMQ.ExchangeType;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.Stopwatch;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 官方API:
@@ -20,6 +22,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class DirectExchange {
 
     /*
+     *消息  channel.basicPublish的时候就持久化
      * 持久化：
      * Exchange：ExchangeDeclare 参数durable: true，宕机只保存Exchange元数据 ，Queue、Message丢失
      * Queue:QueueDeclare 参数durable: true         宕机只保存Queue元数据，Message丢失
@@ -102,27 +105,40 @@ public class DirectExchange {
                 //将信道设置成确认模式
                 channel.confirmSelect();
 
-                //  BasicProperties 默认为：   MessageProperties.MINIMAL_BASIC,不持久化
-                //mandatory设置为true,第三个参数
-                channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, true, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"));
-                //没有路由的消息返回。RabbitMQ会调用Basic.Return命令将消息返回给生产者。当mandatory参数设置为false时，出现上述情形的话，消息直接被丢弃
-                //  //没有路由的消息将会回退,消息没有找到可路由转发的队里，立即回发给生产者。
-                channel.addReturnListener((int replyCode, String replyText, String exchange, String routingKey, AMQP.BasicProperties basicProperties, byte[] body) -> {
-                    String msg = new String(body);
-                    System.out.println("Basic.Return返回的结果是：" + msg);
-                });
+                //测试RabbitMQ确认模式生产10000耗时 14s左右，性能远低于redis的队列：生产10W，5.5s左右
+                Stopwatch stopwatch=Stopwatch.createStarted();
+                for(int i=0;i<10000;i++) {
+                    message=MessageFormat.format("message - {0}",i);
 
-                //同步确认生产成功。
-                try {
-                    channel.waitForConfirmsOrDie(5_000);
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
-                    System.out.println("生产失败！");
+
+
+                    //  BasicProperties 默认为：   MessageProperties.MINIMAL_BASIC,不持久化
+                    //mandatory设置为true,第三个参数
+                    channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, true, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"));
+                    //没有路由的消息返回。RabbitMQ会调用Basic.Return命令将消息返回给生产者。当mandatory参数设置为false时，出现上述情形的话，消息直接被丢弃
+                    //  //没有路由的消息将会回退,消息没有找到可路由转发的队里，立即回发给生产者。
+                    channel.addReturnListener((int replyCode, String replyText, String exchange, String routingKey, AMQP.BasicProperties basicProperties, byte[] body) -> {
+                        String msg = new String(body);
+                        System.out.println("Basic.Return返回的结果是：" + msg);
+                    });
+
+                    //同步确认生产成功。
+                    try {
+                        channel.waitForConfirmsOrDie(5_000);
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                        System.out.println("生产失败！");
+                    }
+
+
                 }
+
+                stopwatch.stop();
+                System.out.println(stopwatch.elapsed(TimeUnit.MILLISECONDS));
 
             }
         } catch (Exception ex) {
-
+            System.out.println(ex.getMessage());
         }
     }
 

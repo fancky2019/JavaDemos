@@ -18,6 +18,7 @@ import java.util.Map;
  */
 public class DirectExchange {
     /*
+     *消息  channel.basicPublish的时候就持久化
      * 持久化：
      * Exchange：ExchangeDeclare 参数durable: true，宕机只保存Exchange元数据 ，Queue、Message丢失
      * Queue:QueueDeclare 参数durable: true         宕机只保存Queue元数据，Message丢失
