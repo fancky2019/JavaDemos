@@ -88,8 +88,10 @@ public class RedisTest {
 //        increment();
 //        transactionTest();
 //        keyExpire();
-        redisQueue();
+//        redisQueue();
 //        pubSub();
+
+        expireCallBack();
     }
 
     /**
@@ -448,7 +450,7 @@ public class RedisTest {
     //region 队列
 
     /**
-     *测试RabbitMQ确认模式生产10000耗时 14s左右，性能远低于redis的队列：生产10W，5.5s左右
+     * 测试RabbitMQ确认模式生产10000耗时 14s左右，性能远低于redis的队列：生产10W，5.5s左右
      */
     public void redisQueue() {
         jedis.select(13);//切换数据库
@@ -551,6 +553,7 @@ public class RedisTest {
 
                 Jedis jedis = jedisPool.getResource();
                 jedis.select(13);
+
                 jedis.subscribe(new JedisPubSub() {
                     @Override
                     public void onMessage(String channel, String message) {
@@ -569,6 +572,63 @@ public class RedisTest {
     //endregion
 
     //region 过期回调
-    //EVENT NOTIFICATION 配置节点
+
+    /**
+     * 修改Redis 配置
+     * EVENT NOTIFICATION 配置节点
+     * 默认：notify-keyspace-events "" 修改成 notify-keyspace-events Ex
+     * 重启Redis
+     */
+    private void expireCallBack() {
+        try {
+            CompletableFuture.runAsync(() ->
+            {
+                Jedis jedis = jedisPool.getResource();
+                jedis.select(13);
+                jedis.flushDB();
+                jedis.psubscribe(new JedisPubSub() {
+//            public class KeyExpiredListener extends JedisPubSub {
+
+                    @Override
+                    public void onPSubscribe(String pattern, int subscribedChannels) {
+                        System.out.println("onPSubscribe " + pattern + " " + subscribedChannels);
+                    }
+
+                    /**
+                     * 如果Key 过期了，程序没启动将不会收到过期的回调信息。
+                     * @param pattern
+                     * @param channel
+                     * @param message
+                     */
+                    @Override
+                    public void onPMessage(String pattern, String channel, String message) {
+
+                        System.out.println("onPMessage pattern " + pattern + " " + channel + " " + message);
+                    }
+          //监听数据库索引是13的key过期
+                }, "__keyevent@13__:expired");
+            });
+
+
+            try {
+
+                Thread.sleep(2000);
+            } catch (Exception ex) {
+
+            }
+
+            CompletableFuture.runAsync(() ->
+            {
+                Jedis jedis = jedisPool.getResource();
+                jedis.select(13);
+                jedis.flushDB();
+                jedis.set("stringKey", "fancky");
+                jedis.expire("stringKey", 10);
+            });
+
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+    }
     //endregion
 }
