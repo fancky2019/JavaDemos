@@ -16,6 +16,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * 数据类型的首字母找对应的数据类型的操作
  * 操作命令中文文档：http://www.redis.cn/commands/lpushx.html
+ * <p>
+ * <p>
+ * 密码配置： SECURITY配置节点 ，requirepass fancky123456
  */
 public class RedisTest {
     private Jedis jedis;//非切片额客户端连接
@@ -430,24 +433,27 @@ public class RedisTest {
 
     //region 队列
     public void redisQueue() {
-
+        jedis.select(13);//切换数据库
+        jedis.flushDB();//清空当前数据库
         // region Producer
         CompletableFuture.runAsync(() ->
         {
             //在没带参数构造函数生成的Random对象的种子缺省是当前系统时间的毫秒数。
             Random random = new Random();
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 10000; i++) {
                 try {
 
-                    String msg = MessageFormat.format("message - {0}", i);
+                    String msg = MessageFormat.format("message - {0} - {1}", i, System.currentTimeMillis());
                     String queueKey = "queueKey";
                     //返回队列长度
                     //LPUSH key value [value ...]
                     Long queueSize = jedis.lpush(queueKey, msg);
                     System.out.println(MessageFormat.format("redisQueueProducer - {0}", msg));
+
+
                     // [0,200)
-                    int sleepMills = random.nextInt(200);
-                    Thread.sleep(sleepMills);
+//                    int sleepMills = random.nextInt(200);
+//                    Thread.sleep(sleepMills);
                 } catch (Exception ex) {
 
                 }
@@ -456,32 +462,44 @@ public class RedisTest {
         });
         //endregion
 
+        try {
+
+            Thread.sleep(5000);
+        } catch (Exception ex) {
+
+        }
+
+        //多线程访问redis 实例要么用从ShardedJedisPool取，要么对Jedis加锁取。
+        //建议从ShardedJedisPool取
         // region Consumer
         CompletableFuture.runAsync(() ->
         {
-            String queueKey = "queueKey";
-            //BRPOP key [key ...] timeout
-            //JRedis没有超时参数，时间默认Infinite（无穷大）：就阻塞了。
-            //删除，并获得该列表中的最后一个元素，或阻塞，直到有一个可用
-            List<String> vals = jedis.brpop(queueKey);
-            vals.forEach(p ->
-            {
-                System.out.println(MessageFormat.format("redisQueueConsumer - {0}", p));
-            });
-
+            try {
+                Jedis jedisConsumer = jedisPool.getResource();
+                jedisConsumer.select(13);//切换数据库
+//                jedis.flushDB();//清空当前数据库,看是否阻塞
+                String queueKey = "queueKey";
+                while (true) {
+                    //没有可读的消息将一直阻塞
+                    //List(Key和Message):每次返回Key和一个Message
+                    List<String> keyAndMessage = jedisConsumer.brpop(0, queueKey);
+                    System.out.println(MessageFormat.format("redisQueueConsumer - {0} - {1}", keyAndMessage.get(1), System.currentTimeMillis()));
+                }
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
         });
         //endregion
     }
     //endregion
 
     //region 订阅
-    private  void pubSub()
-    {
-        String pubSubChannel="";
+    private void pubSub() {
+        String pubSubChannel = "";
 
         CompletableFuture.runAsync(() ->
         {
-            String  message="";
+            String message = "";
             Long publish = jedis.publish(pubSubChannel, message);//返回订阅者数量
 
 
@@ -491,9 +509,7 @@ public class RedisTest {
         // region Consumer
         CompletableFuture.runAsync(() ->
         {
-
-            jedis.subscribe(new JedisPubSub()
-            {
+            jedis.subscribe(new JedisPubSub() {
                 @Override
                 /** JedisPubSub类是一个没有抽象方法的抽象类,里面方法都是一些空实现
                  * 所以可以选择需要的方法覆盖,这儿使用的是SUBSCRIBE指令，所以覆盖了onMessage
@@ -501,7 +517,7 @@ public class RedisTest {
                  * 当然也可以选择BinaryJedisPubSub,同样是抽象类，但方法参数为byte[]
                  **/
                 public void onMessage(String channel, String message) {
-                    System.out.println(Thread.currentThread().getName()+"-接收到消息:channel=" + channel + ",message=" + message);
+                    System.out.println(Thread.currentThread().getName() + "-接收到消息:channel=" + channel + ",message=" + message);
                     //接收到exit消息后退出
                     if (pubSubChannel.equals(message)) {
                         System.exit(0);
@@ -514,7 +530,7 @@ public class RedisTest {
 
     }
 
-    }
+
     //endregion
 
     //region 过期回调
