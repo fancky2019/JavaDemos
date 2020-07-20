@@ -21,9 +21,12 @@ import java.util.concurrent.TimeUnit;
  * 密码配置： SECURITY配置节点 ，requirepass fancky123456
  */
 public class RedisTest {
-    private Jedis jedis;//非切片额客户端连接
+    /**
+     * 多线程访问redis 实例从ShardedJedisPool取,不能用单例
+     */
+    private Jedis jedis;//非切片客户端连接
     private JedisPool jedisPool;//非切片连接池
-    private ShardedJedis shardedJedis;//切片额客户端连接
+    private ShardedJedis shardedJedis;//切片客户端连接
     private ShardedJedisPool shardedJedisPool;//切片连接池
 
     public RedisTest() {
@@ -35,6 +38,7 @@ public class RedisTest {
         //设置数据库索引
         jedis.select(0);
     }
+
 
     private JedisPoolConfig configJedisPoolConfig() {
         // 池基本配置
@@ -85,6 +89,11 @@ public class RedisTest {
 //        transactionTest();
 //        keyExpire();
         redisQueue();
+    }
+
+    private  synchronized Jedis getJedis()
+    {
+        return  jedis;
     }
 
     //region utility
@@ -433,8 +442,8 @@ public class RedisTest {
 
     //region 队列
     public void redisQueue() {
-        jedis.select(13);//切换数据库
-        jedis.flushDB();//清空当前数据库
+        getJedis().select(13);//切换数据库
+        getJedis().flushDB();//清空当前数据库
         // region Producer
         CompletableFuture.runAsync(() ->
         {
@@ -447,7 +456,7 @@ public class RedisTest {
                     String queueKey = "queueKey";
                     //返回队列长度
                     //LPUSH key value [value ...]
-                    Long queueSize = jedis.lpush(queueKey, msg);
+                    Long queueSize =   getJedis().lpush(queueKey, msg);
                     System.out.println(MessageFormat.format("redisQueueProducer - {0}", msg));
 
 
@@ -462,12 +471,12 @@ public class RedisTest {
         });
         //endregion
 
-        try {
-
-            Thread.sleep(5000);
-        } catch (Exception ex) {
-
-        }
+//        try {
+//
+//            Thread.sleep(5000);
+//        } catch (Exception ex) {
+//
+//        }
 
         //多线程访问redis 实例要么用从ShardedJedisPool取，要么对Jedis加锁取。
         //建议从ShardedJedisPool取
@@ -475,13 +484,14 @@ public class RedisTest {
         CompletableFuture.runAsync(() ->
         {
             try {
-                Jedis jedisConsumer = jedisPool.getResource();
+                Jedis jedisConsumer =   jedisPool.getResource();
                 jedisConsumer.select(13);//切换数据库
 //                jedis.flushDB();//清空当前数据库,看是否阻塞
                 String queueKey = "queueKey";
                 while (true) {
                     //没有可读的消息将一直阻塞
                     //List(Key和Message):每次返回Key和一个Message
+//                    Object o=jedisConsumer.brpop(0, queueKey);
                     List<String> keyAndMessage = jedisConsumer.brpop(0, queueKey);
                     System.out.println(MessageFormat.format("redisQueueConsumer - {0} - {1}", keyAndMessage.get(1), System.currentTimeMillis()));
                 }
