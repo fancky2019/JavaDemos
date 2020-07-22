@@ -57,7 +57,7 @@ public class KafkaConsumerClient {
             for (ConsumerRecord<String, String> record : records) {
                 System.out.println("Received message: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
                //手动提交
-               // consumer.commitSync();
+                consumer.commitSync();
             }
         }
     }
