@@ -8,6 +8,8 @@ import Test.opensource.Netty.NettyTest;
 import Test.opensource.msgpack.MsgPackTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
+import Test.test2018.JDBCTest;
+import Test.test2019.MysqlTest;
 import Test.test2020.ByteConverterTest;
 import Test.test2020.UDPTest;
 
@@ -134,7 +136,7 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-              new RedisTest().test();
+//              new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
