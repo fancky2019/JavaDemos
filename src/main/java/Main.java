@@ -8,6 +8,7 @@ import Test.opensource.Netty.NettyTest;
 import Test.opensource.msgpack.MsgPackTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
+import Test.opensource.sqlite.SQLiteTest;
 import Test.test2018.JDBCTest;
 import Test.test2019.MysqlTest;
 import Test.test2020.ByteConverterTest;
@@ -88,7 +89,7 @@ public class Main {
              //            //:相对路径(即不写明时候到底相对谁)均可通过以下方式获得（不论是一般的java项目还是web项目）
              //            String relativelyPath = System.getProperty("user.dir");
              //            System.out.println(relativelyPath);
-
+             //this.getClass().getClassLoader().getResource("").getPath(); // 经过测试，这种方法是安全的，最有效的
              //            File f = new File(Main.class.getResource("").getPath());
              //            System.out.println(f);
              //
@@ -223,6 +224,7 @@ public class Main {
 //            new ByteConverterTest().test();
 //            new JacksonTest().test();
 
+            new SQLiteTest().test();
             //endregion
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
