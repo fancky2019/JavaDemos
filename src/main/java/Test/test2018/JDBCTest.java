@@ -2,6 +2,7 @@ package Test.test2018;
 
 import Model.Product;
 import com.alibaba.fastjson.JSON;
+import com.google.common.base.Stopwatch;
 import utility.Configs;
 
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /*
 github:https://github.com/Microsoft/mssql-jdbc
@@ -27,7 +29,8 @@ public class JDBCTest {
     public void test() {
         try {
 //              insert();
-            batchInsert();
+            insertTakeTime();
+//            batchInsert();
             // delete();
             // update();
 //            query();
@@ -284,6 +287,56 @@ public class JDBCTest {
 
         //执行命令并接受结果
         Integer result = preparedStatement.executeUpdate();
+        ResultSet rs = preparedStatement.getGeneratedKeys();
+        if (rs.next()) {
+            Integer id = rs.getInt(1);
+            Integer m = 0;
+        }
+        rs.close();
+        preparedStatement.close();
+        con.close();
+        Integer m = 0;
+    }
+
+    private void insertTakeTime() throws Exception {
+        String insertCommand = "  insert into Product ( GUID, StockID," +
+                "      BarCodeID, SkuID, ProductName," +
+                "      ProductStyle, Price, CreateTime, " +
+                "      Status, COUNT , ModifyTime " +
+                "      )" +
+                "      values (?,?,?,?,?,?,?,?,?,?,?)";
+        Connection con = getConnection();
+        PreparedStatement preparedStatement = con.prepareStatement(insertCommand, Statement.RETURN_GENERATED_KEYS);
+        Stopwatch stopwatch=Stopwatch.createStarted();
+
+
+            //不返回自动生成的主键
+            //  PreparedStatement preparedStatement = con.prepareStatement(insertCommand);
+            //插入语句Statement.RETURN_GENERATED_KEYS返回生成的主键
+           //设置参数
+            preparedStatement.setString(1, UUID.randomUUID().toString());
+            preparedStatement.setInt(2, 1);
+            preparedStatement.setNull(3, Types.INTEGER);
+            preparedStatement.setInt(4, 1);
+            preparedStatement.setString(5, "fanckyJDBC");
+            preparedStatement.setNull(6, Types.NVARCHAR);
+            preparedStatement.setBigDecimal(7, new BigDecimal(123));
+            //                 setDate只能得到年月日
+            preparedStatement.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+            Short status = 1;
+            preparedStatement.setShort(9, status);
+            preparedStatement.setInt(10, 12);
+            preparedStatement.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
+       //有时候0ms-->比C#块。
+        //插入mysql慢。
+        for(int i=0;i<50;i++) {
+            //执行命令并接受结果
+            Integer result = preparedStatement.executeUpdate();
+            stopwatch.stop();
+            System.out.println(stopwatch.elapsed(TimeUnit.MILLISECONDS));
+            stopwatch.reset();
+            stopwatch.start();
+        }
         ResultSet rs = preparedStatement.getGeneratedKeys();
         if (rs.next()) {
             Integer id = rs.getInt(1);

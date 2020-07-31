@@ -32,7 +32,7 @@ public class StopwatchTest {
         stopwatch.stop();
         //99 milliSeconds
         System.out.println(MessageFormat.format("{0} milliSeconds",stopwatch.elapsed(TimeUnit.MILLISECONDS)));
-
+        stopwatch.reset();//不重置时间会累加。
         stopwatch.start();
         try {
             Thread.sleep(100);
