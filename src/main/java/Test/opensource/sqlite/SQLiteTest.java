@@ -1,7 +1,10 @@
 package Test.opensource.sqlite;
 
+import Model.JacksonPojo;
 import Model.Product;
 import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import utility.Configs;
 
 import java.lang.reflect.Field;
@@ -165,8 +168,18 @@ public class SQLiteTest {
             }
             list.add(rowData);
         }
-        String jsonString = JSON.toJSONString(list);
-        List<T> resultList = JSON.parseArray(jsonString, t);
+
+        //fastJson 序列化
+//        String jsonString = JSON.toJSONString(list);
+//        List<T> resultList = JSON.parseArray(jsonString, t);
+
+        //jackson 反序列化
+         ObjectMapper mapper = new ObjectMapper();
+        //序列化
+        String jsonStr = mapper.writeValueAsString(list);
+        //反序列化
+        List<T> resultList= mapper.readValue(jsonStr, new TypeReference<List<T>>() {});
+
         return resultList;
     }
 
