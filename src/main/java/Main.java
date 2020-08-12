@@ -9,6 +9,7 @@ import Test.opensource.msgpack.MsgPackTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.sqlite.SQLiteTest;
+import Test.opensource.zookeeper.ZooKeeperTest;
 import Test.test2018.JDBCTest;
 import Test.test2019.MysqlTest;
 import Test.test2020.ByteConverterTest;
@@ -224,7 +225,8 @@ public class Main {
 //            new ByteConverterTest().test();
 //            new JacksonTest().test();
 
-            new SQLiteTest().test();
+//            new SQLiteTest().test();
+            new ZooKeeperTest().test();
             //endregion
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
