@@ -11,7 +11,7 @@
 
     <dependencies>
         <!-- Maven会自动导入依赖包-->
-<!--        依赖红线：剪切pom依赖配置，再粘贴。刷新Maven-->
+        <!--        依赖红线：剪切pom依赖配置，再粘贴。刷新Maven-->
 
 
         <!--Maven Repository 地址-->
@@ -66,10 +66,6 @@
         </dependency>
 
 
-
-
-
-
         <!-- https://mvnrepository.com/artifact/com.rabbitmq/amqp-client -->
         <dependency>
             <groupId>com.rabbitmq</groupId>
@@ -86,7 +82,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-nop</artifactId>
-            <version>1.7.24</version>
+            <version>1.7.25</version>
         </dependency>
 
 
@@ -173,6 +169,48 @@
             <version>3.32.3.2</version>
         </dependency>
 
+
+        <!--        zookeeper ： 排除org.slf4j依赖的冲突警告-->
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper &ndash;&gt;-->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>3.6.1</version>
+        </dependency>
+        <!-- 对zookeeper的底层api的一些封装 -->
+        <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-framework -->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>5.1.0</version>
+        </dependency>
+        <!-- 封装了一些高级特性，如：Cache事件监听、选举、分布式锁、分布式Barrier -->
+        <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-recipes -->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>5.1.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -188,14 +226,14 @@
             </plugin>
 
 
-<!--           解决运行.jar 提示 没有主清单属性-->
+            <!--           解决运行.jar 提示 没有主清单属性-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.1.RELEASE</version>
-<!--                刷新Maven会自动下载插件-->
-<!--                有时候不指定版本，无法下载-->
-<!--                <version>${spring.boot.version}</version>-->
+                <!--                刷新Maven会自动下载插件-->
+                <!--                有时候不指定版本，无法下载-->
+                <!--                <version>${spring.boot.version}</version>-->
                 <executions>
                     <execution>
                         <goals>

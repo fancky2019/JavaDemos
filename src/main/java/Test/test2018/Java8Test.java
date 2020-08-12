@@ -152,6 +152,11 @@ public class Java8Test {
         TimeZone timeZone = TimeZone.getTimeZone("GMT-8");
 
 
+        //获取秒数
+        Long seconds = LocalDateTime.now().toEpochSecond(ZoneOffset.of("+8"));
+       //获取毫秒数
+        Long milliSeconds = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+
         //和时间戳相互转换
         //  Convert LocalDateTime to milliseconds since January 1, 1970, 00:00:00 GMT
         Long milliseconds = LocalDateTime.now().atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
