@@ -212,6 +212,19 @@
         </dependency>
 
 
+<!--        protobuf-->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.13.0</version>
+        </dependency>
+<!--        protobuf JsonFormat-->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+            <version>3.13.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

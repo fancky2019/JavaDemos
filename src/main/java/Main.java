@@ -6,6 +6,7 @@ import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPClient;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPServer;
 import Test.opensource.Netty.NettyTest;
 import Test.opensource.msgpack.MsgPackTest;
+import Test.opensource.protobuf.ProtoBufTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.sqlite.SQLiteTest;
@@ -13,6 +14,7 @@ import Test.opensource.zookeeper.ZooKeeperTest;
 import Test.test2018.JDBCTest;
 import Test.test2019.MysqlTest;
 import Test.test2020.ByteConverterTest;
+import Test.test2020.ConcurrentHashMapTest;
 import Test.test2020.UDPTest;
 
 import java.io.BufferedReader;
@@ -226,7 +228,10 @@ public class Main {
 //            new JacksonTest().test();
 
 //            new SQLiteTest().test();
-            new ZooKeeperTest().test();
+//            new ZooKeeperTest().test();
+//            new ConcurrentHashMapTest().test();
+            new ProtoBufTest().test();
+
             //endregion
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
