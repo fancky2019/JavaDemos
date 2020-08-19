@@ -33,6 +33,10 @@ public class ClassCastTest {
         Student student11 = null;
         if (studentParent11 instanceof Student) {
             student11 = (Student) studentParent11;
+
+            //方法参数支持隐式转换。
+            //类型参数：隐士转换（implicit）
+            implyCast(student11);
         } else {
             System.out.println("studentParent11 is not instanceof ");
         }
@@ -40,4 +44,10 @@ public class ClassCastTest {
 
         int m = 0;
     }
+
+    void implyCast(StudentParent studentParent)
+    {
+
+    }
+
 }
