@@ -1,5 +1,10 @@
 package Test.opensource.Netty;
 
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.marshalling.MarshallingEncoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import utility.CallBackRunnable;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -22,6 +27,10 @@ public class NettyClient {
         }
 
     }
+    /*
+    LengthFieldPrepender
+    作用：将当前发送消息的二进制字节长度，添加到缓冲区头部；这样消息就有了固定长度，长度存储在缓冲头中
+     */
 
     void run() throws Exception {
         String host = "localhost";
@@ -40,25 +49,27 @@ public class NettyClient {
                     channelPipeline.addLast(new IdleStateHandler(2, 2, 2, TimeUnit.SECONDS));
 
 
-                    //解决TCP粘包等产生的半包问题。
-                    //消息体占4个字节：消息体长度
+//                    //利用Netty框架的解码器：防止TCP粘包。框架解码器并不能编解码发接收的消息，还需指定消息的编解码器。
+//                    //解决TCP粘包等产生的半包问题。
+//                    //消息体占4个字节：消息体长度
 //                    channelPipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+//                    //LengthFieldPrepender只是将长度加入二进制头部，还需要指定编码器
 //                    channelPipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
 //                    // 字符串解码和编码
 //                    // encoder 编码器， decoder 解码器
-//                    ch.pipeline().addLast("decoder",new StringDecoder());
-//                    ch.pipeline().addLast("encoder",new StringEncoder());
+//                    ch.pipeline().addLast("decoder", new StringDecoder());
+//                    ch.pipeline().addLast("encoder", new StringEncoder());
+
 //                    channelPipeline.addLast("decoder", new StringDecoder(CharsetUtil.UTF_8));
 //                    channelPipeline.addLast("encoder", new StringEncoder(CharsetUtil.UTF_8));
 
 
-                    //MarshallingEncoder 继承LengthFieldBasedFrameDecoder，内部解决粘包问题
+//                    MarshallingEncoder 继承LengthFieldBasedFrameDecoder，内部解决粘包问题
                     channelPipeline.addLast(MarshallingCodeFactory.buildMarshallingDecoder());
                     channelPipeline.addLast(MarshallingCodeFactory.buildMarshallingEncoder());
                     channelPipeline.addLast(new ClientHandler());
                 }
             });
-
 
 
             // Start the client.
@@ -74,7 +85,7 @@ public class NettyClient {
                 channel.writeAndFlush(msg);
 
 
-//                 channel.writeAndFlush(line+i.toString());
+//                channel.writeAndFlush(line + i.toString());
                 Thread.sleep(500);
             }
             // Wait until the connection is closed.
