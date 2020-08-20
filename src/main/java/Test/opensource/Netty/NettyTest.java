@@ -11,8 +11,8 @@ import java.util.concurrent.CompletableFuture;
 public class NettyTest {
     public void test() {
 
-//        nettyTest();
-        nettyWebSocket();
+        nettyTest();
+//        nettyWebSocket();
 //        nettySampleTest();
 //        nettyUDPTest() ;
 

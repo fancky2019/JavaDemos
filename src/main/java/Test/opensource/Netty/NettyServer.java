@@ -5,6 +5,10 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 
 public class NettyServer {
     private int port;
@@ -34,16 +38,22 @@ public class NettyServer {
                         public void initChannel(SocketChannel ch) throws Exception {
 
                             ChannelPipeline channelPipeline = ch.pipeline();
+
+
+//                    //利用Netty框架的解码器：防止TCP粘包。框架解码器并不能编解码发接收的消息，还需指定消息的编解码器。
 //                            //必须指定解码器，不然收不到信息
 //                            // 字符串解码和编码
                             //解决TCP粘包等产生的半包问题。
                             //消息体占4个字节：消息体长度
 //                            channelPipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+//                            //LengthFieldPrepender只是将长度加入二进制头部，还需要指定编码器
 //                            channelPipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
-//                           //字符串解码和编码
-//                         // encoder 编码器， decoder 解码器
-//                            channelPipeline.addLast("decoder", new StringDecoder());
-//                            channelPipeline.addLast("encoder", new StringEncoder());
+//
+////                           //字符串解码和编码
+////                         // encoder 编码器， decoder 解码器
+//                            ch.pipeline().addLast("decoder",new StringDecoder());
+//                            ch.pipeline().addLast("encoder",new StringEncoder());
+
 //                            channelPipeline.addLast("decoder", new StringDecoder(CharsetUtil.UTF_8));
 //                            channelPipeline.addLast("encoder", new StringEncoder(CharsetUtil.UTF_8));
 

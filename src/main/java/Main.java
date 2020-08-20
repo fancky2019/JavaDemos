@@ -174,7 +174,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-//            new NettyTest().test();
+            new NettyTest().test();
 //            new StringTest().test();
             //  new TimerTest().test();
 
@@ -230,7 +230,7 @@ public class Main {
 //            new SQLiteTest().test();
 //            new ZooKeeperTest().test();
 //            new ConcurrentHashMapTest().test();
-            new ProtoBufTest().test();
+//            new ProtoBufTest().test();
 
             //endregion
 
