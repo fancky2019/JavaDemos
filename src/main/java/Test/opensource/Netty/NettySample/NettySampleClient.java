@@ -3,6 +3,12 @@ package Test.opensource.Netty.NettySample;
 import Test.opensource.Netty.MarshallingCodeFactory;
 import Test.opensource.Netty.MessageInfo;
 import Test.opensource.Netty.MessageType;
+import Test.opensource.protobuf.model.PersonProto;
+import com.google.protobuf.Any;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import utility.Action;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -27,9 +33,10 @@ public class NettySampleClient {
             try {
                 Thread.sleep(100);
                 runClient();
-                connect(()->
+                connect(() ->
                 {
 //                    sendData(null);
+                    sendProtobufData();
                 });
                 Thread.sleep(2000);
                 //延迟2秒等待连接成功
@@ -56,8 +63,21 @@ public class NettySampleClient {
             public void initChannel(SocketChannel ch) throws Exception {
                 //设置allIdleTime=readerIdleTime*3,如果三次都没收到心跳信息就认为断线了
                 ch.pipeline().addLast(new IdleStateHandler(2, 2, 6, TimeUnit.SECONDS));
-                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
-                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
+
+
+                //框架解码器：防止TCP粘包
+                ch.pipeline().addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+                ch.pipeline().addLast("frameEncoder", new LengthFieldPrepender(4));
+                //protobuf解码器：netty内部支持protobuf
+                ch.pipeline().addLast("ProtobufDecoder", new ProtobufDecoder(PersonProto.Person.getDefaultInstance()));
+                ch.pipeline().addLast("ProtobufEncoder", new ProtobufEncoder());
+
+
+//                            ch.pipeline().addLast("decoder", new StringDecoder());
+//                            ch.pipeline().addLast("encoder", new StringEncoder());
+
+//                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
+//                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
                 NettySampleClientHandler nettySampleClientHandler = new NettySampleClientHandler();
                 nettySampleClientHandler.dicConnect = new Consumer() {
                     @Override
@@ -140,5 +160,21 @@ public class NettySampleClient {
         }
     }
 
+
+    public void sendProtobufData() {
+        PersonProto.Person.Builder builder = PersonProto.Person.newBuilder();
+        builder.setId(1)
+                .setAge(27)
+                .setName("fancky")
+                .addJobs(PersonProto.Job.newBuilder().setName("程序员").setSalary(777).build())//List<Job>
+                .setGender(PersonProto.Gender.MAN)//枚举
+                .addSons("li")//List<String>
+                .addSons("zi")//List<String>
+                .addAny(Any.pack(PersonProto.Job.newBuilder().setName("程序员any").setSalary(777).build())) //Any 必须是proto 文件里定义的message  类型
+                .putSonJobs("li", PersonProto.Job.newBuilder().setName("程序员").setSalary(777).build())//Map<String,Job>
+        ;
+        PersonProto.Person person = builder.build();
+        channel.writeAndFlush(person);
+    }
 
 }

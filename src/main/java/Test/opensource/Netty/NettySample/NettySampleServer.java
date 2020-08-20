@@ -3,6 +3,7 @@ package Test.opensource.Netty.NettySample;
 
 import Test.opensource.Netty.MarshallingCodeFactory;
 import Test.opensource.Netty.NettyProduction.ServerBusinessHandler;
+import Test.opensource.protobuf.model.PersonProto;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -11,6 +12,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
@@ -45,11 +50,21 @@ public class NettySampleServer {
 //                            //必须指定解码器，不然收不到信息
                             ch.pipeline().addLast(new IdleStateHandler(2, 2, 6, TimeUnit.SECONDS));
 
-                            ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
-                            ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
+
+                            //框架解码器：防止TCP粘包
+                            ch.pipeline().addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+                            ch.pipeline().addLast("frameEncoder", new LengthFieldPrepender(4));
+                            //protobuf解码器：netty内部支持protobuf
+                            ch.pipeline().addLast("ProtobufDecoder", new ProtobufDecoder(PersonProto.Person.getDefaultInstance()));
+                            ch.pipeline().addLast("ProtobufEncoder", new ProtobufEncoder());
+
 
 //                            ch.pipeline().addLast("decoder", new StringDecoder());
 //                            ch.pipeline().addLast("encoder", new StringEncoder());
+
+
+//                            ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
+//                            ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
 
                             ch.pipeline().addLast(new NettySampleServerHandler());
 
