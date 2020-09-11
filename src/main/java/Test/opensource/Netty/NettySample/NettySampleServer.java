@@ -31,13 +31,15 @@ public class NettySampleServer {
             runServer();
         });
     }
-
+    ChannelFuture channelFuture;
+    EventLoopGroup bossGroup;
+    EventLoopGroup workerGroup;
     private static final int PORT = 8031;//Integer.parseInt(System.getProperty("port", "8080"));
 
     //    private static final NettySampleServerHandler handler = new NettySampleServerHandler();
     private void runServer() {
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+         bossGroup = new NioEventLoopGroup(1);
+         workerGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
@@ -81,21 +83,24 @@ public class NettySampleServer {
 //                    .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
             // Bind and start to accept incoming connections.
-            ChannelFuture f = b.bind(PORT).sync();
+            channelFuture = b.bind(PORT).sync();
 
             // Wait until the server socket is closed.
             // In this example, this does not happen, but you can do that to gracefully
             // shut down your server.
-            f.channel().closeFuture().sync();
+//            f.channel().closeFuture().sync();//会一直阻塞直到对方断开网络。关闭应用 f.channel().close();
+//            f.channel().close();
         } catch (Exception ex) {
             System.out.println(ex.toString());
         } finally {
-            workerGroup.shutdownGracefully();
-            bossGroup.shutdownGracefully();
+//            workerGroup.shutdownGracefully();
+//            bossGroup.shutdownGracefully();
         }
     }
 
-    private void stop() {
-
+    public void close() {
+        channelFuture.channel().close();
+        workerGroup.shutdownGracefully();
+        bossGroup.shutdownGracefully();
     }
 }

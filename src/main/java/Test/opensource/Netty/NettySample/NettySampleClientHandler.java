@@ -41,9 +41,9 @@ public class NettySampleClientHandler extends SimpleChannelInboundHandler<Object
 //            ch.writeAndFlush(messageInfo);
 //            //   channelHandlerContext
 //        }, ctx), 0, 2, TimeUnit.SECONDS);
-        System.out.println("channelActive - Connected to: " + ctx.channel().remoteAddress());
+        System.out.println("Client: channelActive - Connected to: " + ctx.channel().remoteAddress());
 //        super.channelActive(ctx);
-        sendData(ctx);
+//        sendData(ctx);
     }
 
     /*
@@ -53,7 +53,7 @@ public class NettySampleClientHandler extends SimpleChannelInboundHandler<Object
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 //        nettyClientProduction.connect(null);
 
-        System.out.println("Disconnected from: " + ctx.channel().remoteAddress());
+        System.out.println("Client: Disconnected from: " + ctx.channel().remoteAddress());
 //        super.channelInactive(ctx);
     }
 
@@ -88,9 +88,10 @@ public class NettySampleClientHandler extends SimpleChannelInboundHandler<Object
             switch (idleStateEvent.state()) {
                 case READER_IDLE:
                     //The connection was OK but there was no traffic for last period.
-                    sentHeartBeat(ctx);
+//
                     break;
                 case WRITER_IDLE:
+                    sentHeartBeat(ctx);
                     break;
                 case ALL_IDLE:
                     Channel channel = ctx.channel();
@@ -98,6 +99,9 @@ public class NettySampleClientHandler extends SimpleChannelInboundHandler<Object
                     System.out.println("关闭连接");
                     //会触发未注册事件，在未注册内启用重连机制
                     channel.close();
+
+
+
                     //  nettyClientProduction.connect(null);
 
                     //     println("Sleeping for: " + UptimeClient.RECONNECT_DELAY + 's');

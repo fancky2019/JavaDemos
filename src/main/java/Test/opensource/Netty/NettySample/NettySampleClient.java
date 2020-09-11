@@ -24,25 +24,24 @@ import java.util.function.Consumer;
 public class NettySampleClient {
     Bootstrap bootstrap;
     Channel channel;
-    String host = "localhost";
+    EventLoopGroup workerGroup;
+    String host = "127.0.0.1";
     int port = 8031;
-
+    boolean closed;
     public void test() {
         CompletableFuture.runAsync(() ->
         {
             try {
                 Thread.sleep(100);
                 runClient();
-                connect(() ->
-                {
-//                    sendData(null);
-                    sendProtobufData();
-                });
+                connect();
+                sendProtobufData();
                 Thread.sleep(2000);
                 //延迟2秒等待连接成功
 
                 //在连接成功在发送数据，netty是异步的， connect(null);调用完不一定连接成功
 //                sendData(null);
+//                this.close();
             } catch (Exception ex) {
                 System.out.println(ex.toString());
             }
@@ -53,7 +52,7 @@ public class NettySampleClient {
     }
 
     private void runClient() {
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        workerGroup = new NioEventLoopGroup();
         bootstrap = new Bootstrap(); // (1)
         bootstrap.group(workerGroup); // (2)
         bootstrap.channel(NioSocketChannel.class); // (3)
@@ -82,7 +81,7 @@ public class NettySampleClient {
                 nettySampleClientHandler.dicConnect = new Consumer() {
                     @Override
                     public void accept(Object o) {
-                        connect(null);
+                        connect();
                     }
                 };
                 ch.pipeline().addLast(nettySampleClientHandler);
@@ -90,14 +89,17 @@ public class NettySampleClient {
         });
     }
 
-    private void connect(Action action) {
+    private void connect() {
 
         if (channel != null && channel.isActive()) {
             return;
         }
         try {
-            ChannelFuture channelFuture = bootstrap.connect(host, port);
 
+            //同步阻塞连接，直到连接成功或拒绝
+//            ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
+            ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
+            channel = channelFuture.channel();
             /*
             Netty 操作都是异步的。
             connect 方法返回ChannelFuture，当连接完成，执行ChannelFutureListener的匿名内部类的operationComplete
@@ -117,22 +119,19 @@ public class NettySampleClient {
 //                }
 //            });
             //Channel连接成功，执行Listener方法。
-            channelFuture.addListener(p -> {
-                ChannelFuture ch = (ChannelFuture) p;
-                if (ch.isSuccess()) {
-                    channel = ch.channel();
-                    System.out.println("连接成功");
-                    if (action != null) {
-                        action.callBack();
-                    }
-                } else {
-                    System.out.println("每隔2s重连....");
-                    ch.channel().eventLoop().schedule(() -> connect(action), 2, TimeUnit.SECONDS);
-                }
-            });
+
 
         } catch (Exception ex) {
             System.out.println(ex.toString());
+
+            if (channel != null) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                connect();
+            }
         }
     }
 
@@ -140,7 +139,7 @@ public class NettySampleClient {
 
         try {
 
-            if (channel == null && !channel.isActive()) {
+            if (closed||(channel == null && !channel.isActive())) {
                 return;
             }
             String line = "sendMessage";
@@ -176,5 +175,16 @@ public class NettySampleClient {
         PersonProto.Person person = builder.build();
         channel.writeAndFlush(person);
     }
+
+    public void close() {
+        closed=true;
+        if(channel==null||!channel.isActive())
+        {
+            return;
+        }
+        channel.close();
+        workerGroup.shutdownGracefully();
+    }
+
 
 }
