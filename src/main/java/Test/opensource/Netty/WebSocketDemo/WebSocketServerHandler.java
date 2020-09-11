@@ -6,16 +6,38 @@ import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.websocketx.*;
 import io.netty.handler.ssl.SslHandler;
+import utility.Action;
 
+import java.net.SocketAddress;
 import java.util.Locale;
 
 import static io.netty.handler.codec.http.HttpHeaderNames.*;
 import static io.netty.handler.codec.http.HttpMethod.*;
 import static io.netty.handler.codec.http.HttpResponseStatus.*;
 
-public class WebSocketHandler extends SimpleChannelInboundHandler<Object> {
+public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
 
     WebSocketServerHandshaker handshaker=null;
+
+
+    //建立连接
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        Channel channel = ctx.channel();
+        SocketAddress socketAddress = channel.remoteAddress();
+        System.out.println("Server: client "+socketAddress.toString()+ " connected.");
+        super.channelActive(ctx);
+    }
+
+    //断开连接
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        Channel channel = ctx.channel();
+        SocketAddress socketAddress = channel.remoteAddress();
+        System.out.println("Server: client "+socketAddress.toString()+ " disconnected.");
+        super.channelInactive(ctx);
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof FullHttpRequest) {
@@ -56,7 +78,8 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<Object> {
 //            HttpUtil.setContentLength(res, content.readableBytes());
 //
 //            sendHttpResponse(ctx, req, res);
-        } else {
+        }
+        if ("/favicon.ico".equals(req.uri())) {
             sendHttpResponse(ctx, req, new DefaultFullHttpResponse(req.protocolVersion(), NOT_FOUND, ctx.alloc().buffer(0)));
         }
 
