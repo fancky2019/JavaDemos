@@ -4,8 +4,12 @@ import Test.opensource.Netty.NettySample.NettySampleClient;
 import Test.opensource.Netty.NettySample.NettySampleServer;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPClient;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPServer;
+import Test.opensource.Netty.WebSocketDemo.WebSocketClient;
 import Test.opensource.Netty.WebSocketDemo.WebSocketsServer;
 
+import java.text.MessageFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 
 public class NettyTest {
@@ -118,7 +122,50 @@ public class NettyTest {
             //endregion
 
             //启动WebSocket服务端
-            new WebSocketsServer().runServer();
+            CompletableFuture.runAsync(() ->
+            {
+                try {
+                    new WebSocketsServer().runServer();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            CompletableFuture.runAsync(() ->
+            {
+                WebSocketClient webSocketClient = new WebSocketClient();
+                webSocketClient.runClient();
+                //var sendResult = webSocketClient.SendMessage();
+
+                //socket连接成功，还要握手成功，才能发送消息
+                if (!webSocketClient.isHandshakeComplete()) {
+                    LocalDateTime localDateTime1 = LocalDateTime.now();
+                    while (!webSocketClient.isHandshakeComplete()) {
+//                    new SpinWait().SpinOnce();
+                    }
+                    LocalDateTime localDateTime2 = LocalDateTime.now();
+
+                    Duration duration = Duration.between(localDateTime1, localDateTime2);
+
+                    int mills = duration.getNano() / 1000000;
+                    System.out.println(MessageFormat.format("mills:{0}", mills));
+                    webSocketClient.sendMessage();
+                } else {
+                    webSocketClient.sendMessage();
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                webSocketClient.close();
+            });
+
+
         } catch (Exception e) {
 
         }

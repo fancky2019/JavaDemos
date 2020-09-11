@@ -174,7 +174,9 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-            new NettyTest().test();
+//            new NettyTest().test();
+            new NettyTest().nettyWebSocket();
+
 //            new StringTest().test();
             //  new TimerTest().test();
 

@@ -10,8 +10,6 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
-import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.ssl.SslContext;
@@ -91,22 +89,25 @@ public class WebSocketsServer {
     //endregion
 
     //启动WebSocket服务端
+    final  boolean SSL=false;
+    final int PORT = 8031;
 
-    final boolean SSL = System.getProperty("ssl") != null;
-    final int PORT = Integer.parseInt(System.getProperty("port", SSL ? "8443" : "8031"));
+    EventLoopGroup bossGroup;
+    EventLoopGroup workerGroup;
+    Channel ch;
 
     public void runServer() throws Exception {
         // Configure SSL.
-        final SslContext sslCtx;
-        if (SSL) {
-            SelfSignedCertificate ssc = new SelfSignedCertificate();
-            sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
-        } else {
-            sslCtx = null;
-        }
+//        final SslContext sslCtx;
+//        if (SSL) {
+//            SelfSignedCertificate ssc = new SelfSignedCertificate();
+//            sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
+//        } else {
+//            sslCtx = null;
+//        }
 
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        bossGroup = new NioEventLoopGroup(1);
+        workerGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup);
@@ -122,20 +123,39 @@ public class WebSocketsServer {
                                    pipeline.addLast(new HttpObjectAggregator(65536));
 //                                   pipeline.addLast(new WebSocketServerProtocolHandler(WEBSOCKET_PATH, null, true));
 
-                                   pipeline.addLast(new WebSocketHandler());
+                                   pipeline.addLast(new WebSocketServerHandler());
                                }
                            }
             );
 
-            Channel ch = b.bind(PORT).sync().channel();
+            ch = b.bind(PORT).sync().channel();
 
             System.out.println("Open your web browser and navigate to " +
                     (SSL ? "https" : "http") + "://127.0.0.1:" + PORT + '/');
-            ch.closeFuture().sync();
+            // Wait until the connection is closed.
+//            ch.closeFuture().sync();
 
+        } catch (Exception ex) {
         } finally {
+
+//            bossGroup.shutdownGracefully();
+//            workerGroup.shutdownGracefully();
+        }
+
+    }
+
+    public void close() {
+        try {
+            if (ch == null) {
+                return;
+            }
+           ch.close();
+
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 }
