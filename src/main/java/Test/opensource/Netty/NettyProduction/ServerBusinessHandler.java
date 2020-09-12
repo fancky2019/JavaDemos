@@ -62,19 +62,19 @@ public class ServerBusinessHandler extends ChannelInboundHandlerAdapter {
         //应答心跳
         if (msg instanceof MessageInfo) {
             MessageInfo messageInfo = (MessageInfo) msg;
-            if (messageInfo.getMessageType() == MessageType.HeartBeat) {
-                MessageInfo heartBeatInfo = new MessageInfo();
-                heartBeatInfo.setMessageType(MessageType.HeartBeat);
-                heartBeatInfo.setBody("HeartBeat");
-                channelHandlerContext.writeAndFlush(heartBeatInfo);
-            } else {
-                //doWork()
-                //reply    channelHandlerContext.writeAndFlush(msg);
-                MessageInfo heartBeatInfo = new MessageInfo();
-                heartBeatInfo.setMessageType(MessageType.Data);
-                heartBeatInfo.setBody("Data");
-                channelHandlerContext.writeAndFlush(heartBeatInfo);
-            }
+//            if (messageInfo.getMessageType() == MessageType.HeartBeat) {
+//                MessageInfo heartBeatInfo = new MessageInfo();
+//                heartBeatInfo.setMessageType(MessageType.HeartBeat);
+//                heartBeatInfo.setBody("HeartBeat");
+//                channelHandlerContext.writeAndFlush(heartBeatInfo);
+//            } else {
+//                //doWork()
+//                //reply    channelHandlerContext.writeAndFlush(msg);
+//                MessageInfo heartBeatInfo = new MessageInfo();
+//                heartBeatInfo.setMessageType(MessageType.Data);
+//                heartBeatInfo.setBody("Data");
+//                channelHandlerContext.writeAndFlush(heartBeatInfo);
+//            }
         }
 
 

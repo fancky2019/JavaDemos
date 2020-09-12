@@ -3,6 +3,8 @@ package Test.opensource.Netty.NettySample;
 import Test.opensource.Netty.MarshallingCodeFactory;
 import Test.opensource.Netty.MessageInfo;
 import Test.opensource.Netty.MessageType;
+import Test.opensource.Netty.NettySample.codec.MessagePackDecoder;
+import Test.opensource.Netty.NettySample.codec.MessagePackEncoder;
 import Test.opensource.protobuf.model.PersonProto;
 import com.google.protobuf.Any;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
@@ -35,7 +37,8 @@ public class NettySampleClient {
                 Thread.sleep(100);
                 runClient();
                 connect();
-                sendProtobufData();
+                sendData(null);
+//                sendProtobufData();
                 Thread.sleep(2000);
                 //延迟2秒等待连接成功
 
@@ -68,15 +71,18 @@ public class NettySampleClient {
                 ch.pipeline().addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
                 ch.pipeline().addLast("frameEncoder", new LengthFieldPrepender(4));
                 //protobuf解码器：netty内部支持protobuf
-                ch.pipeline().addLast("ProtobufDecoder", new ProtobufDecoder(PersonProto.Person.getDefaultInstance()));
-                ch.pipeline().addLast("ProtobufEncoder", new ProtobufEncoder());
+//                ch.pipeline().addLast("ProtobufDecoder", new ProtobufDecoder(PersonProto.Person.getDefaultInstance()));
+//                ch.pipeline().addLast("ProtobufEncoder", new ProtobufEncoder());
 
+
+                ch.pipeline().addLast("MessagePackDecoder", new MessagePackDecoder<>(MessageInfo.class));
+                ch.pipeline().addLast("MessagePackEncoder", new MessagePackEncoder<>(MessageInfo.class));
 
 //                            ch.pipeline().addLast("decoder", new StringDecoder());
 //                            ch.pipeline().addLast("encoder", new StringEncoder());
 
-//                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
-//                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
+                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
+                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
                 NettySampleClientHandler nettySampleClientHandler = new NettySampleClientHandler();
                 nettySampleClientHandler.dicConnect = new Consumer() {
                     @Override
@@ -143,7 +149,7 @@ public class NettySampleClient {
                 return;
             }
             String line = "sendMessage";
-            for (Integer i = 1; i <= 20; i++) {
+            for (Integer i = 1; i <= 2; i++) {
                 MessageInfo msg = new MessageInfo();
                 msg.setMessageType(MessageType.HeartBeat);
                 msg.setBody(line + i.toString());

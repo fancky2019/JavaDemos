@@ -80,7 +80,7 @@ public class NettyClient {
             String line = "sendMessage";
             for (Integer i = 1; i <= 20; i++) {
                 MessageInfo msg = new MessageInfo();
-                msg.setMessageType(MessageType.HeartBeat);
+//                msg.setMessageType(MessageType.HeartBeat);
                 msg.setBody(line + i.toString());
                 channel.writeAndFlush(msg);
 

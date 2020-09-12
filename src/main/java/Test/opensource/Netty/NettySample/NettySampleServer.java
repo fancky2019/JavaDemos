@@ -2,7 +2,10 @@ package Test.opensource.Netty.NettySample;
 
 
 import Test.opensource.Netty.MarshallingCodeFactory;
+import Test.opensource.Netty.MessageInfo;
 import Test.opensource.Netty.NettyProduction.ServerBusinessHandler;
+import Test.opensource.Netty.NettySample.codec.MessagePackDecoder;
+import Test.opensource.Netty.NettySample.codec.MessagePackEncoder;
 import Test.opensource.protobuf.model.PersonProto;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -57,9 +60,12 @@ public class NettySampleServer {
                             ch.pipeline().addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
                             ch.pipeline().addLast("frameEncoder", new LengthFieldPrepender(4));
                             //protobuf解码器：netty内部支持protobuf
-                            ch.pipeline().addLast("ProtobufDecoder", new ProtobufDecoder(PersonProto.Person.getDefaultInstance()));
-                            ch.pipeline().addLast("ProtobufEncoder", new ProtobufEncoder());
+//                            ch.pipeline().addLast("ProtobufDecoder", new ProtobufDecoder(PersonProto.Person.getDefaultInstance()));
+//                            ch.pipeline().addLast("ProtobufEncoder", new ProtobufEncoder());
 
+
+                            ch.pipeline().addLast("MessagePackDecoder", new MessagePackDecoder<>(MessageInfo.class));
+                            ch.pipeline().addLast("MessagePackEncoder", new MessagePackEncoder<>(MessageInfo.class));
 
 //                            ch.pipeline().addLast("decoder", new StringDecoder());
 //                            ch.pipeline().addLast("encoder", new StringEncoder());
