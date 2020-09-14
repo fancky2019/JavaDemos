@@ -4,7 +4,8 @@ import org.msgpack.annotation.Message;
 
 import java.io.Serializable;
 
-@Message
+//@Message
+//public class MessageInfo implements Serializable {
 public class MessageInfo implements Serializable {
     private MessageType messageType;
     private String body;
@@ -25,8 +26,6 @@ public class MessageInfo implements Serializable {
         this.messageType = messageType;
     }
 
-    public   MessageInfo()
-    {}
 
     @Override
     public String toString() {

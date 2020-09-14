@@ -1,62 +1,77 @@
 package Test.opensource.Netty.NettySample.codec;
 
+import Test.opensource.Netty.MessageInfo;
+import Test.opensource.Netty.MessageType;
 import Test.opensource.protobuf.model.PersonProto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.handler.codec.MessageToMessageEncoder;
+
 import org.msgpack.MessagePack;
+import org.msgpack.jackson.dataformat.MessagePackFactory;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.List;
 
-public class MessagePackEncoder<T> extends MessageToMessageEncoder<Object> {
+/**
+ *   jackson-dataformat-msgpack序列化和msgpack不能交叉使用。
+ */
+public class MessagePackEncoder extends MessageToByteEncoder<Object> {
 
-    Class<T> clacc;
+    ObjectMapper objectMapper = new ObjectMapper(new MessagePackFactory());
 
-    public MessagePackEncoder(Class<T> clacc) {
-        this.clacc = clacc;
-    }
-
-//    @Override
-//    protected void encode(ChannelHandlerContext ctx, T msg, ByteBuf out)
-//            throws Exception {
-//        try {
-//            MessagePack msgpack = new MessagePack();
-//            //在实体类加@Message 注解或者下面语句注册实体类，否则不能序列化
-//            //注册：生成实体类模板
-////            msgpack.register(clacc);
-//            // Serialize
-//            byte[] messageBytes = msgpack.write(msg);
-//            // Now serializable...
-//
-////        ByteBuf byteBuf = Unpooled.directBuffer(messageBytes.length);
-////        byteBuf.writeBytes(messageBytes);
-//
-//            ByteBuf byteBuf = Unpooled.wrappedBuffer(messageBytes);
-//            ctx.writeAndFlush(byteBuf);
-//        }
-//        catch (Exception ex)
-//        {
-//            String msg1=ex.getMessage();
-//            int m=0;
-//        }
-//
-//    }
-
+//    jackson-dataformat-msgpack序列化,
     @Override
-    protected void encode(ChannelHandlerContext ctx, Object msg, List<Object> out) throws Exception {
-
+    protected void encode(ChannelHandlerContext channelHandlerContext, Object msg, ByteBuf byteBuf) throws Exception {
         try {
-            MessagePack msgpack = new MessagePack();
-            byte[] bytes = msgpack.write(msg);
-            out.add(bytes);
+            byte[] bytes = objectMapper.writeValueAsBytes(msg);
+//            byteBuf=Unpooled.wrappedBuffer(bytes);
+
+            byteBuf = Unpooled.directBuffer(bytes.length);
+            byteBuf.writeBytes(bytes);
+
+            channelHandlerContext.writeAndFlush(byteBuf);
         } catch (Exception ex) {
             String msg1 = ex.getMessage();
             int m = 0;
         }
-
     }
+
+
+    //msgpack 序列化
+//    @Override
+//    protected void encode(ChannelHandlerContext channelHandlerContext, Object msg, ByteBuf byteBuf) throws Exception {
+//
+//
+//        MessagePack msgpack = new MessagePack();
+//
+//        try {
+//            //在实体类加@Message 注解或者下面语句注册实体类，否则不能序列化
+//            //注册：生成实体类模板
+//            //注意：先注册子类的模板，有点类似js引人文件顺序
+//
+//            msgpack.register(MessageType.class);
+//            msgpack.register(MessageInfo.class);
+//
+//            //序列化对象
+//            // Serialize
+//            byte[] bytes = msgpack.write(msg);
+//
+////            byteBuf=Unpooled.wrappedBuffer(bytes);
+//
+//            byteBuf = Unpooled.directBuffer(bytes.length);
+//            byteBuf.writeBytes(bytes);
+//
+//            channelHandlerContext.writeAndFlush(byteBuf);
+//        } catch (Exception ex) {
+//            String msg1 = ex.getMessage();
+//            int m = 0;
+//        }
+//
+//    }
+
 
 }

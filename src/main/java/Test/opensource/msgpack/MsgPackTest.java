@@ -1,5 +1,7 @@
 package Test.opensource.msgpack;
 
+import Test.opensource.Netty.MessageInfo;
+import Test.opensource.Netty.MessageType;
 import org.msgpack.MessagePack;
 import org.msgpack.annotation.Message;
 import org.msgpack.template.Template;
@@ -9,6 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * jackson-dataformat-msgpack序列化,比msgpack序列化灵活。
+ */
 public class MsgPackTest {
     public void test() {
 //        serialize();
@@ -57,6 +62,9 @@ public class MsgPackTest {
         }
     }
 
+    /**
+     * 使用jackson-dataformat-msgpack序列化
+     */
     private void MessageInfoTets() {
         try {
 
@@ -79,7 +87,10 @@ public class MsgPackTest {
 
             //在实体类加@Message 注解或者下面语句注册实体类，否则不能序列化
             //注册：生成实体类模板
-//            msgpack.register(MsgPackPojo.class);
+            //注意：先注册子类的模板，有点类似js引人文件顺序
+
+//            msgpack.register(MessageType.class);
+//            msgpack.register(MessageInfo.class);
             //序列化对象
             // Serialize
             byte[] raw = msgpack.write(pojo);
@@ -94,7 +105,7 @@ public class MsgPackTest {
 
 }
 
-@Message
+//@Message
 class MsgPackPojo {
     private String name;
     private Integer age;
@@ -135,7 +146,7 @@ class MsgPackPojo {
     }
 }
 
-@Message
+//@Message
 enum MsgPackEnum {
     HeartBeat,
     Data;
@@ -144,7 +155,7 @@ enum MsgPackEnum {
 
 }
 
-@Message
+//@Message
 class Sub {
     private String name;
 

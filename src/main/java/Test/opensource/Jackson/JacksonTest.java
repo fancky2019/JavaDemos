@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,6 +17,8 @@ public class JacksonTest {
     private ObjectMapper mapper = new ObjectMapper();
 
     public void test() {
+        jdkSerialization();
+        serialization();
         fun();
     }
 
@@ -48,24 +50,26 @@ public class JacksonTest {
 
             String jsonListStr = mapper.writeValueAsString(list);
             //第二个参数为TypeReference ，其为抽象类，new  一个匿名内部类
-            List<JacksonPojo> list1 = mapper.readValue(jsonListStr, new TypeReference<List<JacksonPojo>>() {});
-
+            List<JacksonPojo> list1 = mapper.readValue(jsonListStr, new TypeReference<List<JacksonPojo>>() {
+            });
 
 
             //序列化map
-            HashMap<Integer,String> hashMap=new HashMap<>();
-            hashMap.put(1,"li");
-            hashMap.put(2,"si");
+            HashMap<Integer, String> hashMap = new HashMap<>();
+            hashMap.put(1, "li");
+            hashMap.put(2, "si");
             String jsonMapStr = mapper.writeValueAsString(hashMap);
-            HashMap<Integer,String> hashMap1=  mapper.readValue(jsonMapStr, new TypeReference<HashMap<Integer,String>>() {    });
+            HashMap<Integer, String> hashMap1 = mapper.readValue(jsonMapStr, new TypeReference<HashMap<Integer, String>>() {
+            });
 
-            HashMap<String,JacksonPojo> pojoHashMap=new HashMap<>();
-            pojoHashMap.put(jacksonPojo.getName(),jacksonPojo);
+            HashMap<String, JacksonPojo> pojoHashMap = new HashMap<>();
+            pojoHashMap.put(jacksonPojo.getName(), jacksonPojo);
             //key  重加入不了HashMap。C#报错
             pojo.setName("张三");
-            pojoHashMap.put(pojo.getName(),pojo);
+            pojoHashMap.put(pojo.getName(), pojo);
             String jsonPojoMapStr = mapper.writeValueAsString(pojoHashMap);
-            HashMap<String,JacksonPojo> pojoHashMap1=  mapper.readValue(jsonPojoMapStr, new TypeReference< HashMap<String,JacksonPojo>>() {    });
+            HashMap<String, JacksonPojo> pojoHashMap1 = mapper.readValue(jsonPojoMapStr, new TypeReference<HashMap<String, JacksonPojo>>() {
+            });
 
 
             int m = 0;
@@ -73,4 +77,54 @@ public class JacksonTest {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 二进制序列化，序列化后比msgpack序列化要打。二进制用msgpack序列化
+     */
+    private void serialization() {
+        try {
+            //  Serialization/Deserialization
+            JacksonPojo jacksonPojo = new JacksonPojo();
+            jacksonPojo.setName("fancky");
+            jacksonPojo.setAddress("上海");
+            jacksonPojo.setAge(27);
+            //56 bytes
+            byte[] jacksonBytes = mapper.writeValueAsBytes(jacksonPojo);
+            JacksonPojo pojoDe = mapper.readValue(jacksonBytes, JacksonPojo.class);
+            int m = 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void jdkSerialization() {
+        try {
+            //  Serialization/Deserialization
+            JacksonPojo jacksonPojo = new JacksonPojo();
+            jacksonPojo.setName("fancky");
+            jacksonPojo.setAddress("上海");
+            jacksonPojo.setAge(27);
+
+            //jdk序列化
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ObjectOutputStream out = new ObjectOutputStream(byteArrayOutputStream);
+            out.writeObject(jacksonPojo);
+            //256 bytes
+            byte[] jdkBytes=byteArrayOutputStream.toByteArray();
+            out.close();
+            byteArrayOutputStream.close();
+
+
+            //jdk 反序列化
+            ByteArrayInputStream fileIn = new ByteArrayInputStream(jdkBytes);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            JacksonPojo jdkDes = (JacksonPojo) in.readObject();
+            in.close();
+            fileIn.close();
+            int m = 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
