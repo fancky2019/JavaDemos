@@ -8,9 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class JacksonPojo {
+public class JacksonPojo implements Serializable {
     private String name;
     private Integer age;
     @JsonIgnore

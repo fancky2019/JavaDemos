@@ -91,14 +91,14 @@ public class NettySampleClientHandler extends SimpleChannelInboundHandler<Object
 //
                     break;
                 case WRITER_IDLE:
-                    sentHeartBeat(ctx);
+//                    sentHeartBeat(ctx);
                     break;
                 case ALL_IDLE:
-                    Channel channel = ctx.channel();
-                    SocketAddress socketAddress = ctx.channel().remoteAddress();
-                    System.out.println("关闭连接");
-                    //会触发未注册事件，在未注册内启用重连机制
-                    channel.close();
+//                    Channel channel = ctx.channel();
+//                    SocketAddress socketAddress = ctx.channel().remoteAddress();
+//                    System.out.println("关闭连接");
+//                    //会触发未注册事件，在未注册内启用重连机制
+//                    channel.close();
 
 
 

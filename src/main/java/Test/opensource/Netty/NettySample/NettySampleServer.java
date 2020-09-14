@@ -65,7 +65,7 @@ public class NettySampleServer {
 
 
                             ch.pipeline().addLast("MessagePackDecoder", new MessagePackDecoder<>(MessageInfo.class));
-                            ch.pipeline().addLast("MessagePackEncoder", new MessagePackEncoder<>(MessageInfo.class));
+                            ch.pipeline().addLast("MessagePackEncoder", new MessagePackEncoder());
 
 //                            ch.pipeline().addLast("decoder", new StringDecoder());
 //                            ch.pipeline().addLast("encoder", new StringEncoder());

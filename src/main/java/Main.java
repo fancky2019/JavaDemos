@@ -5,6 +5,7 @@ import Test.opensource.Netty.NettySample.NettySampleServer;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPClient;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPServer;
 import Test.opensource.Netty.NettyTest;
+import Test.opensource.msgpack.JacksonDataformatMsgpack;
 import Test.opensource.msgpack.MsgPackTest;
 import Test.opensource.protobuf.ProtoBufTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
@@ -174,7 +175,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-//            new NettyTest().test();
+            new NettyTest().test();
 //            new NettyTest().nettyWebSocket();
 
 //            new StringTest().test();
@@ -225,7 +226,9 @@ public class Main {
 //            new StopwatchTest().test();
 
 
-            new MsgPackTest().test();
+//            new MsgPackTest().test();
+
+//            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
 //            new JacksonTest().test();
 

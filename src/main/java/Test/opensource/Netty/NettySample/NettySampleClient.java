@@ -6,11 +6,13 @@ import Test.opensource.Netty.MessageType;
 import Test.opensource.Netty.NettySample.codec.MessagePackDecoder;
 import Test.opensource.Netty.NettySample.codec.MessagePackEncoder;
 import Test.opensource.protobuf.model.PersonProto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.Any;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import org.msgpack.jackson.dataformat.MessagePackFactory;
 import utility.Action;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -76,13 +78,13 @@ public class NettySampleClient {
 
 
                 ch.pipeline().addLast("MessagePackDecoder", new MessagePackDecoder<>(MessageInfo.class));
-                ch.pipeline().addLast("MessagePackEncoder", new MessagePackEncoder<>(MessageInfo.class));
+                ch.pipeline().addLast("MessagePackEncoder", new MessagePackEncoder());
 
 //                            ch.pipeline().addLast("decoder", new StringDecoder());
 //                            ch.pipeline().addLast("encoder", new StringEncoder());
 
-                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
-                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
+//                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
+//                ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
                 NettySampleClientHandler nettySampleClientHandler = new NettySampleClientHandler();
                 nettySampleClientHandler.dicConnect = new Consumer() {
                     @Override
@@ -149,10 +151,14 @@ public class NettySampleClient {
                 return;
             }
             String line = "sendMessage";
-            for (Integer i = 1; i <= 2; i++) {
+            for (Integer i = 1; i <= 20; i++) {
                 MessageInfo msg = new MessageInfo();
                 msg.setMessageType(MessageType.HeartBeat);
                 msg.setBody(line + i.toString());
+
+
+//                ObjectMapper objectMapper = new ObjectMapper(new MessagePackFactory());
+//                byte[] bytes = objectMapper.writeValueAsBytes(msg);
                 channel.writeAndFlush(msg);
 
 

@@ -46,10 +46,10 @@ public class NettySampleServerHandler extends SimpleChannelInboundHandler<Object
                     break;
                 case ALL_IDLE:
                     //6s都未收到客户端的心跳就关闭
-                    Channel channel = ctx.channel();
-                    SocketAddress socketAddress = ctx.channel().remoteAddress();
-                    System.out.println("关闭连接");
-                    channel.close();
+//                    Channel channel = ctx.channel();
+//                    SocketAddress socketAddress = ctx.channel().remoteAddress();
+//                    System.out.println("关闭连接");
+//                    channel.close();
 
                     break;
             }

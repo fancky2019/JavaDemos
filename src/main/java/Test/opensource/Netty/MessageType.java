@@ -2,12 +2,12 @@ package Test.opensource.Netty;
 
 import org.msgpack.annotation.Message;
 
-@Message
+//@Message
 public enum MessageType  {
     HeartBeat,
     Data;
-    private MessageType()
-    {
-
-    }
+//    private MessageType()
+//    {
+//
+//    }
 }
