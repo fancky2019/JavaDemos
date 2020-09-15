@@ -33,6 +33,10 @@ public class MessagePackEncoder extends MessageToByteEncoder<Object> {
             byteBuf = Unpooled.directBuffer(bytes.length);
             byteBuf.writeBytes(bytes);
 
+//            byte[] newBytes=new byte[byteBuf.readableBytes()];
+//            byteBuf.getBytes(byteBuf.readerIndex(), newBytes, 0, byteBuf.readableBytes());
+//            MessageInfo deserialized = objectMapper.readValue(newBytes , MessageInfo.class);
+
             channelHandlerContext.writeAndFlush(byteBuf);
         } catch (Exception ex) {
             String msg1 = ex.getMessage();
@@ -41,7 +45,7 @@ public class MessagePackEncoder extends MessageToByteEncoder<Object> {
     }
 
 
-    //msgpack 序列化
+//    //msgpack 序列化
 //    @Override
 //    protected void encode(ChannelHandlerContext channelHandlerContext, Object msg, ByteBuf byteBuf) throws Exception {
 //

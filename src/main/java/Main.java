@@ -14,6 +14,8 @@ import Test.opensource.sqlite.SQLiteTest;
 import Test.opensource.zookeeper.ZooKeeperTest;
 import Test.test2018.JDBCTest;
 import Test.test2019.MysqlTest;
+import Test.test2019.SocketTcpTest;
+import Test.test2020.ByteBase64String;
 import Test.test2020.ByteConverterTest;
 import Test.test2020.ConcurrentHashMapTest;
 import Test.test2020.UDPTest;
@@ -175,7 +177,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-            new NettyTest().test();
+//            new NettyTest().test();
 //            new NettyTest().nettyWebSocket();
 
 //            new StringTest().test();
@@ -213,7 +215,7 @@ public class Main {
 //            new LinkedBlockingQueueTest().test();
 
 //            new LockTest().test();
-//            new SocketTcpTest().test();
+            new SocketTcpTest().test();
 
             //endregion
 
@@ -236,6 +238,8 @@ public class Main {
 //            new ZooKeeperTest().test();
 //            new ConcurrentHashMapTest().test();
 //            new ProtoBufTest().test();
+
+//            new ByteBase64String().test();
 
             //endregion
 
