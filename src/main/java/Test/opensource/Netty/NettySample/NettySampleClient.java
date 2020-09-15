@@ -1,5 +1,6 @@
 package Test.opensource.Netty.NettySample;
 
+import Model.JacksonPojo;
 import Test.opensource.Netty.MarshallingCodeFactory;
 import Test.opensource.Netty.MessageInfo;
 import Test.opensource.Netty.MessageType;
@@ -32,6 +33,7 @@ public class NettySampleClient {
     String host = "127.0.0.1";
     int port = 8031;
     boolean closed;
+
     public void test() {
         CompletableFuture.runAsync(() ->
         {
@@ -147,21 +149,24 @@ public class NettySampleClient {
 
         try {
 
-            if (closed||(channel == null && !channel.isActive())) {
+            if (closed || (channel == null && !channel.isActive())) {
                 return;
             }
             String line = "sendMessage";
             for (Integer i = 1; i <= 20; i++) {
                 MessageInfo msg = new MessageInfo();
-                msg.setMessageType(MessageType.HeartBeat);
+                msg.setMessageType(MessageType.Data);
                 msg.setBody(line + i.toString());
 
 
 //                ObjectMapper objectMapper = new ObjectMapper(new MessagePackFactory());
 //                byte[] bytes = objectMapper.writeValueAsBytes(msg);
+//                MessageInfo deserialized = objectMapper.readValue(bytes, MessageInfo.class);
+//
+
                 channel.writeAndFlush(msg);
 
-
+                System.out.println(msg.toString());
 //                 channel.writeAndFlush(line+i.toString());
                 Thread.sleep(500);
             }
@@ -189,9 +194,8 @@ public class NettySampleClient {
     }
 
     public void close() {
-        closed=true;
-        if(channel==null||!channel.isActive())
-        {
+        closed = true;
+        if (channel == null || !channel.isActive()) {
             return;
         }
         channel.close();

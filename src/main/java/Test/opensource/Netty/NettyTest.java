@@ -173,7 +173,7 @@ public class NettyTest {
 
     public void nettySampleTest() {
         try {
-            new NettySampleServer().test();
+//            new NettySampleServer().test();
             new NettySampleClient().test();
         } catch (Exception e) {
 

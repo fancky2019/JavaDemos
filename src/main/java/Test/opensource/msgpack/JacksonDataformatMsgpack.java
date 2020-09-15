@@ -12,12 +12,20 @@ import org.msgpack.jackson.dataformat.MessagePackFactory;
  * @Date 2020-9-14 10:16
  * @Description
  *
+ *
+ * github:https://github.com/msgpack/msgpack-java/tree/develop/msgpack-jackson
+ *
+ *
  * 不用在pojo上家@Message注解,比msgpack灵活
  *
  * msgpack比jackson序列化后的字节数要小
  *
  * jackson-dataformat-msgpack序列化,
  *
+ *
+ *
+ * Unfortunately, msgpack-java v0.6 serializes objects as a key-value list.
+ * Please use current msgpack-java that serializes objects as a map like msgpack-C#
  */
 public class JacksonDataformatMsgpack {
     public void test() {
@@ -110,5 +118,7 @@ public class JacksonDataformatMsgpack {
 
         }
     }
+
+
 
 }

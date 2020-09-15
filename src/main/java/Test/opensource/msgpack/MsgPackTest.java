@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * msgpack不能跨语言通信，请用jackson-dataformat-msgpack
  * jackson-dataformat-msgpack序列化,比msgpack序列化灵活。
  */
 public class MsgPackTest {
