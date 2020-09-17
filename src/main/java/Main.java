@@ -177,7 +177,8 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-//            new NettyTest().test();
+            new NettyTest().test();
+
 //            new NettyTest().nettyWebSocket();
 
 //            new StringTest().test();
@@ -215,7 +216,7 @@ public class Main {
 //            new LinkedBlockingQueueTest().test();
 
 //            new LockTest().test();
-            new SocketTcpTest().test();
+//            new SocketTcpTest().test();
 
             //endregion
 

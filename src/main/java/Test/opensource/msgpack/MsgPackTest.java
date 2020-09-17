@@ -6,9 +6,11 @@ import org.msgpack.MessagePack;
 import org.msgpack.annotation.Message;
 import org.msgpack.template.Template;
 import org.msgpack.template.Templates;
+import utility.Hex;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -69,21 +71,37 @@ public class MsgPackTest {
     private void MessageInfoTets() {
         try {
 
+            MessagePack msgpack = new MessagePack();
 
-//            MessageInfo msg = new MessageInfo();
-//            msg.setMessageType(MessageType.HeartBeat);
-//            msg.setBody("dddd");
+            MessageInfo msg = new MessageInfo();
+            msg.setMessageType(MessageType.HeartBeat);
+            msg.setBody("data");
+            //在实体类加@Message 注解或者下面语句注册实体类，否则不能序列化
+            //注册：生成实体类模板
+            //注意：先注册子类的模板，有点类似js引人文件顺序
+
+            msgpack.register(MessageType.class);
+            msgpack.register(MessageInfo.class);
+            //序列化对象
+            // Serialize
+            byte[] msgBytes = msgpack.write(msg);
+            //打印字节数组
+            String bytesStr = Arrays.toString(msgBytes);
+            //byte转16进制
+            String hexString = Hex.encodeHexString(msgBytes, true);
+
+            msgpack.unregister(MessageType.class);
+            msgpack.unregister(MessageInfo.class);
 
 
             MsgPackPojo pojo = new MsgPackPojo();
             pojo.setName("fancky");
             pojo.setAge(27);
 
-            Sub sub=new Sub();
+            Sub sub = new Sub();
             sub.setName("dfancky");
             pojo.setSub(sub);
             pojo.setEn(MsgPackEnum.HeartBeat);
-            MessagePack msgpack = new MessagePack();
 
 
             //在实体类加@Message 注解或者下面语句注册实体类，否则不能序列化
@@ -151,8 +169,9 @@ class MsgPackPojo {
 enum MsgPackEnum {
     HeartBeat,
     Data;
-     MsgPackEnum()
-    {}
+
+    MsgPackEnum() {
+    }
 
 }
 

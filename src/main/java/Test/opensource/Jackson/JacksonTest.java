@@ -1,6 +1,8 @@
 package Test.opensource.Jackson;
 
 import Model.JacksonPojo;
+import Test.opensource.Netty.MessageInfo;
+import Test.opensource.Netty.MessageType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,14 +14,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Jackson对枚举进行序列化，将只能简单的输出枚举的String名称：
+ */
 public class JacksonTest {
 
     private ObjectMapper mapper = new ObjectMapper();
 
     public void test() {
+
+        seri();
         jdkSerialization();
         serialization();
         fun();
+    }
+
+    private void seri() {
+
+        MessageInfo msg = null;
+        try {
+            msg = new MessageInfo();
+
+            msg.setMessageType(MessageType.HeartBeat);
+            msg.setBody("data");
+            //序列化
+            String jsonStr = mapper.writeValueAsString(msg);
+            //反序列化
+            MessageInfo pojo = mapper.readValue(jsonStr, MessageInfo.class);
+            int m=0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void fun() {
@@ -110,7 +135,7 @@ public class JacksonTest {
             ObjectOutputStream out = new ObjectOutputStream(byteArrayOutputStream);
             out.writeObject(jacksonPojo);
             //256 bytes
-            byte[] jdkBytes=byteArrayOutputStream.toByteArray();
+            byte[] jdkBytes = byteArrayOutputStream.toByteArray();
             out.close();
             byteArrayOutputStream.close();
 
