@@ -4,7 +4,9 @@ import Model.JacksonPojo;
 import Test.opensource.Netty.MessageInfo;
 import Test.opensource.Netty.MessageType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.msgpack.jackson.dataformat.JsonArrayFormat;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
+import utility.Hex;
 
 import java.io.*;
 import java.net.*;
@@ -174,10 +176,14 @@ public class SocketTcpTest {
             msg.setBody("data");
 
             ObjectMapper objectMapper = new ObjectMapper(new MessagePackFactory());
+//            objectMapper.setAnnotationIntrospector(new JsonArrayFormat());
             while (true) {
                 //33 byte
                 byte[] bytes = objectMapper.writeValueAsBytes(msg);
                 MessageInfo deserialized = objectMapper.readValue(bytes, MessageInfo.class);
+
+                System.out.println(bytes.toString());
+                System.out.println(Hex.encodeHexString(bytes, true));
 
                 dos.write(bytes, 0, bytes.length);
                 dos.flush();
@@ -186,8 +192,6 @@ public class SocketTcpTest {
             }
 //            dos.flush();
 //            dos.close();
-
-
 
 
         } catch (IOException e) {

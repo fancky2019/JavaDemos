@@ -5,6 +5,7 @@ import Test.test2020.JDKSerialization;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.msgpack.core.MessageBufferPacker;
 import org.msgpack.core.MessagePack;
+import org.msgpack.jackson.dataformat.JsonArrayFormat;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
 
 /**
@@ -41,6 +42,8 @@ public class JacksonDataformatMsgpack {
             // Serialization/Deserialization
             // Instantiate ObjectMapper for MessagePack
             ObjectMapper objectMapper = new ObjectMapper(new MessagePackFactory());
+            //兼容V6,添加下面变成V6的序列化
+//            objectMapper.setAnnotationIntrospector(new JsonArrayFormat());
 
             // Serialize a Java object to byte array
             MsgPackPojo pojo = new MsgPackPojo();
