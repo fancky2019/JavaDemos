@@ -11,6 +11,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.handler.codec.MessageToMessageEncoder;
 
 import org.msgpack.MessagePack;
+import org.msgpack.jackson.dataformat.JsonArrayFormat;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
@@ -23,10 +24,16 @@ public class MessagePackEncoder extends MessageToByteEncoder<Object> {
 
     ObjectMapper objectMapper = new ObjectMapper(new MessagePackFactory());
 
+    public  MessagePackEncoder()
+    {
+        //兼容V6,添加下面变成V6的序列化
+//        objectMapper.setAnnotationIntrospector(new JsonArrayFormat());
+    }
 //    jackson-dataformat-msgpack序列化,
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, Object msg, ByteBuf byteBuf) throws Exception {
         try {
+
             byte[] bytes = objectMapper.writeValueAsBytes(msg);
 //            byteBuf=Unpooled.wrappedBuffer(bytes);
 
