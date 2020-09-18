@@ -42,7 +42,7 @@ public class JacksonDataformatMsgpack {
             // Serialization/Deserialization
             // Instantiate ObjectMapper for MessagePack
             ObjectMapper objectMapper = new ObjectMapper(new MessagePackFactory());
-            //兼容V6,添加下面变成V6的序列化
+            //兼容V6,添加下面变成V6的序列化成ARRAY，
 //            objectMapper.setAnnotationIntrospector(new JsonArrayFormat());
 
             // Serialize a Java object to byte array
