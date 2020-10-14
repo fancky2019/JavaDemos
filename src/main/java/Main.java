@@ -19,6 +19,7 @@ import Test.test2020.ByteBase64String;
 import Test.test2020.ByteConverterTest;
 import Test.test2020.ConcurrentHashMapTest;
 import Test.test2020.UDPTest;
+import utility.BigInterTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -177,7 +178,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-            new NettyTest().test();
+//            new NettyTest().test();
 
 //            new NettyTest().nettyWebSocket();
 
@@ -241,6 +242,7 @@ public class Main {
 //            new ProtoBufTest().test();
 
 //            new ByteBase64String().test();
+            new BigInterTest().test();
 
             //endregion
 
