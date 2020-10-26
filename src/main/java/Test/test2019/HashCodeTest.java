@@ -21,9 +21,9 @@ JAVA 要求同一对象必须要有相同的hashCode，如果hashCode不同也�
 public class HashCodeTest {
     public void test() {
 
-       // getHashCode();
+        getHashCode();
 //        hashSetSameHashCode();
-        hashMapSameHashCode();
+//        hashMapSameHashCode();
     }
 
     private void getHashCode() {
@@ -37,6 +37,8 @@ public class HashCodeTest {
         Integer hashCode4 = student.hashCode();
         Integer hashCode5 = student.hashCode();
 
+        Student student1 = new Student("fancky", 32);
+        Integer hashCode11 = student1.hashCode();
 
         HashSet<Student> hashSet = new HashSet<Student>();
         hashSet.add(student);

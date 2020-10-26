@@ -13,6 +13,7 @@ import Test.opensource.redis.RedisTest;
 import Test.opensource.sqlite.SQLiteTest;
 import Test.opensource.zookeeper.ZooKeeperTest;
 import Test.test2018.JDBCTest;
+import Test.test2019.HashCodeTest;
 import Test.test2019.MysqlTest;
 import Test.test2019.SocketTcpTest;
 import Test.test2020.ByteBase64String;
@@ -191,7 +192,7 @@ public class Main {
             // new TypeJudgeTest().test();
 
             //  new DivisionTest().test();
-//            new HashCodeTest().test();
+            new HashCodeTest().test();
             //   new LeftMoveTest().test();
             //  new RedissonTest().test();
 //              new ConstructorTest().test();
@@ -242,7 +243,7 @@ public class Main {
 //            new ProtoBufTest().test();
 
 //            new ByteBase64String().test();
-            new BigInterTest().test();
+//            new BigInterTest().test();
 
             //endregion
 
