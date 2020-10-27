@@ -6,42 +6,65 @@ import com.fasterxml.jackson.annotation.JsonValue;
 enum EnumDemo {
     Blue,
     Black,
-    Yellow
+    Yellow,
+    Grey {
+        //重写toString() 方法
+        public String toString() {
+
+            return "grey";
+        }
+    },
+    Green;
 }
 
 public class EnumTest {
     public void test() {
         EnumDemo enumDemo = EnumDemo.Blue;
-        String enumName = EnumDemo.Black.toString();
+        String enumName = EnumDemo.Black.toString();//Black
+        String greyEnumName = EnumDemo.Grey.toString();//grey
         Integer m = 0;
     }
 }
+
 /**
  * Jackson对枚举进行序列化,默认输出枚举的String名称
  */
 enum MessageType {
     HeartBeat(0),
+    //    Test {   public String toString() {
+//        return "asc";
+//    }},
     Data(1);
 
     private int value;
+
+    private MessageType() {
+
+    }
 
     private MessageType(int value) {
         this.value = value;
     }
 
+    public MessageType fromString(String str) {
+        MessageType.valueOf(str.toUpperCase());
+//        MessageType.HeartBeat;
+//        MessageType.Data;
+        return valueOf(str.toUpperCase());
+    }
+
     //JsonVale：序列化时 枚举对应生成的值:0或1
     @JsonValue
-    public int getValue()
-    {
+    public int getValue() {
         return this.value;
     }
 
     //JsonCreator ：反序列化时的 初始化函数，入参为 对应该枚举的 json值
     @JsonCreator
-    public static Test.opensource.Netty.MessageType getItem(int value){
+    public static Test.opensource.Netty.MessageType getItem(int value) {
         //values= MessageType.values()
-        for(Test.opensource.Netty.MessageType item : Test.opensource.Netty.MessageType.values()){
-            if(item.getValue() == value){
+        for (Test.opensource.Netty.MessageType item : Test.opensource.Netty.MessageType.values()) {
+            if (item.getValue() == value) {
                 return item;
             }
         }

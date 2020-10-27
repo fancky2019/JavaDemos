@@ -203,7 +203,7 @@ class StaticGenericTest<T> {
 ////        T t = singleInstance.getClass().newInstance();
 ////    }
 
-    private void Fun(Class<T> cl) throws Exception {
+    private <T> void Fun(Class cl) throws Exception {
         T t = (T) cl.newInstance();
     }
 }
