@@ -12,6 +12,7 @@ import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.sqlite.SQLiteTest;
 import Test.opensource.zookeeper.ZooKeeperTest;
+import Test.test2018.EnumTest;
 import Test.test2018.JDBCTest;
 import Test.test2019.HashCodeTest;
 import Test.test2019.MysqlTest;
@@ -130,7 +131,7 @@ public class Main {
 
             //  new FileTest().test();
 //            new ReflectDemo().test();
-            //  new EnumTest().test();
+              new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
 //            new ClassLoaderTest().test();
@@ -192,7 +193,7 @@ public class Main {
             // new TypeJudgeTest().test();
 
             //  new DivisionTest().test();
-            new HashCodeTest().test();
+//            new HashCodeTest().test();
             //   new LeftMoveTest().test();
             //  new RedissonTest().test();
 //              new ConstructorTest().test();
