@@ -106,10 +106,9 @@ public class DirectExchange {
                 channel.confirmSelect();
 
                 //测试RabbitMQ确认模式生产10000耗时 14s左右，性能远低于redis的队列：生产10W，5.5s左右
-                Stopwatch stopwatch=Stopwatch.createStarted();
-                for(int i=0;i<10000;i++) {
-                    message=MessageFormat.format("message - {0}",i);
-
+                Stopwatch stopwatch = Stopwatch.createStarted();
+                for (int i = 0; i < 10000; i++) {
+                    message = MessageFormat.format("message - {0}", i);
 
 
                     //  BasicProperties 默认为：   MessageProperties.MINIMAL_BASIC,不持久化
@@ -238,11 +237,11 @@ public class DirectExchange {
                 //因为流控而阻塞：提高消费能力解决消息积压，而不是采用流控。
                 connection.addBlockedListener(str ->
                         {
-                        //阻塞
+                            //阻塞
                         },
                         () ->
                         {
-                         //为阻塞
+                            //为阻塞
                         });
 
 

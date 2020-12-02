@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class Java8Test {
     public void test() {
-          getListObjectProperty();
+        getListObjectProperty();
 //        localDateTimeTest();
 //        methodReference();
 
@@ -59,25 +59,23 @@ public class Java8Test {
 
 
         //并行处理，类似C#的Parallel
-        list.stream().parallel().forEach(p->
+        list.stream().parallel().forEach(p ->
         {
             //todo
         });
         //exist
-       boolean exist= list.stream().anyMatch(p->p.getName()=="fancky");
+        boolean exist = list.stream().anyMatch(p -> p.getName() == "fancky");
 
-       //groupingBy
-        Map<String, List<Student>> studentsGroupBy=  list.stream().collect(Collectors.groupingBy(Student::getName));
+        //groupingBy
+        Map<String, List<Student>> studentsGroupBy = list.stream().collect(Collectors.groupingBy(Student::getName));
 
         //分组求和
-        Map<String, IntSummaryStatistics> groupBySummaryStatistics=  list.stream().collect(Collectors.groupingBy(Student::getName,Collectors.summarizingInt(Student::getAge)));
+        Map<String, IntSummaryStatistics> groupBySummaryStatistics = list.stream().collect(Collectors.groupingBy(Student::getName, Collectors.summarizingInt(Student::getAge)));
 
-        groupBySummaryStatistics.forEach((groupBy,intSummaryStatistics)->
+        groupBySummaryStatistics.forEach((groupBy, intSummaryStatistics) ->
         {
-            System.out.println(MessageFormat.format("name:{0},age sum:{1}",groupBy,intSummaryStatistics.getSum()));
+            System.out.println(MessageFormat.format("name:{0},age sum:{1}", groupBy, intSummaryStatistics.getSum()));
         });
-
-
 
 
         //正序
@@ -126,7 +124,7 @@ public class Java8Test {
         Integer idays = days.intValue();
 
         LocalDate tomorrow1111 = LocalDate.parse("2020-01-14", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDateTime localDateTime1111=  LocalDateTime.of(tomorrow1111, LocalTime.of(0,0,0));
+        LocalDateTime localDateTime1111 = LocalDateTime.of(tomorrow1111, LocalTime.of(0, 0, 0));
 
         //2019-09-20T09:46:20.203
         LocalDateTime localDateTimeNow = LocalDateTime.now();
@@ -137,7 +135,7 @@ public class Java8Test {
         ZonedDateTime atZone = localDateTimeNow.atZone(ZoneId.of("Asia/Shanghai"));
 
         //ZonedDateTime 转LocalDateTime
-        ZonedDateTime zonedDateTime1=ZonedDateTime.now();
+        ZonedDateTime zonedDateTime1 = ZonedDateTime.now();
         zonedDateTime1.toLocalDateTime();
 
         //格式化
@@ -154,7 +152,7 @@ public class Java8Test {
 
         //获取秒数
         Long seconds = LocalDateTime.now().toEpochSecond(ZoneOffset.of("+8"));
-       //获取毫秒数
+        //获取毫秒数
         Long milliSeconds = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
 
         //和时间戳相互转换

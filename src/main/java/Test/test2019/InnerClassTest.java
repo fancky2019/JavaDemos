@@ -10,10 +10,10 @@ Java不能声明静态类：只能声明静态内部类
 public class InnerClassTest {
     public void test() {
         //静态内部类实例化
-        Person person=null;
+        Person person = null;
         person.getAge();
-      //  BaseImp
-       // Animal
+        //  BaseImp
+        // Animal
 
         OuterClass.StaticInnerClass staticInnerClass = new OuterClass.StaticInnerClass();
         // String name = OuterClass.StaticInnerClass.Name;

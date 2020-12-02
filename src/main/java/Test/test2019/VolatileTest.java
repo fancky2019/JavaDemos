@@ -130,12 +130,11 @@ public class VolatileTest {
     }
 
 
-
-/*
-         //volatile不支持原子操作
-                //_volParam 取值、++、赋值三个操作，不是原子操作。
-                //因此此结果可能不是600000。因为多个线程取值可能都是没++之后的值。
- */
+    /*
+             //volatile不支持原子操作
+                    //_volParam 取值、++、赋值三个操作，不是原子操作。
+                    //因此此结果可能不是600000。因为多个线程取值可能都是没++之后的值。
+     */
     private void unAtomic() {
         AtomicInteger atomicInteger = new AtomicInteger();
 

@@ -8,7 +8,6 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 
-
 /*
     * kafka 一个topic可以有多个partion,这些partion可以放在kafka的集群上（多个kafka broker）
     * 达到高可用，这些partion中只有一个leader,其他都是follower。kafka采用leader读写，replica
@@ -56,8 +55,8 @@ public class KafkaProducerClient {
         Boolean isAsync = true;
 
         int messageNo = 1;
-        while (messageNo<10) {
-            String keyStr=String.valueOf(messageNo);
+        while (messageNo < 10) {
+            String keyStr = String.valueOf(messageNo);
             String messageStr = "Message_" + messageNo;
             long startTime = System.currentTimeMillis();
             if (isAsync) { // Send asynchronously
@@ -67,12 +66,12 @@ public class KafkaProducerClient {
                             long elapsedTime = System.currentTimeMillis() - startTime;
                             if (recordMetadata != null) {
                                 //生产成功
-                                System.out.println(    "message(" + keyStr + ", " + messageStr + ") sent to partition(" + recordMetadata.partition() +
-                                                "), " +
-                                                "offset(" + recordMetadata.offset() + ") in " + elapsedTime + " ms");
+                                System.out.println("message(" + keyStr + ", " + messageStr + ") sent to partition(" + recordMetadata.partition() +
+                                        "), " +
+                                        "offset(" + recordMetadata.offset() + ") in " + elapsedTime + " ms");
                             } else {
                                 //生产异常
-                              System.out.println(e.getMessage());
+                                System.out.println(e.getMessage());
                             }
                         }
                 );
@@ -80,7 +79,7 @@ public class KafkaProducerClient {
             } else { // Send synchronously
                 try {
 
-                    producer.send(new ProducerRecord<>(topic,  keyStr,  messageStr)).get();
+                    producer.send(new ProducerRecord<>(topic, keyStr, messageStr)).get();
                     System.out.println("Sent message: (" + messageNo + ", " + messageStr + ")");
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
@@ -89,9 +88,7 @@ public class KafkaProducerClient {
             ++messageNo;
             try {
                 Thread.sleep(200);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
 
             }
 

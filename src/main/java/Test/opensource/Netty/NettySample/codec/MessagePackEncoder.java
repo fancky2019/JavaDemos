@@ -18,18 +18,18 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 import java.util.List;
 
 /**
- *   jackson-dataformat-msgpack序列化和msgpack不能交叉使用。
+ * jackson-dataformat-msgpack序列化和msgpack不能交叉使用。
  */
 public class MessagePackEncoder extends MessageToByteEncoder<Object> {
 
     ObjectMapper objectMapper = new ObjectMapper(new MessagePackFactory());
 
-    public  MessagePackEncoder()
-    {
+    public MessagePackEncoder() {
         //兼容V6,添加下面变成V6的序列化
 //        objectMapper.setAnnotationIntrospector(new JsonArrayFormat());
     }
-//    jackson-dataformat-msgpack序列化,
+
+    //    jackson-dataformat-msgpack序列化,
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, Object msg, ByteBuf byteBuf) throws Exception {
         try {

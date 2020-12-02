@@ -12,7 +12,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Log4j2Demo {
     private static final Logger LOGGER = LogManager.getLogger();
-    public  void  test() {
+
+    public void test() {
         LocalDateTime localDateTime = LocalDateTime.now();
 
         //转换string
@@ -27,9 +28,9 @@ public class Log4j2Demo {
 ////            LOGGER.error(MessageFormat.format("{0} This is error message", dateStr));
 //        }
 
-            LOGGER.debug(MessageFormat.format("{0} This is debug message", dateStr));
-            LOGGER.info(MessageFormat.format("{0} This is info message", dateStr));
-            LOGGER.warn(MessageFormat.format("{0} This is warn message", dateStr));
-            LOGGER.error(MessageFormat.format("{0} This is error message", dateStr));
+        LOGGER.debug(MessageFormat.format("{0} This is debug message", dateStr));
+        LOGGER.info(MessageFormat.format("{0} This is info message", dateStr));
+        LOGGER.warn(MessageFormat.format("{0} This is warn message", dateStr));
+        LOGGER.error(MessageFormat.format("{0} This is error message", dateStr));
     }
 }

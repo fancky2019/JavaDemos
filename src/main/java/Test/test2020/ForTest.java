@@ -6,20 +6,16 @@ package Test.test2020;
  * @Description
  */
 public class ForTest {
-    public  void test()
-    {
-        while (true)
-        {
+    public void test() {
+        while (true) {
             break;
         }
 
-        for(;;)
-        {
+        for (; ; ) {
             break;
         }
 
-        for(int i=0;;)
-        {
+        for (int i = 0; ; ) {
             break;
         }
     }

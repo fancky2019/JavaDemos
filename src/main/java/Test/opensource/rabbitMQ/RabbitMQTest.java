@@ -31,7 +31,6 @@ public class RabbitMQTest {
         });
 
 
-
         //生产者
         CompletableFuture.runAsync(() ->
         {
@@ -70,7 +69,6 @@ public class RabbitMQTest {
 //            new Test.opensource.rabbitMQ.rabbitMQProducer.FanoutExchange().producer();
 //            new Test.opensource.rabbitMQ.rabbitMQProducer.TopicExchange().producer();
         });
-
 
 
     }

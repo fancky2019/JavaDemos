@@ -36,7 +36,7 @@ Annotation
 @Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Description {
-//注解的成员变量在注解的定义中以“无形参的方法”形式来声明，其方法名定义了该成员变量的名字，其返回值定义了该成员变量的类型
+    //注解的成员变量在注解的定义中以“无形参的方法”形式来声明，其方法名定义了该成员变量的名字，其返回值定义了该成员变量的类型
 //把他们看成C#的属性。
     //    @Description(value = "年龄",color="red",age = 25)
     // @Description( "年龄")
@@ -49,7 +49,8 @@ public @interface Description {
     String color() default "blue";//为属性指定默认值
 
     int age() default 25;
-    int salary=0;
+
+    int salary = 0;
 //    Integer age1() default 25;//不支持
 //    LocalDateTime time()  ;//不支持
 }

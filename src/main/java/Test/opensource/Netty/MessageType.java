@@ -18,19 +18,18 @@ public enum MessageType {
         this.value = value;
     }
 
-   //JsonVale：序列化时 枚举对应生成的值:0或1
+    //JsonVale：序列化时 枚举对应生成的值:0或1
     @JsonValue
-    public int getValue()
-    {
+    public int getValue() {
         return this.value;
     }
 
-   //JsonCreator ：反序列化时的 初始化函数，入参为 对应该枚举的 json值
+    //JsonCreator ：反序列化时的 初始化函数，入参为 对应该枚举的 json值
     @JsonCreator
-    public static MessageType getItem(int value){
+    public static MessageType getItem(int value) {
         //values= MessageType.values()
-        for(MessageType item : MessageType.values()){
-            if(item.getValue() == value){
+        for (MessageType item : MessageType.values()) {
+            if (item.getValue() == value) {
                 return item;
             }
         }

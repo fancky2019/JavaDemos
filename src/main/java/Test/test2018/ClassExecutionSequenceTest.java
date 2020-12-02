@@ -1,4 +1,5 @@
 package Test.test2018;
+
 /*
      Main()函数是程序的入口点,如果main在加载类中，静态块会在main之前执行。
      父类静态字段、父类静态块（按出现顺序）--》子类静态字段、子类静态块-（按出现顺序）-》父类构造块、字段（按出现顺序）--》父类构造函数--》
@@ -37,9 +38,9 @@ public class ClassExecutionSequenceTest {
         //静态块、静态字段只执行一次：new、或首次访问当前类静态成员(非Final静态成员)的时候
         //访问父类字段：只执行父类静态块和父类静态字段（按出现的顺序）。
 //     Integer parentField=   Child.parentField;
-       // Child.funParent();
+        // Child.funParent();
 //        //访问当前类(子类)静态字段、方法：先执行父类的静态字段和父类静态块（按出现的顺序）、子类的静态字段和子类静态块（按出现顺序）。
-        Integer childField=Child.childField;
+        Integer childField = Child.childField;
         //     Child.funChild();
 
     }

@@ -72,7 +72,7 @@ public class NettyUDPClient {
         }
     }
 
-   //endregion
+    //endregion
 
     //region 多播：可以接受单播、多播、广播信息
     private void runMulticastClient() throws InterruptedException {
@@ -88,7 +88,7 @@ public class NettyUDPClient {
             bootstrap.channel(NioDatagramChannel.class);
             bootstrap.handler(new NettyUDPClientHandler());
 
-           //加入多播组：和单播多播区别就是：加入了多播组。但是可以收到单播，多播的信息。
+            //加入多播组：和单播多播区别就是：加入了多播组。但是可以收到单播，多播的信息。
             NioDatagramChannel ch = (NioDatagramChannel) bootstrap.bind(multicastAddress.getPort()).sync().channel();
             ch.joinGroup(multicastAddress, ni).sync();
 

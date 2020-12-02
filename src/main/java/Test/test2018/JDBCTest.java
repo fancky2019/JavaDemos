@@ -307,29 +307,29 @@ public class JDBCTest {
                 "      values (?,?,?,?,?,?,?,?,?,?,?)";
         Connection con = getConnection();
         PreparedStatement preparedStatement = con.prepareStatement(insertCommand, Statement.RETURN_GENERATED_KEYS);
-        Stopwatch stopwatch=Stopwatch.createStarted();
+        Stopwatch stopwatch = Stopwatch.createStarted();
 
 
-            //不返回自动生成的主键
-            //  PreparedStatement preparedStatement = con.prepareStatement(insertCommand);
-            //插入语句Statement.RETURN_GENERATED_KEYS返回生成的主键
-           //设置参数
-            preparedStatement.setString(1, UUID.randomUUID().toString());
-            preparedStatement.setInt(2, 1);
-            preparedStatement.setNull(3, Types.INTEGER);
-            preparedStatement.setInt(4, 1);
-            preparedStatement.setString(5, "fanckyJDBC");
-            preparedStatement.setNull(6, Types.NVARCHAR);
-            preparedStatement.setBigDecimal(7, new BigDecimal(123));
-            //                 setDate只能得到年月日
-            preparedStatement.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
-            Short status = 1;
-            preparedStatement.setShort(9, status);
-            preparedStatement.setInt(10, 12);
-            preparedStatement.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
-       //有时候0ms-->比C#块。
+        //不返回自动生成的主键
+        //  PreparedStatement preparedStatement = con.prepareStatement(insertCommand);
+        //插入语句Statement.RETURN_GENERATED_KEYS返回生成的主键
+        //设置参数
+        preparedStatement.setString(1, UUID.randomUUID().toString());
+        preparedStatement.setInt(2, 1);
+        preparedStatement.setNull(3, Types.INTEGER);
+        preparedStatement.setInt(4, 1);
+        preparedStatement.setString(5, "fanckyJDBC");
+        preparedStatement.setNull(6, Types.NVARCHAR);
+        preparedStatement.setBigDecimal(7, new BigDecimal(123));
+        //                 setDate只能得到年月日
+        preparedStatement.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+        Short status = 1;
+        preparedStatement.setShort(9, status);
+        preparedStatement.setInt(10, 12);
+        preparedStatement.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
+        //有时候0ms-->比C#块。
         //插入mysql慢。
-        for(int i=0;i<50;i++) {
+        for (int i = 0; i < 50; i++) {
             //执行命令并接受结果
             Integer result = preparedStatement.executeUpdate();
             stopwatch.stop();
@@ -366,8 +366,8 @@ public class JDBCTest {
         Connection con = getConnection();
         con.setAutoCommit(false);
         //不返回自动生成的主键
-          PreparedStatement preparedStatement = con.prepareStatement(insertCommand);
-          // sqlserver批量插入获取自增key报异常,mysql不报错。
+        PreparedStatement preparedStatement = con.prepareStatement(insertCommand);
+        // sqlserver批量插入获取自增key报异常,mysql不报错。
         //插入语句Statement.RETURN_GENERATED_KEYS返回生成的主键
 //        PreparedStatement preparedStatement = con.prepareStatement(insertCommand, PreparedStatement.RETURN_GENERATED_KEYS);
 

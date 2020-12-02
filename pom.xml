@@ -204,7 +204,7 @@
             <version>5.1.0</version>
         </dependency>
         <!-- 封装了一些高级特性，如：Cache事件监听、选举、分布式锁、分布式Barrier -->
-<!--        排除slf4j-log4j12多个版本依赖-->
+        <!--        排除slf4j-log4j12多个版本依赖-->
         <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-recipes -->
         <dependency>
             <groupId>org.apache.curator</groupId>
@@ -219,13 +219,13 @@
         </dependency>
 
 
-<!--        protobuf-->
+        <!--        protobuf-->
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>3.13.0</version>
         </dependency>
-<!--        protobuf JsonFormat-->
+        <!--        protobuf JsonFormat-->
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java-util</artifactId>
@@ -233,7 +233,7 @@
         </dependency>
 
 
-<!--        proto不用编写proto文件，类似protobuf.net-->
+        <!--        proto不用编写proto文件，类似protobuf.net-->
         <!-- https://mvnrepository.com/artifact/io.protostuff/protostuff-core -->
         <dependency>
             <groupId>io.protostuff</groupId>

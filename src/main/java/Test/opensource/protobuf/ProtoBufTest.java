@@ -99,7 +99,6 @@ public class ProtoBufTest {
         }
 
 
-
         //Json 序列化：已格式化
         //Json序列化一：  --有Any报错用Json序列化二
         //Jackson 序列化Json,参照Jackson的Demo

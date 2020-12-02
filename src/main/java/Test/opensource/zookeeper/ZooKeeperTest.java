@@ -314,7 +314,7 @@ public class ZooKeeperTest {
             try {
                 connectString = "localhost:2181";
                 String path = "/example/cache";
-                CuratorFramework   client = CuratorFrameworkFactory.newClient(connectString, new ExponentialBackoffRetry(1000, 3));
+                CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, new ExponentialBackoffRetry(1000, 3));
                 client.start();
                 PathChildrenCache cache = new PathChildrenCache(client, path, true);
                 cache.start();

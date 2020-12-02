@@ -38,7 +38,7 @@ public class SQLiteTest {
 
             Class.forName("org.sqlite.JDBC");
             String relativelyPath = System.getProperty("user.dir");
-            String dbPath = "jdbc:sqlite:"+relativelyPath+"\\SQLite\\JavaTest.db";
+            String dbPath = "jdbc:sqlite:" + relativelyPath + "\\SQLite\\JavaTest.db";
 
 
             Connection con = DriverManager.getConnection(dbPath);
@@ -174,11 +174,12 @@ public class SQLiteTest {
 //        List<T> resultList = JSON.parseArray(jsonString, t);
 
         //jackson 反序列化
-         ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
         //序列化
         String jsonStr = mapper.writeValueAsString(list);
         //反序列化
-        List<T> resultList= mapper.readValue(jsonStr, new TypeReference<List<T>>() {});
+        List<T> resultList = mapper.readValue(jsonStr, new TypeReference<List<T>>() {
+        });
 
         return resultList;
     }

@@ -92,7 +92,7 @@ public class UDPTest {
         try {
 
             MulticastSocket multicastSocket = new MulticastSocket(6001);
-           //   multicastSocket.setNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getByName("127.0.0.1")));
+            //   multicastSocket.setNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getByName("127.0.0.1")));
 
             String message = "Multicast Multicast Message";
             //相当于C# 的IPAddress。IPEndPoint包括IP和端口

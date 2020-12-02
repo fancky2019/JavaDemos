@@ -29,15 +29,15 @@ public class SemaphoreTest {
                     System.out.println(MessageFormat.format("{0} Thread - {1} is waiting .", LocalDateTime.now().format(dtf), Thread.currentThread().getId()));
                     //申请不到许可，将一直阻塞
                     semaphore.acquire();
-                    System.out.println(MessageFormat.format("{0} Thread - {0} enter .",LocalDateTime.now().format(dtf),Thread.currentThread().getId()));
+                    System.out.println(MessageFormat.format("{0} Thread - {0} enter .", LocalDateTime.now().format(dtf), Thread.currentThread().getId()));
                     Thread.sleep(5000);
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 } finally {
-                    System.out.println(MessageFormat.format("{0} Thread - {0} releases permit .",LocalDateTime.now().format(dtf),Thread.currentThread().getId()));
+                    System.out.println(MessageFormat.format("{0} Thread - {0} releases permit .", LocalDateTime.now().format(dtf), Thread.currentThread().getId()));
                     semaphore.release();
                 }
-            },Executors.newCachedThreadPool());
+            }, Executors.newCachedThreadPool());
 
 //            Executors.newCachedThreadPool().submit(() ->
 //            {

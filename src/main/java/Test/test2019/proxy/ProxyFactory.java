@@ -49,14 +49,14 @@ public class ProxyFactory {
                 interfaceImp.getClass().getInterfaces(),
                 (proxy, method, args) -> {
                     //调用目标方法之前执行，对已有方法进行功能拓展
-                    Stopwatch stopwatch=Stopwatch.createStarted();
+                    Stopwatch stopwatch = Stopwatch.createStarted();
                     System.out.println("InvocationHandler()1");
                     //执行目标对象方法
                     Object returnValue = method.invoke(interfaceImp, args);
 
                     stopwatch.stop();
                     //199 milliSeconds:没有重置接着从第一次start()的时候计时
-                    System.out.println(MessageFormat.format("{0} milliSeconds",stopwatch.elapsed(TimeUnit.MILLISECONDS)));
+                    System.out.println(MessageFormat.format("{0} milliSeconds", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
 
                     //调用目标方法之后执行，对已有方法进行功能拓展
                     System.out.println("InvocationHandler()2");

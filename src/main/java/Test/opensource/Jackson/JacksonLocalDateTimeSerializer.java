@@ -13,7 +13,7 @@ public class JacksonLocalDateTimeSerializer extends JsonSerializer<LocalDateTime
     @Override
     public void serialize(LocalDateTime date, JsonGenerator generator, SerializerProvider arg) throws IOException,
             JsonProcessingException {
-        final String dateString = date.format( DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        final String dateString = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         generator.writeString(dateString);
     }
 }

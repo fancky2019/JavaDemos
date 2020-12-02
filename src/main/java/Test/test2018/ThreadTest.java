@@ -68,7 +68,6 @@ public class ThreadTest {
 //            threadState();
 
 
-
             Integer n = 1;
             //whenComplete();
         } catch (Exception ex) {

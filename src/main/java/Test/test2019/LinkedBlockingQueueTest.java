@@ -59,9 +59,9 @@ peek，element区别：
 
     private void consumer() {
         try {
-          String reciveMsg=  blockingQueue.take();
-          System.out.println(MessageFormat.format("receiveMsg:{0}",reciveMsg));
-          Thread.sleep(250);
+            String reciveMsg = blockingQueue.take();
+            System.out.println(MessageFormat.format("receiveMsg:{0}", reciveMsg));
+            Thread.sleep(250);
         } catch (Exception ex) {
 
         }

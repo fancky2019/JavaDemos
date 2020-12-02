@@ -36,6 +36,7 @@ public class JestTest {
     //必须全小写
     private static final String INDEX = "test_java";
     private static final String TYPE = "_doc";
+
     public JestTest() {
         this.jestClient = jestClient();
     }
@@ -49,7 +50,7 @@ public class JestTest {
 //            insert();
             // delete();
 //            updateByQuery();
-          //  query();
+            //  query();
 
 //            pageFromSize(2,1);
 //            pageFromSize(2,2);
@@ -389,7 +390,7 @@ public class JestTest {
     //endregion
 
     //region pageFromSize
-    private void  pageFromSize(Integer pageSize,Integer pageIndex) throws IOException {
+    private void pageFromSize(Integer pageSize, Integer pageIndex) throws IOException {
         //Kibana命令
         /*
         GET /test_java/_search
@@ -433,8 +434,8 @@ public class JestTest {
                 "      ]\n" +
                 "    }\n" +
                 "  },\n" +
-                "  \"size\": "+pageSize+",\n" +
-                "  \"from\": "+pageSize*(pageIndex-1)+"\n" +
+                "  \"size\": " + pageSize + ",\n" +
+                "  \"from\": " + pageSize * (pageIndex - 1) + "\n" +
                 "}";
         Search search = new Search.Builder(query)
                 //以下方法相当于拼接GET后的URI
@@ -457,7 +458,7 @@ public class JestTest {
     //endregion
 
     //region pageScrollWithNoScroll_id
-    private void  pageScrollWithNoScroll_id() throws IOException {
+    private void pageScrollWithNoScroll_id() throws IOException {
         //Kibana命令
         /*
           GET /test_java/_search?scroll=3m
@@ -511,7 +512,7 @@ public class JestTest {
     //endregion
 
     //region pageScrollWithScroll_id
-    private void  pageScrollWithScroll_id(String scroll_id) throws IOException {
+    private void pageScrollWithScroll_id(String scroll_id) throws IOException {
         //Kibana命令
         /*
           GET /test_java/_search?scroll=3m
@@ -539,7 +540,7 @@ public class JestTest {
 
         String query = "  {\n" +
                 "          \"scroll\":\"10m\",\n" +
-                "          \"scroll_id\": \""+scroll_id+"\"\n" +
+                "          \"scroll_id\": \"" + scroll_id + "\"\n" +
                 "        }";
         Search search = new Search.Builder(query)
                 //以下方法相当于拼接GET后的URI
