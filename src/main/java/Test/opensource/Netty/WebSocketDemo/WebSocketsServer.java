@@ -89,7 +89,7 @@ public class WebSocketsServer {
     //endregion
 
     //启动WebSocket服务端
-    final  boolean SSL=false;
+    final boolean SSL = false;
     final int PORT = 8031;
 
     EventLoopGroup bossGroup;
@@ -149,7 +149,7 @@ public class WebSocketsServer {
             if (ch == null) {
                 return;
             }
-           ch.close();
+            ch.close();
 
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();

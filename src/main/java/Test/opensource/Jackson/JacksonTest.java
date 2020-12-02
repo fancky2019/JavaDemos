@@ -41,7 +41,7 @@ public class JacksonTest {
             String jsonStr = mapper.writeValueAsString(msg);
             //反序列化
             MessageInfo pojo = mapper.readValue(jsonStr, MessageInfo.class);
-            int m=0;
+            int m = 0;
         } catch (Exception e) {
             e.printStackTrace();
         }

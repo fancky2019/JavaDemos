@@ -605,7 +605,7 @@ public class RedisTest {
 
                         System.out.println("onPMessage pattern " + pattern + " " + channel + " " + message);
                     }
-          //监听数据库索引是13的key过期
+                    //监听数据库索引是13的key过期
                 }, "__keyevent@13__:expired");
             });
 

@@ -32,7 +32,6 @@ public class ByteBase64String {
             msg.setBody("dsdssd");
 
 
-
             msgpack.register(MessageType.class);
             msgpack.register(MessageInfo.class);
 
@@ -45,7 +44,7 @@ public class ByteBase64String {
             byte[] byteArray = DatatypeConverter.parseBase64Binary(base64Str);
 
             MessageInfo t = msgpack.read(bytes, MessageInfo.class);
-            int m=0;
+            int m = 0;
         } catch (Exception ex) {
             String msg1 = ex.getMessage();
             int m = 0;

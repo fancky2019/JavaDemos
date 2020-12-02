@@ -17,7 +17,7 @@ import org.msgpack.jackson.dataformat.MessagePackFactory;
 import java.util.List;
 
 /**
- *   jackson-dataformat-msgpack序列化和msgpack不能交叉使用。
+ * jackson-dataformat-msgpack序列化和msgpack不能交叉使用。
  */
 public class MessagePackDecoder<T> extends MessageToMessageDecoder<ByteBuf> {
 
@@ -58,7 +58,6 @@ public class MessagePackDecoder<T> extends MessageToMessageDecoder<ByteBuf> {
 
 
     }
-
 
 
 //    //msgpack 反序列化

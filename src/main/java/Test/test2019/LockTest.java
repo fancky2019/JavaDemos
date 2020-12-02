@@ -56,15 +56,16 @@ public class LockTest {
 
         synchronizedSleepTest();
     }
-    private final int lockInt=5;
-    private  final String lockStr="lockStr";
+
+    private final int lockInt = 5;
+    private final String lockStr = "lockStr";
 
     //私有成员实现对象锁。保证该对象线程安全。
-    private final  Object lockObj1=new Object();
+    private final Object lockObj1 = new Object();
     //类锁：锁静态变量，类锁保证该类的对象线程安全。
-    private final static Object LOCKOBJECT=new Object();
-    private void synchronizedBlock()
-    {
+    private final static Object LOCKOBJECT = new Object();
+
+    private void synchronizedBlock() {
         //要求参数是object。
 //        synchronized (lockInt)
 //        {
@@ -72,16 +73,13 @@ public class LockTest {
 //        }
 
         //会造成死锁。
-        synchronized (lockStr)
-        {
+        synchronized (lockStr) {
 
         }
-        synchronized (lockObj1)
-        {
+        synchronized (lockObj1) {
 
         }
-        synchronized (LOCKOBJECT)
-        {
+        synchronized (LOCKOBJECT) {
 
         }
     }
@@ -354,7 +352,6 @@ class SynchronizedClass {
                 e.printStackTrace();
             }
         }
-
 
 
     }

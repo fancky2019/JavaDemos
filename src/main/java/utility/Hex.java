@@ -78,7 +78,7 @@ public class Hex {
         String tempStr = encodeHexStr(bytes, true);
         while (tempStr.length() > 0) {
             String subStr = tempStr.substring(0, 2);
-            sb.append("0x"+subStr);
+            sb.append("0x" + subStr);
             sb.append(",");
             tempStr = tempStr.substring(2);
         }

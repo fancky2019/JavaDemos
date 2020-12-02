@@ -25,15 +25,14 @@ public class GenericsErasureTest {
         ArrayList arrayList = new ArrayList();
         List<Integer> list = new ArrayList<>();
         List<String> stringList = new LinkedList<>();
-        
+
         LinkedBlockingQueue<Integer> linkedBlockingQueue = new LinkedBlockingQueue<>();
         ConcurrentLinkedQueue<Integer> concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
         ConcurrentHashMap<String, Integer> concurrentHashMap = new ConcurrentHashMap<>();
 //        List<Integer>  list1=
     }
 
-    private  void  fun2()
-    {
+    private void fun2() {
 
     }
 }

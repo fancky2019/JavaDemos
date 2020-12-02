@@ -29,20 +29,19 @@ public class StringTest {
         System.out.println(name);
     }
 
-    private  void  concat()
-    {
-        int m=1;
+    private void concat() {
+        int m = 1;
         //可以直接转成str，类似javascript
-        String  str=m+"";
+        String str = m + "";
 
-        char ch='b';
-        int chi=ch-1;//b 转ascii 码 98-1=97(a)
+        char ch = 'b';
+        int chi = ch - 1;//b 转ascii 码 98-1=97(a)
 
         //减不能成立
 //        String sub="A"-1;
         //不能转数字
-       // Integer num="1"+2;
-        int n=0;
+        // Integer num="1"+2;
+        int n = 0;
     }
 
     private void format() {
@@ -129,7 +128,7 @@ public class StringTest {
     private void parametersFunction(String name, Student student) {
         //字符串直接赋值和用new出的对象赋值的区别仅仅在于存储方式不同。
         name = "rui";//name形参副本指向新的地址，name实参指向的地址没变
-        name=new String("r");
+        name = new String("r");
 
         student.setName("rui");
     }

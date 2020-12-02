@@ -34,6 +34,7 @@ public class NettySampleServer {
             runServer();
         });
     }
+
     ChannelFuture channelFuture;
     EventLoopGroup bossGroup;
     EventLoopGroup workerGroup;
@@ -41,8 +42,8 @@ public class NettySampleServer {
 
     //    private static final NettySampleServerHandler handler = new NettySampleServerHandler();
     private void runServer() {
-         bossGroup = new NioEventLoopGroup(1);
-         workerGroup = new NioEventLoopGroup();
+        bossGroup = new NioEventLoopGroup(1);
+        workerGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)

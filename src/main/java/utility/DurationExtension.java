@@ -27,7 +27,7 @@ public class DurationExtension {
         this.duration = duration;
 
 
-        this.totalMilliSecond=(int) duration.toMillis();
+        this.totalMilliSecond = (int) duration.toMillis();
         this.day = totalMilliSecond / MillisPerDay;
         this.hour = totalMilliSecond / MillisPerHour % 24;
         this.minute = totalMilliSecond / MillisPerMinute % 60;

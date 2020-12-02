@@ -14,7 +14,8 @@ public class SerializableTest {
     /**
      * 忽略该字段的序列化。和C# [NonSerialized]特性。
      */
-    private transient String name="fancky";
+    private transient String name = "fancky";
+
     public void test() {
         serializable();
         deserializable();

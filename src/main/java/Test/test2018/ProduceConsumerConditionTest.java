@@ -75,7 +75,7 @@ public class ProduceConsumerConditionTest {
             //peek：查看首个元素，不会移除首个元素，如果队列是空的就返回null
             //element：查看首个元素，不会移除首个元素，如果队列是空的就抛出异常NoSuchElementException
 
-           //offer，add区别：
+            //offer，add区别：
             //一些队列有大小限制，因此如果想在一个满的队列中加入一个新项，多出的项就会被拒绝。
             //这时新的 offer 方法就可以起作用了。它不是对调用 add() 方法抛出一个 unchecked 异常，而只是得到由 offer() 返回的 false。
             //poll，remove区别：

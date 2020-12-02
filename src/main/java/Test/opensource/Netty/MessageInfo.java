@@ -9,9 +9,9 @@ import java.text.MessageFormat;
 //@Message
 //public class MessageInfo implements Serializable {
 public class MessageInfo {
-//    @Index(0)
+    //    @Index(0)
     private MessageType messageType;
-//    @Index(1)
+    //    @Index(1)
     private String body;
 
     public String getBody() {
@@ -33,7 +33,7 @@ public class MessageInfo {
 
     @Override
     public String toString() {
-        return MessageFormat.format("MessageType:{0},Body:{1}",this.getMessageType(),this.getBody());
+        return MessageFormat.format("MessageType:{0},Body:{1}", this.getMessageType(), this.getBody());
     }
 
 }

@@ -17,7 +17,7 @@ import static io.netty.handler.codec.http.HttpResponseStatus.*;
 
 public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
 
-    WebSocketServerHandshaker handshaker=null;
+    WebSocketServerHandshaker handshaker = null;
 
 
     //建立连接
@@ -25,7 +25,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
         SocketAddress socketAddress = channel.remoteAddress();
-        System.out.println("Server: client "+socketAddress.toString()+ " connected.");
+        System.out.println("Server: client " + socketAddress.toString() + " connected.");
         super.channelActive(ctx);
     }
 
@@ -34,7 +34,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
         SocketAddress socketAddress = channel.remoteAddress();
-        System.out.println("Server: client "+socketAddress.toString()+ " disconnected.");
+        System.out.println("Server: client " + socketAddress.toString() + " disconnected.");
         super.channelInactive(ctx);
     }
 
@@ -89,7 +89,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
         // Handshake
         WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
                 getWebSocketLocation(ctx.pipeline(), req, websocketPath), null, true, 5 * 1024 * 1024);
-         handshaker = wsFactory.newHandshaker(req);
+        handshaker = wsFactory.newHandshaker(req);
         if (handshaker == null) {
             WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());
         } else {
@@ -98,7 +98,6 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
     }
 
     /**
-     *
      * @param ctx
      * @param cause
      */
@@ -139,21 +138,18 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
     protected void HandleWebSocketFrame(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
         // Check for closing frame
         //框架的关闭处理没有找到
-        if (frame instanceof CloseWebSocketFrame)
-        {
-            this.handshaker.close(ctx.channel(), (CloseWebSocketFrame)frame.retain());
+        if (frame instanceof CloseWebSocketFrame) {
+            this.handshaker.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());
             return;
         }
 
         // ping and pong frames already handled
-        if (frame instanceof PingWebSocketFrame)
-        {
-            ctx.write(new PongWebSocketFrame((ByteBuf)frame.content().retain()));
+        if (frame instanceof PingWebSocketFrame) {
+            ctx.write(new PongWebSocketFrame((ByteBuf) frame.content().retain()));
             return;
         }
 
-        if (frame instanceof BinaryWebSocketFrame)
-        {
+        if (frame instanceof BinaryWebSocketFrame) {
             // Echo the frame
             ctx.write(frame.retain());
             return;

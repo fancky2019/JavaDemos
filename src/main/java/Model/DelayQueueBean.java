@@ -28,16 +28,14 @@ public class DelayQueueBean implements Delayed {
 
 
     /**
-     *
-     * @param interval 延迟的毫秒数
+     * @param interval    延迟的毫秒数
      * @param orderNumber 订单号
      */
-    public DelayQueueBean(Long interval,String orderNumber)
-    {
-        this.interval=interval;
-        this.orderNumber=orderNumber;
-        delayTime=LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli() +interval;
-        createTime=LocalDateTime.now();
+    public DelayQueueBean(Long interval, String orderNumber) {
+        this.interval = interval;
+        this.orderNumber = orderNumber;
+        delayTime = LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli() + interval;
+        createTime = LocalDateTime.now();
     }
 
     public Long getDelayTime() {
@@ -77,17 +75,16 @@ public class DelayQueueBean implements Delayed {
         //不能用interval，因为入队了很久才调用出队，此时如果用interval，getDelay(TimeUnit unit)还是大于0。
 
         //DelayQueue<E> 内部出队逻辑：getDelay(TimeUnit unit)<0 ,小于0才出队-->所以应该是延迟后的时间小于当前时间
-       return unit.convert(delayTime-LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli(),unit);
+        return unit.convert(delayTime - LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli(), unit);
     }
 
     @Override
     public int compareTo(Delayed o) {
 //        Objects.requireNonNull(o);
-        if(o==null)
-        {
-            return  1;
+        if (o == null) {
+            return 1;
         }
-        DelayQueueBean bean=(DelayQueueBean)o;
-        return  this.delayTime.compareTo(bean.delayTime);
+        DelayQueueBean bean = (DelayQueueBean) o;
+        return this.delayTime.compareTo(bean.delayTime);
     }
 }

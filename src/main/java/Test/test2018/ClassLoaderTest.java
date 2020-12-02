@@ -37,7 +37,7 @@ public class ClassLoaderTest {
              调用子类静态成员：父类静态块、成员（按出现顺序）-->子类静态块、成员（按出现顺序）
              调用父类静态成员：父类静态块、成员（按出现顺序）
          */
-       System.out.println(ChildClass.parentStaticVariable);
+        System.out.println(ChildClass.parentStaticVariable);
         /*
         调用子类静态成员
         输出：
@@ -45,14 +45,14 @@ public class ClassLoaderTest {
         Static_Child
         1
          */
-    //  System.out.println(ChildClass.childStaticStr);
+        //  System.out.println(ChildClass.childStaticStr);
         /*
         输出：
         Static_Super
         str1
         说明：准备阶段str1=null。初始化阶段赋值str1=str2（静态块在前）str1=str1
          */
-      //  System.out.println(ChildClass.str1);
+        //  System.out.println(ChildClass.str1);
 
         /*
          输出：
@@ -63,7 +63,7 @@ public class ClassLoaderTest {
         Block_Child
         ChildClass
          */
-    //   new ChildClass().getChildStr1();
+        //   new ChildClass().getChildStr1();
 
         try {
             //Launcher&AppClassLoader
@@ -83,10 +83,10 @@ class SuperClass {
     public static final int SUPER_STATIC_FINAL_VARIABLE = 1;
     public static int parentStaticVariable = 1;
 
-   public SuperClass()
-   {
-       System.out.println("SuperClass");
-   }
+    public SuperClass() {
+        System.out.println("SuperClass");
+    }
+
     static {
         System.out.println("Static_Super ");
         str1 = "str12";
@@ -108,10 +108,11 @@ class ChildClass extends SuperClass {
     static {
         System.out.println("Static_Child");
     }
-    public  ChildClass()
-    {
+
+    public ChildClass() {
         System.out.println("ChildClass");
     }
+
     public static final int CHILD_STATIC_FINAL_VARIABLE = 2;
     public static String childStaticStr = "staticChildStr1";
 

@@ -14,7 +14,7 @@ import io.protostuff.runtime.RuntimeSchema;
 public class ProtoBufUtil {
 
     @SuppressWarnings("unchecked")
-    public static <T> byte[] Serializable(T o){
+    public static <T> byte[] Serializable(T o) {
 
         Schema schema = RuntimeSchema.getSchema(o.getClass());
         return ProtobufIOUtil.toByteArray(o, schema, LinkedBuffer.allocate(256));

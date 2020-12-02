@@ -131,7 +131,7 @@ public class Main {
 
             //  new FileTest().test();
 //            new ReflectDemo().test();
-              new EnumTest().test();
+            new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
 //            new ClassLoaderTest().test();

@@ -48,7 +48,7 @@ public class NettyUDPServer {
 
         try {
             // InetSocketAddress相当于c#IPEndPoint
-            InetSocketAddress inetSocketAddress = new    InetSocketAddress("127.0.0.1", 6000);
+            InetSocketAddress inetSocketAddress = new InetSocketAddress("127.0.0.1", 6000);
             Bootstrap bootstrap = new Bootstrap(); // (1)
             bootstrap.group(workerGroup); // (2)
             bootstrap.channel(NioDatagramChannel.class);
@@ -59,7 +59,7 @@ public class NettyUDPServer {
             //向目标端口发送信息
             channelFuture.channel().writeAndFlush(new DatagramPacket(
                     Unpooled.copiedBuffer("单播信息", CharsetUtil.UTF_8),
-                    inetSocketAddress )).sync();
+                    inetSocketAddress)).sync();
 
             //广播
 //            channelFuture.channel().writeAndFlush(new DatagramPacket(
@@ -81,7 +81,7 @@ public class NettyUDPServer {
         try {
             //广播地址
             // InetSocketAddress相当于c#IPEndPoint
-            InetSocketAddress broadcastAddress = new    InetSocketAddress("192.168.1.255", 6000);
+            InetSocketAddress broadcastAddress = new InetSocketAddress("192.168.1.255", 6000);
             Bootstrap bootstrap = new Bootstrap(); // (1)
             bootstrap.group(workerGroup); // (2)
             bootstrap.channel(NioDatagramChannel.class);
@@ -111,7 +111,7 @@ public class NettyUDPServer {
         try {
             //多播地址
             // InetSocketAddress相当于c#IPEndPoint
-            InetSocketAddress multicastAddress = new    InetSocketAddress("192.168.1.255", 6000);
+            InetSocketAddress multicastAddress = new InetSocketAddress("192.168.1.255", 6000);
 
             Bootstrap bootstrap = new Bootstrap(); // (1)
             bootstrap.group(workerGroup); // (2)

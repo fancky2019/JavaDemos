@@ -12,7 +12,7 @@ import java.net.SocketAddress;
 
 public class ServerBusinessHandler extends ChannelInboundHandlerAdapter {
 
-//    SimpleChannelInboundHandler
+    //    SimpleChannelInboundHandler
     //建立连接
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

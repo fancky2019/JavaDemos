@@ -101,7 +101,6 @@ public class NettySampleClientHandler extends SimpleChannelInboundHandler<Object
 //                    channel.close();
 
 
-
                     //  nettyClientProduction.connect(null);
 
                     //     println("Sleeping for: " + UptimeClient.RECONNECT_DELAY + 's');

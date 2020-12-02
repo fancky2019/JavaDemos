@@ -52,7 +52,7 @@ public class FunctionInterfaceTest {
         function.apply(2);
 
         //自定义函数接口
-        Action action=()->
+        Action action = () ->
         {
 
         };

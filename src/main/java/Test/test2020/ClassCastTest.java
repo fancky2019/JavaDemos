@@ -45,8 +45,7 @@ public class ClassCastTest {
         int m = 0;
     }
 
-    void implyCast(StudentParent studentParent)
-    {
+    void implyCast(StudentParent studentParent) {
 
     }
 

@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * json序列化，不需要Serializable接口
  * Idea 生成equals和hashCode ：Alt+ Insert-->选中"equals and hashCode"-->选中字段
- *
+ * <p>
  * 如果不重写hashCode，则返回的是对象的内存地址。
  */
 public class Student extends StudentParent implements StudentInterface {
@@ -31,7 +31,8 @@ public class Student extends StudentParent implements StudentInterface {
         this.id = id;
     }
 
-    private  Integer id;
+    private Integer id;
+
     public String getName() {
         return name;
     }
@@ -76,6 +77,7 @@ public class Student extends StudentParent implements StudentInterface {
     /**
      * 如果不重写hashCode，则返回的是对象的内存地址的整数值。
      * HashCode不同， HashSet<Person> 对此调用同一对象add,只添加一次
+     *
      * @return
      */
     @Override
@@ -97,6 +99,7 @@ public class Student extends StudentParent implements StudentInterface {
 
     /**
      * HashCode相同，如果不同对象，hashset可以添加进去
+     *
      * @return
      */
 //    @Override
@@ -116,10 +119,8 @@ public class Student extends StudentParent implements StudentInterface {
 //            return false;
 //        }
 //    }
-
     @Override
-    public  String toString()
-    {
-        return MessageFormat.format( "Name:{0},Age:{1}",this.name,this.age);
+    public String toString() {
+        return MessageFormat.format("Name:{0},Age:{1}", this.name, this.age);
     }
 }

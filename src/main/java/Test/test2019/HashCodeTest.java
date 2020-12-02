@@ -51,8 +51,7 @@ public class HashCodeTest {
         Integer m = 0;
     }
 
-    private  void hashSetSameHashCode()
-    {
+    private void hashSetSameHashCode() {
         HashSet<Student> hashSet = new HashSet<Student>();
         Student student1 = new Student("fancky", 32);
         hashSet.add(student1);
@@ -60,7 +59,7 @@ public class HashCodeTest {
         hashSet.add(student2);
         Student student3 = new Student("fancky", 332);
         hashSet.add(student3);
-        Student student4= new Student("fancky", 3321);
+        Student student4 = new Student("fancky", 3321);
         hashSet.add(student4);
 
 
@@ -74,48 +73,47 @@ public class HashCodeTest {
         Student student111 = new Student("fancky", 32);
         hashSet1.add(student111);
 
-        HashMap<Integer ,Student> hashMap = new HashMap<>();
+        HashMap<Integer, Student> hashMap = new HashMap<>();
         Student student11 = new Student("fancky", 32);
-        hashMap.put(1,student11);
+        hashMap.put(1, student11);
         Student student22 = new Student("fancky", 321);
-        hashMap.put(1,student22);
+        hashMap.put(1, student22);
         Student student33 = new Student("fancky", 332);
-        hashMap.put(1,student33);
-        Student student44= new Student("fancky", 3321);
-        hashMap.put(1,student44);
-       Student student= hashMap.get(1);
+        hashMap.put(1, student33);
+        Student student44 = new Student("fancky", 3321);
+        hashMap.put(1, student44);
+        Student student = hashMap.get(1);
 
     }
 
-    private  void  hashMapSameHashCode()
-    {
+    private void hashMapSameHashCode() {
         /*
         如果HashCode一样，后添加的值占据链表第一个位置，新添加的next指向先添加的
          */
-        HashMap<Student ,Student> hashMap = new HashMap<>();
+        HashMap<Student, Student> hashMap = new HashMap<>();
         Student student11 = new Student("fancky", 32);
-        hashMap.put(student11,student11);
+        hashMap.put(student11, student11);
         Student student22 = new Student("fancky", 321);
-        hashMap.put(student22,student22);
+        hashMap.put(student22, student22);
         /*
         A：首先取链表第一个元素判断：
         1）：判断hashcode一样，不一样返回value,如果一样执行2
         2）：判断key一样，如果不一样，执行B。
         B：循环hashcode的链表,直到找到和key一样的value。
          */
-        Student student1=  hashMap.get(student11);
-        Student student2=  hashMap.get(student22);
+        Student student1 = hashMap.get(student11);
+        Student student2 = hashMap.get(student22);
 
 
         /*
         相同的key，后添加的覆盖前面的
          */
-        HashMap<Integer ,Student> hashMap1 = new HashMap<>();
+        HashMap<Integer, Student> hashMap1 = new HashMap<>();
         Student student111 = new Student("fancky", 32);
-        hashMap1.put(1,student111);
+        hashMap1.put(1, student111);
         Student student222 = new Student("fancky", 321);
-        hashMap1.put(1,student222);
-        Student stu=  hashMap.get(student111);
-        Student stu1=  hashMap.get(student111);
+        hashMap1.put(1, student222);
+        Student stu = hashMap.get(student111);
+        Student stu1 = hashMap.get(student111);
     }
 }

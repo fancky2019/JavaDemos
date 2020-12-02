@@ -19,10 +19,8 @@ public class NettyUDPClientHandler extends SimpleChannelInboundHandler<DatagramP
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
         String body = new String(req, "UTF-8");
-        System.out.println("Client receive "+body);//打印收到的信息
+        System.out.println("Client receive " + body);//打印收到的信息
     }
-
-
 
 
 }

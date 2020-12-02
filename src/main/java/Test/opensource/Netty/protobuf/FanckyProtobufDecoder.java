@@ -38,7 +38,7 @@ public class FanckyProtobufDecoder extends ByteToMessageDecoder {
         try {
             byte[] inByte = frame.array();
             // 字节转成对象
-            PersonProto.Person msg =PersonProto.Person.parseFrom(inByte);
+            PersonProto.Person msg = PersonProto.Person.parseFrom(inByte);
 
             if (msg != null) {
                 // 获取业务消息头

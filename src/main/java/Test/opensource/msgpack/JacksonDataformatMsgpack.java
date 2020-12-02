@@ -11,20 +11,17 @@ import org.msgpack.jackson.dataformat.MessagePackFactory;
 /**
  * @Auther fancky
  * @Date 2020-9-14 10:16
- * @Description
- *
- *
- * github:https://github.com/msgpack/msgpack-java/tree/develop/msgpack-jackson
- *
- *
+ * @Description github:https://github.com/msgpack/msgpack-java/tree/develop/msgpack-jackson
+ * <p>
+ * <p>
  * 不用在pojo上家@Message注解,比msgpack灵活
- *
+ * <p>
  * msgpack比jackson序列化后的字节数要小
- *
+ * <p>
  * jackson-dataformat-msgpack序列化,
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * Unfortunately, msgpack-java v0.6 serializes objects as a key-value list.
  * Please use current msgpack-java that serializes objects as a map like msgpack-C#
  */
@@ -116,12 +113,11 @@ public class JacksonDataformatMsgpack {
             byte[] jdkBytes = JDKSerialization.serialization(pojo);
             JacksonPojo jdkPojo = JDKSerialization.deserialization(jdkBytes);
 
-            int m=0;
+            int m = 0;
         } catch (Exception ex) {
 
         }
     }
-
 
 
 }

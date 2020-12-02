@@ -15,7 +15,7 @@ public class NettySampleServerHandler extends SimpleChannelInboundHandler<Object
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
         SocketAddress socketAddress = channel.remoteAddress();
-        System.out.println("Server: client "+socketAddress.toString()+ " connected.");
+        System.out.println("Server: client " + socketAddress.toString() + " connected.");
         super.channelActive(ctx);
     }
 
@@ -24,7 +24,7 @@ public class NettySampleServerHandler extends SimpleChannelInboundHandler<Object
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
         SocketAddress socketAddress = channel.remoteAddress();
-        System.out.println("Server: client "+socketAddress.toString()+ " disconnected.");
+        System.out.println("Server: client " + socketAddress.toString() + " disconnected.");
         super.channelInactive(ctx);
     }
 
@@ -34,6 +34,7 @@ public class NettySampleServerHandler extends SimpleChannelInboundHandler<Object
         System.out.println(String.format("Server received from %s , msg:%s", ctx.channel().remoteAddress(), msg));
 
     }
+
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {

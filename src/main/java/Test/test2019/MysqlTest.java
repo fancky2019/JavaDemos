@@ -304,9 +304,9 @@ public class MysqlTest {
         preparedStatement.setShort(9, status);
         preparedStatement.setInt(10, 12);
         preparedStatement.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
-        Stopwatch stopwatch=Stopwatch.createStarted();
+        Stopwatch stopwatch = Stopwatch.createStarted();
         //执行命令并接受结果
-        for(int i=0;i<50;i++) {
+        for (int i = 0; i < 50; i++) {
             //执行命令并接受结果
             Integer result = preparedStatement.executeUpdate();
             stopwatch.stop();

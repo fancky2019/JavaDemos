@@ -22,7 +22,7 @@ public class JwtTest {
         student.setName("fancky");
         student.setAge(27);
 
-      //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiYWRtaW5pc3RyYXRvciIsIm5hbWUiOiJmYW5ja3kiLCJleHAiOjE1Njg2ODY0MzEsImFnZSI6IjI3In0.nHCpZVCR2aBVJARMKHerJ6iAbTFnuNCuztQA0GypZ-w
+        //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiYWRtaW5pc3RyYXRvciIsIm5hbWUiOiJmYW5ja3kiLCJleHAiOjE1Njg2ODY0MzEsImFnZSI6IjI3In0.nHCpZVCR2aBVJARMKHerJ6iAbTFnuNCuztQA0GypZ-w
         String token = getToken(student);
 
         decoderToken(token);
@@ -76,7 +76,7 @@ public class JwtTest {
         // 验证 token
         DecodedJWT decodedJWT = verifier(token);
 
-        Date date=decodedJWT.getExpiresAt();
+        Date date = decodedJWT.getExpiresAt();
         //获取Token中自定义信息
         String role = decodedJWT.getClaim("role").asString();
         String name = decodedJWT.getClaim("name").asString();
