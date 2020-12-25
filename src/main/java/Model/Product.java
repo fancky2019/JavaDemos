@@ -28,11 +28,11 @@ public class Product {
 
     private LocalDateTime modifytime;
     //  java.util.Date
-    //  sql  byte[]
-    //mysql  Long
-//    private byte[] timestamp;
+    //  sql  byte[] 不能用Byte[]     //byte[] 不能用Byte[]。因为反射赋值时候找不到对应类型。fastJson
+   // mysql  Long
+    private byte[] timestamp;
 
-    private Long timestamp;
+//    private Long timestamp;
 
     public Product() {
         super();
@@ -134,20 +134,20 @@ public class Product {
         this.modifytime = modifytime;
     }
 
-//    public byte[] getTimestamp() {
-////        return timestamp;
-////    }
-////
-////    public void setTimestamp(byte[] timestamp) {
-////        this.timestamp = timestamp;
-////    }
-
-
-    public Long getTimestamp() {
+    public byte[] getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public void setTimestamp(byte[] timestamp) {
         this.timestamp = timestamp;
     }
+
+
+//    public Long getTimestamp() {
+//        return timestamp;
+//    }
+//
+//    public void setTimestamp(Long timestamp) {
+//        this.timestamp = timestamp;
+//    }
 }

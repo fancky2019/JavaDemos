@@ -36,7 +36,7 @@ public class JDBCTest {
 //            query();
             //  queryMultipleResult();
             //procedure();
-            //  procedureParamOutPut();
+//              procedureParamOutPut();
             //   transaction();
 //            pageData();
             Integer m = 0;
