@@ -14,6 +14,18 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+/**
+ * 日期占位符
+ * G　　"公元"
+ * y　　四位数年份
+ * M　　月
+ * d　　日
+ * h　　时 在上午或下午 (1~12)
+ * H　　时 在一天中 (0~23)
+ * m　　分
+ * s　　秒
+ * S　　毫秒
+ */
 public class Java8Test {
     public void test() {
         getListObjectProperty();
