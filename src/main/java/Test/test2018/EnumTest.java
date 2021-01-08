@@ -22,6 +22,8 @@ public class EnumTest {
         EnumDemo enumDemo = EnumDemo.Blue;
         String enumName = EnumDemo.Black.toString();//Black
         String greyEnumName = EnumDemo.Grey.toString();//grey
+        MessageType messageType=MessageType.Data;
+        Integer val=messageType.getValue();
         Integer m = 0;
     }
 }
@@ -34,6 +36,7 @@ enum MessageType {
     //    Test {   public String toString() {
 //        return "asc";
 //    }},
+    //指定构造函数的值
     Data(1);
 
     private int value;
