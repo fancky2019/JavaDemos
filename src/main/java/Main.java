@@ -7,6 +7,8 @@ import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPServer;
 import Test.opensource.Netty.NettyTest;
 import Test.opensource.msgpack.JacksonDataformatMsgpack;
 import Test.opensource.msgpack.MsgPackTest;
+import Test.opensource.orgapachecommons.CollectionsCommons;
+import Test.opensource.orgapachecommons.StringCommons;
 import Test.opensource.protobuf.ProtoBufTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
@@ -14,6 +16,7 @@ import Test.opensource.sqlite.SQLiteTest;
 import Test.opensource.zookeeper.ZooKeeperTest;
 import Test.test2018.EnumTest;
 import Test.test2018.JDBCTest;
+import Test.test2018.Java8Test;
 import Test.test2019.HashCodeTest;
 import Test.test2019.MysqlTest;
 import Test.test2019.SocketTcpTest;
@@ -131,7 +134,7 @@ public class Main {
 
             //  new FileTest().test();
 //            new ReflectDemo().test();
-            new EnumTest().test();
+//            new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
 //            new ClassLoaderTest().test();
@@ -247,6 +250,13 @@ public class Main {
 //            new BigInterTest().test();
 
             //endregion
+
+            //region 20121
+//            new StringCommons().test();
+            new CollectionsCommons().test();
+
+            //endregion
+
 
 //            System.out.println(MessageFormat.format("main :{0}", "started!"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));

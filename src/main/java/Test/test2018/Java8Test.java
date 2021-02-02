@@ -1,6 +1,7 @@
 package Test.test2018;
 
 import Model.Student;
+import com.rabbitmq.client.Return;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -49,7 +51,11 @@ public class Java8Test {
         ));
         //获取对象集合的某一属性集合
 
-        //select
+        //select  skip limit 相当于C# skip  take
+        list.stream().skip(1).limit(2).collect(Collectors.toList());
+          // JAVA 9
+        // list.stream().takeWhile
+
         //lambda表达式
         List<String> nameList = list.stream().map(p -> p.getName()).collect(Collectors.toList());
         //方法引用::
@@ -57,6 +63,11 @@ public class Java8Test {
         List<Integer> ageList = list.stream().map(p -> p.getAge()).collect(Collectors.toList());
         //过滤
         List<Student> filterList = list.stream().filter(p -> p.getAge() > 3).collect(Collectors.toList());
+        //去重
+        List<Integer> eosStudentIds = list.stream().map(p -> p.getAge()).distinct().collect(Collectors.toList());
+        //取一个
+        Optional<Student> s1 = list.stream().filter(p -> p.getAge() > 20).findFirst();
+        Student s11 = s1.orElse(null);
 //        //实现Comparable接口，然后重写compareTo方法。
 //        ageList.sort((a, b) ->
 //        {
@@ -78,8 +89,15 @@ public class Java8Test {
         //exist
         boolean exist = list.stream().anyMatch(p -> p.getName() == "fancky");
 
+        //求和
+        Long sum = list.stream()
+                .collect(Collectors.summarizingLong(Student::getAge)).getSum();
+        list.stream().collect(Collectors.summarizingLong(p -> p.getAge())).getSum();
+        Integer sum3 = list.stream().map(p -> p.getAge()).reduce(Integer::sum).get();
+        Integer sum4 = list.stream().map(p -> p.getAge()).reduce((a, b) -> a + b).get();
         //groupingBy
         Map<String, List<Student>> studentsGroupBy = list.stream().collect(Collectors.groupingBy(Student::getName));
+
 
         //分组求和
         Map<String, IntSummaryStatistics> groupBySummaryStatistics = list.stream().collect(Collectors.groupingBy(Student::getName, Collectors.summarizingInt(Student::getAge)));
@@ -242,6 +260,21 @@ public class Java8Test {
     }
 
     //endregion
+
+    private void functionalInterface() {
+        //匿名方法赋值给函数接口，像是C#直接将匿名方法赋值给委托
+        Consumer<String> consumer = p -> System.out.println(p);
+        //函数接口调用方法，C#里委托是方法，就直接调用,不用掉方法
+        consumer.accept("Consumer");
+
+        Function<String, Integer> function = p -> Integer.parseInt(p);
+        Integer num = function.apply("1");
+
+        Predicate<Boolean> predicate = p -> !p;
+        Boolean re = predicate.test(false);
+
+
+    }
 
 
 }

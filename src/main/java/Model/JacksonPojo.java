@@ -23,6 +23,12 @@ public class JacksonPojo implements Serializable {
     @JsonDeserialize(using = JacksonLocalDateTimeDeserializer.class)
 //    @JsonFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss.SSS'Z'")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    /*
+    建议用下面的
+        //前端传给后端不能解析值
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+     */
     private LocalDateTime birthday;
 
     public LocalDateTime getBirthday() {
