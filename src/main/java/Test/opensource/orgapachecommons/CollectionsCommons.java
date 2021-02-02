@@ -32,7 +32,11 @@ public class CollectionsCommons {
 
         //交集
         Collection<Integer> newCollection = CollectionUtils.intersection(list, list1);
+
         List<Integer> newList = newCollection.stream().collect(Collectors.toList());
+        newList.clear();
+        newList = (List<Integer>) newCollection;
+
         //差集
         CollectionUtils.removeAll(list, list1);
 
