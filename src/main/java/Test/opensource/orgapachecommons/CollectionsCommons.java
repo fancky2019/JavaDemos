@@ -38,7 +38,8 @@ public class CollectionsCommons {
         newList = (List<Integer>) newCollection;
 
         //差集
-        CollectionUtils.removeAll(list, list1);
+        Collection<Integer> excepts = CollectionUtils.removeAll(list, list1);
+        List<Integer> exceptList = excepts.stream().collect(Collectors.toList());
 
         //并集
         CollectionUtils.union(list, list1);
