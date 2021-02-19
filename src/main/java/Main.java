@@ -8,6 +8,7 @@ import Test.opensource.Netty.NettyTest;
 import Test.opensource.msgpack.JacksonDataformatMsgpack;
 import Test.opensource.msgpack.MsgPackTest;
 import Test.opensource.orgapachecommons.CollectionsCommons;
+import Test.opensource.orgapachecommons.CsvCommons;
 import Test.opensource.orgapachecommons.StringCommons;
 import Test.opensource.protobuf.ProtoBufTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
@@ -253,8 +254,9 @@ public class Main {
 
             //region 20121
 //            new StringCommons().test();
-            new CollectionsCommons().test();
+//            new CollectionsCommons().test();
 
+            new CsvCommons().test();
             //endregion
 
 

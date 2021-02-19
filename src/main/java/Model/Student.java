@@ -4,6 +4,7 @@ package Model;
 import Test.test2018.Description;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.rabbitmq.client.impl.AMQImpl;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 import java.text.MessageFormat;
 import java.util.Objects;
@@ -122,5 +123,16 @@ public class Student extends StudentParent implements StudentInterface {
     @Override
     public String toString() {
         return MessageFormat.format("Name:{0},Age:{1}", this.name, this.age);
+    }
+
+    public String toCommaString()
+    {
+        return MessageFormat.format("{0},{1},{2}", this.id,this.name, this.age);
+    }
+
+    public  Object[] toObjects()
+    {
+        Object[] objects={ this.id,this.name, this.age};
+        return objects;
     }
 }
