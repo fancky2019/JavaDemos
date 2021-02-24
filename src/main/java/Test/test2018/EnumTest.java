@@ -2,7 +2,9 @@ package Test.test2018;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-
+/*
+由于枚举类型的实例是常量，因此按照命名惯例，它们都用大写字母表示（如果名称中含有多个单词，使用下划线分隔）。
+ */
 enum EnumDemo {
     Blue,
     Black,
