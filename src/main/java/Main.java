@@ -31,6 +31,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
 
+
+/*
+Java 包名按惯例一律小写，即使中间的单词也需要小写，与驼峰命名不同
+ */
 public class Main {
 
     public static void main(String[] args) {

@@ -23,7 +23,10 @@ import java.util.concurrent.ExecutionException;
     acks=1(默认值): producer 等待 Leader 写入本地日志后就确认；之后 Leader 向 Followers 同步时，如果 Leader 宕机会导致消息没同步而丢失，producer 却依旧认为成功；
     acks=all/-1: producer 等待 Leader 写入本地日志、而且 Leader 向 Followers 同步完成后才会确认；最可靠。
     kafka采用主写主读，不为-1可能造成数据丢失
-
+         *        //  Messages 中Key 决定消息的partion,内部hash(key)，如果不指定Key将随机指定分区（partition）
+                              //一个topic的partition数量最好大于消费者的数量
+                /*如果客户端开启多个线程消费：要指定Key（可以是订单ID），因为同一Key数据分配到同一partition。
+                  同一partition的数据只会分配给一个消费之，这样可以保证一个订单的新增、修改、删除的有序进行。
     */
 public class KafkaProducerClient {
 
@@ -59,7 +62,13 @@ public class KafkaProducerClient {
             String keyStr = String.valueOf(messageNo);
             String messageStr = "Message_" + messageNo;
             long startTime = System.currentTimeMillis();
-            if (isAsync) { // Send asynchronously
+            if (isAsync) {
+                //  Messages 中Key 决定消息的partion,内部hash(key)，如果不指定Key将随机指定分区（partition）
+                //一个topic的partition数量最好大于消费者的数量
+                /*如果客户端开启多个线程消费：要指定Key（可以是订单ID），因为同一Key数据分配到同一partition。
+                  同一partition的数据只会分配给一个消费之，这样可以保证一个订单的新增、修改、删除的有序进行。
+                */
+                // Send asynchronously
                 producer.send(new ProducerRecord<>(topic, keyStr, messageStr),
                         (RecordMetadata recordMetadata, Exception e) ->
                         {

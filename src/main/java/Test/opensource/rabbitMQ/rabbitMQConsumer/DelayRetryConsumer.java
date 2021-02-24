@@ -24,6 +24,9 @@ import java.util.Map;
     /// 重复消费：
     ///         原因：发生超时消费者未ack消息，造成消息重新投递。
     ///         解决：对消息加主键，消费前到Redis判断是否消费，消费成功主键加入Redis.
+
+    消费顺序性问题：搭建集群一台服务只去取一个队列（消息在一个队列是有序的），具体做法类似kafka的消息根据key存储到partition。把订单ID进行取模然后放大不通queue里
+                 相当于把一个大的queue分解成几个小的queue然后每个队列只分给一个consumer。
  */
 public class DelayRetryConsumer {
     public static final String EXCHANGE_NAME = "DirectExchangeJava";
