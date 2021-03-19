@@ -4,6 +4,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+/*
+ Lambda 表达式引用的局部变量必须是 final 或者是等同 final 效果的
+ */
 public class LambdaTest {
     public void test() {
         //自定义函数接口

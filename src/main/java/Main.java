@@ -25,6 +25,9 @@ import Test.test2020.ByteBase64String;
 import Test.test2020.ByteConverterTest;
 import Test.test2020.ConcurrentHashMapTest;
 import Test.test2020.UDPTest;
+import Test.test2021.Testt;
+import Test.test2021.ThreadExceptionTest;
+import Test.test2021.extendImplement.ExtendImplementTest;
 import utility.BigInterTest;
 
 import java.io.BufferedReader;
@@ -260,7 +263,10 @@ public class Main {
 //            new StringCommons().test();
 //            new CollectionsCommons().test();
 
-            new CsvCommons().test();
+//            new CsvCommons().test();
+//           new ThreadExceptionTest().test();
+            new ExtendImplementTest().test();
+
             //endregion
 
 

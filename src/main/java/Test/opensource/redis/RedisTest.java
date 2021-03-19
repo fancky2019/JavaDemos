@@ -16,9 +16,18 @@ import java.util.concurrent.TimeUnit;
 /**
  * 数据类型的首字母找对应的数据类型的操作
  * 操作命令中文文档：http://www.redis.cn/commands/lpushx.html
- * <p>
- * <p>
+ *
+ *
  * 密码配置： SECURITY配置节点 ，requirepass fancky123456
+ *
+ * redis集群最少三台主三从。
+ *
+ * RedLock；集群配置最少三台机器，最好为奇数。(N/2 + 1)中成功获取锁，则获取锁成功。
+ *         redisson在加锁的时候，key=lockName, value=uuid + threadID, 采用set结构存储，
+ *         并包含了上锁的次数 （支持可重入）；
+ *         解锁的时候通过hexists判断key和value是否存在，存在则解锁；这里不会出现误解锁
+ *
+ * 持久化：rdb,aof。默认RDB,如果不丢就用aof方式。
  */
 public class RedisTest {
     /**

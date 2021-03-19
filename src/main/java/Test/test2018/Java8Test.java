@@ -80,9 +80,13 @@ public class Java8Test {
 //            }
 //        });
 
-
+        java.util.List<Integer> listRe=new ArrayList<>();
         //并行处理，类似C#的Parallel
         list.stream().parallel().forEach(p ->
+        {
+            //todo
+        });
+        list.stream().parallel().forEachOrdered(p ->
         {
             //todo
         });
@@ -107,6 +111,8 @@ public class Java8Test {
             System.out.println(MessageFormat.format("name:{0},age sum:{1}", groupBy, intSummaryStatistics.getSum()));
         });
 
+
+        HashMap<Integer,String> hashMap=null;
 
         //正序
         Collections.sort(ageList);
@@ -213,6 +219,7 @@ public class Java8Test {
 
 
 //      Optional<Student> fla=  optionalStudent.flatMap(p->Optional.of(p));
+        //flatmap可以将一个2维的集合转成1维度,map只能将分割结果转成一个List,所以输出为list对象
         Optional<String> fla = optionalStudent.flatMap(p -> Optional.of(p.getName()));
         Integer m = 0;
     }
