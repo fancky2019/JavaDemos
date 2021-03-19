@@ -7,6 +7,12 @@ package Test.test2018;
 
 @FunctionalInterface
 public interface FuncInterface {
+
+    //接口成员字段访问修饰符默认：public static final
+    static String name = "";
+    final Integer age = 10;
+    static final String address = "";
+
     void funcInterfaceTest(String str);
 
     //default类成员访问修饰符：本包内,默认访问修饰符
