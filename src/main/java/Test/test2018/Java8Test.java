@@ -86,10 +86,13 @@ public class Java8Test {
         {
             //todo
         });
+
+        //按照顺序执行
         list.stream().parallel().forEachOrdered(p ->
         {
             //todo
         });
+
         //exist
         boolean exist = list.stream().anyMatch(p -> p.getName() == "fancky");
 
