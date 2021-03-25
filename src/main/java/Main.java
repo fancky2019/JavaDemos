@@ -42,47 +42,8 @@ public class Main {
     public static void main(String[] args) {
         try {
 
-//            //62
-//            String logHeader="20200113 13:25:55:777,3511039185599 [3] - 192.168.80.22:63130 ";
-//           // String logString="20200113 13:25:55:777,3511039185599 [3] - 192.168.80.22:63130 {(len=166)CancStHK@00000@00011520LC000372@8205831@@CO020990001@HKEX@@@@0011957&HKEX_1@@CO020990001@123456@@00011520LC000372@13031146@HKEX@68457.HK@1@40000@0.040000@0@@7@@P@@@@@}{(len=165)CancStHK@00000@00011520LC000476@8205831@@CO020990001@HKEX@@@@0011958&HKEX_1@@CO020990001@123456@@00011520LC000476@13031250@HKEX@52600.HK@1@5000@0.075000@0@@7@@P@@@@@}";
-//           // String logString= "20200113 13:25:10:933,3510955980409 [3] - 192.168.80.22:63130 {(len=166)CancStHK@00000@00011520LC000505@8205831@@CO020990001@HKEX@@@@0011934&HKEX_1@@CO020990001@123456@@00011520LC000505@13031309@HKEX@65663.HK@1@10000@0.119000@0@@7@@P@@@@@}";
-//            String logString=   "20200113 13:25:55:859,3511039339361 [3] - 192.168.80.22:63130 {(len=166)CancStHK@00000@00011520LC000435@8205831@@CO020990001@HKEX@@@@0012005&HKEX_1@@CO020990001@123456@@00011520LC000435@13031209@HKEX@68689.HK@1@10000@0.044000@0@@7@@P@@@@@}{(len=165)CancStHK@00000@00011520LC000478@8205831@@CO020990001@HKEX@@@@0012006&HKEX_1@@CO020990001@123456@@00011520LC000478@13031252@HKEX@60098.HK@1@2000@0.097000@0@@7@@P@@@@@}{(len=165)CancStHK@00000@00011520LC000398@8205831@@CO020990001@HKEX@@@@0012007&HKEX_1@@CO020990001@123456@@00011520LC000398@13031172@HKEX@64285.HK@1@1000@0.041000@0@@7@@P@@@@@}{(len=166)CancStHK@00000@00011520LC000473@8205831@@CO020990001@HKEX@@@@0012008&HKEX_1@@CO020990001@123456@@00011520LC000473@13031247@HKEX@61250.HK@1@10000@0.163000@0@@7@@P@@@@@}{(len=166)CancStHK@00000@00011520LC000371@8205831@@CO020990001@HKEX@@@@0012009&HKEX_1@@CO020990001@123456@@00011520LC000371@13031145@HKEX@56897.HK@1@50000@0.031000@0@@7@@P@@@@@}{(len=165)CancStHK@00000@00011520LC000465@8205831@@CO020990001@HKEX@@@@0012011&HKEX_1@@CO020990001@123456@@00011520LC000465@13031239@HKEX@64982.HK@1@5000@0.054000@0@@7@@P@@@@@}";
-//
-//           String logContent= logString.substring(62);
-//           int  logContentLength=logContent.length();
-//           List<String> listString=new ArrayList<>();
-//           if(logContentLength<100)
-//           {
-//
-//           }
-//           else {
-//
-//              int firstIndex= logContent.indexOf('}');
-//               logContentLength=logContent.length();
-//
-//              if (firstIndex==logContentLength-1)
-//              {
-//                  listString.add(logContent);
-//              }
-//              else {
-//                  String currentContent="";
-//                  while (firstIndex!=logContentLength-1)
-//                  {
-//                      currentContent=logContent.substring(0,firstIndex+1);
-//                      listString.add(currentContent);
-//
-//                      logContent=logContent.substring(firstIndex+1);
-//                      logContentLength=logContent.length();
-//                      firstIndex=logContent.indexOf('}');
-//                  }
-//                  listString.add(logContent);
-//              }
-//
-//              int m=0;
-//           }
-//
-//
-//
+
+
 //            int logHeaderLength = logHeader.length();
 //            //  tomorrow.isBefore()
 //            String len = "20200113 09:00:01:059,3481435889397 [1] - 2020-01-13 09:00:01.059 Enqueue:OrdeStHK@00000@00012980LC000001@1206106@@CO020990001@HKEX@13019716@1206106@&HKEX_1@@CO020990001@123456@C@HKEX@01809.HK@1@1500@8.16@@5@@@@1@0@@@@@@@@@0";
