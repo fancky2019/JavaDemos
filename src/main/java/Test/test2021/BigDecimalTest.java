@@ -25,10 +25,14 @@ public class BigDecimalTest {
         Integer m=0;
     }
 
+    /**
+     * 原值不变，返回操作后的值
+     */
     private void operation()
     {
         BigDecimal bigDecimal1 = new BigDecimal(10);
         BigDecimal bigDecimal2 = new BigDecimal(2);
+
         //加
         BigDecimal add = bigDecimal1.add(bigDecimal2);
         //减
