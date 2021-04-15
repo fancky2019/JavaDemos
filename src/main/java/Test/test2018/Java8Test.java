@@ -114,9 +114,13 @@ public class Java8Test {
             System.out.println(MessageFormat.format("name:{0},age sum:{1}", groupBy, intSummaryStatistics.getSum()));
         });
 
+        //分组
+       list.stream() .collect(Collectors.groupingBy(Student::getName));
 
         HashMap<Integer,String> hashMap=null;
 
+        //排序
+        list.stream().sorted(Comparator.comparing(Student::getAge)).collect(Collectors.toList());
         //正序
         Collections.sort(ageList);
         //逆序
