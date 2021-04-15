@@ -16,10 +16,10 @@ public class CalendarTest {
 
     public void test() {
         try {
-//            operation();
+            operation();
             formatter();
         } catch (Exception ex) {
-
+            int m = 0;
         }
 
     }
@@ -45,6 +45,14 @@ public class CalendarTest {
         DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         //string 转换
         LocalDateTime localDateTime4 = LocalDateTime.parse("2018-12-31 13:12:00.000", dateTimeFormatter1);
+
+        DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        //string 转换
+//        LocalDateTime localDateTime22 = LocalDateTime.parse("2018-12-31", dateTimeFormatter2);
+        LocalDate localDate22 = LocalDate.parse("2018-12-31", dateTimeFormatter2);
+        Integer year1111 = localDate22.getYear();
+        Integer month1111 = localDate22.getMonth().getValue();
+        Integer date111 = localDate22.getDayOfMonth();
 
         //比较
         Integer result = date.compareTo(date1);

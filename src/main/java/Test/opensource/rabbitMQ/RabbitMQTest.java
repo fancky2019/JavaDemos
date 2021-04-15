@@ -61,9 +61,9 @@ public class RabbitMQTest {
 //                }
 //            }
 
-//            new Test.opensource.rabbitMQ.rabbitMQProducer.DirectExchange().produceIndividually();
+            new Test.opensource.rabbitMQ.rabbitMQProducer.DirectExchange().produceIndividually();
 //            new Test.opensource.rabbitMQ.rabbitMQProducer.DirectExchange().produceInBatch();
-            new Test.opensource.rabbitMQ.rabbitMQProducer.DirectExchange().produceInBatchAsync();
+//            new Test.opensource.rabbitMQ.rabbitMQProducer.DirectExchange().produceInBatchAsync();
 
 
 //            new Test.opensource.rabbitMQ.rabbitMQProducer.FanoutExchange().producer();
