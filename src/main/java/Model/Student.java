@@ -2,13 +2,9 @@ package Model;
 
 
 import Test.test2018.Description;
-import com.fasterxml.jackson.databind.ser.Serializers;
-import com.rabbitmq.client.impl.AMQImpl;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 import java.text.MessageFormat;
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * json序列化，不需要Serializable接口
@@ -23,6 +19,9 @@ public class Student extends StudentParent implements StudentInterface {
     private String name;
     @Description(value = "年龄", color = "red", age = 25)
     private Integer age;
+
+
+    private String job;
 
     public Integer getId() {
         return id;
@@ -51,6 +50,14 @@ public class Student extends StudentParent implements StudentInterface {
         //  System.out.println("setAgefddffddf");
     }
 
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
     public Student() {
 
     }
@@ -60,6 +67,10 @@ public class Student extends StudentParent implements StudentInterface {
         this.age = age;
     }
 
+    public Student(String name, Integer age, String job) {
+        this(name, age);
+        this.job = job;
+    }
 
     /*
     不重写equals，比较的是内存地址，不同对象地址不同。
@@ -125,14 +136,12 @@ public class Student extends StudentParent implements StudentInterface {
         return MessageFormat.format("Name:{0},Age:{1}", this.name, this.age);
     }
 
-    public String toCommaString()
-    {
-        return MessageFormat.format("{0},{1},{2}", this.id,this.name, this.age);
+    public String toCommaString() {
+        return MessageFormat.format("{0},{1},{2}", this.id, this.name, this.age);
     }
 
-    public  Object[] toObjects()
-    {
-        Object[] objects={ this.id,this.name, this.age};
+    public Object[] toObjects() {
+        Object[] objects = {this.id, this.name, this.age};
         return objects;
     }
 }

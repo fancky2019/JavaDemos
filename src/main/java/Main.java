@@ -123,7 +123,7 @@ public class Main {
 
             //   new LambdaTest().test();
 //             new CalendarTest().test();
-//             new Java8Test().test();
+             new Java8Test().test();
 //               new OptionalTest().test();
             //   new Configs().test();
 
@@ -238,7 +238,7 @@ public class Main {
 //            new ExtendImplementTest().test();
 //            new FormatTest().test();
 
-            new BigDecimalTest().test();
+//            new BigDecimalTest().test();
             //endregion
 
 
