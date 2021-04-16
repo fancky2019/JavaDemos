@@ -133,8 +133,10 @@ public class Java8Test {
 
         HashMap<Integer,String> hashMap=null;
 
-        //排序
+        //排序 正序
         list.stream().sorted(Comparator.comparing(Student::getAge)).collect(Collectors.toList());
+        //排序 逆序.reversed()
+        list.stream().sorted(Comparator.comparing(Student::getAge).reversed()).collect(Collectors.toList());
         //正序
         Collections.sort(ageList);
         //逆序
