@@ -45,16 +45,16 @@ public class Java8Test {
         ));
 
         List<Student> list1 = new ArrayList<>(Arrays.asList(new Student("fancky5", 6),
-                new Student("fancky6", 5,"程序员"),
-                new Student("fancky7", 8,"农民"),
-                new Student("fancky8", 7,"农民"),
-                new Student("fancky9", 12,"教师")
+                new Student("fancky6", 5, "程序员"),
+                new Student("fancky7", 8, "农民"),
+                new Student("fancky8", 7, "农民"),
+                new Student("fancky9", 12, "教师")
         ));
         //获取对象集合的某一属性集合
 
         //select  skip limit 相当于C# skip  take
         list.stream().skip(1).limit(2).collect(Collectors.toList());
-          // JAVA 9
+        // JAVA 9
         // list.stream().takeWhile
 
         //lambda表达式
@@ -81,7 +81,7 @@ public class Java8Test {
 //            }
 //        });
 
-        java.util.List<Integer> listRe=new ArrayList<>();
+        java.util.List<Integer> listRe = new ArrayList<>();
         //并行处理，类似C#的Parallel
         list.stream().parallel().forEach(p ->
         {
@@ -105,21 +105,21 @@ public class Java8Test {
         Integer sum4 = list.stream().map(p -> p.getAge()).reduce((a, b) -> a + b).get();
 
         List<Student> listGroup = new ArrayList<>(
-                Arrays.asList(  new Student("fancky5", 6,"农民"),
-                                new Student("fancky6", 5,"程序员"),
-                                new Student("fancky7", 8,"农民"),
-                                new Student("fancky5", 7,"农民"),
-                                new Student("fancky9", 12,"教师")
-        ));
+                Arrays.asList(new Student("fancky5", 6, "农民"),
+                        new Student("fancky6", 5, "程序员"),
+                        new Student("fancky7", 8, "农民"),
+                        new Student("fancky5", 7, "农民"),
+                        new Student("fancky9", 12, "教师")
+                ));
         //分组 groupingBy多：单个属性分组
         Map<String, List<Student>> studentsGroupBy = listGroup.stream().collect(Collectors.groupingBy(Student::getName));
         //分组：多个属性分组--将多个属性拼接成一个属性
-        Map<String, List<Student>> multiFieldGroupBy = listGroup.stream().collect(Collectors.groupingBy(p->MessageFormat.format("{0}_{1}",p.getName(),p.getJob())));
-       //对分组后形成的字典进行迭代
-        multiFieldGroupBy.forEach((key,val)->
+        Map<String, List<Student>> multiFieldGroupBy = listGroup.stream().collect(Collectors.groupingBy(p -> MessageFormat.format("{0}_{1}", p.getName(), p.getJob())));
+        //对分组后形成的字典进行迭代
+        multiFieldGroupBy.forEach((key, val) ->
         {
-          String[] fields= key.split("_");
-          //然后组装分组后的model . 如：name,age, count
+            String[] fields = key.split("_");
+            //然后组装分组后的model . 如：name,age, count
         });
         //分组求和
         Map<String, IntSummaryStatistics> groupBySummaryStatistics = listGroup.stream().collect(Collectors.groupingBy(Student::getName, Collectors.summarizingInt(Student::getAge)));
@@ -130,9 +130,21 @@ public class Java8Test {
         });
 
 
+        HashMap<Integer, String> hashMap = null;
+        List<Integer> intList = new ArrayList<>();
+        intList.add(1);
+        intList.add(9);
+        intList.add(18);
+        intList.add(3);
+        intList.add(1);
 
-        HashMap<Integer,String> hashMap=null;
+        //Integer进行排序
+        //正序
+        List sorted1 = intList.stream().sorted().collect(Collectors.toList());
+        //倒叙
+        sorted1 = intList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
 
+        //List对象进行排序
         //排序 正序
         list.stream().sorted(Comparator.comparing(Student::getAge)).collect(Collectors.toList());
         //排序 逆序.reversed()

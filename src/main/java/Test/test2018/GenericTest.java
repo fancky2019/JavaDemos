@@ -86,15 +86,29 @@ public class GenericTest {
 
     }
 
+    //注意1,2集合泛型和非集合泛型的约束写法
+    //1：飞机和泛型
     //注意：以下泛型方法extends和super的写法
     //extends
     public <T extends GenS> void funVoid1(T t) {
 
     }
 
+    //错误
+//    public <T> void funVoid11(<T extends GenS> t) {
+//    }
+
+    //2：集合泛型
     public <T> void funVoid3(List<? extends T> t) {
 
     }
+
+    //集成某个类的子类
+    private <T> void setLine(List<? extends Object> t)
+    {
+
+    }
+
 
     //泛型擦除：T-->object、上界、下界
     //funVoid3 和 funVoid2 泛型擦除后除名字不一样，都一样
