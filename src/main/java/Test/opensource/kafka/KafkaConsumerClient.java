@@ -34,6 +34,8 @@ import java.util.Properties;
          每个分区内的同一消息只会分同一消费组内的一个消费者，该分区的不同消息可分配给部分消费组的不同消费者
          *
          *
+
+          顺序性消费：生产时候指定key
          *        //  Messages 中Key 决定消息的partion,内部hash(key)，如果不指定Key将随机指定分区（partition）
                 //一个topic的partition数量最好大于消费者的数量
                 /*如果客户端开启多个线程消费：要指定Key（可以是订单ID），因为同一Key数据分配到同一partition。
