@@ -27,6 +27,7 @@ import Test.test2020.ByteConverterTest;
 import Test.test2020.ConcurrentHashMapTest;
 import Test.test2020.UDPTest;
 import Test.test2021.BigDecimalTest;
+import Test.test2021.DefaultValueTest;
 import Test.test2021.FormatTest;
 import Test.test2021.ThreadExceptionTest;
 import Test.test2021.extendImplement.ExtendImplementTest;
@@ -120,7 +121,7 @@ public class Main {
 
             //   new LambdaTest().test();
 //             new CalendarTest().test();
-             new Java8Test().test();
+//             new Java8Test().test();
 //               new OptionalTest().test();
             //   new Configs().test();
 
@@ -236,6 +237,8 @@ public class Main {
 //            new FormatTest().test();
 
 //            new BigDecimalTest().test();
+            new DefaultValueTest().test();
+
             //endregion
 
 
