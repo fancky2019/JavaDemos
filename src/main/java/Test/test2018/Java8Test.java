@@ -95,7 +95,7 @@ public class Java8Test {
         });
 
         //exist
-        boolean exist = list.stream().anyMatch(p -> p.getName() == "fancky");
+        boolean exist = list.stream().anyMatch(p -> p.getName().equals("fancky"));
 
         //求和
         Long sum = list.stream()
