@@ -52,10 +52,6 @@ public class Main {
     public static void main(String[] args) {
         try {
 
-//            int logHeaderLength = logHeader.length();
-//            //  tomorrow.isBefore()
-//            String len = "20200113 09:00:01:059,3481435889397 [1] - 2020-01-13 09:00:01.059 Enqueue:OrdeStHK@00000@00012980LC000001@1206106@@CO020990001@HKEX@13019716@1206106@&HKEX_1@@CO020990001@123456@C@HKEX@01809.HK@1@1500@8.16@@5@@@@1@0@@@@@@@@@0";
-//
 //            int length = len.length();
 //            int rightParenthesisIndex = len.indexOf(":",66);
 //            String subStr=len.substring(66,rightParenthesisIndex);
