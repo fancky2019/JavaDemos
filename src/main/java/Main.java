@@ -51,9 +51,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-//            int rightParenthesisIndex = len.indexOf(":",66);
-//            String subStr=len.substring(66,rightParenthesisIndex);
-//            System.out.println("main");
+
 //          String dir=  System.getProperty("user.home");
 //          int m=0;
 //            Log4j2 完全异步模式
