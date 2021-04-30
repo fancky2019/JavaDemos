@@ -51,8 +51,6 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-
-//            int length = len.length();
 //            int rightParenthesisIndex = len.indexOf(":",66);
 //            String subStr=len.substring(66,rightParenthesisIndex);
 //            System.out.println("main");
