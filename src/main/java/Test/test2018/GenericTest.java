@@ -103,12 +103,23 @@ public class GenericTest {
 
     }
 
-    //集成某个类的子类
-    private <T> void setLine(List<? extends Object> t)
-    {
+    public <T extends GenS> void funVoid31(List<T> t) {
 
     }
 
+    public <T> void funVoid311(List<? extends GenS> t) {
+
+    }
+
+    //集成某个类的子类
+    private <T> void setLine(List<? extends GenS> t) {
+
+    }
+
+    /**
+     * ?:约束写在参数内
+     * T约束写在方法前
+     */
 
     //泛型擦除：T-->object、上界、下界
     //funVoid3 和 funVoid2 泛型擦除后除名字不一样，都一样
@@ -117,6 +128,21 @@ public class GenericTest {
 
     }
 
+    public <T> void funVoid21(List<? extends T> list) {
+
+    }
+
+    public <T extends GenS> void funVoid211(List<T> list) {
+
+    }
+
+    public <T> void funVoid2111(List<? super GenS> list) {
+
+    }
+
+    public <T> void funVoid2112(List<T> list) {
+
+    }
 
     public <T> T funT(Class<T> clazz) throws Exception {
         T t = clazz.newInstance();
