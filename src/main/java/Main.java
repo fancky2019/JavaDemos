@@ -53,7 +53,7 @@ public class Main {
         try {
 
 //          String dir=  System.getProperty("user.home");
-//          int m=0;
+
 //            Log4j2 完全异步模式
 //            System.setProperty("Log4jContextSelector", "org.apache.logging.log4j.core.async.AsyncLoggerContextSelector");
 
