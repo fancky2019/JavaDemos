@@ -12,6 +12,9 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 时间戳 1970-01-01 到现在的秒数
+ */
 public class CalendarTest {
 
     public void test() {
@@ -173,6 +176,17 @@ public class CalendarTest {
         String str6 = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM"));
         String str7 = localDateTime.format(DateTimeFormatter.ofPattern("yyyy"));
         Integer m = 0;
+    }
+
+    private void convert()
+    {
+        //region date-->LocalDateTime
+        Instant instant = new Date().toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        LocalDateTime dispatchTime = LocalDateTime.from(localDateTime);
+        //endregion
+
     }
 
 

@@ -21,11 +21,20 @@ enum EnumDemo {
 
 public class EnumTest {
     public void test() {
+
+
         EnumDemo enumDemo = EnumDemo.Blue;
+
         String enumName = EnumDemo.Black.toString();//Black
         String greyEnumName = EnumDemo.Grey.toString();//grey
         MessageType messageType=MessageType.Data;
+        MessageType  messageType1=  MessageType.fromString("Data");
+
         Integer val=messageType.getValue();
+
+        //包装类 拆箱造成异常
+//        Integer  nunm=null;
+//        String messageType2= MessageType.getdescription(nunm);
         Integer m = 0;
     }
 }
@@ -43,6 +52,8 @@ enum MessageType {
 
     private int value;
 
+    private String description;
+
     private MessageType() {
 
     }
@@ -51,13 +62,20 @@ enum MessageType {
         this.value = value;
     }
 
-    public MessageType fromString(String str) {
-        MessageType.valueOf(str.toUpperCase());
+    public static MessageType fromString(String str) {
+       return MessageType.valueOf(str);
 //        MessageType.HeartBeat;
 //        MessageType.Data;
-        return valueOf(str.toUpperCase());
     }
-
+    public static String getdescription(int value) {
+        MessageType[] values = values();
+        for (MessageType messageType : values) {
+            if (messageType.value ==value) {
+                return messageType.description;
+            }
+        }
+        return "未确认";
+    }
     //JsonVale：序列化时 枚举对应生成的值:0或1
     @JsonValue
     public int getValue() {

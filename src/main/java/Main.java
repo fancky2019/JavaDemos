@@ -102,7 +102,7 @@ public class Main {
 
             //  new FileTest().test();
 //            new ReflectDemo().test();
-//            new EnumTest().test();
+            new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
 //            new ClassLoaderTest().test();
@@ -229,7 +229,7 @@ public class Main {
 //            new FormatTest().test();
 
 //            new BigDecimalTest().test();
-            new DefaultValueTest().test();
+//            new DefaultValueTest().test();
 
             //endregion
 
