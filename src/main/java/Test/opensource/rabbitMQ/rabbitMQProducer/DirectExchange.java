@@ -110,6 +110,9 @@ public class DirectExchange {
                 for (int i = 0; i < 10000; i++) {
                     message = MessageFormat.format("message - {0}", i);
 
+                    /*
+                     投递消息的时候指定了交换机名称：就指定了交换机的类型，路由key ：根据交换机和队列的绑定关系交换机就可以将消息投递到对应的队列
+                     */
 
                     //  BasicProperties 默认为：   MessageProperties.MINIMAL_BASIC,不持久化
                     //mandatory设置为true,第三个参数

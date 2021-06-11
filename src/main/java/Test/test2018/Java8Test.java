@@ -3,6 +3,7 @@ package Test.test2018;
 import Model.Student;
 import com.rabbitmq.client.Return;
 
+import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -96,6 +97,9 @@ public class Java8Test {
 
         //exist
         boolean exist = list.stream().anyMatch(p -> p.getName().equals("fancky"));
+
+      //  BigDecimal 求和
+//        BigDecimal bb =list.stream().map(Student::getAge).reduce(BigDecimal.ZERO,BigDecimal::add);
 
         //求和
         Long sum = list.stream()
