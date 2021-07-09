@@ -26,10 +26,7 @@ import Test.test2020.ByteBase64String;
 import Test.test2020.ByteConverterTest;
 import Test.test2020.ConcurrentHashMapTest;
 import Test.test2020.UDPTest;
-import Test.test2021.BigDecimalTest;
-import Test.test2021.DefaultValueTest;
-import Test.test2021.FormatTest;
-import Test.test2021.ThreadExceptionTest;
+import Test.test2021.*;
 import Test.test2021.extendImplement.ExtendImplementTest;
 import utility.BigInterTest;
 
@@ -102,7 +99,7 @@ public class Main {
 
             //  new FileTest().test();
 //            new ReflectDemo().test();
-            new EnumTest().test();
+//            new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
 //            new ClassLoaderTest().test();
@@ -230,6 +227,9 @@ public class Main {
 
 //            new BigDecimalTest().test();
 //            new DefaultValueTest().test();
+
+//            new StringJoinerTest().test();
+            new RandomTest().test();
 
             //endregion
 
