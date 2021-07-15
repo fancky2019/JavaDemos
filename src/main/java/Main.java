@@ -109,7 +109,6 @@ public class Main {
 
 
             //   new LambdaTest().test();
-//             new CalendarTest().test();
 //             new Java8Test().test();
 //               new OptionalTest().test();
             //   new Configs().test();
@@ -229,7 +228,7 @@ public class Main {
 //            new DefaultValueTest().test();
 
 //            new StringJoinerTest().test();
-            new RandomTest().test();
+//            new RandomTest().test();
 
             //endregion
 

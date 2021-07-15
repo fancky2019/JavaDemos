@@ -27,6 +27,12 @@ public class CalendarTest {
 
     }
 
+    private void startEndDay() {
+        LocalDateTime today_start = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
+        LocalDateTime today_end = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
+        LocalDateTime yesterday = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.MAX);
+    }
+
     private void operation() throws ParseException {
         //获取秒数
         Long second = LocalDateTime.now().toEpochSecond(ZoneOffset.of("+8"));
@@ -46,7 +52,7 @@ public class CalendarTest {
         Date date1 = format1.parse("2018-11-26");
 
         DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        //string 转换
+        //string 转换 LocalDateTime
         LocalDateTime localDateTime4 = LocalDateTime.parse("2018-12-31 13:12:00.000", dateTimeFormatter1);
 
         DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -57,6 +63,9 @@ public class CalendarTest {
         Integer month1111 = localDate22.getMonth().getValue();
         Integer date111 = localDate22.getDayOfMonth();
 
+
+        //装换成string
+        String localDateTimeStr = LocalDateTime.now().format(dateTimeFormatter1);
         //比较
         Integer result = date.compareTo(date1);
         Integer result2 = date.compareTo(date);
@@ -178,8 +187,7 @@ public class CalendarTest {
         Integer m = 0;
     }
 
-    private void convert()
-    {
+    private void convert() {
         //region date-->LocalDateTime
         Instant instant = new Date().toInstant();
         ZoneId zone = ZoneId.systemDefault();
