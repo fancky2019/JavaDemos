@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 数据类型的首字母找对应的数据类型的操作
  * 操作命令中文文档：http://www.redis.cn/commands/lpushx.html
- *
+ *https://redis.io/commands/
  *
  * 密码配置： SECURITY配置节点 ，requirepass fancky123456
  *
@@ -263,6 +263,7 @@ public class RedisTest {
         //删
         //取出并从库中移除
         jedis.lpop("listKey");
+        //The number of keys that were removed.
         jedis.del("listKey");
 
         System.out.println(jedis.lrange("listKey", 0, -1));
