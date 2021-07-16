@@ -49,9 +49,11 @@ public class ThreadLocalTest {
 
     private void utilityFunction(String name, int age) throws Exception {
         Student student = new Student(name, age);
+        //设置
         this.student.set(student);
         Thread.sleep(3000);
         System.out.println();
+        //取值
         System.out.println(MessageFormat.format("utilityFunction ThreadID:{0} Person:{1}", Thread.currentThread().getId(), this.student.get().toString()));
         //删除本地线程的值。
         this.student.remove();
