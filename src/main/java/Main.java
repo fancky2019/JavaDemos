@@ -230,6 +230,8 @@ public class Main {
 //            new StringJoinerTest().test();
 //            new RandomTest().test();
 
+//            new Log4J2Test().test();
+
             //endregion
 
             

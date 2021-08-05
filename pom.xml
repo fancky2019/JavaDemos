@@ -125,6 +125,8 @@
             <version>6.3.1</version>
         </dependency>
 
+
+
         <!--          log4j2-->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -143,6 +145,24 @@
             <artifactId>disruptor</artifactId>
             <version>3.4.2</version>
         </dependency>
+       <!--        log4j2邮件-->
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+
+
+
+
+
+
+
 
 
         <!--对象二进制序列化-->
