@@ -60,13 +60,24 @@
             </Policies>
         </RollingFile>
         <RollingFile name="RollingFileError" fileName="logs/${date:yyyy-MM}/${date:yyyy-MM-dd}/error.log"
-                     filePattern="${sys:user.home}/logs/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+                     filePattern="logs/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
             <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
+        </RollingFile>
+
+        <RollingFile name="RollingFile" fileName="logs/${date:yyyy-MM}/${date:yyyy-MM-dd}/log.log"
+                     filePattern="logs/$${date:yyyy-MM}/$${date:yyyy-MM-dd}/info-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="6" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
         </RollingFile>
     </appenders>
     <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
@@ -81,9 +92,10 @@
         <!-- Root节点用来指定项目的根日志，如果没有单独指定Logger，那么就会默认使用该Root日志输出 -->
         <AsyncRoot level="all">
             <appender-ref ref="Console"/>
-            <appender-ref ref="RollingFileInfo"/>
+            <!--            <appender-ref ref="RollingFileInfo"/>-->
             <!--            <appender-ref ref="RollingFileWarn"/>-->
             <!--            <appender-ref ref="RollingFileError"/>-->
+            <appender-ref ref="RollingFile"/>
         </AsyncRoot>
 
         <!--        同步-->
@@ -95,11 +107,13 @@
 
         <!--AsyncLogger :异步日志,LOG4J有三种日志模式,全异步日志,混合模式,同步日志,性能从高到底,线程越多效率越高,也可以避免日志卡死线程情况发生-->
         <!--additivity="false" : additivity设置事件是否在root logger输出，为了避免重复输出，可以在Logger 标签下设置additivity为”false”-->
+
         <AsyncLogger name="AsyncLogger" level="trace" includeLocation="true" additivity="false">
             <!--            <appender-ref ref="Console"/>-->
-            <appender-ref ref="RollingFileInfo"/>
-            <appender-ref ref="RollingFileWarn"/>
-            <appender-ref ref="RollingFileError"/>
+            <!--            <appender-ref ref="RollingFileInfo"/>-->
+            <!--            <appender-ref ref="RollingFileWarn"/>-->
+            <!--            <appender-ref ref="RollingFileError"/>-->
+            <appender-ref ref="RollingFile"/>
         </AsyncLogger>
     </loggers>
 </configuration>

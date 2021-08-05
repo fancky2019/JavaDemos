@@ -36,7 +36,11 @@
         <!--        </File>-->
 
 
-        <!-- ${sys:user.home} : 默认项目路径   root /root   普通用户  /home-->
+        <!--        &lt;!&ndash;SMTP :邮件发送日志&ndash;&gt;-->
+        <!--        <SMTP name="Mail" subject="****SaaS系统正式版异常信息" to="message@message.info" from="message@lengjing.info" smtpUsername="message@message.info" smtpPassword="LENG****1234" smtpHost="mail.lengjing.info" smtpDebug="false" smtpPort="25" bufferSize="10">-->
+        <!--            <PatternLayout pattern="[%-5p]:%d{YYYY-MM-dd HH:mm:ss} [%t] %c{1}:%L - %msg%n" />-->
+        <!--        </SMTP>-->
+        <!-- ${sys:user.home} :项目路径 -->
 
         <!--        记录优先级大于Info的-->
         <RollingFile name="RollingFileInfo" fileName="logs/${date:yyyy-MM}/${date:yyyy-MM-dd}/info.log"
