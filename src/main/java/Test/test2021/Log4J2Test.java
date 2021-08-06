@@ -5,6 +5,13 @@ import org.apache.logging.log4j.Logger;
 
 public class Log4J2Test {
 
+
+//%d 日期格式，默认形式为2012-11-02 14:34:02,781
+//%p 日志级别
+//%c{1.} %c表示Logger名字，{1.}表示精确度。若Logger名字为org.apache.commons.Foo，则输出o.a.c.Foo。
+//%t 处理LogEvent的线程的名字
+//%m       日志内容
+//%n 行分隔符。"\n"或"\r\n"。
     private static final Logger logger = LogManager.getLogger(Log4J2Test.class);
 
     public  void  test()
@@ -54,6 +61,14 @@ public class Log4J2Test {
         logger.error("error");
         logger.fatal("fatal");
 
+        try {
+            int m=Integer.parseInt("d");
+        }
+        catch (Exception ex){
+            logger.error(ex);//不打印堆栈信息，java.lang.NumberFormatException: For input string: "d"
+            logger.error("",ex);//打印异常信息并带堆栈信息
+            logger.error("输出字符串测试",ex);//
+        }
 
     }
 }
