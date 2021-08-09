@@ -13,6 +13,7 @@ import Test.opensource.orgapachecommons.StringCommons;
 import Test.opensource.protobuf.ProtoBufTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
+import Test.opensource.redis.RedissonTest;
 import Test.opensource.sqlite.SQLiteTest;
 import Test.opensource.zookeeper.ZooKeeperTest;
 import Test.test2018.CalendarTest;
@@ -162,7 +163,7 @@ public class Main {
             //  new DivisionTest().test();
 //            new HashCodeTest().test();
             //   new LeftMoveTest().test();
-            //  new RedissonTest().test();
+//              new RedissonTest().test();
 //              new ConstructorTest().test();
 //            new JDBCTest().test();
 //            new MysqlTest().test();
@@ -230,7 +231,7 @@ public class Main {
 //            new StringJoinerTest().test();
 //            new RandomTest().test();
 
-//            new Log4J2Test().test();
+            new Log4J2Test().test();
 
             //endregion
 
