@@ -35,6 +35,11 @@ synchronized：内部生成monitorEnter 和monitorExit 指令。
     //                     则其他对象均对修改可见，故线程非安全。
     //        2):实例变量：线程安全。每个线程执行都是在不同的对象中，那对象与对象之间的实例变量的修改将互不影响，故线程安全。
 
+
+
+
+synchronized，锁是保存在对象头里面的，根据对象头数据来标识是否有线程获得锁/争抢锁；
+ReentrantLock锁的是线程，根据进入的线程和int类型的state标识锁的获得/争抢。
  */
 public class LockTest {
 
@@ -84,7 +89,12 @@ public class LockTest {
         }
     }
 
+    /*
+    CompletableFuture 内部采用 ForkJoinPool
+     */
     private void synchronizedTest() {
+
+
         CompletableFuture.runAsync(() ->
         {
             for (int i = 0; i < 100; i++) {

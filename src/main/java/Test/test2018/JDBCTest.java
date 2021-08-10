@@ -29,7 +29,7 @@ public class JDBCTest {
     public void test() {
         try {
 //              insert();
-            insertTakeTime();
+//            insertTakeTime();
 //            batchInsert();
             // delete();
             // update();
@@ -37,7 +37,8 @@ public class JDBCTest {
             //  queryMultipleResult();
             //procedure();
 //              procedureParamOutPut();
-            //   transaction();
+//               transaction();
+               concurrentTransaction();
 //            pageData();
             Integer m = 0;
         } catch (Exception ex) {
@@ -457,6 +458,28 @@ public class JDBCTest {
 
     //region 事务
     private void transaction() throws Exception {
+        Connection con = getConnection();
+        try {
+            String updateCommand = "update Product set ModifyTime=?,ProductName=? WHERE id=?";
+            con.setAutoCommit(false);//开启事务
+            PreparedStatement preparedStatement = con.prepareStatement(updateCommand);
+            preparedStatement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+            preparedStatement.setString(2, "testJDBC");
+            preparedStatement.setInt(3, 59);
+            Integer result = preparedStatement.executeUpdate();
+            con.commit();//try的最后提交事务
+            preparedStatement.close();
+            con.close();
+            Integer m = 0;
+
+
+        } catch (Exception ex) {
+            con.rollback();//回滚事务
+        }
+    }
+
+
+    private void concurrentTransaction() throws Exception {
         Connection con = getConnection();
         try {
             String updateCommand = "update Product set ModifyTime=?,ProductName=? WHERE id=?";

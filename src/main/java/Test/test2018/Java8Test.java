@@ -11,10 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalUnit;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Collectors;
 
 /**
@@ -319,7 +316,12 @@ public class Java8Test {
         Predicate<Boolean> predicate = p -> !p;
         Boolean re = predicate.test(false);
 
+        BiConsumer<Integer,Object> biConsumer=(a, b)->
+        {
 
+        };
+        //跟C#不一样biConsumer（3,4），java 函数接口只是一个函数接口（可能有多个方法）要指定调用方法
+        biConsumer.accept(3,4);
     }
 
 

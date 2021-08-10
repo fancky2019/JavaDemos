@@ -7,7 +7,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.locks.ReentrantLock;
 
+/*
+LinkedBlockingQueue:阻塞队列，主要适用生产者消费者 ReentrantLock
+ConcurrentLinkedQueue:非阻塞队列，主要适用多个线程访问数据，性能好 CAS
+ */
 public class QueueTest {
     public void test() {
         CompletableFutureQueueTest();
