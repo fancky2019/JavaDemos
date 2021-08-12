@@ -19,6 +19,7 @@ import java.util.concurrent.locks.ReentrantLock;
 Distributed locks with Redis:https://redis.io/topics/distlock
 Redisson github:https://github.com/redisson/redisson
 redisson-examples：https://github.com/redisson/redisson-examples
+doc:https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95
  */
 
 /*
@@ -34,6 +35,7 @@ public class RedissonTest {
     static {
         //默认数据库index:0
         //redisson-->connectionManager-->config-->database
+        //单Redis节点模式
         Config config = new Config();
         ((SingleServerConfig) config.useSingleServer().setTimeout(1000000))
                 .setAddress("redis://127.0.0.1:6379")
@@ -49,9 +51,9 @@ public class RedissonTest {
     }
 
     public void test() throws Exception {
-        logger.info("info");
-        // lock();
-        CompletableFuture.runAsync(()->
+//        lock();
+//        useRedLock();
+        CompletableFuture.runAsync(() ->
         {
             try {
                 useRedLock();
@@ -74,7 +76,11 @@ public class RedissonTest {
         RLock lock = redisson.getLock("lock");
         //判断是否有锁
         Boolean locked1 = lock.isLocked();//false
-        lock.lock(10, TimeUnit.SECONDS);
+
+
+        //写入hash类型数据：redisKey:lock hashKey  uuid:线程id  hashValue:thread id
+//    public void lock(long leaseTime, TimeUnit unit)
+        lock.lock(90, TimeUnit.SECONDS);
         locked1 = lock.isLocked();//true
         lock.unlock();//释放锁
         locked1 = lock.isLocked();//false
@@ -90,7 +96,7 @@ public class RedissonTest {
 
         }
 
-        lock.unlock();
+        lock.unlock();//释放锁 unlock 删除key
         //关闭客户端
         //   redisson.shutdown();
     }
@@ -107,25 +113,34 @@ public class RedissonTest {
 //            Thread.sleep(1);
 //        }
         try {
-
+            boolean isLocked = lock.isLocked();
+            if (isLocked) {
+                logger.error(MessageFormat.format("Thread - {0} 获得锁失败！锁被占用！", Thread.currentThread().getId()));
+            }
             //500MS 获取锁，3000锁维持时间
             //内部采用信号量控制等待时间  Semaphore
-            lock.tryLock(500, 60*1000, TimeUnit.MICROSECONDS);
+            //    public boolean tryLock(long waitTime, long leaseTime, TimeUnit unit)
+            //注：waitTime 设置时间长一点
+            //写入hash类型数据：redisKey:lock hashKey  uuid:线程id  hashValue:thread id
+            boolean lockSuccessfully = lock.tryLock(1, 30, TimeUnit.SECONDS);
+//            lock.lock();
 //            lock.lock(10, TimeUnit.SECONDS);
             //或者直接返回
-            if (lock.isLocked()) {
-                logger.error(MessageFormat.format("Thread - {0} 获得锁失败！",Thread.currentThread().getId()));
+            isLocked = lock.isLocked();
+
+            if(isLocked)
+            {
+                logger.info(MessageFormat.format("Thread - {0} 获得锁！", Thread.currentThread().getId()));
             }
-            else {
-                logger.info(MessageFormat.format("Thread - {0} 获得锁！",Thread.currentThread().getId()));
-            }
+
+
         } catch (Exception ex) {
             String msg = ex.getMessage();
             Integer m = 0;
-           logger.error(ex.toString());
+            logger.error(ex.toString());
         } finally {
-            Thread.sleep(60*1000);
-            lock.unlock();//释放锁
+            Thread.sleep(60 * 1000);
+            lock.unlock();//释放锁 unlock 删除key
             // condition.notify();
         }
 

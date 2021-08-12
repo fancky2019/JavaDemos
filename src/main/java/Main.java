@@ -164,10 +164,10 @@ public class Main {
             //  new DivisionTest().test();
 //            new HashCodeTest().test();
             //   new LeftMoveTest().test();
-//              new RedissonTest().test();
+              new RedissonTest().test();
 //              new ConstructorTest().test();
 //            new JDBCTest().test();
-            new MysqlTest().test();
+//            new MysqlTest().test();
 //            new ReferenceDemo().test();
 
 //            new SerializableTest().test();
@@ -235,6 +235,8 @@ public class Main {
 //            new Log4J2Test().test();
 //            new CountdownLatchTest().test();
 //            new CompletableFutureTest().test();
+//            new LockSupportTest().test();
+//            new ThreadTest().test();
 
             //endregion
 
