@@ -15,6 +15,7 @@ public class SemaphoreTest {
     }
 
     private void fun() {
+        // permits：允许同时运行的任务数
         //fair:FIFO
         Semaphore semaphore = new Semaphore(3, true);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");

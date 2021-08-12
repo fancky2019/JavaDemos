@@ -2,9 +2,10 @@ package Test.test2018;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+
+
 
 
 /**
@@ -12,13 +13,14 @@ import java.util.concurrent.locks.ReentrantLock;
  * Condition 的await、signal要获得的锁内
  */
 public class ProduceConsumerConditionTest {
+    //LinkedBlockingQueue
     private ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<>();
     private Integer maxLength;
     private final ReentrantLock producerLock = new ReentrantLock();
-    private Condition notFull = producerLock.newCondition();
+    private Condition notFullCondition = producerLock.newCondition();
 
     private final ReentrantLock consumerLock = new ReentrantLock();
-    private Condition notEmpty = consumerLock.newCondition();
+    private Condition notEmptyCondition = consumerLock.newCondition();
 
     public ProduceConsumerConditionTest(Integer maxLength) {
         this.maxLength = maxLength;
@@ -64,7 +66,7 @@ public class ProduceConsumerConditionTest {
         try {
             while (queue.size() == maxLength) {
                 try {
-                    notFull.await();
+                    notFullCondition.await();
                 } catch (InterruptedException ex) {
                     System.out.println(ex.getMessage());
                 }
@@ -99,7 +101,7 @@ public class ProduceConsumerConditionTest {
         try {
             while (queue.isEmpty()) {
                 try {
-                    notEmpty.await();
+                    notEmptyCondition.await();
                     //等待5S如果还没有收到通知，继续执行
                     //  notEmpty.await(5*1000, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException ex) {
@@ -118,7 +120,7 @@ public class ProduceConsumerConditionTest {
     private void signalNotEmpty() {
         consumerLock.lock();
         try {
-            notEmpty.signal();
+            notEmptyCondition.signal();
         } finally {
             consumerLock.unlock();
         }
@@ -130,7 +132,7 @@ public class ProduceConsumerConditionTest {
     private void signalNotFull() {
         producerLock.lock();
         try {
-            notFull.signal();
+            notFullCondition.signal();
         } finally {
             producerLock.unlock();
         }

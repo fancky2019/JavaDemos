@@ -22,6 +22,7 @@ import Test.test2018.JDBCTest;
 import Test.test2018.Java8Test;
 import Test.test2019.HashCodeTest;
 import Test.test2019.MysqlTest;
+import Test.test2019.SemaphoreTest;
 import Test.test2019.SocketTcpTest;
 import Test.test2020.ByteBase64String;
 import Test.test2020.ByteConverterTest;
@@ -163,7 +164,7 @@ public class Main {
             //  new DivisionTest().test();
 //            new HashCodeTest().test();
             //   new LeftMoveTest().test();
-//              new RedissonTest().test();
+              new RedissonTest().test();
 //              new ConstructorTest().test();
 //            new JDBCTest().test();
 //            new MysqlTest().test();
@@ -231,7 +232,11 @@ public class Main {
 //            new StringJoinerTest().test();
 //            new RandomTest().test();
 
-            new Log4J2Test().test();
+//            new Log4J2Test().test();
+//            new CountdownLatchTest().test();
+//            new CompletableFutureTest().test();
+//            new LockSupportTest().test();
+//            new ThreadTest().test();
 
             //endregion
 

@@ -16,7 +16,7 @@ public class ThreadExceptionTest {
         try {
             CompletableFuture.runAsync(() ->
             {
-                //必须在线程内部进行一场处理，无法抛出到外边的另外一个线程。和C#一样
+                //必须在线程内部进行异常处理，无法抛出到外边的另外一个线程。和C#一样
                 Integer m = Integer.parseInt("m");
 //                try {
 //                    Integer m = Integer.parseInt("m");

@@ -1,8 +1,11 @@
 package Test.test2019;
 
 import Model.Product;
+import Test.test2021.Log4J2Test;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Stopwatch;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import utility.Configs;
 
 import java.math.BigDecimal;
@@ -11,6 +14,7 @@ import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,14 +22,18 @@ import java.util.concurrent.TimeUnit;
  * MSSQL:demo2018 JDBCTest
  */
 public class MysqlTest {
+    private static final Logger logger = LogManager.getLogger(MysqlTest.class);
+
     public void test() {
         try {
-//              insert();
-            insertTakeTime();
+//            insert();
+//            insertTakeTime();
 //              query();
 //            queryDifferentDB();
 //            insertDynamic();
 //            batchInsert();
+
+            concurrentTransactionTest();
             Integer m = 0;
             //  createProduct();
         } catch (Exception ex) {
@@ -267,6 +275,7 @@ public class MysqlTest {
 
         //执行命令并接受结果
         Integer result = preparedStatement.executeUpdate();
+        //SELECT LAST_INSERT_ID();
         ResultSet rs = preparedStatement.getGeneratedKeys();
         if (rs.next()) {
             Integer id = rs.getInt(1);
@@ -377,6 +386,58 @@ public class MysqlTest {
         preparedStatement.close();
         con.close();
         Integer m = 0;
+    }
+    //endregion
+
+    //region  并发事务测试
+    private void concurrentTransactionTest() {
+
+        try {
+            CompletableFuture.runAsync(() ->
+            {
+                try {
+                    concurrentTransaction();
+                } catch (Exception e) {
+                    logger.error("", e);
+                }
+            });
+            Thread.sleep(1000);
+            CompletableFuture.runAsync(() ->
+            {
+                try {
+                    concurrentTransaction();
+                } catch (Exception e) {
+                    logger.error("", e);
+                }
+            });
+        } catch (Exception ex) {
+            logger.error("", ex);
+        }
+    }
+
+    private void concurrentTransaction() throws Exception {
+        Connection con = getConnection();
+        try {
+            logger.info(MessageFormat.format("Thread - {0} enter", Thread.currentThread().getId()));
+            String updateCommand = "update Product set ModifyTime=?,ProductName=? WHERE id=?";
+            con.setAutoCommit(false);//开启事务
+            PreparedStatement preparedStatement = con.prepareStatement(updateCommand);
+            preparedStatement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+            preparedStatement.setString(2, "testJDBC");
+            preparedStatement.setInt(3, 1);
+            Integer result = preparedStatement.executeUpdate();
+            Thread.sleep(3000);
+            con.commit();//try的最后提交事务
+            logger.info(MessageFormat.format("Thread - {0} done", Thread.currentThread().getId()));
+            preparedStatement.close();
+            con.close();
+            Integer m = 0;
+
+
+        } catch (Exception ex) {
+            con.rollback();//回滚事务
+            logger.error("", ex);
+        }
     }
     //endregion
 }
