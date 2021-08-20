@@ -28,6 +28,17 @@ import java.util.concurrent.TimeUnit;
  *         解锁的时候通过hexists判断key和value是否存在，存在则解锁；这里不会出现误解锁
  *
  * 持久化：rdb,aof。默认RDB,如果不丢就用aof方式。
+ *
+ *
+ * 主从同步：主从同步刚连接的时候进行全量同步；全量同步结束后开始增量同步。如果有需要，slave在任何时候都可以发起全量同步，
+ * 其主要策略就是无论如何首先会尝试进行增量同步，如果步成功，则会要求slave进行全量同步，之后再进行增量同步。
+ * 只要slave启动，就会和master建立连接发送SYNC请求和主机全量同步。
+ *
+ *
+ * redis 高可用：redis 主从、redis sentinel、 redis cluster 。
+ *
+ * redis cluster :解决sentinel扩容问题。集群分片存储。每个节点都有自己的至少一个从节点，
+ * 若有一个节点的主从都宕机，集群就不可用。每个节点保存其他节点的主从信息，主节点不可用就切换从节点。
  */
 public class RedisTest {
     /**
@@ -39,9 +50,13 @@ public class RedisTest {
     private ShardedJedisPool shardedJedisPool;//切片连接池
 
     public RedisTest() {
-        initialPool();
+//分片
 //        initialShardedPool();
 //        shardedJedis = shardedJedisPool.getResource();
+
+
+        //不分片
+        initialPool();
 //        获取Jedis实例
         jedis = jedisPool.getResource();
         //设置数据库索引
@@ -95,7 +110,7 @@ public class RedisTest {
 //        set();
 //        sortedSet();
 //        increment();
-//        transactionTest();
+        transactionTest();
 //        keyExpire();
 //        redisQueue();
 //        pubSub();
@@ -394,20 +409,40 @@ public class RedisTest {
         //启动事务前watch  key,如果key在exec执行是否改变了，将不执行，否则执行。exec后将取消watch key。
         //乐观锁:原理有点像CAS(比较交换compare and swap).CAS 存在ABA问题，解决 乐观锁（version、时间戳).
 
+        //事务不具原子性，其中一条失败，不会回滚。
+        try {
+
+
         //watch的可以一定要存在，否则无法控制事务。
         String watchKey = "lockKey";
         if (!jedis.exists(watchKey)) {
             jedis.incr(watchKey);
         }
         jedis.watch(watchKey);
+        //multi 标记事务块的开始
         Transaction transaction = jedis.multi();
 
+        transaction.set("transactionStringKey","transactionStringValue");
         transaction.incr("jedis");
-        //如果watch的值改变，将不执行事务。
+        transaction.incr("transactionStringKey");
+
+        transaction.incr("jedis1");
+
+
+        //EXEC命令进行提交事务:如果watch的值改变，将不执行事务。
+        //exec  之后不能  discard 有点类似数据库commit之后不能rollback
         transaction.exec();
+
+
 
         // 放弃事务
 //        transaction.discard();
+        }
+        catch (Exception ex)
+        {
+          ex.printStackTrace();
+          int m=0;
+        }
 
     }
     //endregion
