@@ -115,7 +115,7 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-//              new RedisTest().test();
+              new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
@@ -164,7 +164,7 @@ public class Main {
             //  new DivisionTest().test();
 //            new HashCodeTest().test();
             //   new LeftMoveTest().test();
-              new RedissonTest().test();
+//              new RedissonTest().test();
 //              new ConstructorTest().test();
 //            new JDBCTest().test();
 //            new MysqlTest().test();
