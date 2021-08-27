@@ -58,7 +58,7 @@ public class DelayRetryConsumer {
             //region  重试
             channel.exchangeDeclare(EXCHANGE_RETRY_NAME, ExchangeType.DIRECT);
             Map<String, Object> mapRetry = new HashMap<>();
-            ////设置死信进入失败队列
+            ////设置死信进入消费队列
             mapRetry.put("x-message-ttl", 10000);
             mapRetry.put("x-dead-letter-exchange", EXCHANGE_NAME);
             mapRetry.put("x-dead-letter-routing-key", ROUTING_KEY);
@@ -66,7 +66,8 @@ public class DelayRetryConsumer {
             channel.queueBind(QUEUE_RETRY_NAME, EXCHANGE_RETRY_NAME, ROUTING_RETRY_KEY);
             //endregion
 
-            //region  失败
+            //region  失败队列
+            //重试三次将进入失败队列
             channel.exchangeDeclare(EXCHANGE_FAILED_NAME, ExchangeType.DIRECT);
             channel.queueDeclare(QUEUE_FAILED_NAME, true, false, false, null);
             channel.queueBind(QUEUE_FAILED_NAME, EXCHANGE_FAILED_NAME, ROUTING_FAILED_KEY);
