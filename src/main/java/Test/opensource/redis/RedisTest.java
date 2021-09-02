@@ -39,6 +39,10 @@ import java.util.concurrent.TimeUnit;
  *
  * redis cluster :解决sentinel扩容问题。集群分片存储。每个节点都有自己的至少一个从节点，
  * 若有一个节点的主从都宕机，集群就不可用。每个节点保存其他节点的主从信息，主节点不可用就切换从节点。
+ *
+ *
+ *
+ * redis key 过期订阅：
  */
 public class RedisTest {
     /**
