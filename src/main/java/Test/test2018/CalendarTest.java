@@ -13,12 +13,25 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Instant：瞬时实例。
+ * LocalDate：本地日期，不包含具体时间 例如：2014-01-14 可以用来记录生日、纪念日、加盟日等。
+ * LocalTime：本地时间，不包含日期。
+ * LocalDateTime：组合了日期和时间，但不包含时差和时区信息。
+ * ZonedDateTime：最完整的日期时间，包含时区和相对UTC或格林威治的时差。
+ * <p>
+ * <p>
+ * <p>
+ * <p>
  * 时间戳 1970-01-01 到现在的秒数
+ * class ZoneOffset     extends ZoneId
+ * <p>
+ * Instant 时间戳类
  */
 public class CalendarTest {
 
     public void test() {
         try {
+            zonedDateTimeTest();
             operation();
             formatter();
         } catch (Exception ex) {
@@ -27,17 +40,48 @@ public class CalendarTest {
 
     }
 
+    /**
+     * Instant 时间戳类
+     */
+    private void instantTest() {
+        //Instant 标准时间，没有指定时区 class ZoneOffset extends ZoneId
+        //时间戳类
+        Instant now = Instant.now();
+        System.out.println(now.getEpochSecond()); // 秒
+        System.out.println(now.toEpochMilli()); // 毫秒
+    }
+
+    private void zonedDateTimeTest() {
+        //返回的是默认的时区
+        ZonedDateTime zonedDateTimeNow = ZonedDateTime.now();
+        LocalDateTime localDateTime = zonedDateTimeNow.toLocalDateTime();
+        LocalDate localDate = zonedDateTimeNow.toLocalDate();
+        LocalTime localTime = zonedDateTimeNow.toLocalTime();
+        long epochMilli = zonedDateTimeNow.toInstant().toEpochMilli();
+        //
+        long epochMilli1 = localDateTime.toInstant(ZoneOffset.of("+08:00")).toEpochMilli();
+        //GMT+8           map.put("CTT", "Asia/Shanghai");
+        ZonedDateTime atZone = LocalDateTime.now().atZone(ZoneId.of("Asia/Shanghai"));
+        //GMT+8       格林威治时间 (GMT)
+        ZonedDateTime atZone1 = LocalDateTime.now().atZone(ZoneId.of("GMT+8"));
+        OffsetDateTime offsetDateTime = zonedDateTimeNow.toOffsetDateTime();
+        int m = 0;
+    }
+
     private void startEndDay() {
         LocalDateTime today_start = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
         LocalDateTime today_end = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
         LocalDateTime yesterday = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.MAX);
+
+        yesterday.toLocalDate();
+        yesterday.toLocalTime();
     }
 
     private void operation() throws ParseException {
         //获取秒数
-        Long second = LocalDateTime.now().toEpochSecond(ZoneOffset.of("+8"));
+        Long second = LocalDateTime.now().toEpochSecond(ZoneOffset.of("+08:00"));
         //获取毫秒数
-        Long milliSecond = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+        Long milliSecond = LocalDateTime.now().toInstant(ZoneOffset.of("+08:00")).toEpochMilli();
 
         Date date = new Date();
         //格式化输出
@@ -84,7 +128,13 @@ public class CalendarTest {
 
         long millis = System.currentTimeMillis();
 
-        //采用时间戳比较
+        //获取秒数
+        //the number of seconds from the epoch of 1970-01-01T00:00:00Z
+        long seconds = LocalDateTime.now().toEpochSecond(ZoneOffset.of("+08:00"));
+        //获取毫秒数 class ZoneOffset     extends ZoneId
+        long expireTime = LocalDateTime.now().toInstant(ZoneOffset.of("+08:00")).toEpochMilli();
+
+        //采用时间戳比较  class ZoneOffset     extends ZoneId
         long localDateTimeMillis = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
         long localDateTimeMillis1 = localDateTime.atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
         if (System.currentTimeMillis() >= localDateTimeMillis) {

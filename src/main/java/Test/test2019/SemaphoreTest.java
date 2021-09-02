@@ -8,6 +8,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
+/**
+ * 信号量内部和线程中断一样是通过LockSupport的unpark() 、park()
+ */
 public class SemaphoreTest {
 
     public void test() {

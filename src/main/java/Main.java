@@ -85,7 +85,7 @@ public class Main {
             // new SetTest().test();
 //               new ThreadTest().test();
 
-//            new CalendarTest().test();
+            new CalendarTest().test();
 
 //            ReferenceTest referenceTest=new ReferenceTest();
 //            String str="123";
@@ -115,7 +115,7 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-              new RedisTest().test();
+//              new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
@@ -237,11 +237,12 @@ public class Main {
 //            new CompletableFutureTest().test();
 //            new LockSupportTest().test();
 //            new ThreadTest().test();
+//            new DelayQueueTest().test();
 
             //endregion
 
             
-//            System.out.println(MessageFormat.format("main :{0}", "started!"));
+            System.out.println(MessageFormat.format("main:{0}", "completed !"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
 //            System.exit(0) ;
