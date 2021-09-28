@@ -18,6 +18,12 @@ V - Value（值）
 N - Number（数值类型）
 ？ - 表示不确定的java类型
 
+
+
+
+
+注：泛型方法： 参数类型的位置：C#放在方法后<T>,java放在访问修饰符后，返回类型前。  public <T> T funT(Class<T> clazz)
+   泛型类：和C3一样在类名后<T>
  */
 public class GenericTest {
 

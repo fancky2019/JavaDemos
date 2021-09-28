@@ -11,6 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * 有最大长度的并发队列，JDK中LinkedBlockingQueue有最大长度限制重载
  * Condition 的await、signal要获得的锁内
+ * object notify() wait()
  */
 public class ProduceConsumerConditionTest {
     //LinkedBlockingQueue
