@@ -65,7 +65,7 @@ public class HashCodeTest {
 
     /*
     不重写equals，比较的是内存地址，不同对象地址不同。
-    HashSet会重复添加，尽管两个对象的字段值一样。
+    HashSet会重复添加，尽管两个对象的字段值一样。hashcode 默认是对象的内存地址
     如果重写了，只能添加一次。
      */
         HashSet<Student> hashSet1 = new HashSet<Student>();
