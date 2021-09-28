@@ -24,7 +24,7 @@ public class StreamOptionalTest {
         //原集合已经排序
         //   listInteger.sort(Integer::compareTo);
         // listInteger.sort(Comparator.comparing(p->p));
-        listInteger.sort(Comparator.comparing(p -> p.intValue()));
+        listInteger.sort(Comparator.comparing(p -> p));
         Integer n = 0;
 
 
