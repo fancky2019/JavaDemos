@@ -9,6 +9,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * java LinkedBlockingQueue Demo  在TheadTest类里
+ *  * Condition 的await、signal要获得的锁内
+ *  * object notify() wait()
  */
 public class ProduceConsumerTest {
     private ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<>();
