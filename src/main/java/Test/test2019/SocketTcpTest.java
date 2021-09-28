@@ -1,10 +1,8 @@
 package Test.test2019;
 
-import Model.JacksonPojo;
 import Test.opensource.Netty.MessageInfo;
 import Test.opensource.Netty.MessageType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.msgpack.jackson.dataformat.JsonArrayFormat;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
 import utility.Hex;
 
@@ -20,6 +18,16 @@ import java.util.concurrent.CompletableFuture;
 /*
 UDP：Test.test2020;
 MTU:1500 byte
+
+
+按照流的方向分为输入流（InputStream）与输出流(outputStream)：
+
+输入流：只能读取数据，不能写入数据。能读入
+输出流：只能写入数据，不能读取数据。能写出
+
+
+InputStream(字节输入流)和Reader(字符输入流)通俗的理解都是读（read）的。
+OutputStream(字节输出流)和Writer(字符输出流)通俗的理解都是写(writer)的。
  */
 public class SocketTcpTest {
     public void test() {
@@ -38,13 +46,10 @@ public class SocketTcpTest {
 //        {
 //            serverReceiveByte();
 //        });
-        CompletableFuture.runAsync(() ->
-        {
-            clientSendByte();
-        });
+        CompletableFuture.runAsync(this::clientSendByte);
     }
 
-    List<Socket> connnectedSockets = new LinkedList<>();
+    List<Socket> connectedSockets = new LinkedList<>();
 
     private void server() {
         try {
@@ -55,7 +60,7 @@ public class SocketTcpTest {
             CompletableFuture.runAsync(() ->
             {
                 while (true) {
-                    connnectedSockets.forEach(client ->
+                    connectedSockets.forEach(client ->
                     {
                         try {
                             //发送信息给客户端
@@ -84,7 +89,7 @@ public class SocketTcpTest {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 //
-                connnectedSockets.add(clientSocket);
+                connectedSockets.add(clientSocket);
                 System.out.println(MessageFormat.format("客户端:{0}:{1}已连接到服务器", clientSocket.getInetAddress().getHostAddress(), clientSocket.getPort()));
                 InputStream in = clientSocket.getInputStream();
                 //   recvMsgSize = in.read(recvBuf);
@@ -215,7 +220,7 @@ public class SocketTcpTest {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 //
-                connnectedSockets.add(clientSocket);
+                connectedSockets.add(clientSocket);
                 System.out.println(MessageFormat.format("客户端:{0}:{1}已连接到服务器", clientSocket.getInetAddress().getHostAddress(), clientSocket.getPort()));
                 InputStream in = clientSocket.getInputStream();
                 //   recvMsgSize = in.read(recvBuf);

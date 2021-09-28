@@ -16,7 +16,7 @@ public class ThreadTest {
      线程阻塞：LockSupport.unpark()、 LockSupport.park() block
      线程运行完成：join
 
-    线程同步、线程间通信：synchronized 、ReentrantLock await signal、object的wait notify 、cas
+    线程同步、线程间通信：synchronized 、ReentrantLock await signal、object的wait notify 、semaphore.acquire()release()、cas
      */
     public void test() {
         joinTest();
