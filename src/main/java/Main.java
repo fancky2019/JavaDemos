@@ -85,7 +85,7 @@ public class Main {
             // new SetTest().test();
 //               new ThreadTest().test();
 
-            new CalendarTest().test();
+//            new CalendarTest().test();
 
 //            ReferenceTest referenceTest=new ReferenceTest();
 //            String str="123";
@@ -238,6 +238,7 @@ public class Main {
 //            new LockSupportTest().test();
 //            new ThreadTest().test();
 //            new DelayQueueTest().test();
+            new MathTest().test();
 
             //endregion
 

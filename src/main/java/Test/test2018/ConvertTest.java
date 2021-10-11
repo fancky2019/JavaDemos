@@ -32,7 +32,7 @@ public class ConvertTest {
         String intNumStr = intNum.toString();
         String douNum1Str = String.valueOf(douNum);
         short s = (short) 1;
-
+        byte by2=(byte)( (byte) 127+(byte)1);
         char ch = intNumStr.charAt(0);
         char[] chArray = intNumStr.toCharArray();
 
