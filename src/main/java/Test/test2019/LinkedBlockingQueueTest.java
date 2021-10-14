@@ -11,7 +11,7 @@ public class LinkedBlockingQueueTest {
     /*
     add/offer/put的区别：
 1、 add: 和collection的add一样，当队列满时，调用add()方法抛出异常IllegalStateException异常
-2、 调用off()方法当队列满时返回的 false。
+2、 调用offer()方法当队列满时返回的 false。
 3、调用put方法时候，当当前队列等于设置的最大长度时，将阻塞，直到能够有空间插入元素
 
 remove/poll/take的区别

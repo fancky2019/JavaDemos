@@ -238,8 +238,9 @@ public class Main {
 //            new LockSupportTest().test();
 //            new ThreadTest().test();
 //            new DelayQueueTest().test();
-            new MathTest().test();
+//            new MathTest().test();
 
+            new PrimitiveTypeCacheTest().test();
             //endregion
 
             
