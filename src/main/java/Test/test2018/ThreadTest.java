@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
 
 /**
- * callable和runnable 区别在VolatileTest类内有描述。
+ * callable和runnable 区别在test2019.VolatileTest类内有描述。
  * <p>
  * ThreadPoolExecutor :线程池具体的执行内部逻辑。参照ThreadPoolExecutor类内的<dt>Queuing</dt>介绍
  * <p>
@@ -81,6 +81,7 @@ public class ThreadTest {
     //region  Thread
     private void declareStartThread() {
 
+//        Callable
         Thread thread = new Thread(() ->
         {
             doWork();
