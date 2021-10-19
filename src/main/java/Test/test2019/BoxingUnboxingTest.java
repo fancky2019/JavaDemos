@@ -3,6 +3,8 @@ package Test.test2019;
 /**
  * primitive类型数据的包装器只有Float、Double装箱不用缓存是直接new,其他缓存值范围：-128---127
  * string 字符串内存驻留
+ *
+ * test2021.PrimitiveTypeCacheTest
  */
 public class BoxingUnboxingTest {
     public void test() {

@@ -22,7 +22,8 @@ public class ClassExecutionSequenceTest {
       */
 
     /*
-     Main()函数是程序的入口点,如果main在加载类中，静态块会在main之前执行。
+     静态Main()函数： 静态Main()函数是程序的入口点,如果main在加载类中，静态块会在main之前执行。
+                    按照调用静态方法流程处理：将执行类的静态成员初始化。
      父类静态字段、父类静态块（按出现顺序）--》子类静态字段、子类静态块-（按出现顺序）-》父类构造块、字段（按出现顺序）--》父类构造函数--》
      子类构造块、字段（按出现顺序）--》子类构造函数
 
@@ -79,14 +80,17 @@ class Child extends Parent {
     private static Integer b = 4;
     int tt;
 
+    //构造块
     public Child() {
         System.out.println("Child构造函数！");
     }
 
+    //普通块
     {
         System.out.println("Child构造块：类内构造方法后！");
     }
 
+    //静态块
     static {
         System.out.println("Child静态块A！");
     }
