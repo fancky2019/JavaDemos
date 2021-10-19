@@ -2,6 +2,10 @@ package Test.test2018;
 
 import Model.Student;
 
+import java.lang.ref.PhantomReference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +18,17 @@ import java.util.List;
 集合对象:可改变元素属性、元素指向的地址、添加新的元素（改变元素个数），不可重新实例化。
  */
 public class ReferenceDemo {
+
     public void test() {
+//        fun1();
+        strongReference();
+        softReference();
+        weakReference();
+        phantomReference();
+    }
+
+    //region对象、数组、list调用
+    private void fun1() {
         String str1 = "123";
         String str2 = "456";
         stringReference(str1);
@@ -82,6 +96,7 @@ public class ReferenceDemo {
         Integer m = 0;
     }
 
+
     private void stringReference(String str) {
         str = "abc";
     }
@@ -128,7 +143,7 @@ public class ReferenceDemo {
     }
 
     /**
-     * 不能重新实例化
+     * 数组不能重新实例化
      *
      * @param array
      */
@@ -175,7 +190,7 @@ public class ReferenceDemo {
     }
 
     /**
-     * 不可重新实例化
+     * list不可重新实例化
      *
      * @param list
      */
@@ -185,4 +200,71 @@ public class ReferenceDemo {
         student.setName("fancky");
         list.add(student);
     }
+    //endregion
+
+    //region 四中引用类型
+    /*
+    垃圾回收发生在堆上。
+    强引用:JVM在内存不足的情况下，抛出outOfMemoryError错误，不会回收此类对象
+    软引用:JVM只会在内存不足的情况下回收该对象
+    弱引用:如果某个对象与弱引用关联，那么当JVM在进行垃圾回收时，无论内存是否充足，都会回收此类对象。
+    虚引用:若某个对象与虚引用关联，那么在任何时候都可能被JVM回收掉。虚引用不能单独使用，必须配合引用队列一起使用。
+     */
+
+    //region强引用:JVM在内存不足的情况下，抛出outOfMemoryError错误，不会回收此类对象
+    private void strongReference() {
+        Object object = new Object();
+        String str = "hello";//字符串驻留
+        Student student1 = new Student();
+        student1.setName("li");
+        student1=null;//将对象设置为null，没有引用，gc回收的时候就会清理
+        String strongReference = new String("abc");
+    }
+    //endregion
+
+    //region软引用:JVM只会在内存不足的情况下回收该对象
+    private void softReference() {
+        SoftReference<String> softReference = new SoftReference<String>(new String("abc"));
+        String beforeGc = softReference.get();//abc
+        //通知JVM进行内存回收
+        System.gc();//GC被标记，具体有没有执行未知
+        String afterGc = softReference.get();//abc
+        System.out.println("SoftReference afterGc:"+ afterGc);//null  就打印出null
+        int m = 0;
+    }
+    //endregion
+
+    //region弱引用:如果某个对象与弱引用关联，那么当JVM在进行垃圾回收时，无论内存是否充足，都会回收此类对象。
+    private void weakReference() {
+        Student student= new Student();
+        student.setName("li");
+        WeakReference<Student> weakReference = new WeakReference<Student>(student);
+        Student beforeGc = weakReference.get();//abc
+        //通知JVM进行内存回收;调用GC不会立即执行，只是标记要GC。跟C#一样
+        System.gc();//GC被标记，具体有没有执行未知
+        System.runFinalization();
+        try {
+            Thread.sleep(100);
+        }
+        catch (Exception ex)
+        {
+
+        }
+        Student afterGc = weakReference.get();//GC被标记，具体有没有执行未知
+        System.out.println("WeakReference afterGc:"+ afterGc);//null  就打印出null
+        int m = 0;
+    }
+    //endregion
+
+    //region虚引用:若某个对象与虚引用关联，那么在任何时候都可能被JVM回收掉。虚引用不能单独使用，必须配合引用队列一起使用。
+    private void phantomReference() {
+        ReferenceQueue<String> queue = new ReferenceQueue<>();
+        PhantomReference<String> phantomReference = new PhantomReference<String>("ghi", queue);
+        String str = phantomReference.get();//null
+        System.out.println("PhantomReference afterGc:"+ str);//null  就打印出null
+        int m = 0;
+    }
+    //endregion
+
+    //endregion
 }
