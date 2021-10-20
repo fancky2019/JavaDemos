@@ -237,7 +237,9 @@ public class Main {
 //            new DelayQueueTest().test();
 //            new MathTest().test();
 
-            new PrimitiveTypeCacheTest().test();
+//            new PrimitiveTypeCacheTest().test();
+            new CollectionTest().test();
+
             //endregion
 
             
