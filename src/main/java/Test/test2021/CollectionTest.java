@@ -33,22 +33,19 @@ public class CollectionTest {
             int m = 0;
         }
 
-       for(String key : concurrentHashMap.keySet())
-       {
-           int m=0;
-       }
-        for(String key : concurrentHashMap.values())
-        {
-            int m=0;
+        for (String key : concurrentHashMap.keySet()) {
+            int m = 0;
+        }
+        for (String key : concurrentHashMap.values()) {
+            int m = 0;
         }
 
         Iterator<Map.Entry<String, String>> entries = concurrentHashMap.entrySet().iterator();
-        while (entries.hasNext())
-        {
+        while (entries.hasNext()) {
             Map.Entry<String, String> entry = entries.next();
-            String key=entry.getKey();
-            String value=entry.getValue();
-            int m=0;
+            String key = entry.getKey();
+            String value = entry.getValue();
+            int m = 0;
         }
         // Collection<V> 转list
         //存的时候偶是object 取得时候根据类型强制转换。不像C#内部存储的就是T[]泛型数组
@@ -60,18 +57,17 @@ public class CollectionTest {
 
 
         //foreach 内部不能进行被迭代集合的删除新增、修改操作。和C#一样，若写请用for循环，注意索引变化。
-        arrayList.forEach(p->
+        arrayList.forEach(p ->
         {
             String value = p;
             int m = 0;
         });
-        for (String p:arrayList)
-        {
-            int m=0;
+        for (String p : arrayList) {
+            int m = 0;
         }
 
 
-        LinkedList<String> linkedList=new LinkedList<>();
+        LinkedList<String> linkedList = new LinkedList<>();
         linkedList.add("lsit1");
         linkedList.add("lsit2");
         linkedList.add("lsit3");
@@ -80,16 +76,18 @@ public class CollectionTest {
         linkedList.get(0);
 
         //foreach 内部不能进行被迭代集合的删除新增、修改操作。和C#一样，若写请用for循环，注意索引变化。
-        linkedList.forEach(p->
+        linkedList.forEach(p ->
         {
             String value = p;
             int m = 0;
         });
 
-        for (String p:linkedList)
-        {
-            int m=0;
+        for (String p : linkedList) {
+            int m = 0;
         }
+
+        Enumeration<String> getHeaderNames = null;
+        List<String> list = Collections.list(getHeaderNames);
 
     }
 }
