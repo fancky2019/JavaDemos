@@ -185,7 +185,7 @@ public class Main {
 //            new LinkedBlockingQueueTest().test();
 
 //            new LockTest().test();
-//            new SocketTcpTest().test();
+            new SocketTcpTest().test();
 
             //endregion
 
@@ -238,7 +238,7 @@ public class Main {
 //            new MathTest().test();
 
 //            new PrimitiveTypeCacheTest().test();
-            new CollectionTest().test();
+//            new CollectionTest().test();
 
             //endregion
 

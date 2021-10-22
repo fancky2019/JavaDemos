@@ -28,25 +28,31 @@ MTU:1500 byte
 
 InputStream(字节输入流)和Reader(字符输入流)通俗的理解都是读（read）的。
 OutputStream(字节输出流)和Writer(字符输出流)通俗的理解都是写(writer)的。
+
+//Write、Reader 针对字符操作 单位字符(2byte=16bit)
+BufferedWriter BufferedReader 缓冲区 性能会好点
+
+//针对流操作  单位字节(byte=8bit)
+BufferedInputStream  BufferedOutputStream
  */
 public class SocketTcpTest {
     public void test() {
 
-//        CompletableFuture.runAsync(() ->
-//        {
-//            server();
-//        });
-//        CompletableFuture.runAsync(() ->
-//        {
-//            client();
-//        });
+        CompletableFuture.runAsync(() ->
+        {
+            server();
+        });
+        CompletableFuture.runAsync(() ->
+        {
+            client();
+        });
 
 
 //        CompletableFuture.runAsync(() ->
 //        {
 //            serverReceiveByte();
 //        });
-        CompletableFuture.runAsync(this::clientSendByte);
+//        CompletableFuture.runAsync(this::clientSendByte);
     }
 
     List<Socket> connectedSockets = new LinkedList<>();
@@ -63,10 +69,18 @@ public class SocketTcpTest {
                     connectedSockets.forEach(client ->
                     {
                         try {
+
+                            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(client.getOutputStream());
+                            String msg = MessageFormat.format("send message{0}", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                            System.out.println(MessageFormat.format("server sends message:{0}", msg));
                             //发送信息给客户端
-                            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
-                            bw.write(MessageFormat.format("send message{0}", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
-                            bw.flush();
+//                            outputStreamWriter.write(msg);
+//                            outputStreamWriter.flush();//任何流进行写入完成后请调用flush()方法推送下
+
+                            //使用BufferedWriter缓冲区包装OutputStreamWriter
+                            BufferedWriter bw = new BufferedWriter(outputStreamWriter);
+                            bw.write(msg);
+                            bw.flush();//任何流进行写入完成后请调用flush()方法推送下
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -131,11 +145,20 @@ public class SocketTcpTest {
             CompletableFuture.runAsync(() ->
             {
                 int recvMsgSize;
+
+
                 //约定好定长，方便处理粘包
                 //定长、固定头，分隔符
                 byte[] recvBuf = new byte[1024];
                 try {
                     while ((recvMsgSize = inputStream.read(recvBuf)) != -1) {
+//                        BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
+                       // bufferedReader.readLine(); // 注意事项：readLine()要求有换行标识，write()要输出换行标识，要调用flush()刷新缓冲区。
+                       // bufferedReader.read(temp, 0, recvMsgSize);
+
+//                        BufferedInputStream  bufferedInputStream=new  BufferedInputStream(inputStream);
+//                        int readLength=  bufferedInputStream.read(recvBuf);
+
                         byte[] temp = new byte[recvMsgSize];
                         System.arraycopy(recvBuf, 0, temp, 0, recvMsgSize);
                         String receiveMsg = new String(temp);
@@ -153,6 +176,7 @@ public class SocketTcpTest {
         }
     }
 
+    //MessagePack
     private void clientSendByte() {
         try {
 
