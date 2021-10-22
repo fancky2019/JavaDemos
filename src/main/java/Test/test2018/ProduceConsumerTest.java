@@ -16,7 +16,8 @@ public class ProduceConsumerTest {
     private ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<>();
     private Integer maxLength;
     private final Object lockObject = new Object();
-
+    private final Object PRODUCER_LOCK_OBJECT = new Object();
+    private final Object CONSUMER_LOCK_OBJECT = new Object();
     public ProduceConsumerTest(Integer maxLength) {
         this.maxLength = maxLength;
     }
@@ -52,6 +53,8 @@ public class ProduceConsumerTest {
     }
 
     void producer(Integer num) {
+        //synchronized (lockObject)如果队列达到最大长度，此时还没有消费者，此处将产生死锁。应该synchronized（PRODUCER_LOCK_OBJECT）和synchronized（CONSUMER_LOCK_OBJECT）
+        //具体实现参见ProduceConsumerConditionTest 类似。
         synchronized (lockObject) {
             //貌似if也可以，没有像C#那么大的毛病，
             while (queue.size() == maxLength) {
@@ -69,6 +72,7 @@ public class ProduceConsumerTest {
     }
 
     void consumer() {
+
         synchronized (lockObject) {
             while (queue.isEmpty()) {
                 try {
