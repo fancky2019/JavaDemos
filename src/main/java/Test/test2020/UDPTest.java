@@ -7,7 +7,8 @@ import java.util.concurrent.CompletableFuture;
 
 /*
 TCP: Test.test2019;
-
+TCP:ServerSocket、Socket
+UDP：Test.test2020; UDPTest DatagramSocket DatagramPacket
 
 直接将DatagramPacket（包含数据、目标机器IP，端口）发送出去。
 
