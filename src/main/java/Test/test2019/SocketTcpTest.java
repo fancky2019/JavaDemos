@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /*
-UDP：Test.test2020; DatagramSocket
+TCP:ServerSocket、Socket
+UDP：Test.test2020; UDPTest DatagramSocket DatagramPacket
 MTU:1500 byte
 
 
