@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 public class ProtoBufTest {
 
     /*
-     一、github https://github.com/protocolbuffers/protobuf 下载release的版本 protoc-3.13.0-win64
+      官方文档：https://developers.google.com/protocol-buffers/docs/reference/java-generated
+     一、github https://github.com/protocolbuffers/protobuf 下载release的版本 protoc-3.13.0-win64 在页面列表的最下方
      二、解压，在bin下建立Person.txt。重命名为Person。
      三、用nodepad++编辑。
         实例：
@@ -59,6 +60,42 @@ public class ProtoBufTest {
      */
 
 
+   /*注：BigDecimal BigInteger Timestamp LocalDteTime
+   等平台特有类型可以用string代替，或者用float double
+
+   //protobuf只负责数据传输，可以定义一个model只有基本数据类型和string，将不是基本数据类型的处理成 string,
+   在接收端再将string类型转换成对应平台的业务model.
+
+
+   //自定义数据类型虽然满足protobuf进行数据传输，但是还要需要平台业务类型转换成自定义类型，避免不了类型转换。
+
+     参考类型处理：（翻墙）https://blog.danielpadua.dev/posts/understanding-protocol-buffers-protobuf/
+    proto拓展类型： https://github.com/googleapis/googleapis/tree/master/google/type
+
+
+    syntax = "proto3";
+
+package danielpadua.protobufexample.contracts;
+
+option java_multiple_files = true;
+option java_outer_classname = "CustomerProto";
+option java_package = "dev.danielpadua.protobufexamplejava.contracts";
+option csharp_namespace = "DanielPadua.ProtobufExampleDotnet.Contracts";
+
+import "google/protobuf/timestamp.proto";
+import "money.proto";
+import "date.proto";
+
+message Customer {
+    int64 id = 1;
+    bytes photo = 2;
+    string name = 3;
+    google.type.Date birthdate = 4;
+    google.type.Money balance = 5;
+    google.protobuf.Timestamp createdAt = 6;
+    google.protobuf.Timestamp updatedAt = 7;
+}
+    */
 
 
     /*
