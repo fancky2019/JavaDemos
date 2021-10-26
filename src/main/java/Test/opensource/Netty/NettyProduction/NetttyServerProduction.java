@@ -41,7 +41,8 @@ public class NetttyServerProduction {
                         public void initChannel(SocketChannel ch) throws Exception {
 //                            //必须指定解码器，不然收不到信息
                             ch.pipeline().addLast(new IdleStateHandler(2, 2, 6, TimeUnit.SECONDS));
-
+//                           Marshalling 优化jdk序列化，内部进行粘包处理。不用再设置frameDecoder、frameEncoder
+                            //其他编码解码器参见 NettySampleClient NettySampleServer 类设置的frameDecoder和frameEncoder进行粘包处理
                             ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder());
                             ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingEncoder());
 

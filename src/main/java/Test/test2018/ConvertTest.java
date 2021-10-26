@@ -170,4 +170,9 @@ public class ConvertTest {
         Integer m = 0;
     }
 
+    private void toByte()
+    {
+
+    }
+
 }
