@@ -26,6 +26,9 @@ import java.util.stream.Collectors;
  * s　　秒
  * S　　毫秒
  */
+/*
+java8:接口中可以有default 方法和静态方法
+ */
 public class Java8Test {
     public void test() {
         getListObjectProperty();

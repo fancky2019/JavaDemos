@@ -10,6 +10,8 @@ import org.jboss.marshalling.MarshallingConfiguration;
  * 导入以下包
  * jboss-marshalling
  * jboss-marshalling-serial
+ *
+ * marshalling：对JDK默认的序列化框架进行了优化
  */
 public final class MarshallingCodeFactory {
     /*Jboss Marshalling解码器*/

@@ -3,7 +3,9 @@ package Test.test2019;
 import Test.opensource.Netty.MessageInfo;
 import Test.opensource.Netty.MessageType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.ArrayUtils;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
+import utility.ConverterUtil;
 import utility.Hex;
 
 import java.io.*;
@@ -149,13 +151,54 @@ public class SocketTcpTest {
 
 
                 //约定好定长，方便处理粘包
-                //定长、固定头，分隔符
+                //定长、固定头部长度，分隔符
+
+                //region项目中采用几个固定字节长度的报文，然后读取发送的长度报文.
+                /*C#处理demo
+                     while ((i = stream.Read(bytes, 0, 2)) != 0)
+                        {
+                            byte[] lengthBytes = bytes.Take(2).Reverse().ToArray();
+
+                            //stream.Read(bytes, 0, 2);
+                            var msgLength = BitConverter.ToInt16(lengthBytes, 0);
+                            Array.Clear(bytes, 0, 2);
+                            stream.Read(bytes, 0, msgLength);
+                            var data1 = System.Text.Encoding.ASCII.GetString(bytes, 0, 2);//1C
+                            var data2 = bytes.Skip(2).Take(1).ToArray()[0];//5档
+                            var data3 = bytes.Skip(3).Take(1).ToArray()[0]; //1档
+                            var data4 = BitConverter.ToUInt64(bytes.Skip(4).Take(8).ToArray(), 0);//timestamp
+                            var data5 = System.Text.Encoding.ASCII.GetString(bytes, 12, msgLength - 12);//消息
+
+                            data = $"{data1}{data2}{data3}{data4}{data5}";
+                            Console.WriteLine("Server Received: {0}", data);
+
+                            _nLog.Info(data);
+                        }
+                */
+                //endregion
                 byte[] recvBuf = new byte[1024];
                 try {
+                    //region约定报文长度
+//                    BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+//                    //  bufferedInputStream.read();//每次读取一个byte
+//                    //接收发送的数据长度：约定四个字节
+//                    byte[] buffer = new byte[4];
+//                    int receivedLength = -1;
+//                    while ((receivedLength = bufferedInputStream.read(buffer)) != -1) {
+//                        //约定4个字节
+////                 byte[] temp = new byte[receivedLength];
+////                 System.arraycopy(buffer, 0, temp, 0, receivedLength);
+//                        int length = ConverterUtil.bytesToInt(buffer);
+//                        byte[] data = new byte[length];//避免每次都创建可以在while创建一个byte[]使用完clear
+//                        ArrayUtils.removeAll(data);//避免每次都创建可以在while创建一个byte[]使用完clear
+//                        // bufferedInputStream.read(readInBytes);//读入readInBytes，读取readInBytes的长度的byte
+//                    }
+//endregion
+
                     while ((recvMsgSize = inputStream.read(recvBuf)) != -1) {
 //                        BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
-                       // bufferedReader.readLine(); // 注意事项：readLine()要求有换行标识，write()要输出换行标识，要调用flush()刷新缓冲区。
-                       // bufferedReader.read(temp, 0, recvMsgSize);
+                        // bufferedReader.readLine(); // 注意事项：readLine()要求有换行标识，write()要输出换行标识，要调用flush()刷新缓冲区。
+                        // bufferedReader.read(temp, 0, recvMsgSize);
 
 //                        BufferedInputStream  bufferedInputStream=new  BufferedInputStream(inputStream);
 //                        int readLength=  bufferedInputStream.read(recvBuf);
