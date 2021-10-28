@@ -19,6 +19,25 @@ package Test.test2018;
  */
 public class ClassLoaderTest {
     public void test() {
+
+
+        //        ChildClass.class.getClassLoader().
+        //BootstrapClassLoader：加载路径%JAVA_HOME%/lib下的jar
+        // ExtensionClassLoader:加载%JRE_HOME%/lib/ext下的jar
+        // AppClassLoader：加载应用程序ClassPath下的类
+
+
+        /*   * AppClassLoader 加载classpath指定的路径中的类
+               * ExtClassLoader 加载jre/lib/ext目录下或者java.ext.dirs系统属性定义的目录下的类
+               * BootStrap  加载JRE/lib/rt.jar中的类
+         */
+
+        //双亲委派机制
+        //每个类都有一个ClassLoader
+        //右下道上（子类到父类）检查类是否加载，由上到下（父类到子类）加载类
+        //如果ClassLoader==null  则加载该类
+
+
         /*
         输出：
         1
@@ -38,6 +57,7 @@ public class ClassLoaderTest {
              调用父类静态成员：父类静态块、成员（按出现顺序）
          */
         System.out.println(ChildClass.parentStaticVariable);
+
         /*
         调用子类静态成员
         输出：

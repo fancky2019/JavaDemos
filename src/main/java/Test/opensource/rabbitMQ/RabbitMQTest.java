@@ -6,6 +6,8 @@ import java.util.concurrent.CompletableFuture;
  * 官方API:
  * https://www.rabbitmq.com/api-guide.html
  * 测试RabbitMQ确认模式生产10000耗时 14s左右，性能远低于redis的队列：生产10W，5.5s左右
+ *
+ * rabbitMQ集群采用镜像模式
  */
 public class RabbitMQTest {
     public void test() {
