@@ -5,6 +5,9 @@ import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+/*
+Duration 类
+ */
 public class TimeSpan {
 
     private static final int MillisPerSecond = 1000;

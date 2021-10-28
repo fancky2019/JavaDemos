@@ -10,12 +10,16 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.StampedLock;
 
 /*
-[-128,127]
  primitive 类型数据
 整型：byte, short, int, long
 字符型：char
 浮点型：float, double。此两种不会缓存
 布尔型：boolean
+
+ Byte,Short,Integer,Long  [-128-127]
+ Character                [0,127]
+ Boolean                  True Or False
+
 
 
 自动拆箱、装箱： 装箱// Integer.valueOf(126); //拆箱：intValue();
@@ -35,6 +39,17 @@ public class PrimitiveTypeCacheTest {
     valueOf 源码从缓存里取
      */
     private void fun() {
+
+        Byte.valueOf((byte) 2);//缓存[-128-127]中取,否则直接new
+        Short.valueOf((short) 2);//缓存[-128-127]中取,否则直接new
+        Integer.valueOf(2);//缓存[-128-127]中取,否则直接new
+        Long.valueOf(2);//缓存[-128-127]中取,否则直接new
+        Character.valueOf('c');//缓存 [0,127]中取,否则直接new
+        Boolean.valueOf(false);//TRUE、FALSE
+        Float.valueOf(1f); //直接new
+        Double.valueOf(1d);//直接new
+
+
         //方法内一般用primitive类型
 
         //调用 valueOf 自动装箱
@@ -91,25 +106,39 @@ public class PrimitiveTypeCacheTest {
         Boolean isUsed1 = false;
         Boolean isUsed2 = false;
         Boolean isUsed3 = new Boolean(false);
-        Boolean rr1=isUsed1.equals(isUsed);//false
-        Boolean rr2=isUsed1.equals(isUsed2);//true
-        Boolean rr3=isUsed1==isUsed2;//true
-        Boolean rr4=isUsed1==isUsed3;//false
+        Boolean rr1 = isUsed1.equals(isUsed);//false
+        Boolean rr2 = isUsed1.equals(isUsed2);//true
+        Boolean rr3 = isUsed1 == isUsed2;//true
+        Boolean rr4 = isUsed1 == isUsed3;//false
         try {
-            Boolean rr5=isUsed==false;//报异常，装箱类型与基础类型比较：拆箱取值比较
-        }
-        catch (Exception ex)
-        {
+            Boolean rr5 = isUsed == false;//报异常，装箱类型与基础类型比较：拆箱取值比较
+        } catch (Exception ex) {
 
         }
 
-        Boolean rr6=isUsed1.equals(false);//报异常，装箱类型与基础类型比较：拆箱取值比较
+        Boolean rr6 = isUsed1.equals(false);//报异常，装箱类型与基础类型比较：拆箱取值比较
         boolean bo = isEnable;
 
-      Boolean ret=  isEnable.booleanValue();
-//        Boolean.valueOf(false);
-//        Float.valueOf(1f);
-//        Character.valueOf('c');
+        Boolean ret = isEnable.booleanValue();
+
+
+
+
+
+
+
+        Integer i1 = 40;
+        Integer i2 = 40;
+        Integer i3 = 0;
+        Integer i4 = new Integer(40);
+        Integer i5 = new Integer(40);
+        Integer i6 = new Integer(0);
+        System.out.println("i1=i2 " + (i1 == i2));//true
+        System.out.println("i1=i2+i3 " + (i1 == i2 + i3));//true
+        System.out.println("i1=i4 " + (i1 == i4));//false
+        System.out.println("i4=i5 " + (i4 == i5));//false
+        System.out.println("i4=i5+i6 " + (i4 == i5 + i6));//true.涉及到运算，拆箱比值
+        System.out.println("40=i5+i6 " + (40 == i5 + i6));//true.涉及到运算，拆箱比值
         int m = 0;
     }
 

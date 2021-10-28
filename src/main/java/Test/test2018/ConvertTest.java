@@ -2,9 +2,12 @@ package Test.test2018;
 
 import Model.Product;
 import Model.Student;
+import org.apache.commons.lang3.Conversion;
+import utility.ByteConverter;
 import utility.DurationExtension;
 import utility.TimeSpan;
 
+import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -14,7 +17,9 @@ import java.util.TimeZone;
 
 public class ConvertTest {
     public void test() {
-        convert();
+
+//        convert();
+        toByte();
     }
 
     private void convert() {
@@ -32,7 +37,7 @@ public class ConvertTest {
         String intNumStr = intNum.toString();
         String douNum1Str = String.valueOf(douNum);
         short s = (short) 1;
-        byte by2=(byte)( (byte) 127+(byte)1);
+        byte by2 = (byte) ((byte) 127 + (byte) 1);
         char ch = intNumStr.charAt(0);
         char[] chArray = intNumStr.toCharArray();
 
@@ -170,9 +175,42 @@ public class ConvertTest {
         Integer m = 0;
     }
 
-    private void toByte()
-    {
 
+    /*
+    原始数字类型转byte[] 参见utility.ByteConverter
+
+     */
+    private void toByte() {
+        BigDecimal bigDecimal = new BigDecimal(10);
+
+        //4字节32位
+        int intNum = 1024;
+        byte[] intBytes = new byte[4];
+        byte[] intArrays = Conversion.intToByteArray(intNum, 0, intBytes, 0, 4);
+        int dstInit = -1;
+        dstInit = Conversion.byteArrayToInt(intBytes, 0, dstInit, 0, 4);
+
+
+        //2字节16位
+        short shortNum = (short) 128;
+        byte[] shortBytes = new byte[2];
+        shortBytes = Conversion.shortToByteArray(shortNum, 0, shortBytes, 0, 2);
+        short dstShort = -1;
+        dstShort = Conversion.byteArrayToShort(shortBytes, 0, dstShort, 0, 2);
+
+        long longNum = 512L;
+        byte[] longBytes = new byte[8];
+        longBytes = Conversion.longToByteArray(longNum, 0, longBytes, 0, 8);
+
+        float floatNum = 10f;
+        int intBits = Float.floatToIntBits(floatNum);
+        byte[] floatBytes = Conversion.intToByteArray(intBits, 0, intBytes, 0, 4);
+
+        double doubleNum=100D;
+        long longBits = Double.doubleToLongBits(doubleNum);
+
+
+        int m = 0;
     }
 
 }

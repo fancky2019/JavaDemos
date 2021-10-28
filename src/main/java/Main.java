@@ -1,43 +1,11 @@
 
-import Test.opensource.Jackson.JacksonTest;
-import Test.opensource.Netty.NettySample.NettySampleClient;
-import Test.opensource.Netty.NettySample.NettySampleServer;
-import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPClient;
-import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPServer;
-import Test.opensource.Netty.NettyTest;
-import Test.opensource.msgpack.JacksonDataformatMsgpack;
-import Test.opensource.msgpack.MsgPackTest;
-import Test.opensource.orgapachecommons.CollectionsCommons;
-import Test.opensource.orgapachecommons.CsvCommons;
-import Test.opensource.orgapachecommons.StringCommons;
-import Test.opensource.protobuf.ProtoBufTest;
-import Test.opensource.rabbitMQ.RabbitMQTest;
-import Test.opensource.redis.RedisTest;
-import Test.opensource.redis.RedissonTest;
-import Test.opensource.sqlite.SQLiteTest;
-import Test.opensource.zookeeper.ZooKeeperTest;
 import Test.test2018.*;
-import Test.test2019.HashCodeTest;
-import Test.test2019.MysqlTest;
-import Test.test2019.SemaphoreTest;
-import Test.test2019.SocketTcpTest;
-import Test.test2020.ByteBase64String;
-import Test.test2020.ByteConverterTest;
-import Test.test2020.ConcurrentHashMapTest;
-import Test.test2020.UDPTest;
-import Test.test2021.*;
-import Test.test2021.extendImplement.ExtendImplementTest;
-import utility.BigInterTest;
+import Test.test2021.HashMapSetTest;
+import Test.test2021.IOStreamTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 
 
 /*
@@ -134,6 +102,7 @@ public class Main {
             //  new  QueueTest().test();
 
 //               new  GenericTest().test();
+//            new  GenericsErasureTest().test();
 
             //endregion
 
@@ -239,7 +208,8 @@ public class Main {
 
 //            new PrimitiveTypeCacheTest().test();
 //            new CollectionTest().test();
-            new IOStreamTest().test();
+//            new IOStreamTest().test();
+            new HashMapSetTest().test();
 
             //endregion
 

@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /*
+泛型类型变量不能是基本数据类型，C#可以是基本数据类型
+
+
 泛型擦除：T-->object、上界(如果指定上界)、下界（如果指定下界）
 通配符?:用于类型变量。
 泛型：类型参数化
@@ -23,7 +26,7 @@ N - Number（数值类型）
 
 
 注：泛型方法： 参数类型的位置：C#放在方法后<T>,java放在访问修饰符后，返回类型前。  public <T> T funT(Class<T> clazz)
-   泛型类：和C3一样在类名后<T>
+   泛型类：和C#一样在类名后<T>
  */
 public class GenericTest {
 
