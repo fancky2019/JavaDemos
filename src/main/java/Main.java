@@ -1,7 +1,9 @@
 
 import Test.test2018.*;
+import Test.test2019.HashCodeTest;
 import Test.test2021.HashMapSetTest;
 import Test.test2021.IOStreamTest;
+import Test.test2021.designpattern.builder.BuilderTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -209,8 +211,9 @@ public class Main {
 //            new PrimitiveTypeCacheTest().test();
 //            new CollectionTest().test();
 //            new IOStreamTest().test();
-            new HashMapSetTest().test();
+//            new HashMapSetTest().test();
 
+            BuilderTest builderTest=new BuilderTest.BuilderTestBuilder().age(1).name("sdsd").builder();
             //endregion
 
             
