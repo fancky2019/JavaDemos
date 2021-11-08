@@ -12,5 +12,8 @@ public class JvmParamsTest {
     建议初始化堆的大小和最大堆的大小设置一致，减少GC
      */
 
+    /*
+    将对象设置为 null 只是栈中指向的引用为 null，但是 new 出来的对象还是存在于堆里面的，等待survior1 or survior2 满的时候 JVM 才会调用 GC 命令清除对应 survior 区的对象，将没有栈指向的对象给回收掉
+     */
 
 }

@@ -26,10 +26,42 @@ public class ConcurrentHashMapTest {
 
      */
     public void test() {
+       // Hashtable采用的是数组 + 链表，当链表过长会影响查询效率，而ConcurrentHashMap采用数组 + 链表 + 红黑树，当链表长度超过8，则将链表转成红黑树，提高查询效率。
+        /*
+        static class Node<K,V> implements Map.Entry<K,V> {
+        final int hash;
+        final K key;
+        volatile V val;
+        volatile Node<K,V> next;
+         */
+
+
+
         ConcurrentHashMap<Integer, Integer> map = new ConcurrentHashMap<>();
         Integer re = map.put(1, 2);//null
         //key 存在更新value
+
+
+        /*
+        1、table未初始化，先初始化
+        2、如果table[hashcode]==null,cas设置table[hashcode]=val
+        3、如果加入同时在扩容帮助转换（MOVED）
+        4、锁住table[hashcode]，
+          如果是链表 if (fh >= 0) 。   如果key相等，更新。否则添加到链表
+          注:该table表中该结点的hash值大于0，表明是链表 当转换为树之后，hash值为-2。fh = f.hash
+          如果是红黑树，直接添加到红黑树
+        5、 table[hashcode]的链表，如果链表长度超过8，这个位置的链表，转红黑树
+            扩容2倍。 int n = tab.length； new Node<?,?>[n << 1];
+         */
         re = map.put(1, 3);//2
+
+
+
+        /*
+        1、根据key的hashcode 找到table[]中node,
+        2、根据node的key如果等于当前的key，就返回node val,反之3.
+        3、如果node的key不等于当前的key，说明hash碰撞了，要遍历链表。从链表中找key等于当前key的node的val。
+         */
         Integer val = map.get(1);
 
 //        Object o=new Object();

@@ -17,10 +17,55 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+
 /*
+ *
+ * 用户数据报协议（UDP，User Datagram Protocol）
+ *
+ *
+ * UDP 包的大小就应该是 1500 - IP头(20) - UDP头(8) = 1472(Bytes)
+ * TCP 包的大小就应该是 1500 - IP头(20) - TCP头(20) = 1460 (Bytes)
+ * MTU:1500,分片，组包
+ * UPD:于Internet(非局域网)上的标准MTU值为576字节，最好548字节 (576-8-20)以内。
+ */
+/*
+
+子网:向主机位借位作为网络位。子网划分是为了解决网络IP不够用的情况，向主机位借位
+子网内主机数（可用）=2的x次方-2（x是主机号的位数）  注意：全0的网络地址和全1的主机地址 两个地址去掉
+子网内主机个数：n位主机位 2的n次方
+子网掩码:用来区分地址中有没有子网号的,IP地址与子网掩码相与，得出的就是网络地址；子网掩码=网络号和子网号用1表示，主机号用零表示，
+
+广播地址：主机号全部为1的地址是子网广播地址，如：192.168.1.255 ；
+网络地址：主机位全是0
+子网地址：网络地址+借主机位和剩余主机位全是0
+
+
+主机号全0是网络地址,网络地址+1是第1个主机地址,主机号全1是广播地址.广播地址-1是最后的主机地址.
+
+
+
+
+传输控制协议（TCP，Transmission Control Protocol)
+
+
 TCP:ServerSocket、Socket
 UDP：Test.test2020; UDPTest DatagramSocket DatagramPacket
 MTU:1500 byte
+
+
+
+
+
+UDP没有发送缓冲区，只有接收缓冲区，如果处理跟不上接收将丢包。
+TCP有发送接收缓冲区，滑动窗口，流控，拥塞控制
+
+
+
+
+
+
+
+
 
 
 按照流的方向分为输入流（InputStream）与输出流(outputStream)：

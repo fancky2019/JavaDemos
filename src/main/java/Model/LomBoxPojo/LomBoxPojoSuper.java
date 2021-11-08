@@ -23,9 +23,7 @@ EqualsAndHashCode实则就是在比较两个对象的属性；
 不需要编译其他类就可以访问到getter、setter
  */
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * @Auther fancky
@@ -37,5 +35,8 @@ import lombok.Setter;
 //或者只用
 //@Getter
 //@Setter
-public class LomboxPojoSuper {
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@Builder//有问题
+public class LomBoxPojoSuper {
 }

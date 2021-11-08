@@ -265,6 +265,7 @@ public class ThreadTest {
 
         // 4个线程池差异看源码ThreadPoolExecutor实例的参数
         ExecutorService executorService = Executors.newCachedThreadPool();
+        //submit() 返回一个 Future<T> 而execute()没有返回值
         executorService.execute(() ->
         {
             doWork();
@@ -283,6 +284,8 @@ public class ThreadTest {
     //region futureTask
     private void futureTask() throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();
+
+        //submit() 返回一个 Future<T> 而execute()没有返回值
         //C#里的IAsyncResult 轮询执行原理一样
         Future<Integer> future = executorService.submit(() ->
         {

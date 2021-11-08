@@ -1,6 +1,10 @@
 
 import Test.test2018.*;
+import Test.test2019.AtomicIntegerTest;
+import Test.test2019.AtomicMarkableReferenceTest;
+import Test.test2019.AtomicStampedReferenceTest;
 import Test.test2019.HashCodeTest;
+import Test.test2020.UDPTest;
 import Test.test2021.HashMapSetTest;
 import Test.test2021.IOStreamTest;
 import Test.test2021.designpattern.builder.BuilderTest;
@@ -108,6 +112,8 @@ public class Main {
 
             //endregion
 
+
+
             //region test2019
             //    new TryCatchFinallyReturnTest().test();
             //  new  ProxyTest().test();
@@ -144,6 +150,9 @@ public class Main {
 //            new KafkaTest().test();
 //            new SemaphoreTest().test();
 //            new AtomicIntegerTest().test();
+//            new AtomicStampedReferenceTest().test();
+//            new AtomicMarkableReferenceTest().test();
+
 //              new VolatileTest().test();
 
 //            new BlockingQueueTest().delayQueueFun();
@@ -164,7 +173,7 @@ public class Main {
 
 //            new ClassCastTest().test();
 
-//            new UDPTest().test();
+            new UDPTest().test();
 //            new ParallelTest().test();
 //            new StopwatchTest().test();
 
@@ -213,7 +222,7 @@ public class Main {
 //            new IOStreamTest().test();
 //            new HashMapSetTest().test();
 
-            BuilderTest builderTest=new BuilderTest.BuilderTestBuilder().age(1).name("sdsd").builder();
+//            BuilderTest builderTest=new BuilderTest.BuilderTestBuilder().age(1).name("sdsd").builder();
             //endregion
 
             

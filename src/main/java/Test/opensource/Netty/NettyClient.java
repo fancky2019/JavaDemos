@@ -16,6 +16,12 @@ import io.netty.handler.timeout.IdleStateHandler;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+/*
+netty线程模型：reactor:Nio 异步事件驱动的线程模型。避免每个socket连接占用一个线程。Reactor 单线程模型-->多线程模型-->主从多线程模型
+
+主从多线程模型：Reactor分成两部分，mainReactor负责监听server socket，accept新连接；并将建立的socket分派给subReactor。
+                              subReactor负责多路分离已连接的socket，读写网络数据，对业务处理功能，其扔给worker线程池完成。通常，subReactor个数上可与CPU个数等同
+ */
 public class NettyClient {
 
     public void test() {
@@ -35,6 +41,9 @@ public class NettyClient {
     void run() throws Exception {
         String host = "localhost";
         int port = 9310;
+        /*
+        Selector作为多路复用器，EventLoop作为转发器，Pipeline作为事件处理器。
+         */
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap(); // (1)

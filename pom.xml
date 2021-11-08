@@ -126,7 +126,6 @@
         </dependency>
 
 
-
         <!--          log4j2-->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -145,7 +144,7 @@
             <artifactId>disruptor</artifactId>
             <version>3.4.2</version>
         </dependency>
-       <!--        log4j2邮件-->
+        <!--        log4j2邮件-->
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
@@ -156,13 +155,6 @@
             <artifactId>javax.mail</artifactId>
             <version>1.5.4</version>
         </dependency>
-
-
-
-
-
-
-
 
 
         <!--对象二进制序列化-->
@@ -279,7 +271,7 @@
         </dependency>
 
 
-<!--        org.apache.commons-->
+        <!--        org.apache.commons-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -298,6 +290,14 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
             <version>1.8</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.0.1-jre</version>
         </dependency>
 
 
