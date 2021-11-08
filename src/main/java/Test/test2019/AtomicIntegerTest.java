@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AtomicIntegerTest {
     public void test() {
         AtomicInteger atomicInteger1 = new AtomicInteger(0);
-
+//        atomicInteger1.set(1);
         boolean re = atomicInteger1.compareAndSet(0, 1);
         atomicInteger1.compareAndSet(1, 0);
         atomicInteger1.incrementAndGet();
@@ -70,5 +70,8 @@ public class AtomicIntegerTest {
 //        atomicInteger.compareAndSet(1, 0);
 // 其实不用比较，此方法只有在获取锁的块内调用
         atomicInteger.set(0);
+
+        //获取值
+//        atomicInteger.get();
     }
 }

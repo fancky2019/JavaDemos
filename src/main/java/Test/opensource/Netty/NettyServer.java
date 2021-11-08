@@ -10,6 +10,16 @@ import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
+
+/*
+netty线程模型：reactor:Nio 异步事件驱动的线程模型。避免每个socket连接占用一个线程。Reactor 单线程模型-->多线程模型-->主从多线程模型
+
+主从多线程模型：Reactor分成两部分，mainReactor负责监听server socket，accept新连接；并将建立的socket分派给subReactor。
+                              subReactor负责多路分离已连接的socket，读写网络数据，对业务处理功能，其扔给worker线程池完成。通常，subReactor个数上可与CPU个数等同
+
+
+（一）、ByteBuf读写指针。直接内存
+ */
 public class NettyServer {
     private int port;
 
@@ -27,6 +37,12 @@ public class NettyServer {
 
 
     public void run() throws Exception {
+          /*
+            netty组件：
+            Selector作为多路复用器
+            EventLoop作为事件转发器
+            Pipeline作为事件处理器。
+         */
         EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -37,6 +53,7 @@ public class NettyServer {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
 
+                            //事情处理器
                             ChannelPipeline channelPipeline = ch.pipeline();
 
 

@@ -131,6 +131,7 @@ public class DelayRetryConsumer {
 
     public long getRetryCount(AMQP.BasicProperties properties) {
         long retryCount = 0L;
+        //在头部自定义一些信息，类似http的请求头
         Map<String, Object> header = properties.getHeaders();
         if (header != null && header.containsKey("x-death")) {
             List<Map<String, Object>> deaths = (List<Map<String, Object>>) header.get("x-death");

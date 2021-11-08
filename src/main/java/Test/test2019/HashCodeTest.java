@@ -3,6 +3,7 @@ package Test.test2019;
 import Model.Student;
 import Test.test2018.SetTest;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,8 +21,8 @@ JAVA 要求同一对象必须要有相同的hashCode，如果hashCode不同也�
  */
 public class HashCodeTest {
     public void test() {
-
-        getHashCode();
+        primaryTypeHashCode();
+//        getHashCode();
 //        hashSetSameHashCode();
 //        hashMapSameHashCode();
     }
@@ -115,5 +116,33 @@ public class HashCodeTest {
         hashMap1.put(1, student222);
         Student stu = hashMap.get(student111);
         Student stu1 = hashMap.get(student111);
+    }
+
+
+    private void primaryTypeHashCode() {
+        Integer int1 = 150;
+        int intHashCode = int1.hashCode();//Integer类型的value
+        int intHashCode1 = Objects.hashCode(int1);
+
+        Long long1 = 160L;
+        int longHashCode = long1.hashCode();//Long类型的value
+
+        Character character = 'c';
+        int characterHashCode = character.hashCode();//Character.hashCode(value); ASCII值
+
+        Boolean boolean1 = false;
+        int booleanIntHashCode1 = boolean1.hashCode();//Boolean.hashCode(value); return value ? 1231 : 1237;
+
+
+        String str = "asc";
+        int strHashCode = str.hashCode();//Character的运算和。
+        //object hashcode  31+原始类型hashcode值
+        //变长参数可以隐士转换成数组
+        Object[] obj = {int1};
+        int hashcodeArray = Arrays.hashCode(obj);
+
+
+        int m = 0;
+
     }
 }

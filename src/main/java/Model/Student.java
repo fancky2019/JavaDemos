@@ -94,6 +94,7 @@ public class Student extends StudentParent implements StudentInterface {
      */
     @Override
     public int hashCode() {
+        //变长参数可以隐士转换成数组
         return Objects.hash(name, age);
     }
 

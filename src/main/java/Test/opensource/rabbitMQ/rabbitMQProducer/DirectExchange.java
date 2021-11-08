@@ -82,6 +82,7 @@ public class DirectExchange {
                 message = JSONObject.toJSONString(student);
 
 
+                //在头部自定义一些信息，类似http的请求头
                 Map<String, Object> headers = new HashMap<String, Object>();
                 headers.put("my1", "1111");
                 headers.put("my2", "2222");
