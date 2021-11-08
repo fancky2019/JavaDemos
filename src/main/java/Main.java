@@ -1,4 +1,5 @@
 
+import Test.opensource.ratelimiter.RateLimiterTest;
 import Test.test2018.*;
 import Test.test2019.AtomicIntegerTest;
 import Test.test2019.AtomicMarkableReferenceTest;
@@ -173,7 +174,7 @@ public class Main {
 
 //            new ClassCastTest().test();
 
-            new UDPTest().test();
+//            new UDPTest().test();
 //            new ParallelTest().test();
 //            new StopwatchTest().test();
 
@@ -223,6 +224,8 @@ public class Main {
 //            new HashMapSetTest().test();
 
 //            BuilderTest builderTest=new BuilderTest.BuilderTestBuilder().age(1).name("sdsd").builder();
+            new RateLimiterTest().test();
+
             //endregion
 
             
