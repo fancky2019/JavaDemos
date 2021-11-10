@@ -7,8 +7,8 @@ public enum MessageEnum {
     HEART_BEAT(0, "心跳"),
     DATA(1, "数据");
 
-    private int value;
-    private String description;
+    private final int value;
+    private final String description;
 
     MessageEnum(int value, String description) {
         this.value = value;
