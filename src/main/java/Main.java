@@ -6,6 +6,7 @@ import Test.test2019.AtomicMarkableReferenceTest;
 import Test.test2019.AtomicStampedReferenceTest;
 import Test.test2019.HashCodeTest;
 import Test.test2020.UDPTest;
+import Test.test2021.EnumJacksonTest;
 import Test.test2021.HashMapSetTest;
 import Test.test2021.IOStreamTest;
 import Test.test2021.designpattern.builder.BuilderTest;
@@ -224,7 +225,8 @@ public class Main {
 //            new HashMapSetTest().test();
 
 //            BuilderTest builderTest=new BuilderTest.BuilderTestBuilder().age(1).name("sdsd").builder();
-            new RateLimiterTest().test();
+//            new RateLimiterTest().test();
+            new EnumJacksonTest().test();
 
             //endregion
 
