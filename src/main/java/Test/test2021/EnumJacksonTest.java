@@ -4,6 +4,7 @@ import Model.MessageEnum;
 import Test.opensource.Netty.MessageInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.msgpack.jackson.dataformat.MessagePackFactory;
 
 public class EnumJacksonTest {
 
@@ -14,7 +15,7 @@ public class EnumJacksonTest {
 
     private void fun() {
         MessageEnum messageEnum = MessageEnum.DATA;
-
+//        ObjectMapper objectMapper = new ObjectMapper(new MessagePackFactory());
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             String jsonStr = objectMapper.writeValueAsString(messageEnum);
