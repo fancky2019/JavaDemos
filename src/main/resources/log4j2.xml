@@ -20,7 +20,7 @@
 
         <smtp name="Mail" subject="Error Log" to="709737588@qq.com,517312606@qq.com" from="1513918351@qq.com"
               replyTo="1513918351@qq.com" smtpHost="smtp.qq.com"  smtpDebug="false" smtpProtocol="smtps"
-              smtpUsername="1513918351@qq.com" smtpPassword="ipxczauxtutggecb" smtpPort="465" bufferSize="1024">
+              smtpUsername="1513918351@qq.com" smtpPassword="ifxoxskborkojeea" smtpPort="465" bufferSize="1024">
               <!--定义error级别日志才发-->
             <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
 		</smtp>

@@ -38,10 +38,17 @@ public class Log4J2Test {
 
     2、配置qq邮箱。开启POP3/SMTP服务
 
-     邮箱--设置--POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务--开启服务：
+     邮箱--设置--账号--POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务--开启服务：
      POP3/SMTP服务 (如何使用 Foxmail 等软件收发邮件？)已开启 |  关闭
-
+     注：过一段时间密码可能失效
     3、
+
+    如果使用端口为465，将protocol的smtp改为smtps
+    将配置文件端口改为587，则可以使用smtp。
+    均为SSL连接端口，因为qq不支持非SSL端口。
+    以下是配置文件，重点在于protocal（视端口而定）和开启SSL（必须）
+
+
     smtpHost="smtp.qq.com"
     smtpPassword="ipxczauxtutggecb" 开通smtp服务的授权码
             <smtp name="Mail" subject="Error Log" to="709737588@qq.com,517312606@qq.com" from="1513918351@qq.com"
