@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
  *
  *
  * redis 高可用：redis 主从、redis sentinel、 redis cluster 。
- *
+ * mysql 高可用：一主两从、一主多从或者多主多从的集群。
  * redis cluster :解决sentinel扩容问题。hash槽算法集群分片存储。每个节点都有自己的至少一个从节点，
  * 若有一个节点的主从都宕机，集群就不可用。每个节点保存其他节点的主从配置信息，主节点不可用就切换从节点同事更新配置。
  *
