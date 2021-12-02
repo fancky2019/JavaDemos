@@ -10,6 +10,19 @@ import java.util.concurrent.CompletableFuture;
  * rabbitMQ集群采用镜像模式
  */
 public class RabbitMQTest {
+
+
+    /*
+     rabbitMQ集群：https://www.cnblogs.com/lonely-wolf/p/14397704.html
+
+    元数据:指的是包括队列名字属性、交换机的类型名字属性、绑定信息、vhost等基础信息，不包括队列中的消息数据。
+    集群主要有两种模式：普通集群模式和镜像队列模式。
+                   普通集群：各节点只存储相同的元数据，消息存在于不同节点。消费消息只能从一个节点读取，消息则从存储的节点转发到读取的节点机器。
+                            如果一个节点宕机则消息无法消费，只能等待重启，且消息磁盘持久化。
+                   镜像队列模式：各个节点保存相同的元数据和消息。类似redis主从模式。由于各节点同步会消耗带宽。
+                              搭建： HAProxy + Keepalived 高可用集群
+     */
+
     public void test() {
 
         //消费者
