@@ -22,6 +22,29 @@ import java.util.concurrent.TimeUnit;
  * MSSQL:demo2018 JDBCTest
  */
 public class MysqlTest {
+
+     //* mysql 高可用：主从方式：一主两从、一主多从或者多主多从的集群。
+    /*
+     读写分离：
+     客户端解决方案（应用层）：TDDL、 Sharding-Jdbc (常用shardding-jdbc)
+      中间件解决方案（代理层）：mysql proxy、mycat、altas  (常用mycat)
+
+      MySQL主从复制的原理：异步复制、半同步复制、并行复制
+      https://blog.csdn.net/litianxiang_kaola/article/details/105160469?utm_medium=distribute.wap_relevant_download.none-task-blog-blogcommendfrombaidu-2.nonecase&depth_1-utm_source=distribute.wap_relevant_download.none-task-blog-blogcommendfrombaidu-2.nonecase
+
+
+
+     */
+
+
+
+
+
+
+
+
+
+
     private static final Logger logger = LogManager.getLogger(MysqlTest.class);
 
     public void test() {
