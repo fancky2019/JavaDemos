@@ -11,6 +11,8 @@ import java.util.concurrent.CompletableFuture;
 /**
  * 将全局变量设置为  ThreadLocal，可达到多线程访问同步的效果。
  * 空间换时间
+ *
+ * 避免加锁用ThreadLocal
  */
 public class ThreadLocalTest {
 

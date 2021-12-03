@@ -22,6 +22,8 @@ import java.util.function.Supplier;
  * sleep()和wait()  区别
  * sleep()方法导致了程序暂停执行指定的时间,让出cpu该其他线程,但是他的监控状态依然保持者,当指定的时间到了又会自动恢复...
  * .最主要是sleep方法没有释放锁,而wait方法释放了锁,使得其他线程可以使用同步控制块
+ *
+ * 避免加锁用ThreadLocal
  */
 public class ThreadTest {
 
