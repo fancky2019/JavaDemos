@@ -4,6 +4,7 @@ import Model.Student;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class SetTest {
@@ -58,47 +59,6 @@ peek，element区别：
 
     private void sets() {
 
-        //region hashMap <Key,Value> --->c# Dictionary
-        //hashMap <Key,Value>
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        map.put("key1", 1);
-        //如果添加了重复的Key,后面添加的KeyValue会更新之前添加的
-        map.put("key1", 2);//Value=2
-        map.put("key3", 3);
-        Map<String, Integer> map1 = new HashMap<String, Integer>();
-        map1.put("key1", 2);
-        map1.put("key2", 2);
-        //取值
-        Integer val = map1.get("key2");
-        //删除
-        map1.remove("key2");
-        //Key存在一样的，值会被更新
-        map.putAll(map1);
-        //遍历方式一：遍历Key
-        for (String key : map.keySet()) {
-            //通过key 获取值,获取方式类似List根据索引获取item
-            Integer value = map.get(key);
-        }
-        //遍历方式二：遍历Value
-        for (Integer value : map.values()) {
-
-        }
-
-        //遍历方式三：遍历entrySet
-        Iterator<Map.Entry<String, Integer>> iterator = map.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, Integer> entry = iterator.next();
-            String key = entry.getKey();//获取Key
-            Integer value = entry.getValue();//获取Value
-        }
-        //foreach: 实体遍历
-        for (Map.Entry<String, Integer> m : map.entrySet()) {
-            System.out.println("key:" + m.getKey() + " value:" + m.getValue());
-        }
-
-
-        //endregion
-
         //region List--->C# List
         //list
         //类型不能使基础类型,可以使用包装器。
@@ -140,7 +100,51 @@ peek，element区别：
         }
         //endregion
 
-        //region HashSet
+        //region HashTable 线程安全性能差
+        //endregion
+
+        //region hashMap <Key,Value> --->c# Dictionary
+        //hashMap <Key,Value>
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        map.put("key1", 1);
+        //如果添加了重复的Key,后面添加的KeyValue会更新之前添加的
+        map.put("key1", 2);//Value=2
+        map.put("key3", 3);
+        Map<String, Integer> map1 = new HashMap<String, Integer>();
+        map1.put("key1", 2);
+        map1.put("key2", 2);
+        //取值
+        Integer val = map1.get("key2");
+        //删除
+        map1.remove("key2");
+        //Key存在一样的，值会被更新
+        map.putAll(map1);
+        //遍历方式一：遍历Key
+        for (String key : map.keySet()) {
+            //通过key 获取值,获取方式类似List根据索引获取item
+            Integer value = map.get(key);
+        }
+        //遍历方式二：遍历Value
+        for (Integer value : map.values()) {
+
+        }
+
+        //遍历方式三：遍历entrySet
+        Iterator<Map.Entry<String, Integer>> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, Integer> entry = iterator.next();
+            String key = entry.getKey();//获取Key
+            Integer value = entry.getValue();//获取Value
+        }
+        //foreach: 实体遍历
+        for (Map.Entry<String, Integer> m : map.entrySet()) {
+            System.out.println("key:" + m.getKey() + " value:" + m.getValue());
+        }
+
+
+        //endregion
+
+        //region HashSet 红黑树
         HashSet<Integer> hashSet = new HashSet<Integer>();
         hashSet.add(2);
         hashSet.add(1);
@@ -154,7 +158,8 @@ peek，element区别：
         }
         //endregion
 
-        //region TreeSet
+        //region TreeSet 实现SortedMap 非线程安全
+        //默认的排序是根据key值进行升序排序，也可以重写comparator方法来根据value进行排序。
         TreeSet<Integer> treeSet = new TreeSet<Integer>();
         treeSet.add(3);
         treeSet.add(2);
@@ -181,6 +186,29 @@ peek，element区别：
         });
         //endregion
 
+        //region LinkedHashMap
+        LinkedHashMap<String, Integer> linkedHashMap = new LinkedHashMap<String, Integer>();
+        linkedHashMap.put("key1", 1);
+        //如果添加了重复的Key,后面添加的KeyValue会更新之前添加的
+        linkedHashMap.put("key1", 2);//Value=2
+        linkedHashMap.put("key3", 3);
+        //endregion
+
+        //region ConcurrentHashMap
+        //endregion
+
+        //region ConcurrentSkipListMap
+        // ConcurrentNavigableMap是基于SkipList跳跃表实现的线程安全的NavigableMap实现类
+
+        //TreeMap 、TreeSet
+        //endregion
+
+        //region ConcurrentSkipListSet
+
+
+        //ConcurrentSkipListSet是通过ConcurrentSkipListMap实现的，而TreeSet是通过TreeMap实现的。
+
+        //endregion
     }
 
     private void getListObjectProperty() {
