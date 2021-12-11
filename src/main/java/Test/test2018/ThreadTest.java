@@ -39,7 +39,7 @@ public class ThreadTest {
 
 
             //   functionBlockingQueue();
-            // threadPool();
+             threadPool();
 
 
 //            threadException();
@@ -69,7 +69,7 @@ public class ThreadTest {
 
 //            threadState();
 
-
+//            completableFutureDemo();
             Integer n = 1;
             //whenComplete();
         } catch (Exception ex) {
@@ -265,7 +265,23 @@ public class ThreadTest {
     //region  threadPool
     public void threadPool() throws Exception {
 
+        int N_CPUS = Runtime.getRuntime().availableProcessors();
+        /*
+        cpu 密集型：N_CPUS+1
+        io密集型：N_CPUS*2
+         */
+
+
+
+
         // 4个线程池差异看源码ThreadPoolExecutor实例的参数
+
+        /*newCachedThreadPool:使用默认，如果短时间高并发会创建大量线程
+        SynchronousQueue是无界的，是一种无缓冲的等待队列，但是由于该Queue本身的特性，
+        在某次添加元素后必须等待其他线程取走后才能继续添加；可以认为SynchronousQueue是一个缓存值为1的阻塞队列，
+        但是 isEmpty()方法永远返回是true，remainingCapacity() 方法永远返回是0，remove()和removeAll()
+        方法永远返回是false，iterator()方法永远返回空，peek()方法永远返回null。
+         */
         ExecutorService executorService = Executors.newCachedThreadPool();
         //submit() 返回一个 Future<T> 而execute()没有返回值
         executorService.execute(() ->
@@ -307,10 +323,12 @@ public class ThreadTest {
     private CompletableFuture<Integer> completableFutureDemo() {
         try {
 
+            //不指定线程池。内部采用 ForkJoinPool.makeCommonPool()
             //CompletableFuture 内部默认最多启动处理器个数 -1 个线程执行任务。
             CompletableFuture.runAsync(() ->
             {
             });
+
 
 
             // 指定Executor， CompletableFuture 内部创建 Integer.MAX_VALUE个线程
