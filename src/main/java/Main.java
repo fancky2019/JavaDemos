@@ -1,6 +1,7 @@
 
 import Test.opensource.ratelimiter.RateLimiterTest;
 import Test.test2018.*;
+import Test.test2018.ThreadTest;
 import Test.test2019.AtomicIntegerTest;
 import Test.test2019.AtomicMarkableReferenceTest;
 import Test.test2019.AtomicStampedReferenceTest;
@@ -54,7 +55,7 @@ public class Main {
 //        person.getName();
 //
             // new SetTest().test();
-//               new ThreadTest().test();
+               new ThreadTest().test();
 
 //            new CalendarTest().test();
 
@@ -218,7 +219,7 @@ public class Main {
 //            new MathTest().test();
 
 //            new PrimitiveTypeCacheTest().test();
-            new CollectionTest().test();
+//            new CollectionTest().test();
 //            new IOStreamTest().test();
 //            new HashMapSetTest().test();
 

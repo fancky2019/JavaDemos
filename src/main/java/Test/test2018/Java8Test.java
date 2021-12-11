@@ -268,6 +268,16 @@ public class Java8Test {
         //方法引用就是lambda表达式的简写。
         //方法应用的原型必须和函数接口相匹配。
         //函数接口就当成C#里的委托用。
+
+
+       /*
+        Consumer<T> :一入，返回void
+        Supplier<T> ：无入，一出
+        Predicate<T> :一入，返回bool
+        Function<T, R> :一入一出
+       */
+
+        //一个入参，无返回
         Consumer<String> consumer1 = (s) ->
         {
             String s1 = "abc";
@@ -277,6 +287,8 @@ public class Java8Test {
         consumer1.accept("123");
         Consumer<String> consumer = System.out::println;
         consumer.accept("abc");
+
+        //一入一出
         //报错
 //        Function<Integer,String> function1=functionMethod;
         //方法应用的原型必须和函数接口相匹配。
@@ -287,7 +299,7 @@ public class Java8Test {
         function2.apply(function);
 
 
-        //
+        //无入参，一个返回
         Supplier<Java8Test> supplier = Java8Test::new;
         Java8Test java8Test = supplier.get();
 
