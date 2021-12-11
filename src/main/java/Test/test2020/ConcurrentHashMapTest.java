@@ -2,6 +2,9 @@ package Test.test2020;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+/*
+遍历参见：Test.test2021.CollectionTest
+ */
 public class ConcurrentHashMapTest {
 
     /*
@@ -53,11 +56,13 @@ public class ConcurrentHashMapTest {
         5、 table[hashcode]的链表，如果链表长度超过8，这个位置的链表，转红黑树
             扩容2倍。 int n = tab.length； new Node<?,?>[n << 1];
          */
-        re = map.put(1, 3);//2
+        re = map.put(1, 3);//2,返回之前key，对应的值
 
+        //没有更新，插入相同的key就更新之前的key的value
 
 
         /*
+        volatile V val;
         1、根据key的hashcode 找到table[]中node,
         2、根据node的key如果等于当前的key，就返回node val,反之3.
         3、如果node的key不等于当前的key，说明hash碰撞了，要遍历链表。从链表中找key等于当前key的node的val。
@@ -68,6 +73,19 @@ public class ConcurrentHashMapTest {
 //        o.wait();
 
 
+    }
+
+    private  void  funKeys()
+    {
+        ConcurrentHashMap<Integer, Integer> map = new ConcurrentHashMap<>();
+        Integer re = map.put(1, 2);//null
+        re = map.put(2, 3);
+
+        map.forEach((m,n)->
+        {
+            Object o=m;
+            int p=0;
+        });
     }
 
 

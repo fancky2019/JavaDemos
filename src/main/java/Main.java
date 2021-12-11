@@ -6,10 +6,7 @@ import Test.test2019.AtomicMarkableReferenceTest;
 import Test.test2019.AtomicStampedReferenceTest;
 import Test.test2019.HashCodeTest;
 import Test.test2020.UDPTest;
-import Test.test2021.EnumJacksonTest;
-import Test.test2021.HashMapSetTest;
-import Test.test2021.IOStreamTest;
-import Test.test2021.Log4J2Test;
+import Test.test2021.*;
 import Test.test2021.designpattern.builder.BuilderTest;
 
 import java.io.BufferedReader;
@@ -212,7 +209,7 @@ public class Main {
 //            new StringJoinerTest().test();
 //            new RandomTest().test();
 
-            new Log4J2Test().test();
+//            new Log4J2Test().test();
 //            new CountdownLatchTest().test();
 //            new CompletableFutureTest().test();
 //            new LockSupportTest().test();
@@ -221,7 +218,7 @@ public class Main {
 //            new MathTest().test();
 
 //            new PrimitiveTypeCacheTest().test();
-//            new CollectionTest().test();
+            new CollectionTest().test();
 //            new IOStreamTest().test();
 //            new HashMapSetTest().test();
 

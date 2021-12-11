@@ -1,9 +1,21 @@
 package Test.test2021;
 
+import org.checkerframework.checker.units.qual.K;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+/*
+泛型如果不指定类型参数，其类型就是object类型。C#里必须要指定类型参数
+E - Element (在集合中使用，因为集合中存放的是元素)
+T - Type（Java 类）
+R - Return
+K - Key（键）
+V - Value（值）
+N - Number（数值类型）
+？ - 表示不确定的java类型
+ */
 public class CollectionTest {
     public void test() {
         fun();
@@ -11,6 +23,13 @@ public class CollectionTest {
 
     private void fun() {
 
+
+        /*
+            // views
+            private transient KeySetView<K,V> keySet;
+            private transient ValuesView<K,V> values;
+            private transient EntrySetView<K,V> entrySet;
+         */
         HashMap<String, String> hashMap = new LinkedHashMap<>();
         HashMap<String, String> hashMap1 = new HashMap<>();
         ConcurrentHashMap<String, String> concurrentHashMap = new ConcurrentHashMap<>();
@@ -18,6 +37,15 @@ public class CollectionTest {
         concurrentHashMap.put("key2", "value2");
         concurrentHashMap.put("key3", "value3");
         concurrentHashMap.get("key1");
+
+
+        //key 集合
+        ConcurrentHashMap.KeySetView<String, String> keySet= concurrentHashMap.keySet();
+        //value 集合
+        Collection<String> valuesView= concurrentHashMap.values();
+        concurrentHashMap.keys();
+
+
 
         concurrentHashMap.forEach((k, v) ->
         {
@@ -47,6 +75,8 @@ public class CollectionTest {
             String value = entry.getValue();
             int m = 0;
         }
+
+
         // Collection<V> 转list
         //存的时候偶是object 取得时候根据类型强制转换。不像C#内部存储的就是T[]泛型数组
         ArrayList<String> arrayList = new ArrayList<>(concurrentHashMap.values());
