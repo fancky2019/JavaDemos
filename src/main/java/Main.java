@@ -55,7 +55,7 @@ public class Main {
 //        person.getName();
 //
             // new SetTest().test();
-               new ThreadTest().test();
+//               new ThreadTest().test();
 
 //            new CalendarTest().test();
 
@@ -226,6 +226,7 @@ public class Main {
 //            BuilderTest builderTest=new BuilderTest.BuilderTestBuilder().age(1).name("sdsd").builder();
 //            new RateLimiterTest().test();
 //            new EnumJacksonTest().test();
+            new SynchronousQueueTest().test();
 
             //endregion
 
