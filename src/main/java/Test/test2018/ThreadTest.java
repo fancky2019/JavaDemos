@@ -289,6 +289,24 @@ public class ThreadTest {
             doWork();
         });
 
+        ExecutorService   cachedThreadPool
+                = new ThreadPoolExecutor(
+                Runtime.getRuntime().availableProcessors()-1,
+                Runtime.getRuntime().availableProcessors() * 2,
+                0,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>());//LinkedBlockingQueue:默认容量Integer.MAX_VALUE
+
+
+        ExecutorService   cachedThreadPool1
+                = new ThreadPoolExecutor(
+                Runtime.getRuntime().availableProcessors()-1,
+                Runtime.getRuntime().availableProcessors() * 2,
+                0,
+                TimeUnit.MILLISECONDS,
+                new ArrayBlockingQueue<>(Integer.MAX_VALUE));
+
+
 
         //定长线程个数
         ExecutorService SynchronousQueue1 = Executors.newFixedThreadPool(10);

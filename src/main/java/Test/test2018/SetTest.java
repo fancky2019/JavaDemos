@@ -144,7 +144,7 @@ peek，element区别：
 
         //endregion
 
-        //region HashSet 红黑树
+        //region HashSet  底层hashmap  哈希表
         HashSet<Integer> hashSet = new HashSet<Integer>();
         hashSet.add(2);
         hashSet.add(1);
@@ -156,9 +156,27 @@ peek，element区别：
             Integer str = hsIterator.next();
             Integer n = 0;
         }
+
+        //取值一
+        Iterator<Integer> iterator1 = hashSet.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
+
+        //取值二
+        for (Integer value : hashSet) {
+            System.out.println(value);
+        }
+
+        //取值三
+        hashSet.forEach(p->
+        {
+
+        });
         //endregion
 
-        //region TreeSet 实现SortedMap 非线程安全
+        //region TreeSet 实现SortedMap 非线程安全 红黑树
+        //TreeSet 底层是通过 TreeMap 来实现的（如同HashSet底层是是通过HashMap来实现的一样），因此二者的实现方式完全一样。而 TreeMap 的实现就是红黑树算法。
         //默认的排序是根据key值进行升序排序，也可以重写comparator方法来根据value进行排序。
         TreeSet<Integer> treeSet = new TreeSet<Integer>();
         treeSet.add(3);
