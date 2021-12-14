@@ -58,17 +58,8 @@ public class Main {
 //               new ThreadTest().test();
 
 //            new CalendarTest().test();
+            new ReferenceTest().test();
 
-//            ReferenceTest referenceTest=new ReferenceTest();
-//            String str="123";
-//            referenceTest.stringReference(str);
-//
-//            Student student=new Student();
-//            student.setName("li");
-//            student.setAge(1);
-//
-//            referenceTest.classParam(student);
-//            Student returnObj=referenceTest.changeObj(student);
             //  new SetTest().test();
 
             //  new FileTest().test();
@@ -226,7 +217,8 @@ public class Main {
 //            BuilderTest builderTest=new BuilderTest.BuilderTestBuilder().age(1).name("sdsd").builder();
 //            new RateLimiterTest().test();
 //            new EnumJacksonTest().test();
-            new SynchronousQueueTest().test();
+//            new SynchronousQueueTest().test();
+//            new StringBufferTest().test();
 
             //endregion
 

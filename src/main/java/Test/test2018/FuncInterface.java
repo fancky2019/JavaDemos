@@ -5,6 +5,8 @@ package Test.test2018;
 //函数式接口一般用注解@FunctionalInterface标注。
 //该注解可有可无
 
+import javax.management.loading.PrivateClassLoader;
+
 @FunctionalInterface
 public interface FuncInterface {
 
@@ -36,4 +38,11 @@ public interface FuncInterface {
     static String staticFun() {
         return "ddd";
     }
+
+    //Java 9
+//    private void fun()
+//    {
+//
+//    }
+
 }

@@ -2,12 +2,10 @@ package Test.test2019;
 
 import Model.Student;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 
 /*
+哈希表（散列表）
 hashcode 生成见实体类Student
 
  HashCode 用于散列表存储的如HashMap、HashSet等set集合。
@@ -17,6 +15,19 @@ hashcode 生成见实体类Student
 如果不重写hashCode，则返回的是对象的内存地址。
 
 JAVA 要求同一对象必须要有相同的hashCode，如果hashCode不同也不报错。
+ */
+
+
+/*
+
+hashcode只在散列表中起作用
+
+hashCode（）与 equals（）的相关规定
+如果两个对象相等，则 hashcode 一定也是相同的
+两个对象相等,对两个对象分别调用 equals 方法都返回 true
+两个对象有相同的 hashcode 值，它们也不一定是相等的
+因此，equals 方法被覆盖过，则 hashCode 方法也必须被覆盖
+hashCode() 的默认行为是对堆上的对象产生独特值。如果没有重写 hashCode()，则该 class 的两个对象无论如何都不会相等（即使这两个对象指向相同的数据）
  */
 public class HashCodeTest {
     public void test() {
@@ -42,6 +53,25 @@ public class HashCodeTest {
 
         HashSet<Student> hashSet = new HashSet<Student>();
         hashSet.add(student);
+
+        //取值一
+        Iterator<Student> it = hashSet.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
+
+        //取值二
+        for (Student value : hashSet) {
+            System.out.println(value);
+        }
+
+        //取值三
+        hashSet.forEach(p->
+        {
+
+        });
+
+
         try {
             Thread.sleep(2000);
         } catch (Exception ex) {
@@ -51,6 +81,9 @@ public class HashCodeTest {
         Integer m = 0;
     }
 
+    /*
+    可以添加进去，内部是hashmap,E作为hashmap的key
+     */
     private void hashSetSameHashCode() {
         HashSet<Student> hashSet = new HashSet<Student>();
         Student student1 = new Student("fancky", 32);
@@ -65,7 +98,7 @@ public class HashCodeTest {
 
     /*
     不重写equals，比较的是内存地址，不同对象地址不同。
-    HashSet会重复添加，尽管两个对象的字段值一样。hashcode 默认是对象的内存地址
+    HashSet会重复添加，尽管两个对象的字段值一样。object 的hashcode 默认是对象的内存地址
     如果重写了，只能添加一次。
      */
         HashSet<Student> hashSet1 = new HashSet<Student>();
