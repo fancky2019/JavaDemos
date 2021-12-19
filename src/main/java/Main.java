@@ -6,6 +6,9 @@ import Test.test2019.AtomicIntegerTest;
 import Test.test2019.AtomicMarkableReferenceTest;
 import Test.test2019.AtomicStampedReferenceTest;
 import Test.test2019.HashCodeTest;
+import Test.test2019.proxy.CglibProxy;
+import Test.test2019.proxy.ProxyImp;
+import Test.test2019.proxy.ProxyTest;
 import Test.test2020.UDPTest;
 import Test.test2021.*;
 import Test.test2021.designpattern.builder.BuilderTest;
@@ -58,7 +61,7 @@ public class Main {
 //               new ThreadTest().test();
 
 //            new CalendarTest().test();
-            new ReferenceTest().test();
+//            new ReferenceTest().test();
 
             //  new SetTest().test();
 
@@ -108,8 +111,9 @@ public class Main {
 
             //region test2019
             //    new TryCatchFinallyReturnTest().test();
-            //  new  ProxyTest().test();
+//              new ProxyTest().test();
 
+            new CglibProxy<ProxyImp>().test();
 
             //  new  StreamOptionalTest().test();
             // new  EqualsOperatorTest().test();

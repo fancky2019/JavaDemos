@@ -12,6 +12,8 @@ import java.util.concurrent.TimeUnit;
  * JDK代理：
  * 创建动态代理对象
  * 动态代理不需要实现接口,但是需要指定接口类型
+ *
+ * ProxyFactory<T>
  */
 public class ProxyFactory {
     private Object interfaceImp;
