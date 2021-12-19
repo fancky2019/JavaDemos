@@ -1,5 +1,6 @@
 package Test.test2020;
 
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 /*
@@ -38,7 +39,17 @@ public class ConcurrentHashMapTest {
         volatile Node<K,V> next;
          */
 
-
+        //region HashMap
+        /*
+        static class Node<K,V> implements Map.Entry<K,V> {
+        final int hash;
+        final K key;
+        V value;
+        Node<K,V> next;
+         */
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        hashMap.put(1,1);
+        //endregion
 
         ConcurrentHashMap<Integer, Integer> map = new ConcurrentHashMap<>();
         Integer re = map.put(1, 2);//null
