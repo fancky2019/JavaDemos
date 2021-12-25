@@ -52,7 +52,7 @@ public class ProxyFactory {
                 (proxy, method, args) -> {
                     //调用目标方法之前执行，对已有方法进行功能拓展
                     Stopwatch stopwatch = Stopwatch.createStarted();
-                    System.out.println("InvocationHandler()1");
+                    System.out.println("Before Invoke");
                     //执行目标对象方法
                     Object returnValue = method.invoke(interfaceImp, args);
 
@@ -61,7 +61,7 @@ public class ProxyFactory {
                     System.out.println(MessageFormat.format("{0} milliSeconds", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
 
                     //调用目标方法之后执行，对已有方法进行功能拓展
-                    System.out.println("InvocationHandler()2");
+                    System.out.println("After Invoke");
                     return returnValue;
                 }
 

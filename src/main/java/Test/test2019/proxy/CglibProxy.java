@@ -6,6 +6,9 @@ import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
 
+/*
+基于继承的方式实现
+ */
 public class CglibProxy<T> implements MethodInterceptor {
     private T target;//需要代理的目标对象
 

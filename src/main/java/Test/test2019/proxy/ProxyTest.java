@@ -15,5 +15,7 @@ public class ProxyTest {
            再调用display()方法
         */
         proxy.display("fancy");
+
+        proxy.displayA("fancy");
     }
 }

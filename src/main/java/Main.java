@@ -111,9 +111,9 @@ public class Main {
 
             //region test2019
             //    new TryCatchFinallyReturnTest().test();
-//              new ProxyTest().test();
+              new ProxyTest().test();
 
-            new CglibProxy<ProxyImp>().test();
+//            new CglibProxy<ProxyImp>().test();
 
             //  new  StreamOptionalTest().test();
             // new  EqualsOperatorTest().test();
