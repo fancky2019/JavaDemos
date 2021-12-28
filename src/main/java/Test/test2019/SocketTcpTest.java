@@ -82,6 +82,8 @@ BufferedWriter BufferedReader 缓冲区 性能会好点
 
 //针对流操作  单位字节(byte=8bit)
 BufferedInputStream  BufferedOutputStream
+
+Test.test2020.UDPTest
  */
 public class SocketTcpTest {
     public void test() {
@@ -143,24 +145,38 @@ public class SocketTcpTest {
 
             });
 
-            int recvMsgSize;
-            //约定好定长，方便处理粘包
-            //定长、固定头，分隔符
-            byte[] recvBuf = new byte[1024];
+
             //用心跳检测客户端是否断开连接
+
+            //循环监听客户端的连接
             while (true) {
+                //阻塞：The method blocks until a connection is made.
                 Socket clientSocket = serverSocket.accept();
                 //
                 connectedSockets.add(clientSocket);
                 System.out.println(MessageFormat.format("客户端:{0}:{1}已连接到服务器", clientSocket.getInetAddress().getHostAddress(), clientSocket.getPort()));
-                InputStream in = clientSocket.getInputStream();
-                //   recvMsgSize = in.read(recvBuf);
-                while ((recvMsgSize = in.read(recvBuf)) != -1) {
-                    byte[] temp = new byte[recvMsgSize];
-                    System.arraycopy(recvBuf, 0, temp, 0, recvMsgSize);
-                    String receiveMsg = new String(temp);
-                    System.out.println(MessageFormat.format("server receives message:{0}", receiveMsg));
-                }
+
+                //开启线程去执行io操作，不至于阻塞连接线程。
+                CompletableFuture.runAsync(()->
+                {
+                    try {
+                        int recvMsgSize;
+                        //约定好定长，方便处理粘包
+                        //定长、固定头，分隔符
+                        byte[] recvBuf = new byte[1024];
+                        InputStream in = clientSocket.getInputStream();
+                        //   recvMsgSize = in.read(recvBuf);
+                        while ((recvMsgSize = in.read(recvBuf)) != -1) {
+                            byte[] temp = new byte[recvMsgSize];
+                            System.arraycopy(recvBuf, 0, temp, 0, recvMsgSize);
+                            String receiveMsg = new String(temp);
+                            System.out.println(MessageFormat.format("server receives message:{0}", receiveMsg));
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -172,10 +188,11 @@ public class SocketTcpTest {
     private void client() {
         try {
 
+            //Creates a stream socket and connects it to the specified port number on the named host.
+            //socket 内this构造函数内部会调用connect 方法
             //服务器的IP，端口
             Socket clientSocket = new Socket("127.0.0.1", 8031);
 //            clientSocket.connect(new InetSocketAddress("127.0.0.1", 8888));
-
             boolean isConnected = clientSocket.isConnected();
             //构建IO
             if (!clientSocket.isConnected()) {
