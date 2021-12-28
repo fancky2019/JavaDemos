@@ -1,14 +1,23 @@
 package Test.test2018;
 
+import Model.Student;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-/*
- Lambda 表达式引用的局部变量必须是 final 或者是等同 final 效果的
+/**
+ * lambda 表达式的执行原理是会构建一个内部类，其中表达式中用到的外部变量，都会通过内部类的构造函数，作为参数引入。
+ * Lambda 表达式引用的局部变量必须是 final 或者是等同 final 效果的即lambda内不会修改变量值
+ *
+ *
+ * @author cc
  */
 public class LambdaTest {
     public void test() {
+        finalFun(1, 2);
         //自定义函数接口
         FuncClass funcClass = new FuncClass();
         funcClass.testFuncInterface(p ->
@@ -26,6 +35,40 @@ public class LambdaTest {
         Boolean re = predicate.test(false);
         Function<String, Integer> function = p -> Integer.parseInt(p);
         Integer num = function.apply("1");
+    }
+
+    private void finalFun(final int x, int y) {
+//        x=2; final 修改的参数不能修改值。
+        y = 10;
+        //一个非 final 的局部变量或方法参数，其值在初始化后就从未更改，那么该变量就是 effectively final
+        //如果参数值在lambda表达式中未修改，其等效final，可以不用生命final
+        int m = 0;
+        //lambda表达式中引用外部参数，其不能修改外部参数。要求参数式final或effectively final
+        int n = 0;
+        final int p = 0;
+        //对象不用生命诚final,lambda内可以修改对象属性值,但是不能new指向新的地址
+        Student student = new Student("fancky", 27);
+        Student student1 = new Student("fancky1", 27);
+        System.out.println("init student's age:" + student.getAge());
+        CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() ->
+        {
+            System.out.println("m=" + m);
+            //   n+=1;  //lambda表达式中引用外部参数，其不能修改外部参数。要求参数式final或effectively final
+            int age = student.getAge();
+            student.setAge(28);
+            System.out.println("lambda changes student's age:" + student.getAge());
+            //lambda内可以修改对象属性值,但是不能new
+//            student1 = new Student("fancky1", 27);
+            int ob = 0;
+        });
+        try {
+            completableFuture.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("after lambda student's age:" + student.getAge());
+        int mmm = 0;
+
     }
 
     /**
@@ -70,8 +113,6 @@ public class LambdaTest {
         return 1;
     }
 }
-
-
 
 
 class FuncClass {

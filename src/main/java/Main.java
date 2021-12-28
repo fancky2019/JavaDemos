@@ -76,7 +76,7 @@ public class Main {
             //  new PropertiesTest().test1();
 
 
-            //   new LambdaTest().test();
+               new LambdaTest().test();
 //             new Java8Test().test();
 //               new OptionalTest().test();
             //   new Configs().test();
@@ -111,7 +111,7 @@ public class Main {
 
             //region test2019
             //    new TryCatchFinallyReturnTest().test();
-              new ProxyTest().test();
+//              new ProxyTest().test();
 
 //            new CglibProxy<ProxyImp>().test();
 
