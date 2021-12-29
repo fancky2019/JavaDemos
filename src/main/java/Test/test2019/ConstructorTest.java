@@ -18,7 +18,7 @@ class ConstructorParent {
     {
         System.out.println("ConstructorParent");
     }
-
+     //java 里没有静态构造函数，可以用静态块代替
     static {
         System.out.println("staticConstructorParent");
     }

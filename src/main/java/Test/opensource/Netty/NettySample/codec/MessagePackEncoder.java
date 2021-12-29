@@ -15,6 +15,7 @@ import org.msgpack.jackson.dataformat.JsonArrayFormat;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
+import java.nio.*;
 import java.util.List;
 
 /**
@@ -37,6 +38,9 @@ public class MessagePackEncoder extends MessageToByteEncoder<Object> {
             byte[] bytes = objectMapper.writeValueAsBytes(msg);
 //            byteBuf=Unpooled.wrappedBuffer(bytes);
 
+           /* Java基本类型（除了Boolean类型）都对应有一种缓冲区
+             MappedByteBuffer ByteBuffer CharBuffer ShortBuffer   LongBuffer FloatBuffer  DoubleBuffer
+             */
             byteBuf = Unpooled.directBuffer(bytes.length);
             byteBuf.writeBytes(bytes);
 
