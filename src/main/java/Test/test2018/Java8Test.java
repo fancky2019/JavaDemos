@@ -107,7 +107,7 @@ public class Java8Test {
         list.stream().collect(Collectors.summarizingLong(p -> p.getAge())).getSum();
         Integer sum3 = list.stream().map(p -> p.getAge()).reduce(Integer::sum).get();
         Integer sum4 = list.stream().map(p -> p.getAge()).reduce((a, b) -> a + b).get();
-
+        Integer sum5 = list.stream().mapToInt(p -> p.getAge()).sum();
         List<Student> listGroup = new ArrayList<>(
                 Arrays.asList(new Student("fancky5", 6, "农民"),
                         new Student("fancky6", 5, "程序员"),

@@ -5,18 +5,19 @@ package Test.test2021;
  */
 public class OverLoadTest extends OverLoadParent {
     //编译通过
-    protected String getName()
-    {
-        return "name1";
-    }
+//    protected String getName()
+//    {
+//        return "name1";
+//    }
 
 //    //编译通过
 //    public String getName()
 //    {
 //        return "name";
 //    }
-//
-//    //编译通过
+
+
+//    //编译不通过
 //    private String getName()
 //    {
 //        return "name";
