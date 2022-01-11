@@ -30,9 +30,17 @@ public class JacksonTest {
     }
 
     private void seri() {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
 
         MessageInfo msg = null;
         try {
+            //[1,2,3,4]
+            String listJson = mapper.writeValueAsString(list);
             msg = new MessageInfo();
 
             msg.setMessageType(MessageType.HeartBeat);

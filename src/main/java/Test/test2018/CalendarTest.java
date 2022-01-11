@@ -131,7 +131,7 @@ public class CalendarTest {
         //获取秒数
         //the number of seconds from the epoch of 1970-01-01T00:00:00Z
         long seconds = LocalDateTime.now().toEpochSecond(ZoneOffset.of("+08:00"));
-        //获取毫秒数 class ZoneOffset     extends ZoneId
+        //获取毫秒数时间戳 class ZoneOffset     extends ZoneId
         long expireTime = LocalDateTime.now().toInstant(ZoneOffset.of("+08:00")).toEpochMilli();
 
         //采用时间戳比较  class ZoneOffset     extends ZoneId
@@ -140,6 +140,14 @@ public class CalendarTest {
         if (System.currentTimeMillis() >= localDateTimeMillis) {
 
         }
+        //时间戳转localDateTime
+        LocalDateTime l1 = LocalDateTime.ofInstant(Instant.ofEpochMilli(localDateTimeMillis), ZoneOffset.of("+8"));
+
+
+        //秒时间戳互转
+        long epochSecond = localDateTime.toEpochSecond(ZoneOffset.of("+8"));
+        LocalDateTime l22 = LocalDateTime.ofEpochSecond(epochSecond, 0, ZoneOffset.of("+8"));
+
 
         //转换成带时区的时间
         //2019-09-20T09:46:20.203+08:00[Asia/Shanghai]
