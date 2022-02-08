@@ -31,9 +31,9 @@ public class CalendarTest {
 
     public void test() {
         try {
-            zonedDateTimeTest();
+//            zonedDateTimeTest();
             operation();
-            formatter();
+//            formatter();
         } catch (Exception ex) {
             int m = 0;
         }
@@ -228,7 +228,7 @@ public class CalendarTest {
                 durationLocalDateTime.toHours(),
                 durationLocalDateTime.toMinutes(),
                 durationLocalDateTime.toMillis()));
-
+        int m = 0;
 
     }
 

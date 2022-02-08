@@ -17,7 +17,9 @@ import Test.test2021.designpattern.builder.BuilderTest;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 
@@ -28,9 +30,13 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            long epochSecond = LocalDateTime.now().minusMonths(2).toEpochSecond(ZoneOffset.of("+8"));
-            LocalDateTime l22 = LocalDateTime.ofEpochSecond(epochSecond, 0, ZoneOffset.of("+8"));
+            long epochMillis = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            long epochMillis1 = LocalDateTime.now().plusDays(30).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            LocalDateTime tempTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), ZoneId.systemDefault());
+            LocalDateTime tempTime1 = LocalDateTime.ofInstant(Instant.ofEpochMilli(1644651159696L), ZoneId.systemDefault());
 
+
+            int m = 0;
 //          String dir=  System.getProperty("user.home");
 
 //            Log4j2 完全异步模式
@@ -65,7 +71,7 @@ public class Main {
             // new SetTest().test();
 //               new ThreadTest().test();
 
-//            new CalendarTest().test();
+            new CalendarTest().test();
 //            new ReferenceTest().test();
 
             //  new SetTest().test();
@@ -111,7 +117,6 @@ public class Main {
 //            new  GenericsErasureTest().test();
 
             //endregion
-
 
 
             //region test2019
@@ -183,7 +188,7 @@ public class Main {
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
-            new JacksonTest().test();
+//            new JacksonTest().test();
 
 //            new SQLiteTest().test();
 //            new ZooKeeperTest().test();
@@ -231,7 +236,7 @@ public class Main {
 
             //endregion
 
-            
+
             System.out.println(MessageFormat.format("main:{0}", "completed !"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             String str = strin.readLine();
