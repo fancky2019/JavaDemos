@@ -1,6 +1,7 @@
 
 import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.ratelimiter.RateLimiterTest;
+import Test.opensource.zookeeper.ZooKeeperTest;
 import Test.test2018.*;
 import Test.test2018.ThreadTest;
 import Test.test2019.AtomicIntegerTest;
@@ -71,7 +72,7 @@ public class Main {
             // new SetTest().test();
 //               new ThreadTest().test();
 
-            new CalendarTest().test();
+//            new CalendarTest().test();
 //            new ReferenceTest().test();
 
             //  new SetTest().test();
@@ -191,7 +192,7 @@ public class Main {
 //            new JacksonTest().test();
 
 //            new SQLiteTest().test();
-//            new ZooKeeperTest().test();
+            new ZooKeeperTest().test();
 //            new ConcurrentHashMapTest().test();
 //            new ProtoBufTest().test();
 
