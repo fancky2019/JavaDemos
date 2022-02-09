@@ -227,9 +227,7 @@ public class ZooKeeperTest {
         try {
             Stat stat = new Stat();
             CuratorFramework client = createClient();
-
             client.getData().storingStatIn(stat).forPath("/Test/node1");
-
             int version1 = stat.getVersion();//修改一次版本号+1.
 
         } catch (Exception e) {
