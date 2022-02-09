@@ -11,21 +11,44 @@ import org.apache.curator.framework.api.transaction.CuratorTransactionResult;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.utils.ZKPaths;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.data.Stat;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-/**
+/*
  *
- */
+ *ZK ： 文件系统、通知机制
+ *
+ *
+ *
+ *
+ * 有序节点：假如当前有一个父节点为/lock，我们可以在这个父节点下面创建子节点；
+ * zookeeper提供了一个可选的有序特性，例如我们可以创建子节点“/lock/node-”并且指明有序，那么zookeeper在生成子节点时会根据当前的子节点数量自动添加整数序号
+ * 也就是说，如果是第一个创建的子节点，那么生成的子节点为/lock/node-0000000000，下一个节点则为/lock/node-0000000001，依次类推。
+ * 临时节点：客户端可以建立一个临时节点，在会话结束或者会话超时后，zookeeper会自动删除该节点。
+ * 事件监听：在读取数据时，我们可以同时对节点设置事件监听，当节点数据或结构变化时，zookeeper会通知客户端。当前zookeeper有如下四种事件：
+ * 节点创建
+ * 节点删除
+ * 节点数据修改
+ * 子节点变更
+ *
+ *1.命名服务   2.配置管理   3.集群管理   4.分布式锁  5.队列管理
+ * 分布式锁：创建临时有序节点，监听当前线程创建的节点的序号是否未最小，则获取锁，否则监听前一个序号的事件，删除则获取锁。
+ *         分布式锁独占、控制时序。编号最小获取锁。
+ * 命名服务：一个服务名称路径下有多个子节点ip；ServerNamePath:server1IP、server2IP、server3IP。通过服务名称获取节点下可用的ip.
+ * 配置管理： 监听配置节点变化，获取最新配置节点信息
+ * 集群管理：集群管理无在乎两点：是否有机器退出和加入、选举master。监听一个节点下所有的子节点（各个服务ip）的上线下线，然后选举编号最小master
+ * */
 public class ZooKeeperTest {
     /*
       Maven添加zookeeper、curator-framework、curator-recipes依赖
@@ -43,14 +66,17 @@ public class ZooKeeperTest {
     public void test() {
         try {
 //            createNode();
-//        queryNode();
+            queryNode();
 //        updateNode();
 //        getStat();
 
 //            transaction(createClient());
 
 //            usingWatcher();
-            pathCacheExample();
+//            pathCacheExample();
+
+//            distributeLock();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -76,7 +102,7 @@ public class ZooKeeperTest {
                 .retryPolicy(retryPolicy)
                 .connectionTimeoutMs(connectionTimeoutMs)
                 .sessionTimeoutMs(sessionTimeoutMs)
-                .namespace("base") //默认父节点
+                // .namespace("base") //默认父节点
                 // etc. etc.
                 .build();
 
@@ -90,13 +116,20 @@ public class ZooKeeperTest {
     PERSISTENT_SEQUENTIAL：持久化并且带序列号
     EPHEMERAL：临时
     EPHEMERAL_SEQUENTIAL：临时并且带序列号
+
+
+1、PERSISTENT-持久化目录节点 :户端与zookeeper断开连接后，该节点依旧存在
+2、PERSISTENT_SEQUENTIAL-持久化顺序编号目录节点 :客户端与zookeeper断开连接后，该节点依旧存在，只是Zookeeper给该节点名称进行顺序编号
+3、EPHEMERAL-临时目录节点 :户端与zookeeper断开连接后，该节点被删除
+4、EPHEMERAL_SEQUENTIAL-临时顺序编号目录节点 :客户端与zookeeper断开连接后，该节点被删除，只是Zookeeper给该节点名称进行顺序编号
+
      */
     private void createNode() {
 
         CuratorFramework client = null;
         try {
             client = createClient();
-            //如果节点存在,再添加节点会报错。
+            //如果节点存在,再添加节点会添加不进去。
 
             //如果删除一个不存的节点会报错。
 //            client.delete().deletingChildrenIfNeeded().forPath("/Test");
@@ -104,7 +137,10 @@ public class ZooKeeperTest {
             // 如果没有设置节点属性，节点创建模式默认为持久化节点，内容默认为空
 //            client.create().forPath("path");
 
-            client.create()
+            //CreateMode.PERSISTENT :sub4
+            //CreateMode.PERSISTENT_SEQUENTIAL ::sub40000000000 //路径后加10位有序数字
+            //CreateMode.EPHEMERAL :
+            String path = client.create()
                     .creatingParentContainersIfNeeded()//，如果父节点不存在直接创建会抛出NoNodeException，此方法递归创建父节点
                     .withMode(CreateMode.PERSISTENT)
                     .inBackground((CuratorFramework curatorFramework, CuratorEvent curatorEvent) ->
@@ -113,7 +149,8 @@ public class ZooKeeperTest {
                         //  操作异常不进入回调,成功才回调
                         CuratorEventType curatorEventType = curatorEvent.getType();
                     })
-                    .forPath("/Test/sub/sub4", "sub2".getBytes());//注意节点前要已"/"开头
+                    .forPath("/Test/sub/node1", "node-data1".getBytes());//注意节点前要已"/"开头
+            int m = 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,23 +179,41 @@ public class ZooKeeperTest {
 
     }
 
+    private void updateNode() {
+
+        try {
+            CuratorFramework client = createClient();
+            Stat stat = client.setData()
+//                    .withVersion(222)) // 指定版本修改,找不到匹配版本报异常
+                    .forPath("/Test/node1", "data".getBytes());
+            //找不到要修改的节点抛异常
+            int version1 = stat.getVersion();//修改一次版本号+1.
+            stat = client.setData().forPath("/Test/node1", "data1".getBytes());
+            int version2 = stat.getVersion();
+            int m = 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void queryNode() {
         CuratorFramework client = null;
         try {
-            client = client = createClient();
+            client = createClient();
             //不存在返回null
-            Object obj = client.checkExists().forPath("/path");
-            //存在返回Stat实例
-//            Stat
-            Object obj1 = client.checkExists().forPath("/Test/node1");
-            //节点差找不到报异常
+            Stat obj = client.checkExists().forPath("/path");
+            //存在返回Stat实例,不存在返回null
+            Stat obj1 = client.checkExists().forPath("/Test/node1");
+            //节点不存在报异常
             byte[] bytes = client.getData().forPath("/Test/node1");
-
             String data = new String(bytes);
 
-
+            Stat stat = new Stat();
+            //节点不存在报异常.
+            byte[] bytes1 = client.getData().storingStatIn(stat).forPath("/Test/node1");
             //返回Test子节点名称，不返回孙子及后代节点。
-            List list = client.getChildren().forPath("/Test"); // 获取子节点的路径
+            List<String> list = client.getChildren().forPath("/Test"); // 获取子节点的路径
             System.out.println(data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,14 +222,12 @@ public class ZooKeeperTest {
     }
 
 
+    //查看节点的stat(统计)信息
     private void getStat() {
         try {
             Stat stat = new Stat();
             CuratorFramework client = createClient();
-
-            client.getData().storingStatIn(stat)
-                    .forPath("/Test/node1");
-
+            client.getData().storingStatIn(stat).forPath("/Test/node1");
             int version1 = stat.getVersion();//修改一次版本号+1.
 
         } catch (Exception e) {
@@ -206,25 +259,6 @@ public class ZooKeeperTest {
     }
 
 
-    private void updateNode() {
-
-        try {
-            CuratorFramework client = createClient();
-            Stat stat = client.setData()
-//                    .withVersion(222)) // 指定版本修改,找不到匹配版本报异常
-                    .forPath("/Test/node1", "data".getBytes());
-            //找不到要修改的节点抛异常
-            int version1 = stat.getVersion();//修改一次版本号+1.
-            stat = client.setData().forPath("/Test/node1", "data1".getBytes());
-            int version2 = stat.getVersion();
-            int m = 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
     //region  Watcher
 
 
@@ -243,14 +277,13 @@ public class ZooKeeperTest {
             e.printStackTrace();
         }
     }
+
+
     /*
-
-
     Curator提供了三种Watcher(Cache)来监听结点的变化
     Path Cache : 监控一个ZNode的子节点. 当一个子节点增加， 更新，删除时， Path Cache会改变它的状态， 会包含最新的子节点， 子节点的数据和状态
     Node Cache : 只是监听某一个特定的节点
     Tree Cache : 可以监控整个树上的所有节点，类似于PathCache和NodeCache的组合
-
      */
 
 
@@ -288,9 +321,9 @@ public class ZooKeeperTest {
                 String pathWatcher = "/example/cache/test3";
                 Stat stat = client.checkExists().forPath(pathWatcher);
                 if (stat != null) {
-                    client.setData().forPath(pathWatcher, "payload12".getBytes());//注意节点前要已"/"开头
+                    client.setData().forPath(pathWatcher, "nodeDataChange".getBytes());//注意节点前要已"/"开头
                 } else {
-                    client.create().creatingParentsIfNeeded().forPath(pathWatcher);
+                    client.create().creatingParentsIfNeeded().forPath(pathWatcher, "nodeData".getBytes());
                 }
 
 //            client.delete().guaranteed().deletingChildrenIfNeeded().forPath(pathWatcher);
@@ -364,4 +397,37 @@ public class ZooKeeperTest {
         String timestamp = String.valueOf(seconds / 1000);
         return Integer.valueOf(timestamp);
     }
+
+
+    //region 分布式锁
+//Curator是一个zookeeper的开源客户端，也提供了分布式锁的实现。
+    private void distributeLock() {
+        String path = "/lock";
+        String connectString = "localhost:2181";
+        CuratorFramework client = null;
+
+        client = CuratorFrameworkFactory.newClient(connectString, new ExponentialBackoffRetry(1000, 3));
+        client.start();
+        InterProcessMutex interProcessMutex = new InterProcessMutex(client, path);
+        try {
+            //获得锁：可设置超时时间
+            //会在path下创建一个持久有序节点
+            interProcessMutex.acquire();
+
+            int m = 0;
+//            interProcessMutex.release();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                //释放锁
+                interProcessMutex.release();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    //endregion
+
+
 }
