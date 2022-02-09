@@ -280,14 +280,13 @@ public class ZooKeeperTest {
             e.printStackTrace();
         }
     }
+
+
     /*
-
-
     Curator提供了三种Watcher(Cache)来监听结点的变化
     Path Cache : 监控一个ZNode的子节点. 当一个子节点增加， 更新，删除时， Path Cache会改变它的状态， 会包含最新的子节点， 子节点的数据和状态
     Node Cache : 只是监听某一个特定的节点
     Tree Cache : 可以监控整个树上的所有节点，类似于PathCache和NodeCache的组合
-
      */
 
 
