@@ -102,7 +102,7 @@ public class ZooKeeperTest {
                 .retryPolicy(retryPolicy)
                 .connectionTimeoutMs(connectionTimeoutMs)
                 .sessionTimeoutMs(sessionTimeoutMs)
-               // .namespace("base") //默认父节点
+                // .namespace("base") //默认父节点
                 // etc. etc.
                 .build();
 
@@ -209,9 +209,9 @@ public class ZooKeeperTest {
             byte[] bytes = client.getData().forPath("/Test/node1");
             String data = new String(bytes);
 
-            Stat stat=new Stat();
+            Stat stat = new Stat();
             //节点不存在报异常.
-            byte[] bytes1 =   client.getData().storingStatIn(stat).forPath("/Test/node1");
+            byte[] bytes1 = client.getData().storingStatIn(stat).forPath("/Test/node1");
             //返回Test子节点名称，不返回孙子及后代节点。
             List<String> list = client.getChildren().forPath("/Test"); // 获取子节点的路径
             System.out.println(data);
@@ -228,8 +228,7 @@ public class ZooKeeperTest {
             Stat stat = new Stat();
             CuratorFramework client = createClient();
 
-            client.getData().storingStatIn(stat)
-                    .forPath("/Test/node1");
+            client.getData().storingStatIn(stat).forPath("/Test/node1");
 
             int version1 = stat.getVersion();//修改一次版本号+1.
 
