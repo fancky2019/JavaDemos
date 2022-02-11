@@ -90,7 +90,7 @@ public class DelayRetryConsumer {
                 try {
                     String message = new String(delivery.getBody(), "UTF-8");
                     Student student = JSONObject.parseObject(message, Student.class);
-
+                    //将获取到的消息messageId 保存在redis
 
                     Integer m = Integer.parseInt("m");
 
@@ -105,6 +105,7 @@ public class DelayRetryConsumer {
                         channel.basicPublish(EXCHANGE_FAILED_NAME, ROUTING_FAILED_KEY, null, delivery.getBody());
                         //Ack掉
                         channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);//发送客户端消息任务完成的应答
+                        //ack 之后设置redis中的messageId的key ttl 可以设置1天，尽量大点
                     } else {
                         //重试不足3次，继续拒绝（死信）以加入重试队列。
                         channel.basicReject(delivery.getEnvelope().getDeliveryTag(), false);

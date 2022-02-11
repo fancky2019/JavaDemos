@@ -8,6 +8,8 @@ import java.util.concurrent.CompletableFuture;
  * 测试RabbitMQ确认模式生产10000耗时 14s左右，性能远低于redis的队列：生产10W，5.5s左右
  *
  * rabbitMQ集群采用镜像模式
+ *
+ *避免重复消费：消费前messageId入redis ,ack 之后设置redis中的messageId的key ttl 可以设置1天，尽量大点
  */
 public class RabbitMQTest {
 
