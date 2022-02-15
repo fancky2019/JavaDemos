@@ -20,6 +20,7 @@ public class BuilderTest {
         this.age = builder.age;
     }
 
+//    public static final class Builder{}
     @Data
     public static class BuilderTestBuilder {
         private String name;

@@ -192,7 +192,7 @@ public class Main {
 //            new JacksonTest().test();
 
 //            new SQLiteTest().test();
-            new ZooKeeperTest().test();
+//            new ZooKeeperTest().test();
 //            new ConcurrentHashMapTest().test();
 //            new ProtoBufTest().test();
 
