@@ -43,6 +43,8 @@ import java.util.concurrent.TimeUnit;
  *
  *
  * redis key 过期订阅：
+ *
+ * LUA脚本保证redis执行复杂脚本的原子性
  */
 public class RedisTest {
     /**

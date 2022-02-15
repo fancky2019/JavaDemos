@@ -26,6 +26,23 @@ doc:https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95
 红锁问题： redis 网络脑裂问题
 主从设计；一主多从
 N:为奇数，  至少三台机器
+
+
+redisson中的watchdog只有在没有指定锁过期时间的时候才会被使用，如果指定了过期时间，业务超时锁自动释放会
+watch dog 自动延期机制
+锁到期任务未完成：看门狗线程会不断的延长锁超时时间，锁不会因为超时而被释放。
+默认情况下，看门狗的续期时间是30s，也可以通过修改Config.lockWatchdogTimeout来另行指定。
+
+
+.watch dog 自动延期机制（前提没有设置锁的过期时间）
+1.watch dog 在当前节点存活时每10s给分布式锁的key续期 30s；
+2.watch dog 机制启动，且代码中没有释放锁操作时，watch dog 会不断的给锁续期；
+3.从可2得出，如果程序释放锁操作时因为异常没有被执行，那么锁无法被释放，所以释放锁操作一定要放到 finally {} 中；
+
+
+————————————————
+版权声明：本文为CSDN博主「勤学如春起之苗」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/zhongguowangzhan/article/details/121174773
  */
 public class RedissonTest {
     private static final Logger logger = LogManager.getLogger(RedissonTest.class);
@@ -77,6 +94,8 @@ public class RedissonTest {
         //判断是否有锁
         Boolean locked1 = lock.isLocked();//false
 
+//        //使用默认看门狗延期机制       //加锁（阻塞等待），默认过期时间是30秒。   this.lockWatchdogTimeout = 30000L;
+//        lock.lock();
 
         //写入hash类型数据：redisKey:lock hashKey  uuid:线程id  hashValue:thread id
 //    public void lock(long leaseTime, TimeUnit unit)

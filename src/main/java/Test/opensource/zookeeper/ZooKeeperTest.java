@@ -45,6 +45,13 @@ import java.util.concurrent.CompletableFuture;
  *1.命名服务   2.配置管理   3.集群管理   4.分布式锁  5.队列管理
  * 分布式锁：创建临时有序节点，监听当前线程创建的节点的序号是否未最小，则获取锁，否则监听前一个序号的事件，删除则获取锁。
  *         分布式锁独占、控制时序。编号最小获取锁。
+ *
+ *         代码逻辑：
+ *         查看当前有序path在所有path子节点中的索引是否是第一个，是则获取到锁，否则监测它的前一个有序path,同时代码执行this.wait(),watcher
+ *         内调用 notifyAll()
+ *
+ *
+ *
  * 命名服务：一个服务名称路径下有多个子节点ip；ServerNamePath:server1IP、server2IP、server3IP。通过服务名称获取节点下可用的ip.
  * 配置管理： 监听配置节点变化，获取最新配置节点信息
  * 集群管理：集群管理无在乎两点：是否有机器退出和加入、选举master。监听一个节点下所有的子节点（各个服务ip）的上线下线，然后选举编号最小master
@@ -66,7 +73,7 @@ public class ZooKeeperTest {
     public void test() {
         try {
 //            createNode();
-            queryNode();
+//            queryNode();
 //        updateNode();
 //        getStat();
 
@@ -75,8 +82,18 @@ public class ZooKeeperTest {
 //            usingWatcher();
 //            pathCacheExample();
 
-//            distributeLock();
+            distributeLock();
 
+//            CompletableFuture.runAsync(()->
+//            {
+//                distributeLock();
+//            });
+//
+//            Thread.sleep(10000);
+//            CompletableFuture.runAsync(()->
+//            {
+//                distributeLock();
+//            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -410,6 +427,7 @@ public class ZooKeeperTest {
         client.start();
         InterProcessMutex interProcessMutex = new InterProcessMutex(client, path);
         try {
+            int n=1;
             //获得锁：可设置超时时间
             //会在path下创建一个持久有序节点
             interProcessMutex.acquire();

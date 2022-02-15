@@ -48,7 +48,12 @@ public class GenericTest {
         List<Integer> list = new ArrayList<>();
         //java 泛型类可不带类型变量
         GenaTest.Display();
-        GenaTest.Display1();
+
+        GenaTest.<String>Display1("sd");
+        //类型参数可以省略
+        GenaTest.Display1("sd");
+
+
         GenaTest genaTest1 = new GenaTest();
         genaTest1.Display2();
         GenaTest<String> genaTest2 = new GenaTest<>();
@@ -186,7 +191,7 @@ class GenaTest<T> {
 
     }
 
-    static <T> void Display1() {
+    static <T> void Display1(T t) {
 
     }
 
