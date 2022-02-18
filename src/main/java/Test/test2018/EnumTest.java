@@ -45,12 +45,12 @@ public class EnumTest {
  * Jackson对枚举进行序列化,默认输出枚举的String名称
  */
 enum MessageType {
-    HeartBeat(0),
+    HeartBeat(0,"心跳"),
     //    Test {   public String toString() {
 //        return "asc";
 //    }},
     //指定构造函数的值
-    Data(1);
+    Data(1,"数据");
 
     private int value;
 
@@ -60,8 +60,9 @@ enum MessageType {
 
     }
 
-    private MessageType(int value) {
+    private MessageType(int value,String description) {
         this.value = value;
+        this.description=description;
     }
 
     public static MessageType fromString(String str) {
@@ -69,7 +70,8 @@ enum MessageType {
 //        MessageType.HeartBeat;
 //        MessageType.Data;
     }
-    public static String getdescription(int value) {
+
+    public static String getDescription(int value) {
         MessageType[] values = values();
         for (MessageType messageType : values) {
             if (messageType.value ==value) {
@@ -78,6 +80,7 @@ enum MessageType {
         }
         return "未确认";
     }
+
     //JsonVale：序列化时 枚举对应生成的值:0或1
     @JsonValue
     public int getValue() {
