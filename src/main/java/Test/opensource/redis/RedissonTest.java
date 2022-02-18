@@ -40,9 +40,9 @@ watch dog 自动延期机制
 3.从可2得出，如果程序释放锁操作时因为异常没有被执行，那么锁无法被释放，所以释放锁操作一定要放到 finally {} 中；
 
 
-————————————————
-版权声明：本文为CSDN博主「勤学如春起之苗」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/zhongguowangzhan/article/details/121174773
+ redisson 可重入：  uuid+threadId  。
+       UUID id = UUID.randomUUID();
+       同一个系统内线程id唯一，每个连接一个uuid，就保证key唯一。
  */
 public class RedissonTest {
     private static final Logger logger = LogManager.getLogger(RedissonTest.class);

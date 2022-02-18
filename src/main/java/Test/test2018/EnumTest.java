@@ -39,6 +39,14 @@ public class EnumTest {
 //        String messageType2= MessageType.getdescription(nunm);
         Integer m = 0;
     }
+
+    //枚举可以声明在类内
+    public enum MessageTypeTest
+    {
+
+    }
+
+
 }
 
 /**
