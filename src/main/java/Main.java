@@ -124,7 +124,7 @@ public class Main {
             //    new TryCatchFinallyReturnTest().test();
 //              new ProxyTest().test();
 
-//            new CglibProxy<ProxyImp>().test();
+            new CglibProxy<ProxyImp>().test();
 
             //  new  StreamOptionalTest().test();
             // new  EqualsOperatorTest().test();

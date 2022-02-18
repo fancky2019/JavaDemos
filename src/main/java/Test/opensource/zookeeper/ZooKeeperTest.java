@@ -47,7 +47,7 @@ import java.util.concurrent.CompletableFuture;
  *         分布式锁独占、控制时序。编号最小获取锁。
  *
  *         代码逻辑：
- *         查看当前有序path在所有path子节点中的索引是否是第一个，是则获取到锁，否则监测它的前一个有序path,同时代码执行this.wait(),watcher
+ *         查看当前有序path在所有排序之后path中的索引是否是第一个，是则获取到锁，否则监测它的前一个有序path,同时代码执行this.wait(),watcher
  *         内调用 notifyAll()
  *
  *

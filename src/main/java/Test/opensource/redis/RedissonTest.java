@@ -95,6 +95,7 @@ public class RedissonTest {
         Boolean locked1 = lock.isLocked();//false
 
 //        //使用默认看门狗延期机制       //加锁（阻塞等待），默认过期时间是30秒。   this.lockWatchdogTimeout = 30000L;
+        //每隔lockWatchdogTimeout/3 s 进行时间重置30s.即不停重置30s的过期时间
 //        lock.lock();
 
         //写入hash类型数据：redisKey:lock hashKey  uuid:线程id  hashValue:thread id
