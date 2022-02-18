@@ -6,6 +6,12 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * AtomicIntegerTest cas demo2019
+ *进程：是系统进行资源分配和调度的基本单位。进程是线程的容器。进程是程序的实体
+ *线程：操作系统能够进行运算调度的最小单位。
+ * 线程id 在一台操作系统内是唯一的。线程标识符永远不会是0。
+ *
+ *一旦所涉及的线程和进程终止，操作系统可以重用进程ID和线程ID。
+ *
  */
 public class ThreadTest {
 
@@ -70,6 +76,7 @@ public class ThreadTest {
     }
 
     private void joinFun() {
+//        Thread.currentThread().getId();
         threadJoin = new Thread(() ->
         {
             try {
