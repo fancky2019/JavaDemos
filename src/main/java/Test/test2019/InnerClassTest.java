@@ -89,7 +89,7 @@ class OuterClass {
     }
 
     /*
-    内部类不能声明静态成员
+    非静态内部类不能声明静态成员
     可以访问外部类的静态、非静态成员
      */
     public class InnerClass {

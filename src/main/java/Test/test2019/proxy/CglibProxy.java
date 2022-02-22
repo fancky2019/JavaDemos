@@ -5,6 +5,7 @@ import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 /*
 基于继承的方式实现
@@ -15,9 +16,41 @@ public class CglibProxy<T> implements MethodInterceptor {
     //重写拦截方法
     @Override
     public Object intercept(Object obj, Method method, Object[] arr, MethodProxy proxy) throws Throwable {
+        /**
+         * arr 参数值
+         */
         System.out.println("Cglib动态代理，监听开始！");
+
+        Parameter[] parameters = method.getParameters();
+        //获取参数
+        for (Parameter parameter : parameters) {
+            //参数名称
+            String parameterName = parameter.getName();
+            //类型名称
+            String parameterName1 = parameter.getType().getSimpleName();
+            int nn = 0;
+
+        }
+        for (int i = 0; i < arr.length; i++) {
+            Parameter parameter = method.getParameters()[i];
+            String paramName = parameter.getName();
+          //  parameter.getAnnotation()
+            int mm = 0;
+        }
+
+
+        //获取参数类型
+        for (Class<?> cla : method.getParameterTypes()) {
+            //类型名称
+            String parameterName = cla.getSimpleName();
+            int nn = 0;
+        }
+        Long lp = 0L;
+        String name = lp.getClass().getSimpleName();
 //        return null;  //如果方法有返回结果就返回，没有就返回null
         Object invoke = method.invoke(target, arr);//方法执行，参数：target 目标对象 arr参数数组
+
+
         System.out.println("Cglib动态代理，监听结束！");
         return invoke;
     }

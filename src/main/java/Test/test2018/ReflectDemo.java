@@ -19,7 +19,7 @@ public class ReflectDemo {
             //java 中的Class就像C#里Type.
             //创建class的三种方式
             Student student = new Student();
-            Class clazz = student.getClass();
+            Class<?> clazz = student.getClass();
             Class clas = Student.class;
             Class clssForName = Class.forName("Model.Student");
             //class创建对象的两种方式
