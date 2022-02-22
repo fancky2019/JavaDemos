@@ -40,6 +40,7 @@ public class AnnotationTest {
 
     boolean isJobAnnotation(Class<?> clazz, Class<? extends Annotation> annotationClass) {
         JobAnnotation jobAnnotation = (JobAnnotation) clazz.getAnnotation(annotationClass);
+//        clazz.getAnnotation(JobAnnotation.class);
         return jobAnnotation != null;
     }
 
