@@ -2,6 +2,8 @@ package Test.test2018;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Data;
+
 /*
 枚举：就是类的实例，和C#不一样C#是值类型字段。枚举内可以定义类的成员字段
 
@@ -63,6 +65,18 @@ enum MessageType {
     private int value;
 
     private String description;
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     private MessageType() {
 
