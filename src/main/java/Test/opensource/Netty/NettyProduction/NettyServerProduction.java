@@ -2,22 +2,24 @@ package Test.opensource.Netty.NettyProduction;
 
 import Test.opensource.Netty.MarshallingCodeFactory;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.util.SelfSignedCertificate;
 import io.netty.handler.timeout.IdleStateHandler;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-public class NetttyServerProduction {
+//https://github.com/netty/netty/blob/4.1/example/src/main/java/io/netty/example/echo/EchoServer.java
+public class NettyServerProduction {
     private int port;
 
     public void test() {
-        this.port = 8080;
+        this.port = 23450;
         try {
             //打开Window的命令行，输入telnet命令:telnet localhost 8080,如果能够正确连接就代表成功
             run();
@@ -28,8 +30,35 @@ public class NetttyServerProduction {
 
     }
 
-
+    //    static final boolean SSL = System.getProperty("ssl") != null;
     public void run() throws Exception {
+        boolean SSL = true;
+        // Configure SSL.
+        final SslContext sslCtx;
+        if (SSL) {
+            /*
+            SelfSignedCertificate 内部生成证书文件和私钥文件
+            C:\Users\86185\AppData\Local\Temp\keyutil_localhost_4249992926290491158.crt
+             C:\Users\86185\AppData\Local\Temp\keyutil_localhost_2467559130859262100.key
+             */
+            SelfSignedCertificate ssc = new SelfSignedCertificate();
+
+            //X509Certificate 一个证书文件、一个私钥文件
+
+            sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
+
+//              sslCtx = SslContextBuilder.forServer(GeneratorCertKey.certificate,GeneratorCertKey.privateKey).build();
+
+            //本地文件配置
+//            File certificate = new File("C:\\Users\\86185\\AppData\\Local\\Temp\\keyutil_localhost_7006298436648660336.crt");
+//            File privateKey = new File("C:\\Users\\86185\\AppData\\Local\\Temp\\keyutil_localhost_6063666083091152427.key");
+//            sslCtx = SslContextBuilder.forServer(certificate, privateKey).build();
+
+        } else {
+            sslCtx = null;
+        }
+
+
         EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -39,6 +68,12 @@ public class NetttyServerProduction {
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
+
+                            ChannelPipeline p = ch.pipeline();
+                            if (sslCtx != null) {
+                                p.addLast(sslCtx.newHandler(ch.alloc()));
+                            }
+
 //                            //必须指定解码器，不然收不到信息
                             ch.pipeline().addLast(new IdleStateHandler(2, 2, 6, TimeUnit.SECONDS));
 //                           Marshalling 优化jdk序列化，内部进行粘包处理。不用再设置frameDecoder、frameEncoder

@@ -1,5 +1,6 @@
 
 import Test.opensource.Jackson.JacksonTest;
+import Test.opensource.Netty.NettyTest;
 import Test.opensource.ratelimiter.RateLimiterTest;
 import Test.opensource.zookeeper.ZooKeeperTest;
 import Test.test2018.*;
@@ -38,7 +39,9 @@ public class Main {
 
             //Main
             String className = Main.class.getSimpleName();
-            int m = 13;
+            int m = -13;
+            int n=-m;
+            int mmm=0;
 //          String dir=  System.getProperty("user.home");
 
 //            Log4j2 完全异步模式
@@ -125,13 +128,13 @@ public class Main {
             //    new TryCatchFinallyReturnTest().test();
 //              new ProxyTest().test();
 
-            new CglibProxy<ProxyImp>().test();
+//            new CglibProxy<ProxyImp>().test();
 
             //  new  StreamOptionalTest().test();
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-//            new NettyTest().test();
+            new NettyTest().test();
 
 //            new NettyTest().nettyWebSocket();
 
