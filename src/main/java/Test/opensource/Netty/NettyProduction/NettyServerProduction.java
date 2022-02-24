@@ -32,6 +32,8 @@ public class NettyServerProduction {
 
     //    static final boolean SSL = System.getProperty("ssl") != null;
     public void run() throws Exception {
+
+        //SSL
         boolean SSL = true;
         // Configure SSL.
         final SslContext sslCtx;
@@ -68,11 +70,14 @@ public class NettyServerProduction {
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-
+                           //SSL
                             ChannelPipeline p = ch.pipeline();
                             if (sslCtx != null) {
                                 p.addLast(sslCtx.newHandler(ch.alloc()));
                             }
+
+
+
 
 //                            //必须指定解码器，不然收不到信息
                             ch.pipeline().addLast(new IdleStateHandler(2, 2, 6, TimeUnit.SECONDS));

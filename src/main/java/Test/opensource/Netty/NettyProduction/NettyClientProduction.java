@@ -46,7 +46,7 @@ public class NettyClientProduction {
 
 
     void init() throws Exception {
-
+         //SSL
         boolean SSL=true;
         final SslContext sslCtx;
         if (SSL) {
@@ -55,6 +55,8 @@ public class NettyClientProduction {
         } else {
             sslCtx = null;
         }
+
+
 
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         bootstrap = new Bootstrap(); // (1)
@@ -65,10 +67,13 @@ public class NettyClientProduction {
             @Override
             public void initChannel(SocketChannel ch) throws Exception {
 
+                //SSL
                 ChannelPipeline p = ch.pipeline();
                 if (sslCtx != null) {
                     p.addLast(sslCtx.newHandler(ch.alloc(), host, port));
                 }
+
+
 
                 //设置allIdleTime=readerIdleTime*3,如果三次都没收到心跳信息就认为断线了
                 ch.pipeline().addLast(new IdleStateHandler(2, 2, 6, TimeUnit.SECONDS));
