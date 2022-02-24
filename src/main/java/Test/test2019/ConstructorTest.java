@@ -1,5 +1,11 @@
 package Test.test2019;
 
+/**
+ * java 里没有静态构造函数，可以用静态块代替
+ *
+ *super 必须是构造函数里的第一句
+ *
+ */
 public class ConstructorTest {
 
     public void test() {

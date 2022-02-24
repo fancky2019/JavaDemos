@@ -8,9 +8,7 @@ import org.apache.curator.framework.api.CuratorEventType;
 import org.apache.curator.framework.api.CuratorWatcher;
 import org.apache.curator.framework.api.transaction.CuratorOp;
 import org.apache.curator.framework.api.transaction.CuratorTransactionResult;
-import org.apache.curator.framework.recipes.cache.PathChildrenCache;
-import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
-import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
+import org.apache.curator.framework.recipes.cache.*;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.utils.ZKPaths;
@@ -80,9 +78,9 @@ public class ZooKeeperTest {
 //            transaction(createClient());
 
 //            usingWatcher();
-//            pathCacheExample();
+            pathCacheExample();
 
-            distributeLock();
+//            distributeLock();
 
 //            CompletableFuture.runAsync(()->
 //            {
@@ -351,7 +349,57 @@ public class ZooKeeperTest {
 
         });
 
-        //一个线程监听
+
+//        //一个线程监听  old
+//        CompletableFuture.runAsync(() ->
+//        {
+//
+//            String connectString = null;
+//            try {
+//                connectString = "localhost:2181";
+//                String path = "/example/cache";
+//                CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, new ExponentialBackoffRetry(1000, 3));
+//                client.start();
+//
+//                // PathChildrenCache curator 5.1 标记 Deprecated 使用CuratorCache代替
+//                PathChildrenCache cache = new PathChildrenCache(client, path, true);
+//                cache.start();
+//                // a PathChildrenCacheListener is optional. Here, it's used just to log changes
+//                PathChildrenCacheListener listener = new PathChildrenCacheListener() {
+//                    @Override
+//                    public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
+//                        switch (event.getType()) {
+//                            case CHILD_ADDED: {
+//                                System.out.println("Node added: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
+//                                break;
+//                            }
+//
+//                            case CHILD_UPDATED: {
+//                                System.out.println("Node changed: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
+//                                break;
+//                            }
+//
+//                            case CHILD_REMOVED: {
+//                                System.out.println("Node removed: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
+//                                break;
+//                            }
+//                        }
+//                    }
+//                };
+//                cache.getListenable().addListener(listener);
+//
+//
+//
+//                     //   CuratorCacheListener
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+
+
+        //https://github.com/apache/curator/tree/master/curator-examples/src/main/java/cache
+        //一个线程监听  curator 5.1
         CompletableFuture.runAsync(() ->
         {
 
@@ -361,31 +409,87 @@ public class ZooKeeperTest {
                 String path = "/example/cache";
                 CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, new ExponentialBackoffRetry(1000, 3));
                 client.start();
-                PathChildrenCache cache = new PathChildrenCache(client, path, true);
-                cache.start();
-                // a PathChildrenCacheListener is optional. Here, it's used just to log changes
-                PathChildrenCacheListener listener = new PathChildrenCacheListener() {
-                    @Override
-                    public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
-                        switch (event.getType()) {
-                            case CHILD_ADDED: {
-                                System.out.println("Node added: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
-                                break;
-                            }
 
-                            case CHILD_UPDATED: {
-                                System.out.println("Node changed: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
-                                break;
-                            }
+//                NodeCache
+//                TreeCacheEvent
+//                // PathChildrenCache curator 5.1 标记 Deprecated 使用CuratorCache代替
+//                PathChildrenCache cache = new PathChildrenCache(client, path, true);
+//                cache.start();
+//                // a PathChildrenCacheListener is optional. Here, it's used just to log changes
+//                PathChildrenCacheListener listener = new PathChildrenCacheListener() {
+//                    @Override
+//                    public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
+//                        switch (event.getType()) {
+//                            case CHILD_ADDED: {
+//                                System.out.println("Node added: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
+//                                break;
+//                            }
+//
+//                            case CHILD_UPDATED: {
+//                                System.out.println("Node changed: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
+//                                break;
+//                            }
+//
+//                            case CHILD_REMOVED: {
+//                                System.out.println("Node removed: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
+//                                break;
+//                            }
+//                        }
+//                    }
+//                };
+//                cache.getListenable().addListener(listener);
 
-                            case CHILD_REMOVED: {
-                                System.out.println("Node removed: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
-                                break;
-                            }
-                        }
-                    }
-                };
-                cache.getListenable().addListener(listener);
+
+                CuratorCache curatorCache = CuratorCache.build(client, path);
+                // there are several ways to set a listener on a CuratorCache. You can watch for individual events
+                // or for all events. Here, we'll use the builder to log individual cache actions
+
+
+                CuratorCacheListener curatorCacheListener = CuratorCacheListener.builder()
+
+                        //支持老的方法 forNodeCache forPathChildrenCache forTreeCache
+//                        .forPathChildrenCache(path, client, new PathChildrenCacheListener() {
+//                            @Override
+//                            public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent pathChildrenCacheEvent) throws Exception {
+//                                switch (pathChildrenCacheEvent.getType()) {
+//                                    case CHILD_ADDED: {
+//                                        System.out.println("Node added: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
+//                                        break;
+//                                    }
+//
+//                                    case CHILD_UPDATED: {
+//                                        System.out.println("Node changed: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
+//                                        break;
+//                                    }
+//
+//                                    case CHILD_REMOVED: {
+//                                        System.out.println("Node removed: " + ZKPaths.getNodeFromPath(event.getData().getPath()));
+//                                        break;
+//                                    }
+//                                }
+//                            }
+//                        })
+                        .forCreates(node -> System.out.println(String.format("Node created: [%s]", node)))
+                        .forChanges((oldNode, node) ->
+                                {
+                                    System.out.println(String.format("Node changed. Old: [%s] New: [%s]", oldNode, node));
+                                    int m = 0;
+                                }
+
+                        )
+                        .forDeletes(oldNode -> System.out.println(String.format("Node deleted. Old value: [%s]", oldNode)))
+                        .forInitialized(() -> System.out.println("Cache initialized"))
+                        .build();
+
+
+                // register the listener
+                curatorCache.listenable().addListener(curatorCacheListener);
+
+                // the cache must be started
+                curatorCache.start();
+
+
+                //   CuratorCacheListener
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -427,7 +531,7 @@ public class ZooKeeperTest {
         client.start();
         InterProcessMutex interProcessMutex = new InterProcessMutex(client, path);
         try {
-            int n=1;
+            int n = 1;
             //获得锁：可设置超时时间
             //会在path下创建一个持久有序节点
             interProcessMutex.acquire();

@@ -3,6 +3,10 @@ package Test.opensource.Netty.NettyProduction;
 
 import Test.opensource.Netty.MarshallingCodeFactory;
 import Test.opensource.Netty.MessageInfo;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import io.netty.handler.ssl.util.SelfSignedCertificate;
 import utility.Action;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -11,13 +15,14 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class NettyClientProduction {
     Bootstrap bootstrap;
     Channel channel;
     String host = "localhost";
-    int port = 8080;
+    int port = 23450;
 
     public NettyClientProduction(String host, Integer port) {
         this.host = host;
@@ -41,6 +46,16 @@ public class NettyClientProduction {
 
 
     void init() throws Exception {
+
+        boolean SSL=true;
+        final SslContext sslCtx;
+        if (SSL) {
+            sslCtx = SslContextBuilder.forClient()
+                    .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
+        } else {
+            sslCtx = null;
+        }
+
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         bootstrap = new Bootstrap(); // (1)
         bootstrap.group(workerGroup); // (2)
@@ -49,6 +64,12 @@ public class NettyClientProduction {
         bootstrap.handler(new ChannelInitializer<SocketChannel>() {
             @Override
             public void initChannel(SocketChannel ch) throws Exception {
+
+                ChannelPipeline p = ch.pipeline();
+                if (sslCtx != null) {
+                    p.addLast(sslCtx.newHandler(ch.alloc(), host, port));
+                }
+
                 //设置allIdleTime=readerIdleTime*3,如果三次都没收到心跳信息就认为断线了
                 ch.pipeline().addLast(new IdleStateHandler(2, 2, 6, TimeUnit.SECONDS));
                 //Marshalling 优化jdk序列化，内部进行粘包处理。不用再设置frameDecoder、frameEncoder
@@ -108,8 +129,13 @@ public class NettyClientProduction {
         }
     }
 
+    /*
+    注：消息要实现Serializable接口
+     */
     public void sendData(MessageInfo messageInfo) {
         channel.writeAndFlush(messageInfo);
+
+//        channel.writeAndFlush("dssddssddsdsdssd");
     }
 
 }

@@ -7,8 +7,11 @@ import java.io.Serializable;
 import java.text.MessageFormat;
 
 //@Message
-//public class MessageInfo implements Serializable {
-public class MessageInfo {
+/*
+MarshallingDecoder 要求对象要实现Serializable接口
+ */
+public class MessageInfo implements Serializable {
+    //public class MessageInfo {
     //    @Index(0)
     private MessageType messageType;
     //    @Index(1)

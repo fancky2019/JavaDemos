@@ -1,7 +1,9 @@
 package Test.opensource.Netty;
 
+import Test.opensource.Netty.NettyProduction.GeneratorCertKey;
+import Test.opensource.Netty.NettyProduction.NettyServerProduction;
+import Test.opensource.Netty.NettyProduction.NettyClientProduction;
 import Test.opensource.Netty.NettySample.NettySampleClient;
-import Test.opensource.Netty.NettySample.NettySampleServer;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPClient;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPServer;
 import Test.opensource.Netty.WebSocketDemo.WebSocketClient;
@@ -17,12 +19,43 @@ public class NettyTest {
 
 //        nettyTest();
 //        nettyWebSocket();
-        nettySampleTest();
+//        nettySampleTest();
 //        nettyUDPTest() ;
+        nettyProductionTest();
+    }
 
+    private void nettyProductionTest() {
+
+//        GeneratorCertKey.Generator();
+
+        CompletableFuture.runAsync(() ->
+        {
+            new NettyServerProduction().test();
+
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (Exception ex) {
+
+        }
+        CompletableFuture.runAsync(() ->
+        {
+
+            NettyClientProduction nettyClientProduction = new NettyClientProduction();
+            nettyClientProduction.connect(() ->
+            {
+                for (int i = 1; i <= 2; i++) {
+                    MessageInfo messageInfo = new MessageInfo();
+                    messageInfo.setMessageType(MessageType.Data);
+                    messageInfo.setBody("测试消息体");
+                    nettyClientProduction.sendData(messageInfo);
+                }
+            });
+        });
     }
 
     private void nettyTest() {
+
         CompletableFuture.runAsync(() ->
         {
             new NettyServer().test();
