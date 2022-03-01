@@ -71,6 +71,32 @@ public class ReflectDemo {
             //是否加了某某注解
             Boolean isAnnotationPresent = field.isAnnotationPresent(Description.class);
 
+
+            //Class 用作方法参数时候用Class<?>，最好指定上下界或者指定参数类型
+            Class<?> voidClass1 = Void.class;
+            Class<Void> voidClass = Void.class;
+            String voidClassName = voidClass.getSimpleName();
+            voidClass.getTypeName();
+            //void
+            String voidClassName1 = Void.TYPE.getSimpleName();
+
+            //void
+            String voidClassLowerCase = Void.TYPE.getSimpleName().toLowerCase();
+            //Void的构造函数是私有的不能用newInstance
+//            Void v1 = voidClass.newInstance();
+            if (Void.TYPE.equals(Void.class)) {//false
+                int m = 0;
+            }
+
+            if (Void.TYPE.getSimpleName().toLowerCase().equals(Void.class.getSimpleName().toLowerCase()))//true
+            {
+                int n = 0;
+            }
+
+            if (Void.TYPE.getSimpleName().equalsIgnoreCase(Void.class.getSimpleName()))//true
+            {
+                int n = 0;
+            }
             System.out.println();  //插入断点
         } catch (Exception ex) {
             String msg = ex.getMessage();
@@ -80,5 +106,13 @@ public class ReflectDemo {
 
     }
 
+    private Void funVoid() {
+        return null;
+//        return ;
+    }
 
+    private void funVoid1() {
+//        return null;
+        return;
+    }
 }

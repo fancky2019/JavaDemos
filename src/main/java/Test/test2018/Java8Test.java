@@ -98,7 +98,7 @@ public class Java8Test {
         //exist
         boolean exist = list.stream().anyMatch(p -> p.getName().equals("fancky"));
 
-      //  BigDecimal 求和
+        //  BigDecimal 求和
 //        BigDecimal bb =list.stream().map(Student::getAge).reduce(BigDecimal.ZERO,BigDecimal::add);
 
         //求和
@@ -325,18 +325,29 @@ public class Java8Test {
         //函数接口调用方法，C#里委托是方法，就直接调用,不用掉方法
         consumer.accept("Consumer");
 
+        //一入一出
         Function<String, Integer> function = p -> Integer.parseInt(p);
         Integer num = function.apply("1");
 
         Predicate<Boolean> predicate = p -> !p;
         Boolean re = predicate.test(false);
 
-        BiConsumer<Integer,Object> biConsumer=(a, b)->
+        //两入无出
+        BiConsumer<Integer, Object> biConsumer = (a, b) ->
         {
 
         };
         //跟C#不一样biConsumer（3,4），java 函数接口只是一个函数接口（可能有多个方法）要指定调用方法
-        biConsumer.accept(3,4);
+        biConsumer.accept(3, 4);
+
+
+        //两入一出
+        BiFunction<Integer, Integer, String> biFunction = (m, n) ->
+        {
+            return m + n + "";
+        };
+
+        biFunction.apply(1, 2);
     }
 
 

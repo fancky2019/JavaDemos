@@ -88,7 +88,7 @@ public class StreamOptionalTest {
         Long count = list.stream().filter(p -> p.getAge() > 2).count();
         Integer size = list.size();
 
-        //去重
+        //去重  according to Object.equals(Object)) of this stream.
         list.stream().distinct();
 
 
