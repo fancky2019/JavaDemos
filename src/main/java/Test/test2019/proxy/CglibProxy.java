@@ -34,7 +34,7 @@ public class CglibProxy<T> implements MethodInterceptor {
         for (int i = 0; i < arr.length; i++) {
             Parameter parameter = method.getParameters()[i];
             String paramName = parameter.getName();
-          //  parameter.getAnnotation()
+            //  parameter.getAnnotation()
             int mm = 0;
         }
 
@@ -56,6 +56,7 @@ public class CglibProxy<T> implements MethodInterceptor {
     }
 
     //定义获取代理对象方法
+//    @SuppressWarnings("unchecked") //去处类型checked校验
     public T getCglibProxy(T objectTarget) {
         //为目标对象target赋值
         this.target = objectTarget;

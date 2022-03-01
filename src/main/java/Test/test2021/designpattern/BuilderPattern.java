@@ -1,10 +1,10 @@
-package Test.test2021.designpattern.builder;
+package Test.test2021.designpattern;
 
 import lombok.Data;
 import lombok.Getter;
 
 @Getter
-public class BuilderTest {
+public class BuilderPattern {
     private String name;
     private Integer age;
 
@@ -15,7 +15,7 @@ public class BuilderTest {
 //    }
 
 
-    private BuilderTest(BuilderTestBuilder builder) {
+    private BuilderPattern(BuilderTestBuilder builder) {
         this.name = builder.name;
         this.age = builder.age;
     }
@@ -44,13 +44,13 @@ public class BuilderTest {
             return this;
         }
 
-        public BuilderTest builder()
+        public BuilderPattern builder()
         {
             //增减校验逻辑
             if (this.getAge() < 0 || this.getAge() > 255) {
                 throw new IllegalStateException("Age out of range:" + this.getAge());// 线程安全
             }
-            return new BuilderTest(this);
+            return new BuilderPattern(this);
         }
 
     }

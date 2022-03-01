@@ -1,20 +1,6 @@
 
-import Test.opensource.Jackson.JacksonTest;
-import Test.opensource.Netty.NettyTest;
-import Test.opensource.ratelimiter.RateLimiterTest;
-import Test.opensource.zookeeper.ZooKeeperTest;
-import Test.test2018.*;
-import Test.test2018.ThreadTest;
-import Test.test2019.AtomicIntegerTest;
-import Test.test2019.AtomicMarkableReferenceTest;
-import Test.test2019.AtomicStampedReferenceTest;
-import Test.test2019.HashCodeTest;
-import Test.test2019.proxy.CglibProxy;
-import Test.test2019.proxy.ProxyImp;
-import Test.test2019.proxy.ProxyTest;
-import Test.test2020.UDPTest;
-import Test.test2021.*;
-import Test.test2021.designpattern.builder.BuilderTest;
+import Test.test2018.ReflectDemo;
+import Test.test2021.designpattern.SingletonPattern;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,7 +8,6 @@ import java.text.MessageFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 
 
 /*
@@ -40,8 +25,8 @@ public class Main {
             //Main
             String className = Main.class.getSimpleName();
             int m = -13;
-            int n=-m;
-            int mmm=0;
+            int n = -m;
+            int mmm = 0;
 //          String dir=  System.getProperty("user.home");
 
 //            Log4j2 完全异步模式
@@ -82,7 +67,7 @@ public class Main {
             //  new SetTest().test();
 
             //  new FileTest().test();
-//            new ReflectDemo().test();
+            new ReflectDemo().test();
 //            new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
@@ -134,7 +119,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-            new NettyTest().test();
+//            new NettyTest().test();
 
 //            new NettyTest().nettyWebSocket();
 
@@ -238,6 +223,7 @@ public class Main {
 //            new EnumJacksonTest().test();
 //            new SynchronousQueueTest().test();
 //            new StringBufferTest().test();
+//            SingletonPattern.test();
 
             //endregion
 
