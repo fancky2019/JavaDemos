@@ -24,9 +24,7 @@ public class Main {
 
             //Main
             String className = Main.class.getSimpleName();
-            int m = -13;
-            int n = -m;
-            int mmm = 0;
+            int m = 1;
 //          String dir=  System.getProperty("user.home");
 
 //            Log4j2 完全异步模式
