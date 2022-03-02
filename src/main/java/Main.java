@@ -27,7 +27,6 @@ public class Main {
             int m = -131;
             int n = -m;
             int mmm = 0;
-            int yy=21;
 //          String dir=  System.getProperty("user.home");
 
 //            Log4j2 完全异步模式
