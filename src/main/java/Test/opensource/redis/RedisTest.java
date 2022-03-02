@@ -45,6 +45,22 @@ import java.util.concurrent.TimeUnit;
  * redis key 过期订阅：
  *
  * LUA脚本保证redis执行复杂脚本的原子性
+ *
+ *
+ *
+ *
+ *
+ *
+ * memcached不支持持久化，没有安全机制。memcached是多线程工作，而redis是单线程工作。
+ * 各个memcached服务器之间互不通信，各自独立存取数据，不共享任何信息。服务器并不具有分布式功能
+ *
+ *MongoDB 文档性的数据库，支持字段索引、游标操作，其优势在于查询功能比较强大，擅长查询 JSON 数据，能存储海量数据，但是不支持事务。
+ *
+ *
+ *
+ *
+ *
+ *
  */
 public class RedisTest {
     /**
