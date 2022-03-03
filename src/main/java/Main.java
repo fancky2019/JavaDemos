@@ -1,4 +1,5 @@
 
+import Test.opensource.jwt.JwtTest;
 import Test.test2018.ReflectDemo;
 import Test.test2021.designpattern.SingletonPattern;
 
@@ -67,7 +68,7 @@ public class Main {
             //  new SetTest().test();
 
             //  new FileTest().test();
-            new ReflectDemo().test();
+//            new ReflectDemo().test();
 //            new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
@@ -141,7 +142,7 @@ public class Main {
 //            new ReferenceDemo().test();
 
 //            new SerializableTest().test();
-//            new JwtTest().test();
+            new JwtTest().test();
 
 //            new KafkaTest().test();
 //            new SemaphoreTest().test();

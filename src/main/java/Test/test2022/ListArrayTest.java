@@ -1,6 +1,7 @@
 package Test.test2022;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ListArrayTest {
@@ -26,6 +27,9 @@ public class ListArrayTest {
         array[3]=4;
         //[I@4ec6a292
         String str1 = array.toString();
+
+//        Arrays.stream(array).filter()
+
 
 
 
