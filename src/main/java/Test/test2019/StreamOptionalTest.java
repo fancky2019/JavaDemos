@@ -16,6 +16,15 @@ public class StreamOptionalTest {
     }
 
     private void streamFun() {
+
+        int[] array=new int[4];
+        array[0]=1;
+        array[1]=2;
+        array[2]=3;
+        array[3]=4;
+        //数组使用stream
+        Arrays.stream(array).sorted();
+
         List<Integer> listInteger = new ArrayList<Integer>();
         listInteger.add(4);
         listInteger.add(2);

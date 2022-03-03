@@ -1,4 +1,5 @@
 
+import Test.opensource.jwt.JwtTest;
 import Test.test2018.ReflectDemo;
 import Test.test2021.designpattern.SingletonPattern;
 
@@ -27,7 +28,6 @@ public class Main {
             int m = -131;
             int n = -m;
             int mmm = 0;
-            int yy=21;
 //          String dir=  System.getProperty("user.home");
 
 //            Log4j2 完全异步模式
@@ -68,7 +68,7 @@ public class Main {
             //  new SetTest().test();
 
             //  new FileTest().test();
-            new ReflectDemo().test();
+//            new ReflectDemo().test();
 //            new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
@@ -142,7 +142,7 @@ public class Main {
 //            new ReferenceDemo().test();
 
 //            new SerializableTest().test();
-//            new JwtTest().test();
+            new JwtTest().test();
 
 //            new KafkaTest().test();
 //            new SemaphoreTest().test();
