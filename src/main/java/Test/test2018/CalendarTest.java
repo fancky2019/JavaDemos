@@ -1,6 +1,7 @@
 package Test.test2018;
 
 import Model.Student;
+import sun.reflect.generics.tree.VoidDescriptor;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -32,8 +33,9 @@ public class CalendarTest {
     public void test() {
         try {
 //            zonedDateTimeTest();
-            operation();
+//            operation();
 //            formatter();
+            timeZone();
         } catch (Exception ex) {
             int m = 0;
         }
@@ -253,6 +255,13 @@ public class CalendarTest {
         LocalDateTime dispatchTime = LocalDateTime.from(localDateTime);
         //endregion
 
+    }
+
+
+    private void timeZone()
+    {
+        String name = TimeZone.getDefault().getDisplayName();
+        String id = TimeZone.getDefault().getID();//id 时区字符串
     }
 
 
