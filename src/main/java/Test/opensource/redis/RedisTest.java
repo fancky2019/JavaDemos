@@ -201,6 +201,9 @@ public class RedisTest {
         //删除数据
         jedis.del("stringKey");
 
+        jedis.close();
+
+
     }
     //endregion
 
@@ -257,7 +260,7 @@ public class RedisTest {
         while (iter.hasNext()) {
             String key = iter.next();
         }
-
+        jedis.close();
     }
     //endregion
 
@@ -306,7 +309,7 @@ public class RedisTest {
 
         System.out.println(jedis.lrange("listKey", 0, -1));
 
-
+        jedis.close();
     }
     //endregion
 
@@ -366,7 +369,7 @@ public class RedisTest {
         jedis.srem("setKey1", "setValue1");
         //删除
         jedis.del("setKey2");
-
+        jedis.close();
     }
     //endregion
 
@@ -466,7 +469,7 @@ public class RedisTest {
           ex.printStackTrace();
           int m=0;
         }
-
+        jedis.close();
     }
     //endregion
 
