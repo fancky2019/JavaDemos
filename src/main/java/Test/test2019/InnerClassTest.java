@@ -141,6 +141,13 @@ interface OuterInterface {
 
 }
 
+/*
+一个java文件只允许生命一个public外部类
+ */
+//public  class  InnerClassTestA{
+//
+//}
+
 
 
 

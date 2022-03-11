@@ -10,12 +10,14 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.StampedLock;
 
 /*
+
+
  primitive 类型数据
 整型：byte, short, int, long
 字符型：char
 浮点型：float, double。此两种不会缓存
 布尔型：boolean
-
+ 可通过修改jvm 参数XX:AutoBoxCacheMax=1000 设置最大缓存值
  Byte,Short,Integer,Long  [-128-127]
  Character                [0,127]
  Boolean                  True Or False
