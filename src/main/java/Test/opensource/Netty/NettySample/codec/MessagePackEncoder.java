@@ -13,7 +13,7 @@ import io.netty.handler.codec.MessageToMessageEncoder;
 import org.msgpack.MessagePack;
 import org.msgpack.jackson.dataformat.JsonArrayFormat;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
-import org.omg.CORBA.PUBLIC_MEMBER;
+//import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.nio.*;
 import java.util.List;
