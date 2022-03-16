@@ -1,6 +1,7 @@
 
 import Test.opensource.jwt.JwtTest;
 import Test.test2018.ReflectDemo;
+import Test.test2021.CompletableFutureTest;
 import Test.test2021.designpattern.SingletonPattern;
 
 import java.io.BufferedReader;
@@ -210,7 +211,7 @@ public class Main {
 
 //            new Log4J2Test().test();
 //            new CountdownLatchTest().test();
-//            new CompletableFutureTest().test();
+            new CompletableFutureTest().test();
 //            new LockSupportTest().test();
 //            new ThreadTest().test();
 //            new DelayQueueTest().test();

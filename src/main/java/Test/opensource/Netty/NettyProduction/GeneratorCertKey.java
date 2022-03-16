@@ -3,7 +3,7 @@ package Test.opensource.Netty.NettyProduction;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
-import sun.reflect.generics.tree.VoidDescriptor;
+//import sun.reflect.generics.tree.VoidDescriptor;
 
 import javax.net.ssl.SSLException;
 import java.io.File;

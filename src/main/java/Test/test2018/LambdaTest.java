@@ -14,6 +14,8 @@ import java.util.function.Predicate;
  * lambda 表达式的执行原理是会构建一个内部类，其中表达式中用到的外部变量，都会通过内部类的构造函数，作为参数引入。
  * Lambda 表达式引用的局部变量必须是 final 或者是等同 final 效果的即lambda内不会修改变量值
  *
+ *
+ * lambda 不能引用外部原始类型数据，可以引用引用类型数据
  * @author cc
  */
 public class LambdaTest {
