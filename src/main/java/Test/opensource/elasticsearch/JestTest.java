@@ -10,7 +10,7 @@ import io.searchbox.indices.CreateIndex;
 import io.searchbox.indices.DeleteIndex;
 import io.searchbox.indices.mapping.PutMapping;
 import io.searchbox.params.Parameters;
-import sun.util.locale.provider.FallbackLocaleProviderAdapter;
+//import sun.util.locale.provider.FallbackLocaleProviderAdapter;
 
 import java.io.IOException;
 import java.text.MessageFormat;
