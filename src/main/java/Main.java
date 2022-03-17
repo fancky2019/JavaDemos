@@ -1,4 +1,5 @@
 
+import Test.opensource.Netty.NettyTest;
 import Test.opensource.jwt.JwtTest;
 import Test.test2018.ReflectDemo;
 import Test.test2021.CompletableFutureTest;
@@ -123,7 +124,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-//            new NettyTest().test();
+            new NettyTest().test();
 
 //            new NettyTest().nettyWebSocket();
 
@@ -145,7 +146,7 @@ public class Main {
 //            new ReferenceDemo().test();
 
 //            new SerializableTest().test();
-            new JwtTest().test();
+//            new JwtTest().test();
 
 //            new KafkaTest().test();
 //            new SemaphoreTest().test();
@@ -211,7 +212,7 @@ public class Main {
 
 //            new Log4J2Test().test();
 //            new CountdownLatchTest().test();
-            new CompletableFutureTest().test();
+//            new CompletableFutureTest().test();
 //            new LockSupportTest().test();
 //            new ThreadTest().test();
 //            new DelayQueueTest().test();
