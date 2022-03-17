@@ -15,6 +15,20 @@ import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 
 public class NettyTest {
+
+    /*
+    --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
+--add-opens java.base/sun.security.x509=ALL-UNNAMED
+--add-opens java.base/java.nio=ALL-UNNAMED
+-Dio.netty.tryReflectionSetAccessible=true
+
+
+     <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk15on</artifactId>
+            <version>1.70</version>
+        </dependency>
+     */
     public void test() {
 
 //        nettyTest();
