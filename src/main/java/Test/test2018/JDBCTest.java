@@ -3,14 +3,23 @@ package Test.test2018;
 import Model.Product;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Stopwatch;
+import io.netty.resolver.RoundRobinInetAddressResolver;
+import org.apache.commons.lang3.RandomStringUtils;
+import scala.collection.mutable.ReusableBuilder;
 import utility.Configs;
 
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +39,7 @@ public class JDBCTest {
         try {
 //              insert();
 //            insertTakeTime();
-//            batchInsert();
+            batchInsert();
             // delete();
             // update();
 //            query();
@@ -38,7 +47,7 @@ public class JDBCTest {
             //procedure();
 //              procedureParamOutPut();
 //               transaction();
-               concurrentTransaction();
+//            concurrentTransaction();
 //            pageData();
             Integer m = 0;
         } catch (Exception ex) {
@@ -54,8 +63,8 @@ public class JDBCTest {
 //           Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 //
 //            String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=WMS;user=sa;password=123456;";
-            Class.forName(Configs.Instance.getDriverName());
-            Connection con = DriverManager.getConnection(Configs.Instance.getDburl());
+            Class.forName(Configs.Instance.getMysqlDriverName());
+            Connection con = DriverManager.getConnection(Configs.Instance.getMysqldburl());
             //或者下面的创建连接重载
 //            Connection con =     DriverManager.getConnection(Configs.Instance.getDburl(),Configs.Instance.getUser(),Configs.Instance.getPassword());
 
@@ -373,24 +382,28 @@ public class JDBCTest {
 //        PreparedStatement preparedStatement = con.prepareStatement(insertCommand, PreparedStatement.RETURN_GENERATED_KEYS);
 
         try {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 2000000; i++) {
                 //设置参数
                 //每个参数生成一个Parameter对象加入Parameter[]中。
                 preparedStatement.setString(1, UUID.randomUUID().toString());
                 preparedStatement.setInt(2, 1);
                 preparedStatement.setNull(3, Types.INTEGER);
                 preparedStatement.setInt(4, 1);
-                if (i != 1) {
-                    preparedStatement.setString(5, MessageFormat.format("batchInsert{0}", i));
-                } else {
-                    //其中一条异常，其他没有回滚，和数据库里执行节本不同。数据库里当成一个事务。
-                    //针对其中有可能有异常数据，要开启事务。
-                    preparedStatement.setString(5, "dddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffff");
-                }
+                int nameLength = new Random().nextInt(8, 15);
+                String nameStr = RandomStringUtils.random(nameLength, true, false);
+//                preparedStatement.setString(5, MessageFormat.format("batchInsert{0}", i));
+                preparedStatement.setString(5, nameStr);
+//                if (i != 1) {
+//                    preparedStatement.setString(5, MessageFormat.format("batchInsert{0}", i));
+//                } else {
+//                    //其中一条异常，其他没有回滚，和数据库里执行节本不同。数据库里当成一个事务。
+//                    //针对其中有可能有异常数据，要开启事务。
+//                    preparedStatement.setString(5, "dddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffffdddddddddddddddddddddddddddddddddddddddddddddsdsffffffffff");
+//                }
                 preparedStatement.setNull(6, Types.NVARCHAR);
-                preparedStatement.setBigDecimal(7, new BigDecimal(123));
+                preparedStatement.setBigDecimal(7, getRandomPrice());
                 //                 setDate只能得到年月日
-                preparedStatement.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+                preparedStatement.setTimestamp(8, new Timestamp(getRandomDate()));
                 Short status = 1;
                 preparedStatement.setShort(9, status);
                 preparedStatement.setInt(10, 12);
@@ -420,6 +433,29 @@ public class JDBCTest {
     }
 
     //endregion
+
+
+    private BigDecimal getRandomPrice() {
+        Random randomPrice = new Random();
+        BigDecimal price = BigDecimal.valueOf(randomPrice.nextDouble(10000)).setScale(2, RoundingMode.HALF_UP);;
+        return price;
+    }
+
+    private long getRandomDate() {
+        Random random = new Random();//如果设置参数1每次都一样的值
+        int year = random.nextInt(0, 52);
+        int month = random.nextInt(1, 12);
+        int day = random.nextInt(1, 28);
+        LocalDateTime startDate = LocalDateTime.of(1970, 1, day, 0, 0, 0);
+        startDate = startDate.plusYears(year);
+        startDate = startDate.plusMonths(month);
+        startDate = startDate.plusDays(day);
+        //atZone(ZoneOffset.UTC).toInstant().toEpochMilli()
+//        imestamp.from(Instant.now());
+
+        long ep = startDate.atZone((OffsetDateTime.now().getOffset())).toInstant().toEpochMilli();
+        return ep;
+    }
 
     //region 存储过程
 
