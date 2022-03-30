@@ -35,11 +35,20 @@ import java.util.concurrent.TimeUnit;
  * 只要slave启动，就会和master建立连接发送SYNC请求和主机全量同步。
  *
  *
- * redis 高可用：redis 主从、redis sentinel、 redis cluster 。
+ * redis 高可用：redis 主从、redis sentinel、 redis cluster 依赖ruby 。
  * mysql 高可用：一主两从、一主多从或者多主多从的集群。
  * redis cluster :解决sentinel扩容问题。hash槽算法集群分片存储。每个节点都有自己的至少一个从节点，
  * 若有一个节点的主从都宕机，集群就不可用。每个节点保存其他节点的主从配置信息，主节点不可用就切换从节点同事更新配置。
  *
+ *
+ *      rabbitMQ集群：https://www.cnblogs.com/lonely-wolf/p/14397704.html
+ *
+ *     元数据:指的是包括队列名字属性、交换机的类型名字属性、绑定信息、vhost等基础信息，不包括队列中的消息数据。
+ *     集群主要有两种模式：普通集群模式和镜像队列模式。
+ *                    普通集群：各节点只存储相同的元数据，消息存在于不同节点。消费消息只能从一个节点读取，消息则从存储的节点转发到读取的节点机器。
+ *                             如果一个节点宕机则消息无法消费，只能等待重启，且消息磁盘持久化。
+ *                    镜像队列模式：各个节点保存相同的元数据和消息。类似redis主从模式。由于各节点同步会消耗带宽。
+ *                               搭建： HAProxy + Keepalived 高可用集群
  *
  *
  * redis key 过期订阅：

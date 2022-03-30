@@ -1,6 +1,7 @@
 
 import Test.opensource.Netty.NettyTest;
 import Test.opensource.jwt.JwtTest;
+import Test.test2018.JDBCTest;
 import Test.test2018.ReflectDemo;
 import Test.test2021.CompletableFutureTest;
 import Test.test2021.designpattern.SingletonPattern;
@@ -124,7 +125,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-            new NettyTest().test();
+//            new NettyTest().test();
 
 //            new NettyTest().nettyWebSocket();
 
@@ -141,7 +142,7 @@ public class Main {
             //   new LeftMoveTest().test();
 //              new RedissonTest().test();
 //              new ConstructorTest().test();
-//            new JDBCTest().test();
+            new JDBCTest().test();
 //            new MysqlTest().test();
 //            new ReferenceDemo().test();
 

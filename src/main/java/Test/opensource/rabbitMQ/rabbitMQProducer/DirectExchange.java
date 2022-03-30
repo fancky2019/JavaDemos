@@ -115,6 +115,15 @@ public class DirectExchange {
                      投递消息的时候指定了交换机名称：就指定了交换机的类型，路由key ：根据交换机和队列的绑定关系交换机就可以将消息投递到对应的队列
                      */
 
+
+                    /*
+                    一、mandatory 参数
+                        当mandatory 参数设为 true 时，交换器无法根据自身的类型和路由键找到一个符合条件 的队列，那么 RabbitMQ 会调用 Basic.Return 命令将消息返回给生产者 。当 mandatory 数设置为 false 时，出现上述情形，则消息直接被丢弃,那么生产者如何获取到没有被正确路由到合适队列的消息呢?这时候可以通过调用 channel addReturnListener 来添加 ReturnListener 监昕器实现。
+
+                        二、immediate 参数  rabbitMQ3.0删除改参数
+                        imrnediate 参数设为 true 时，如果交换器在将消息路由到队列时发现队列上并不存在 任何消费者，那么这条消息将不会存入队列中。当与路由键匹配的所有队列都没有消费者时 该消息会通过 Basic Return 返回至生产者。
+                        。
+                     */
                     //  BasicProperties 默认为：   MessageProperties.MINIMAL_BASIC,不持久化
                     //mandatory设置为true,第三个参数
                     channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, true, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"));

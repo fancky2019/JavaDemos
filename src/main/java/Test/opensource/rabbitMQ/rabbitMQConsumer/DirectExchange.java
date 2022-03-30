@@ -42,7 +42,10 @@ public class DirectExchange {
 
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
-
+//            autoDelete属性
+//            @Queue: 当所有消费客户端连接断开后，是否自动删除队列 true：删除false：不删除
+//
+//            @Exchange：当所有绑定队列都不在使用时，是否自动删除交换器 true：删除false：不删除
 
             channel.exchangeDeclare(EXCHANGE_NAME, ExchangeType.DIRECT);
 

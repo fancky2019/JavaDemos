@@ -11,7 +11,8 @@ public class RandomTest {
     }
 
     private void fun() {
-        Random random = new Random(1);
+//        Random random = new Random(1);
+        Random random = new Random(); //如果设置参数1每次都一样的值
         //(0,10000] 左开右闭
         int r1 = random.nextInt(10000);
         //(0,10000] 左开右闭
