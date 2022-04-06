@@ -25,27 +25,34 @@ public class ThreadTest {
     线程同步、线程间通信：synchronized 、ReentrantLock await signal、object的wait notify 、semaphore.acquire()release()、cas
      */
     public void test() {
-        joinTest();
-//        threadExceptionTest();
+//        joinTest();
+
+        threadPoolExceptionTest();
+//        threadExceptionTestFun();
     }
 
-    private void threadExceptionTest() {
+    /*
+    如果主线程代码执行完，此时子线程抛出异常，主线程是无法捕获的
+     */
+    private void threadPoolExceptionTest() {
 
         try {
             CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(() ->
             {
                 //必须在线程内部进行异常处理，无法抛出到外边的另外一个线程。和C#一样
-                Integer m = Integer.parseInt("m");
-//                try {
-//                    Integer m = Integer.parseInt("m");
-//                } catch (Exception e) {
-//                   System.out.println("Thead 内部:"+e.getMessage());
-//                }
+//                Integer m = Integer.parseInt("m");
+                try {
+                    Integer m = Integer.parseInt("m");
+                } catch (Exception e) {
+                   System.out.println("Thead 内部:"+e.getMessage());
+                   throw e;
+                }
                 return 1;
             });
 
             // get 内部还是通过 LockSupport.unpark()、 LockSupport.park() block 当前线程。知道线程完成
-            completableFuture.get();
+            //外部主线程已经执行完，如果内部线程抛异常将不会进入外部线程
+//            completableFuture.get();
         } catch (Exception e) {
             //外层捕获，没有进入catch
             System.out.println("Thead 外部:" + e.getMessage());
@@ -53,8 +60,38 @@ public class ThreadTest {
         }
 
 
-        System.out.println("Completed");
+        System.out.println("threadPoolExceptionTest Completed");
     }
+
+
+    private void threadExceptionTestFun() {
+
+        try {
+           Thread thread = new Thread(() ->
+            {
+                //必须在线程内部进行异常处理，可能无法抛出到外边的另外一个线程。和C#一样
+                Integer m = Integer.parseInt("m");
+//                try {
+//                    Integer m = Integer.parseInt("m");
+//                } catch (Exception e) {
+//                    System.out.println("Thead 内部:"+e.getMessage());
+//                    throw e;
+//                }
+
+            });
+
+            //外部主线程已经执行完，如果内部线程抛异常将不会进入外部线程
+            thread.start();
+        } catch (Exception e) {
+            //外层捕获，没有进入catch
+            System.out.println("Thead 外部:" + e.getMessage());
+            int m = 0;
+        }
+
+
+        System.out.println("threadExceptionTestFun Completed");
+    }
+
 
     //region join 阻塞直到指定时间或线程执行完成
     Thread threadJoin = null;
