@@ -389,7 +389,11 @@ public class JDBCTest {
                 preparedStatement.setInt(2, 1);
                 preparedStatement.setNull(3, Types.INTEGER);
                 preparedStatement.setInt(4, 1);
-                int nameLength = new Random().nextInt(8, 15);
+
+                //java17
+//                int nameLength = new Random().nextInt(8, 15);
+                //java8
+                int nameLength = new Random().nextInt(15)+8;
                 String nameStr = RandomStringUtils.random(nameLength, true, false);
 //                preparedStatement.setString(5, MessageFormat.format("batchInsert{0}", i));
                 preparedStatement.setString(5, nameStr);
@@ -437,15 +441,19 @@ public class JDBCTest {
 
     private BigDecimal getRandomPrice() {
         Random randomPrice = new Random();
-        BigDecimal price = BigDecimal.valueOf(randomPrice.nextDouble(10000)).setScale(2, RoundingMode.HALF_UP);;
+//        BigDecimal price = BigDecimal.valueOf(randomPrice.nextDouble(10000)).setScale(2, RoundingMode.HALF_UP);;
+
+        BigDecimal price = BigDecimal.valueOf(randomPrice.nextDouble()).setScale(2, RoundingMode.HALF_UP);;
+
+
         return price;
     }
 
     private long getRandomDate() {
         Random random = new Random();//如果设置参数1每次都一样的值
-        int year = random.nextInt(0, 52);
-        int month = random.nextInt(1, 12);
-        int day = random.nextInt(1, 28);
+        int year = random.nextInt(52);
+        int month = random.nextInt(11)+1;
+        int day = random.nextInt(27)+1;
         LocalDateTime startDate = LocalDateTime.of(1970, 1, day, 0, 0, 0);
         startDate = startDate.plusYears(year);
         startDate = startDate.plusMonths(month);

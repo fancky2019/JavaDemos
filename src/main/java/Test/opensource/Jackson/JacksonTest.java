@@ -5,6 +5,7 @@ import Test.opensource.Netty.MessageInfo;
 import Test.opensource.Netty.MessageType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
@@ -88,6 +89,7 @@ public class JacksonTest {
 
 
             //序列化map
+            //原始类型map
             HashMap<Integer, String> hashMap = new HashMap<>();
             hashMap.put(1, "li");
             hashMap.put(2, "si");
@@ -95,6 +97,7 @@ public class JacksonTest {
             HashMap<Integer, String> hashMap1 = mapper.readValue(jsonMapStr, new TypeReference<HashMap<Integer, String>>() {
             });
 
+            //泛型map
             HashMap<String, JacksonPojo> pojoHashMap = new HashMap<>();
             pojoHashMap.put(jacksonPojo.getName(), jacksonPojo);
             //key  重加入不了HashMap。C#报错
@@ -103,6 +106,11 @@ public class JacksonTest {
             String jsonPojoMapStr = mapper.writeValueAsString(pojoHashMap);
             HashMap<String, JacksonPojo> pojoHashMap1 = mapper.readValue(jsonPojoMapStr, new TypeReference<HashMap<String, JacksonPojo>>() {
             });
+
+            //String jsonStr ="{\"uid\":100003,\"password\":\"123456\"},";
+            // 2
+            JavaType javaType = mapper.getTypeFactory().constructParametricType(HashMap.class, String.class, JacksonPojo.class);
+            HashMap<String, JacksonPojo> pojoHashMap2 = mapper.readValue(jsonPojoMapStr, javaType);
 
 
             int m = 0;
@@ -159,5 +167,6 @@ public class JacksonTest {
             e.printStackTrace();
         }
     }
+
 
 }

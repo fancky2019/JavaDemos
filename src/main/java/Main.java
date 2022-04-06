@@ -1,4 +1,5 @@
 
+import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.Netty.NettyTest;
 import Test.opensource.jwt.JwtTest;
 import Test.test2018.JDBCTest;
@@ -142,7 +143,7 @@ public class Main {
             //   new LeftMoveTest().test();
 //              new RedissonTest().test();
 //              new ConstructorTest().test();
-            new JDBCTest().test();
+//            new JDBCTest().test();
 //            new MysqlTest().test();
 //            new ReferenceDemo().test();
 
@@ -184,7 +185,7 @@ public class Main {
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
-//            new JacksonTest().test();
+            new JacksonTest().test();
 
 //            new SQLiteTest().test();
 //            new ZooKeeperTest().test();
@@ -215,7 +216,8 @@ public class Main {
 //            new CountdownLatchTest().test();
 //            new CompletableFutureTest().test();
 //            new LockSupportTest().test();
-//            new ThreadTest().test();
+//            new Test.test2018.ThreadTest().test();
+//            new Test.test2021.ThreadTest().test();
 //            new DelayQueueTest().test();
 //            new MathTest().test();
 
@@ -236,7 +238,17 @@ public class Main {
 
             System.out.println(MessageFormat.format("main:{0}", "completed !"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
+            //阻塞主线程用
             String str = strin.readLine();
+
+            //System.exit()或Runtime.exit()可以直接导致当前JVM进程退出
+
+            /*
+              status是非零参数，那么表示是非正常退出。 System.exit(1); System.exit(0) ;
+             System.exit(0)是正常退出程序，而System.exit(1)或者说非0表示非正常退出程序。
+             */
+//            System.exit(1);
+//            Runtime.exit(1);
 //            System.exit(0) ;
             Runtime.getRuntime().exit(0);
             Integer a = 0;
