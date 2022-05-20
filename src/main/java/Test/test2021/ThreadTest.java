@@ -1,19 +1,23 @@
 package Test.test2021;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.text.MessageFormat;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * AtomicIntegerTest cas demo2019
- *进程：是系统进行资源分配和调度的基本单位。进程是线程的容器。进程是程序的实体
- *线程：操作系统能够进行运算调度的最小单位。
+ * 进程：是系统进行资源分配和调度的基本单位。进程是线程的容器。进程是程序的实体
+ * 线程：操作系统能够进行运算调度的最小单位。
  * 线程id 在一台操作系统内是唯一的。线程标识符永远不会是0。
- *
- *一旦所涉及的线程和进程终止，操作系统可以重用进程ID和线程ID。
- *
+ * <p>
+ * 一旦所涉及的线程和进程终止，操作系统可以重用进程ID和线程ID。
  */
 public class ThreadTest {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     /*
      线程终止：Thread.currentThread().isInterrupted();//true   //终止掉线程
@@ -27,8 +31,8 @@ public class ThreadTest {
     public void test() {
 //        joinTest();
 
-        threadPoolExceptionTest();
-//        threadExceptionTestFun();
+//        threadPoolExceptionTest();
+        threadExceptionTestFun();
     }
 
     /*
@@ -44,8 +48,9 @@ public class ThreadTest {
                 try {
                     Integer m = Integer.parseInt("m");
                 } catch (Exception e) {
-                   System.out.println("Thead 内部:"+e.getMessage());
-                   throw e;
+                    System.out.println("Thead 内部:" + e.getMessage());
+                    LOGGER.error("", e);//用此重载，打印异常
+                    throw e;
                 }
                 return 1;
             });
@@ -67,17 +72,29 @@ public class ThreadTest {
     private void threadExceptionTestFun() {
 
         try {
-           Thread thread = new Thread(() ->
+            Thread thread = new Thread(() ->
             {
-                //必须在线程内部进行异常处理，可能无法抛出到外边的另外一个线程。和C#一样
-                Integer m = Integer.parseInt("m");
-//                try {
+                int i = 0;
+                while (true) {
+                    System.out.println(++i);
+                    //必须在线程内部进行异常处理，可能无法抛出到外边的另外一个线程。和C#一样
 //                    Integer m = Integer.parseInt("m");
-//                } catch (Exception e) {
-//                    System.out.println("Thead 内部:"+e.getMessage());
-//                    throw e;
-//                }
+                    try {
+                        Integer m = Integer.parseInt("m");
+                    } catch (Exception e) {
+//                       e.printStackTrace();
+                        LOGGER.error("", e);//用此重载，打印异常
+                        System.out.println("Thead 内部:" + e.getMessage());
+                        //主线程设置捕获子线程的异常
+//                        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) ->{  });
+//                       throw e;//如果主线程的代码已经执行完是捕捉不到子线程抛出的异常
+                    }
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
 
+                    }
+                }
             });
 
             //外部主线程已经执行完，如果内部线程抛异常将不会进入外部线程

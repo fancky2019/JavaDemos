@@ -25,7 +25,9 @@ N - Number（数值类型）
 
 
 
-注：泛型方法： 参数类型的位置：C#放在方法后<T>,java放在访问修饰符后，返回类型前。  public <T> T funT(Class<T> clazz)
+注：泛型方法： 参数类型的位置：C#放在方法后<T>,java放在访问修饰符后，返回类型前。  public <T> T funT(Class<T> clazz)、
+  public <T> void funT(Class<T> clazz)、
+  public static <T, U extends Comparable<? super U>> Comparator<T> comparing( Function<? super T, ? extends U> keyExtractor)
    泛型类：和C#一样在类名后<T>
  */
 public class GenericTest {
@@ -54,8 +56,13 @@ public class GenericTest {
         GenaTest.Display1("sd");
 
 
+        List<?> listyyy = GenaTest.<GenS>funVoid21112(new GenS());
+        listyyy = GenaTest.funVoid21112(new GenS());
+
+        List<GenS> listGens = GenericTest.this.funVoid21112(new GenS());
+
         GenaTest genaTest1 = new GenaTest();
-        genaTest1.Display2();
+//        genaTest1.Display2();
         GenaTest<String> genaTest2 = new GenaTest<>();
         // 泛型类型不能使primitive type
         // GenaTest<int> genaTest21 = new GenaTest<>();
@@ -150,6 +157,10 @@ public class GenericTest {
 
     }
 
+    public <T extends GenS> List<T> funVoid21112(T t) {
+        return null;
+    }
+
     public <T> void funVoid2111(List<? super GenS> list) {
 
     }
@@ -191,12 +202,29 @@ class GenaTest<T> {
 
     }
 
+    //静态方法必须要设置 参数类型
     static <T> void Display1(T t) {
 
     }
 
-    <T> void Display2() {
+    //报错 静态方法必须要设置 参数类型 cannot be referenced from a static context
+//    static  void Display112(T t) {
+//
+//    }
 
+    void Display1121(T t) {
+
+    }
+
+    //和类的类型占位符不一样，就要设置泛型类型生命。
+    static <E>  void Display11(E e ){
+
+    }
+
+
+
+    public static <T extends GenS> List<T> funVoid21112(T t) {
+        return null;
     }
 }
 

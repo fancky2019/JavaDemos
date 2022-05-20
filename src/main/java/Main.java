@@ -2,10 +2,19 @@
 import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.Netty.NettyTest;
 import Test.opensource.jwt.JwtTest;
+import Test.opensource.redis.RedisTest;
 import Test.test2018.JDBCTest;
 import Test.test2018.ReflectDemo;
+import Test.test2018.SetTest;
+import Test.test2020.ConcurrentHashMapTest;
 import Test.test2021.CompletableFutureTest;
+import Test.test2021.StringBufferTest;
+import Test.test2021.ThreadTest;
 import Test.test2021.designpattern.SingletonPattern;
+import Test.test2022.ArrayTest;
+import Test.test2022.ListArrayTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,7 +29,7 @@ import java.util.TimeZone;
 Java 包名按惯例一律小写，即使中间的单词也需要小写，与驼峰命名不同
  */
 public class Main {
-
+    private static final Logger LOGGER = LogManager.getLogger();
     public static void main(String[] args) {
         try {
             long epochMillis = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
@@ -39,6 +48,15 @@ public class Main {
 //            Log4j2 完全异步模式
 //            System.setProperty("Log4jContextSelector", "org.apache.logging.log4j.core.async.AsyncLoggerContextSelector");
 
+
+            //主线程设置捕获子线程的异常
+            Thread.setDefaultUncaughtExceptionHandler((thread, throwable) ->
+            {
+                String msg=throwable.getMessage();
+                String msg1=throwable.toString();
+                LOGGER.error("", throwable);//用此重载，打印异常
+                int m10=0;
+            });
 
             //region test2018
 
@@ -65,13 +83,11 @@ public class Main {
 //        Person person=new PersonImp();
 //        person.getName();
 //
-            // new SetTest().test();
-//               new ThreadTest().test();
+//             new SetTest().test();
+//            new ThreadTest().test();
 
 //            new CalendarTest().test();
 //            new ReferenceTest().test();
-
-            //  new SetTest().test();
 
             //  new FileTest().test();
 //            new ReflectDemo().test();
@@ -89,7 +105,7 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-//              new RedisTest().test();
+              new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
@@ -185,7 +201,7 @@ public class Main {
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
-            new JacksonTest().test();
+//            new JacksonTest().test();
 
 //            new SQLiteTest().test();
 //            new ZooKeeperTest().test();
@@ -232,6 +248,7 @@ public class Main {
 //            new SynchronousQueueTest().test();
 //            new StringBufferTest().test();
 //            SingletonPattern.test();
+//            new ListArrayTest().test();
 
             //endregion
 
