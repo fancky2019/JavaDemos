@@ -1,6 +1,9 @@
 package Test.test2020;
 
+import org.checkerframework.checker.units.qual.K;
+
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /*
@@ -17,7 +20,7 @@ public class ConcurrentHashMapTest {
      */
 
     /*
-     hread.yield() 方法，使当前线程由执行状态，变成为就绪状态，让出cpu时间，在下一个线程执行时候，
+     thread.yield() 方法，使当前线程由执行状态，变成为就绪状态，让出cpu时间，在下一个线程执行时候，
      此线程有可能被执行，也有可能没有被执行。
 
 
@@ -30,7 +33,7 @@ public class ConcurrentHashMapTest {
 
      */
     public void test() {
-       // Hashtable采用的是数组 + 链表，当链表过长会影响查询效率，而ConcurrentHashMap采用数组 + 链表 + 红黑树，当链表长度超过8，则将链表转成红黑树，提高查询效率。
+        // Hashtable采用的是数组 + 链表，当链表过长会影响查询效率，而ConcurrentHashMap采用数组 + 链表 + 红黑树，当链表长度超过8，则将链表转成红黑树，提高查询效率。
         /*
         static class Node<K,V> implements Map.Entry<K,V> {
         final int hash;
@@ -48,7 +51,22 @@ public class ConcurrentHashMapTest {
         Node<K,V> next;
          */
         HashMap<Integer, Integer> hashMap = new HashMap<>();
-        hashMap.put(1,1);
+        //hashmap 初始容量，16 阈值：16*0.75，每次添加完之后判断超过阈值扩容
+        for (int i = 1; i <= 16 * 0.75; i++) {
+            hashMap.put(i, 1);
+        }
+        //13个超过阈值，hashmap扩容
+        hashMap.put(13, 1);
+
+        hashMap.get(1);
+
+        hashMap.keySet();
+        hashMap.entrySet();
+
+        for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
+            entry.getValue();
+            entry.getKey();
+        }
         //endregion
 
         ConcurrentHashMap<Integer, Integer> map = new ConcurrentHashMap<>();
@@ -86,16 +104,15 @@ public class ConcurrentHashMapTest {
 
     }
 
-    private  void  funKeys()
-    {
+    private void funKeys() {
         ConcurrentHashMap<Integer, Integer> map = new ConcurrentHashMap<>();
         Integer re = map.put(1, 2);//null
         re = map.put(2, 3);
 
-        map.forEach((m,n)->
+        map.forEach((m, n) ->
         {
-            Object o=m;
-            int p=0;
+            Object o = m;
+            int p = 0;
         });
     }
 

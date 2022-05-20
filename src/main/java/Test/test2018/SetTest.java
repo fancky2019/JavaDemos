@@ -27,9 +27,10 @@ peek，element区别：
  */
 
     public void test() {
-        operation();
-        sets();
-        //  getListObjectProperty();
+//        operation();
+//        sets();
+        getListObjectProperty();
+
     }
 
     private void operation() {
@@ -159,7 +160,7 @@ peek，element区别：
 
         //取值一
         Iterator<Integer> iterator1 = hashSet.iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             System.out.println(it.next());
         }
 
@@ -169,7 +170,7 @@ peek，element区别：
         }
 
         //取值三
-        hashSet.forEach(p->
+        hashSet.forEach(p ->
         {
 
         });
@@ -240,7 +241,9 @@ peek，element区别：
         List<Student> list1 = new ArrayList<>(Arrays.asList(new Student("fancky5", 6),
                 new Student("fancky6", 5),
                 new Student("fancky7", 8),
-                new Student("fancky8", 7)
+                new Student("fancky8", 7),
+                new Student("fancky6", 6),
+                new Student("fancky9", 6)
         ));
         //获取对象集合的某一属性集合
         //lambda表达式
@@ -253,7 +256,7 @@ peek，element区别：
         //第一个
         Student first = filterList.get(0);
         //最后一个
-        Student last = filterList.get(filterList.size());
+        Student last = filterList.get(filterList.size()-1);
         //对象集合排序：实现Comparable接口，然后重写compareTo方法。
         filterList.sort((a, b) -> a.getAge().compareTo(b.getAge()));
         //java8 Comparator
@@ -272,6 +275,35 @@ peek，element区别：
         Collections.sort(ageList);
         //逆序
         Collections.reverse(ageList);
+        //多个字段排序
+        List<Student> studentList = list1.stream().sorted(Comparator.comparing((Student p)->p.getAge())
+                        .thenComparing(Student::getName, Comparator.reverseOrder()))
+//                        .thenComparing(Student::getName))
+                .collect(Collectors.toList());
+
+        //逆序
+        studentList = list1.stream().sorted(Comparator.comparing(Student::getAge).reversed())
+
+//                        .thenComparing(Student::getName))
+                .collect(Collectors.toList());
+
+
+        studentList = list1.stream().sorted(Comparator.<Student, Integer>comparing(p->p.getAge()).reversed())
+
+//                        .thenComparing(Student::getName))
+                .collect(Collectors.toList());
+
+
+
+        Comparator<Student> comparator=   Comparator.comparing(Student::getAge)
+                .thenComparing(Student::getName, Comparator.reverseOrder())
+//                        .thenComparing(Student::getName))
+                 ;
+        List<Student> studentList1= list1.stream().sorted(comparator)
+                .collect(Collectors.toList());
+
+        //截取
+        List<Student> studentList11 = list1.subList(0,1);
 
         //最大、最小
         Integer maxAge = Collections.max(ageList);

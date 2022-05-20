@@ -16,61 +16,57 @@ import java.util.concurrent.TimeUnit;
 /**
  * 数据类型的首字母找对应的数据类型的操作
  * 操作命令中文文档：http://www.redis.cn/commands/lpushx.html
- *https://redis.io/commands/
- *
+ * https://redis.io/commands/
+ * <p>
  * 密码配置： SECURITY配置节点 ，requirepass fancky123456
- *
+ * <p>
  * redis集群最少三台主三从。
- *
+ * <p>
  * RedLock；集群配置最少三台机器，最好为奇数。(N/2 + 1)中成功获取锁，则获取锁成功。
- *         redisson在加锁的时候，key=lockName, value=uuid + threadID, 采用set结构存储，
- *         并包含了上锁的次数 （支持可重入）；
- *         解锁的时候通过hexists判断key和value是否存在，存在则解锁；这里不会出现误解锁
- *
+ * redisson在加锁的时候，key=lockName, value=uuid + threadID, 采用set结构存储，
+ * 并包含了上锁的次数 （支持可重入）；
+ * 解锁的时候通过hexists判断key和value是否存在，存在则解锁；这里不会出现误解锁
+ * <p>
  * 持久化：rdb,aof。默认RDB,如果不丢就用aof方式。
- *
- *
+ * <p>
+ * <p>
  * 主从同步：主从同步刚连接的时候进行全量同步；全量同步结束后开始增量同步。如果有需要，slave在任何时候都可以发起全量同步，
  * 其主要策略就是无论如何首先会尝试进行增量同步，如果步成功，则会要求slave进行全量同步，之后再进行增量同步。
  * 只要slave启动，就会和master建立连接发送SYNC请求和主机全量同步。
- *
- *
+ * <p>
+ * <p>
  * redis 高可用：redis 主从、redis sentinel、 redis cluster 依赖ruby 。
  * mysql 高可用：一主两从、一主多从或者多主多从的集群。
  * redis cluster :解决sentinel扩容问题。hash槽算法集群分片存储。每个节点都有自己的至少一个从节点，
  * 若有一个节点的主从都宕机，集群就不可用。每个节点保存其他节点的主从配置信息，主节点不可用就切换从节点同事更新配置。
- *
- *
- *      rabbitMQ集群：https://www.cnblogs.com/lonely-wolf/p/14397704.html
- *
- *     元数据:指的是包括队列名字属性、交换机的类型名字属性、绑定信息、vhost等基础信息，不包括队列中的消息数据。
- *     集群主要有两种模式：普通集群模式和镜像队列模式。
- *                    普通集群：各节点只存储相同的元数据，消息存在于不同节点。消费消息只能从一个节点读取，消息则从存储的节点转发到读取的节点机器。
- *                             如果一个节点宕机则消息无法消费，只能等待重启，且消息磁盘持久化。
- *                    镜像队列模式：各个节点保存相同的元数据和消息。类似redis主从模式。由于各节点同步会消耗带宽。
- *                               搭建： HAProxy + Keepalived 高可用集群
- *
- *
+ * <p>
+ * <p>
+ * rabbitMQ集群：https://www.cnblogs.com/lonely-wolf/p/14397704.html
+ * <p>
+ * 元数据:指的是包括队列名字属性、交换机的类型名字属性、绑定信息、vhost等基础信息，不包括队列中的消息数据。
+ * 集群主要有两种模式：普通集群模式和镜像队列模式。
+ * 普通集群：各节点只存储相同的元数据，消息存在于不同节点。消费消息只能从一个节点读取，消息则从存储的节点转发到读取的节点机器。
+ * 如果一个节点宕机则消息无法消费，只能等待重启，且消息磁盘持久化。
+ * 镜像队列模式：各个节点保存相同的元数据和消息。类似redis主从模式。由于各节点同步会消耗带宽。
+ * 搭建： HAProxy + Keepalived 高可用集群
+ * <p>
+ * <p>
  * redis key 过期订阅：
- *
+ * <p>
  * LUA脚本保证redis执行复杂脚本的原子性
- *
- *
- *
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
+ * <p>
+ * <p>
+ * <p>
  * memcached不支持持久化，没有安全机制。memcached是多线程工作，而redis是单线程工作。
  * 各个memcached服务器之间互不通信，各自独立存取数据，不共享任何信息。服务器并不具有分布式功能
- *
- *MongoDB 文档性的数据库，支持字段索引、游标操作，其优势在于查询功能比较强大，擅长查询 JSON 数据，能存储海量数据，但是不支持事务。
- *
- *
- *文件夹：指定前缀的key放在一个文件夹下。如：key_sb:UserInfo:1 路径前缀之间用冒号分开，当key超过两个RedisDesktop会显示在一个文件夹下。
- *
- *
- *
- *
+ * <p>
+ * MongoDB 文档性的数据库，支持字段索引、游标操作，其优势在于查询功能比较强大，擅长查询 JSON 数据，能存储海量数据，但是不支持事务。
+ * <p>
+ * <p>
+ * 文件夹：指定前缀的key放在一个文件夹下。如：key_sb:UserInfo:1 路径前缀之间用冒号分开，当key超过两个RedisDesktop会显示在一个文件夹下。
  */
 public class RedisTest {
     /**
@@ -91,8 +87,9 @@ public class RedisTest {
         initialPool();
 //        获取Jedis实例
         jedis = jedisPool.getResource();
+
         //设置数据库索引
-        jedis.select(0);
+        jedis.select(8);
     }
 
 
@@ -142,12 +139,12 @@ public class RedisTest {
 //        set();
 //        sortedSet();
 //        increment();
-        transactionTest();
-//        keyExpire();
+//        transactionTest();
+        keyExpire();
 //        redisQueue();
 //        pubSub();
 
-        expireCallBack();
+//        expireCallBack();
     }
 
     /**
@@ -200,6 +197,7 @@ public class RedisTest {
         jedis.set("stringKey", "fancky");
         //设置多个键值对
         jedis.mset("stringKey2", "stringValue", "stringKey3", "22", "stringKey4", "stringValue4");
+//        jedis.mget()
         //拼接字符串
         jedis.append("stringKey", ".com");
         jedis.incr("stringKey3");//加1操作,如果Key不存在就新建一个Key
@@ -296,7 +294,7 @@ public class RedisTest {
 
 
         //写
-        //先向key java framework 中存放三条数据
+        //先向key java framework 中存放三条数据。返回列表的长度
         jedis.lpush("listKey", "spring");
         jedis.lpush("listKey", "struts");
         jedis.lpush("listKey", "hibernate");
@@ -309,7 +307,7 @@ public class RedisTest {
         //第一个是key,第二个是起始位置，第三个是结束位置，jedis.llen获取长度 -1表示取得所有
         //取出所有，但是不删除库
         List<String> listAll = jedis.lrange("listKey", 0, -1);
-
+        String val = jedis.lindex("listKey", 0);
         //删
         //取出并从库中移除
         jedis.lpop("listKey");
@@ -400,24 +398,37 @@ public class RedisTest {
         //                           *                 *
         //                           *                 *
 
-        //写
+        //写,key 存在更新分  向有序集合添加一个或多个成员，或者更新已存在成员的分数
         jedis.zadd("sortedSetKey1", 1d, "sortedSetValue1");
         jedis.zadd("sortedSetKey1", 2d, "sortedSetValue12");
         jedis.zadd("sortedSetKey1", 3d, "sortedSetValue13");
+        jedis.zadd("sortedSetKey1", 4d, "sortedSetValue14");
         jedis.zadd("sortedSetKey4", 4d, "sortedSetValue4");
         jedis.zadd("sortedSetKey2", 2d, "sortedSetValue2");
         jedis.zadd("sortedSetKey3", 3d, "sortedSetValue3");
 
+
         //读
-        //取值该Key的所有
+        //值递减(从大到小)来排列，请使用 ZREVRANGE 命令。
+        //取值该Key的所有 从小到大
         Set<String> setStr = jedis.zrange("sortedSetKey1", 0, -1);
-        //取2个
+//      zrange  返回有序集中，指定区间内的成员。
+//        其中成员的位置按分数值递增(从小到大)来排序。
+//        具有相同分数值的成员按字典序(lexicographical order )来排列。
+        //取2个 下标参数 start 和 stop 都以 0 为底，也就是说，以 0 表示有序集第一个成员，以 1 表示有序集第二个成员，以此类推。
+        //你也可以使用负数下标，以 -1 表示最后一个成员， -2 表示倒数第二个成员，
         Set<String> setStr2 = jedis.zrange("sortedSetKey1", 0, 1);
         Iterator<String> zSetStringIterator = setStr.iterator();
         while (zSetStringIterator.hasNext()) {
             String str = zSetStringIterator.next();
             Integer n = 0;
         }
+        double score = jedis.zscore("sortedSetKey1", "sortedSetValue1");
+        //获取正序排名,排名从0开始，即第一是0
+        long rank = jedis.zrank("sortedSetKey1", "sortedSetValue13");
+        //逆序，从大到小。0开始。最大为0
+        long rank1 = jedis.zrevrank("sortedSetKey1", "sortedSetValue13");
+
 
         //集合运算
         //交集
@@ -448,35 +459,32 @@ public class RedisTest {
         try {
 
 
-        //watch的可以一定要存在，否则无法控制事务。
-        String watchKey = "lockKey";
-        if (!jedis.exists(watchKey)) {
-            jedis.incr(watchKey);
-        }
-        jedis.watch(watchKey);
-        //multi 标记事务块的开始
-        Transaction transaction = jedis.multi();
+            //watch的可以一定要存在，否则无法控制事务。
+            String watchKey = "lockKey";
+            if (!jedis.exists(watchKey)) {
+                jedis.incr(watchKey);
+            }
+            jedis.watch(watchKey);
+            //multi 标记事务块的开始
+            Transaction transaction = jedis.multi();
 
-        transaction.set("transactionStringKey","transactionStringValue");
-        transaction.incr("jedis");
-        transaction.incr("transactionStringKey");
+            transaction.set("transactionStringKey", "transactionStringValue");
+            transaction.incr("jedis");
+            transaction.incr("transactionStringKey");
 
-        transaction.incr("jedis1");
-
-
-        //EXEC命令进行提交事务:如果watch的值改变，将不执行事务。
-        //exec  之后不能  discard 有点类似数据库commit之后不能rollback
-        transaction.exec();
+            transaction.incr("jedis1");
 
 
+            //EXEC命令进行提交事务:如果watch的值改变，将不执行事务。
+            //exec  之后不能  discard 有点类似数据库commit之后不能rollback
+            transaction.exec();
 
-        // 放弃事务
+
+            // 放弃事务
 //        transaction.discard();
-        }
-        catch (Exception ex)
-        {
-          ex.printStackTrace();
-          int m=0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            int m = 0;
         }
         jedis.close();
     }
@@ -484,6 +492,32 @@ public class RedisTest {
 
     //region keyExpire 1.25s---2.25s为一个自然秒。不是1.25秒到了2秒就算1秒
     private void keyExpire() {
+
+
+        //OK
+        String resultSet = jedis.setex("expireKeyTest1", 30, "expireKeyTestValue1");
+
+        //剩余ttl
+        //当 key 不存在时，返回 -2 。 当 key 存在但没有设置剩余生存时间时，返回 -1 。 否则，以秒为单位，返回 key 的剩余生存时间。
+        long ttl = jedis.ttl("expireKeyTest1");
+
+        // Pttl 命令以毫秒为单位返回 key 的剩余过期时间。  当 key 不存在时，返回 -2 。 当 key 存在但没有设置剩余生存时间时，返回 -1 。 否则，以毫秒为单位，返回 key 的剩余生存时间。
+        long pttl =jedis.pttl("expireKeyTest1");;
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        //若 key 存在返回 1 ，否则返回 0 。 过期key  不存在
+        boolean keyExists=jedis.exists("expireKeyTest1");
+
+        //key 过期值为null,否则返回key 的值
+        String expireValue = jedis.get("expireKeyTest1");
+
+
+
         Stopwatch stopwatch = Stopwatch.createStarted();
         //获取毫秒数
 //        Long milliSecond = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();

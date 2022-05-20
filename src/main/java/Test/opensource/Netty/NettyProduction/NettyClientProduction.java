@@ -7,6 +7,7 @@ import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
+import scala.collection.immutable.ListSet;
 import utility.Action;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -138,6 +139,15 @@ public class NettyClientProduction {
     注：消息要实现Serializable接口
      */
     public void sendData(MessageInfo messageInfo) {
+
+//        if(channel.isActive()&&channel.isActive())
+//        {
+//
+//        }
+//        else {
+//            //进入失败队列，重新发送
+//        }
+
         channel.writeAndFlush(messageInfo);
 
 //        channel.writeAndFlush("dssddssddsdsdssd");
