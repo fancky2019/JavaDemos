@@ -494,8 +494,10 @@ public class RedisTest {
     private void keyExpire() {
 
 
+        // redis key 中有冒号（:）rdb 会以树结构显示
         //OK
-        String resultSet = jedis.setex("expireKeyTest1", 30, "expireKeyTestValue1");
+        String resultSet1 = jedis.setex("cd:expireKeyTest11", 30, "expireKeyTestValue1");
+        String resultSet = jedis.setex("cd:expireKeyTest1", 30, "expireKeyTestValue1");
 
         //剩余ttl
         //当 key 不存在时，返回 -2 。 当 key 存在但没有设置剩余生存时间时，返回 -1 。 否则，以秒为单位，返回 key 的剩余生存时间。
