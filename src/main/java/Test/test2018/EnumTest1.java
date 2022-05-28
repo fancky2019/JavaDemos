@@ -4,6 +4,10 @@ package Test.test2018;
 枚举：就是类的实例，和C#不一样C#是值类型字段。枚举内可以定义类的成员字段
  */
 
+import Test.opensource.Netty.MessageType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum EnumTest1 {
 
     REGISTER(100000, "注册使用"),
@@ -24,6 +28,25 @@ public enum EnumTest1 {
 
     public String getMessage() {
         return message;
+    }
+
+
+    //JsonVale：序列化时 枚举对应生成的值:0或1
+    @JsonValue
+    public int getValue() {
+        return this.code;
+    }
+
+    //JsonCreator ：反序列化时的 初始化函数，入参为 对应该枚举的 json值
+    @JsonCreator
+    public static EnumTest1 getItem(int value) {
+        //values= MessageType.values()
+        for (EnumTest1 item : EnumTest1.values()) {
+            if (item.getValue() == value) {
+                return item;
+            }
+        }
+        return null;
     }
 
     @Override

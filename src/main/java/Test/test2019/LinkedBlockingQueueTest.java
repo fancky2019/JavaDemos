@@ -77,6 +77,8 @@ take()	移除并返回队列头部的元素	如果队列为空，则阻塞
             String reciveMsg = blockingQueue.take();
             System.out.println(MessageFormat.format("receiveMsg:{0}", reciveMsg));
             Thread.sleep(250);
+
+
         } catch (Exception ex) {
 
         }

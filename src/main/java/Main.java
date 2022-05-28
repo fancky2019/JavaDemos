@@ -2,10 +2,12 @@
 import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.Netty.NettyTest;
 import Test.opensource.jwt.JwtTest;
+import Test.opensource.msgpack.MsgPackTest;
 import Test.opensource.redis.RedisTest;
 import Test.test2018.JDBCTest;
 import Test.test2018.ReflectDemo;
 import Test.test2018.SetTest;
+import Test.test2019.VolatileTest;
 import Test.test2020.ConcurrentHashMapTest;
 import Test.test2021.CompletableFutureTest;
 import Test.test2021.StringBufferTest;
@@ -43,6 +45,12 @@ public class Main {
             int m = -131;
             int n = -m;
             int mmm = 0;
+
+            long l1=1;
+            if(l1==1)
+            {
+                int mtt=0;
+            }
 //          String dir=  System.getProperty("user.home");
 
 //            Log4j2 完全异步模式
@@ -105,7 +113,7 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-              new RedisTest().test();
+//              new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
@@ -197,7 +205,7 @@ public class Main {
 //            new StopwatchTest().test();
 
 
-//            new MsgPackTest().test();
+            new MsgPackTest().test();
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
