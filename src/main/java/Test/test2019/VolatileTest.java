@@ -2,6 +2,7 @@ package Test.test2019;
 
 import java.beans.Statement;
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -11,14 +12,23 @@ import java.util.concurrent.atomic.AtomicInteger;
 volatile 只能保证对单次读/写的原子性。i++ 这种操作不能保证原子性。
 如果你有多个线程对变量写入，volatile 无法解决你的问题，并且你必须使用 synchronized 来防止竞争条件。
 原子性可以应用于除 long 和 double 之外的所有基本类型之上的 “简单操作”。
+
+并发特征：原子性 可见性 有序性。volative 不保证原子性。内存屏障防止cpu优化的指令重排保证有序性。强制刷新到主存可见性。
+
+
+
+volative  内存屏障 ， happen fefore 原则 读之前要等所有写操作要完成。强制从cpu缓存中把数据刷新到主内存
+主内存线程间数据共享，
  */
 public class VolatileTest {
 
     public void test() {
 
 //        volatileTest();
-        unAtomic();
+//        unAtomic();
+        readWrite();
     }
+
 
     private volatile int volParam = 0;
 
@@ -222,4 +232,43 @@ public class VolatileTest {
         }
         System.out.println(volParam);
     }
+
+
+    volatile List<Integer> list = new ArrayList<>();
+
+
+    private void readWrite() {
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
+        CompletableFuture.runAsync(() ->
+        {
+            synchronized (list) {
+                try {
+                    list.set(1, 20);
+                    Thread.sleep(5000);
+                    list.set(2, 30);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+
+        CompletableFuture.runAsync(() ->
+        {
+            try {
+                Thread.sleep(2000);
+                System.out.println("before set list[1]=" + list.get(1));
+                Thread.sleep(5000);
+                System.out.println("after set list[2]=" + list.get(2));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+
 }

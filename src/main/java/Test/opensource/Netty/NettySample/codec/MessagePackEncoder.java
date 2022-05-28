@@ -10,7 +10,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.handler.codec.MessageToMessageEncoder;
 
-import org.msgpack.MessagePack;
 import org.msgpack.jackson.dataformat.JsonArrayFormat;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
 //import org.omg.CORBA.PUBLIC_MEMBER;

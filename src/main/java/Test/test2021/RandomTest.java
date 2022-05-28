@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.StringJoiner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomTest {
     public void test() {
@@ -18,5 +19,8 @@ public class RandomTest {
         //(0,10000] 左开右闭
         int r2 = random.nextInt(10000);
         int n = 0;
+
+//        [0,9)
+        ThreadLocalRandom.current().nextInt(1,9);
     }
 }

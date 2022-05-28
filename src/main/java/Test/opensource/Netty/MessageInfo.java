@@ -1,21 +1,18 @@
 package Test.opensource.Netty;
 
-import org.msgpack.annotation.Index;
-import org.msgpack.annotation.Message;
-
 import java.io.Serializable;
 import java.text.MessageFormat;
 
-//@Message
+
 /*
 MarshallingDecoder 要求对象要实现Serializable接口
  */
-public class MessageInfo implements Serializable {
-    //public class MessageInfo {
-    //    @Index(0)
+//public class MessageInfo implements Serializable {
+public class MessageInfo {
     private MessageType messageType;
-    //    @Index(1)
     private String body;
+
+    public MessageInfo(){}
 
     public String getBody() {
         return body;

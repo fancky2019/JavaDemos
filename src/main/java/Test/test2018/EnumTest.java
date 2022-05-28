@@ -111,9 +111,9 @@ enum MessageType {
 
     //JsonCreator ：反序列化时的 初始化函数，入参为 对应该枚举的 json值
     @JsonCreator
-    public static Test.opensource.Netty.MessageType getItem(int value) {
+    public static MessageType getItem(int value) {
         //values= MessageType.values()
-        for (Test.opensource.Netty.MessageType item : Test.opensource.Netty.MessageType.values()) {
+        for (MessageType item : MessageType.values()) {
             if (item.getValue() == value) {
                 return item;
             }

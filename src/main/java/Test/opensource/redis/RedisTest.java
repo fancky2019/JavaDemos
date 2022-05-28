@@ -92,6 +92,18 @@ public class RedisTest {
         jedis.select(8);
     }
 
+    public static RedisTest getInstance() {
+        return RedisTestStaticInnner.redisTest;
+    }
+
+    public Jedis getRedisClient() {
+        return jedis;
+    }
+
+    class RedisTestStaticInnner {
+        public static RedisTest redisTest = new RedisTest();
+    }
+
 
     private JedisPoolConfig configJedisPoolConfig() {
         // 池基本配置
@@ -137,11 +149,11 @@ public class RedisTest {
 //        hash();
 //        list();
 //        set();
-//        sortedSet();
+        sortedSet();
 //        increment();
 //        transactionTest();
-        keyExpire();
-//        redisQueue();
+//        keyExpire();
+        redisQueue();
 //        pubSub();
 
 //        expireCallBack();
@@ -424,6 +436,11 @@ public class RedisTest {
             Integer n = 0;
         }
         double score = jedis.zscore("sortedSetKey1", "sortedSetValue1");
+        //排名最小的成员及其分
+        String first = jedis.zrange("sortedSetKey1", 0, 0).stream().findFirst().orElse("");
+        double score11 = jedis.zscore("sortedSetKey1", first);
+
+
         //获取正序排名,排名从0开始，即第一是0
         long rank = jedis.zrank("sortedSetKey1", "sortedSetValue13");
         //逆序，从大到小。0开始。最大为0
@@ -504,7 +521,8 @@ public class RedisTest {
         long ttl = jedis.ttl("expireKeyTest1");
 
         // Pttl 命令以毫秒为单位返回 key 的剩余过期时间。  当 key 不存在时，返回 -2 。 当 key 存在但没有设置剩余生存时间时，返回 -1 。 否则，以毫秒为单位，返回 key 的剩余生存时间。
-        long pttl =jedis.pttl("expireKeyTest1");;
+        long pttl = jedis.pttl("expireKeyTest1");
+        ;
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -513,11 +531,10 @@ public class RedisTest {
 
 
         //若 key 存在返回 1 ，否则返回 0 。 过期key  不存在
-        boolean keyExists=jedis.exists("expireKeyTest1");
+        boolean keyExists = jedis.exists("expireKeyTest1");
 
         //key 过期值为null,否则返回key 的值
         String expireValue = jedis.get("expireKeyTest1");
-
 
 
         Stopwatch stopwatch = Stopwatch.createStarted();
@@ -625,10 +642,13 @@ public class RedisTest {
                 String queueKey = "queueKey";
                 while (true) {
                     //没有可读的消息将一直阻塞
-                    //List(Key和Message):每次返回Key和一个Message
+                    //List(Key和Message):每次返回一个 Key和它的Message
 //                    Object o=jedisConsumer.brpop(0, queueKey);
+                    //list[0]:key   list[1]:message
                     List<String> keyAndMessage = jedisConsumer.brpop(0, queueKey);
-                    System.out.println(MessageFormat.format("redisQueueConsumer - {0} - {1}", keyAndMessage.get(1), System.currentTimeMillis()));
+                    if (keyAndMessage.size() == 2) {
+                        System.out.println(MessageFormat.format("redisQueueConsumer - {0} - {1}", keyAndMessage.get(1), System.currentTimeMillis()));
+                    }
                 }
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());

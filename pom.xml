@@ -157,19 +157,29 @@
 
 
         <!--对象二进制序列化-->
-        <!-- https://mvnrepository.com/artifact/org.msgpack/msgpack -->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.msgpack/msgpack &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.msgpack</groupId>-->
+<!--            <artifactId>msgpack</artifactId>-->
+<!--            <version>0.6.12</version>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.msgpack/msgpack-core -->
         <dependency>
             <groupId>org.msgpack</groupId>
-            <artifactId>msgpack</artifactId>
-            <version>0.6.12</version>
+            <artifactId>msgpack-core</artifactId>
+            <version>0.9.1</version>
         </dependency>
 
+            <!--     辅助msgpack序列化pojo.msgpack 7 不像6能直接序列化pojo-->
+            <!--        msgpack不能跨语言通信，请用jackson-dataformat-msgpack-->
         <!-- https://mvnrepository.com/artifact/org.msgpack/jackson-dataformat-msgpack -->
         <dependency>
             <groupId>org.msgpack</groupId>
             <artifactId>jackson-dataformat-msgpack</artifactId>
-            <version>0.8.21</version>
+            <version>0.9.1</version>
         </dependency>
+
 
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->

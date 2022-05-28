@@ -11,7 +11,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.MessageToMessageDecoder;
 import io.netty.handler.codec.MessageToMessageEncoder;
-import org.msgpack.MessagePack;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
 
 import java.util.List;

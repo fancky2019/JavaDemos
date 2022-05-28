@@ -11,10 +11,10 @@ public class ListArrayTest {
         fun1();
         fun(1);
 
-        fun(2,2);
-        fun(2,2,3,4);
-        int[] arr=new int[]{1,2,3,4};
-        fun(2,arr);
+        fun(2, 2);
+        fun(2, 2, 3, 4);
+        int[] arr = new int[]{1, 2, 3, 4};
+        fun(2, arr);
 
         //不能传list，只能传数组
 //        List<Integer> list = new ArrayList<>();
@@ -22,8 +22,8 @@ public class ListArrayTest {
 //        list.add(2);
 //        fun(2,list);
 
-        Integer[] arr1=new Integer[]{1,2,3,4};
-        fun1(2,arr1);
+        Integer[] arr1 = new Integer[]{1, 2, 3, 4};
+        fun1(2, arr1);
     }
 
     private void fun1() {
@@ -53,13 +53,12 @@ public class ListArrayTest {
         array[3] = 4;
         //[I@4ec6a292
         String str1 = array.toString();
-
+        String arrStr = Arrays.toString(array);
 //        Arrays.stream(array).filter()
 
 
-
         List<Integer> ll1 = Collections.synchronizedList(ll);
-        LinkedBlockingQueue<Integer> linkedBlockingQueue=new LinkedBlockingQueue<>();
+        LinkedBlockingQueue<Integer> linkedBlockingQueue = new LinkedBlockingQueue<>();
 
     }
 
@@ -67,23 +66,20 @@ public class ListArrayTest {
      * 变长参数必须是最后一个参数，只能有一个变长参数：Vararg parameter must be the last in the list
      * 不传参数，数组是个空数组，长度为0，但是不是null。
      * 可以传单个元素，或者数组，或者逗号隔开的n个元素
+     *
      * @param a
      * @param b
      */
-    private void fun(int a,int... b)
-    {
-        if(b.length>0)
-        {
-            int c= b[1];
+    private void fun(int a, int... b) {
+        if (b.length > 0) {
+            int c = b[1];
         }
 
     }
 
-    private void fun1(int a,Integer... b)
-    {
-        if(b.length>0)
-        {
-            int c= b[1];
+    private void fun1(int a, Integer... b) {
+        if (b.length > 0) {
+            int c = b[1];
         }
 
     }
