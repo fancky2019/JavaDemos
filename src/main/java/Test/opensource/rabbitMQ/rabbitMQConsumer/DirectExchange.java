@@ -55,12 +55,14 @@ public class DirectExchange {
             Map<String, Object> var = null;
             channel.queueDeclare(QUEUE_NAME, durable, exclusive, autoDelete, var);
             channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY);
+            //消息分发给消费者回调
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
 //                Student student = JSONObject.parseObject(message, Student.class);
                 channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);//发送客户端消息任务完成的应答
                 System.out.println("Received: key=" + delivery.getEnvelope().getRoutingKey() + "     msg=" + message);
             };
+            //消费指定队列
             channel.basicConsume(QUEUE_NAME, false, deliverCallback, consumerTag -> {
             });
 

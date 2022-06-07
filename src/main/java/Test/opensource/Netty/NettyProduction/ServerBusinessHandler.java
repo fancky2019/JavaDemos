@@ -10,6 +10,8 @@ import io.netty.handler.timeout.IdleStateEvent;
 
 import java.net.SocketAddress;
 
+//Object  z指定接收消息的类型
+/// NettySampleServerHandler extends SimpleChannelInboundHandler<Object>
 public class ServerBusinessHandler extends ChannelInboundHandlerAdapter {
 
     //    SimpleChannelInboundHandler

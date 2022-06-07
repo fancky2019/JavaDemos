@@ -98,7 +98,7 @@ public class Main {
 //            new ReferenceTest().test();
 
             //  new FileTest().test();
-//            new ReflectDemo().test();
+            new ReflectDemo().test();
 //            new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
@@ -205,7 +205,7 @@ public class Main {
 //            new StopwatchTest().test();
 
 
-            new MsgPackTest().test();
+//            new MsgPackTest().test();
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
