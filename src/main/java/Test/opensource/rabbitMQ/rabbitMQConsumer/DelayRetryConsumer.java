@@ -9,6 +9,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+//    broker：RabbitMQ的机器称为节点，也就是broker。broker有2种类型节点：磁盘节点和内存节点
+//            服务器。
+
+
+
+
+
+
+
 /*
     /// RabbitMQ重试：工作队列设置通过死信进入重试队列，在重试队列设置TTL（达到延迟目的）进入工作队列达到重试目的。
     ///
@@ -21,6 +31,9 @@ import java.util.Map;
     ///       设置:x-dead-letter-routing-key 指定死信的routingkey
     ///
     ///
+     工作队列--死信--重试队列--死信ttl--工作队列--失败三次--失败队列
+
+
     /// 重复消费：
     ///         原因：发生超时消费者未ack消息，造成消息重新投递。
     ///         解决：对消息加主键，消费前到Redis判断是否消费，消费成功主键加入Redis.
@@ -59,7 +72,7 @@ public class DelayRetryConsumer {
             channel.exchangeDeclare(EXCHANGE_RETRY_NAME, ExchangeType.DIRECT);
             Map<String, Object> mapRetry = new HashMap<>();
             ////设置死信进入消费队列
-            mapRetry.put("x-message-ttl", 10000);
+            mapRetry.put("x-message-ttl", 10000);//TTL 延迟进入工作队列
             mapRetry.put("x-dead-letter-exchange", EXCHANGE_NAME);
             mapRetry.put("x-dead-letter-routing-key", ROUTING_KEY);
             channel.queueDeclare(QUEUE_RETRY_NAME, true, false, false, mapRetry);
@@ -86,6 +99,7 @@ public class DelayRetryConsumer {
             channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY);
             //endregion
 
+            //消息分发给消费者回调
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 try {
                     String message = new String(delivery.getBody(), "UTF-8");
@@ -120,6 +134,7 @@ public class DelayRetryConsumer {
 
                 }
             };
+            //消费指定队列
             channel.basicConsume(QUEUE_NAME, false, deliverCallback, consumerTag -> {
             });
 

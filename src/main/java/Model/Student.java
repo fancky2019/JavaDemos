@@ -23,6 +23,11 @@ public class Student extends StudentParent implements StudentInterface {
 
     private String job;
 
+    private Integer id;
+
+
+
+
     public Integer getId() {
         return id;
     }
@@ -30,8 +35,6 @@ public class Student extends StudentParent implements StudentInterface {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    private Integer id;
 
     public String getName() {
         return name;

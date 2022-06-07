@@ -27,6 +27,14 @@ public class ReflectDemo {
             Constructor constructor = clazz.getConstructor();
             Student stude = (Student) constructor.newInstance();
 
+            //clazz.newInstance();//实例化一个类，前提是该类存在无参构造参数
+
+            //得到构造器，String.class是即将实例化类clazz的构造参数的类型,Integer.class 第二个参数
+            Constructor constructorParam=clazz.getConstructor(String.class,Integer.class);
+            //传入构造函数的参数进行实例化
+            Student objParam= (Student)constructorParam.newInstance("test",23);
+
+
             String className = clas.getName();
             Class cls = Class.forName(className);
 
@@ -42,19 +50,30 @@ public class ReflectDemo {
             Field[] fields = clas.getDeclaredFields();
             //给字段赋值
             if (!fields[0].isAccessible()) {
+                //设置字段可访问
                 fields[0].setAccessible(true);
             } else {
                 //取字段值
                 fields[0].get(clas.newInstance());
             }
+            //字段赋值
             fields[0].set(clas.newInstance(), "fancky");
+
+
             Method[] methods = clas.getDeclaredMethods();
 
             //反射调用方法
             Method method = cls.getDeclaredMethod("setAge", Integer.class);
             //反射创建实例
             Object object = cls.newInstance();
+            //调用无参构造函数
+            Object instance = cls.getConstructor().newInstance();
+
+
+
             method.invoke(object, 2);
+
+
 
             //必须是某实例才能强制转换，否则抛异常
             if (object instanceof Student) {

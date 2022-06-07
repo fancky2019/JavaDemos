@@ -9,12 +9,12 @@ import java.util.concurrent.ExecutionException;
 
 
 /*
-    * kafka 一个topic可以有多个partion,这些partion可以放在kafka的集群上（多个kafka broker）
-    * 达到高可用，这些partion中只有一个leader,其他都是follower。kafka采用leader读写，replica
+    * kafka 一个topic可以有多个partition,这些partition可以放在kafka的集群上（多个kafka broker）
+    * 达到高可用，这些partition中只有一个leader,其他都是follower。kafka采用leader读写，replica
     * 备份。
     * Topic:一个业务。
-    * partion:对应一个消费者。资源利用最大化。
-    * 增加broker、partion、consumer增加吞吐量。
+    * partition:对应一个消费者。资源利用最大化。
+    * 增加broker、partition、consumer增加吞吐量。
     *
     *    //生产者确认生产成功。
 
@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
     acks=1(默认值): producer 等待 Leader 写入本地日志后就确认；之后 Leader 向 Followers 同步时，如果 Leader 宕机会导致消息没同步而丢失，producer 却依旧认为成功；
     acks=all/-1: producer 等待 Leader 写入本地日志、而且 Leader 向 Followers 同步完成后才会确认；最可靠。
     kafka采用主写主读，不为-1可能造成数据丢失
-         *        //  Messages 中Key 决定消息的partion,内部hash(key)，如果不指定Key将随机指定分区（partition）
+         *        //  Messages 中Key 决定消息的partition,内部hash(key)，如果不指定Key将随机指定分区（partition）
                               //一个topic的partition数量最好大于消费者的数量
                 /*如果客户端开启多个线程消费：要指定Key（可以是订单ID），因为同一Key数据分配到同一partition。
                   同一partition的数据只会分配给一个消费之，这样可以保证一个订单的新增、修改、删除的有序进行。
@@ -55,7 +55,7 @@ public class KafkaProducerClient {
 
         producer = new KafkaProducer<>(props);
 
-        Boolean isAsync = true;
+        boolean isAsync = true;
 
         int messageNo = 1;
         while (messageNo < 10) {
@@ -63,10 +63,14 @@ public class KafkaProducerClient {
             String messageStr = "Message_" + messageNo;
             long startTime = System.currentTimeMillis();
             if (isAsync) {
-                //  Messages 中Key 决定消息的partion,内部hash(key)，如果不指定Key将随机指定分区（partition）
+                //  Messages 中Key 决定消息的partition,内部hash(key)，如果不指定Key将随机指定分区（partition）
                 //一个topic的partition数量最好大于消费者的数量
-                /*如果客户端开启多个线程消费：要指定Key（可以是订单ID），因为同一Key数据分配到同一partition。
-                  同一partition的数据只会分配给一个消费之，这样可以保证一个订单的新增、修改、删除的有序进行。
+                /*如果客户端开启多个线程消费：要指定Key（可以是订单ID snowflakeId），因为同一Key数据分配到同一partition。
+                  同一partition的数据只会分配给一个消费者，这样可以保证一个订单的新增、修改、删除的有序进行。
+
+                  topic 有点像rabbitMQ的queue,存储消息，不过rabbitMQ消息是发到交换机根据生产指定的key路由到绑定的队列上
+                        kafka直接将消息发送到指定的topic。
+                         消费的时候跟rabbitMQ一样都是指定要消费的队列，kafka指定要消费的topic
                 */
                 // Send asynchronously
                 producer.send(new ProducerRecord<>(topic, keyStr, messageStr),

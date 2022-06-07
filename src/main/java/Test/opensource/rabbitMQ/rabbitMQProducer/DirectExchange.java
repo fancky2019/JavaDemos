@@ -22,6 +22,13 @@ import java.util.concurrent.TimeUnit;
 public class DirectExchange {
 
     /*
+
+    broker：RabbitMQ的机器称为节点，也就是broker。broker有2种类型节点：磁盘节点和内存节点
+           服务器。
+
+
+
+
      *消息  channel.basicPublish的时候就持久化
      * 持久化：
      * Exchange：ExchangeDeclare 参数durable: true，宕机只保存Exchange元数据 ，Queue、Message丢失
