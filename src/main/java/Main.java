@@ -7,6 +7,8 @@ import Test.opensource.redis.RedisTest;
 import Test.test2018.JDBCTest;
 import Test.test2018.ReflectDemo;
 import Test.test2018.SetTest;
+import Test.test2019.TimerTest;
+import Test.test2019.TryTest;
 import Test.test2019.VolatileTest;
 import Test.test2020.ConcurrentHashMapTest;
 import Test.test2021.CompletableFutureTest;
@@ -156,6 +158,7 @@ public class Main {
 
 //            new StringTest().test();
             //  new TimerTest().test();
+//              new TryTest().test();
 
 
             //   new CharTest().test();

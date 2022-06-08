@@ -251,6 +251,8 @@ peek，element区别：
         //方法引用::
         List<String> nameList1 = list.stream().map(Student::getName).collect(Collectors.toList());
         List<Integer> ageList = list.stream().map(p -> p.getAge()).collect(Collectors.toList());
+        //exist
+        boolean exist = list.stream().anyMatch(p -> p.getName().equals("fancky"));
         //过滤
         List<Student> filterList = list.stream().filter(p -> p.getAge() > 3).collect(Collectors.toList());
         //第一个

@@ -3,8 +3,12 @@ package Test.opensource.redis;
 import com.google.common.base.Stopwatch;
 import io.netty.util.concurrent.CompleteFuture;
 import jodd.util.CollectionUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import redis.clients.jedis.params.XReadGroupParams;
 import redis.clients.jedis.resps.StreamEntry;
+import redis.clients.jedis.resps.StreamGroupInfo;
+import redis.clients.jedis.resps.StreamPendingSummary;
 import utility.Configs;
 import redis.clients.jedis.*;
 
@@ -15,58 +19,60 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
-/**
+/*
  * 数据类型的首字母找对应的数据类型的操作
  * 操作命令中文文档：http://www.redis.cn/commands/lpushx.html
  * https://redis.io/commands/
- * <p>
+ *
  * 密码配置： SECURITY配置节点 ，requirepass fancky123456
- * <p>
+ *
  * redis集群最少三台主三从。
- * <p>
+ *
  * RedLock；集群配置最少三台机器，最好为奇数。(N/2 + 1)中成功获取锁，则获取锁成功。
  * redisson在加锁的时候，key=lockName, value=uuid + threadID, 采用set结构存储，
  * 并包含了上锁的次数 （支持可重入）；
  * 解锁的时候通过hexists判断key和value是否存在，存在则解锁；这里不会出现误解锁
- * <p>
+ *
  * 持久化：rdb,aof。默认RDB,如果不丢就用aof方式。
- * <p>
- * <p>
+ *
+ *
  * 主从同步：主从同步刚连接的时候进行全量同步；全量同步结束后开始增量同步。如果有需要，slave在任何时候都可以发起全量同步，
  * 其主要策略就是无论如何首先会尝试进行增量同步，如果步成功，则会要求slave进行全量同步，之后再进行增量同步。
  * 只要slave启动，就会和master建立连接发送SYNC请求和主机全量同步。
- * <p>
- * <p>
+ *
+ *
  * redis 高可用：redis 主从、redis sentinel、 redis cluster 依赖ruby 。
  * mysql 高可用：一主两从、一主多从或者多主多从的集群。
  * redis cluster :解决sentinel扩容问题。hash槽算法集群分片存储。每个节点都有自己的至少一个从节点，
  * 若有一个节点的主从都宕机，集群就不可用。每个节点保存其他节点的主从配置信息，主节点不可用就切换从节点同事更新配置。
- * <p>
- * <p>
+ *
+ *
  * rabbitMQ集群：https://www.cnblogs.com/lonely-wolf/p/14397704.html
- * <p>
+ *
  * 元数据:指的是包括队列名字属性、交换机的类型名字属性、绑定信息、vhost等基础信息，不包括队列中的消息数据。
  * 集群主要有两种模式：普通集群模式和镜像队列模式。
  * 普通集群：各节点只存储相同的元数据，消息存在于不同节点。消费消息只能从一个节点读取，消息则从存储的节点转发到读取的节点机器。
  * 如果一个节点宕机则消息无法消费，只能等待重启，且消息磁盘持久化。
  * 镜像队列模式：各个节点保存相同的元数据和消息。类似redis主从模式。由于各节点同步会消耗带宽。
  * 搭建： HAProxy + Keepalived 高可用集群
- * <p>
- * <p>
+ *
+ *
  * redis key 过期订阅：
- * <p>
+ *
  * LUA脚本保证redis执行复杂脚本的原子性
- * <p>
+ *
  * memcached不支持持久化，没有安全机制。memcached是多线程工作，而redis是单线程工作。
  * 各个memcached服务器之间互不通信，各自独立存取数据，不共享任何信息。服务器并不具有分布式功能
- * <p>
+ *
  * MongoDB 文档性的数据库，支持字段索引、游标操作，其优势在于查询功能比较强大，擅长查询 JSON 数据，能存储海量数据，但是不支持事务。
- * <p>
- * <p>
+ *
  * 文件夹：指定前缀的key放在一个文件夹下。如：key_sb:UserInfo:1 路径前缀之间用冒号分开，当key超过两个RedisDesktop会显示在一个文件夹下。
  */
 public class RedisTest {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     /**
      * 多线程访问redis 实例从ShardedJedisPool取,不能用单例
      */
@@ -83,11 +89,13 @@ public class RedisTest {
 
         //不分片
         initialPool();
-//        获取Jedis实例
+//        获取Jedis实例,通过try resource 方式，要关闭池连接
         jedis = jedisPool.getResource();
 
         //设置数据库索引
         jedis.select(8);
+
+
     }
 
     public static RedisTest getInstance() {
@@ -95,7 +103,7 @@ public class RedisTest {
     }
 
     public Jedis getRedisClient() {
-        return jedis;
+        return jedisPool.getResource();
     }
 
     class RedisTestStaticInnner {
@@ -792,9 +800,9 @@ public class RedisTest {
             try {
                 Jedis jedis = jedisPool.getResource();
                 jedis.select(13);
-                jedis.flushDB();
+//                jedis.flushDB();
                 HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put("name", "fancky");
+                hashMap.put("name", "fancky2");
                 hashMap.put("age", "27");
 //                //0-0  相当于new StreamEntryID("0-0");
 //                StreamEntryID streamEntryID = new StreamEntryID();
@@ -810,57 +818,90 @@ public class RedisTest {
         //consumer
         CompletableFuture.runAsync(() ->
         {
-            try {
-                Jedis jedis = jedisPool.getResource();
-                jedis.select(13);
-                jedis.flushDB();
-                Thread.sleep(2000);
-                //Available since redis 6.2
-                // jedis.xgroupCreateConsumer(redisQueueKey, groupName, consumerName);
-                //0-0  相当于new StreamEntryID("0-0");
-                StreamEntryID streamEntryID = new StreamEntryID();
-                //创建消费者组
-                String groupCreate = jedis.xgroupCreate(redisQueueKey, groupName, streamEntryID, false);
-                //消息消费时的参数 block 0 一直阻塞,单位毫秒10000
-                XReadGroupParams xReadGroupParams = new XReadGroupParams().block(0).count(1);
-                Map<String, StreamEntryID> streams = new HashMap<>();
-                streams.put(redisQueueKey, StreamEntryID.UNRECEIVED_ENTRY);
-                //消费  result：redisKey, List<StreamEntry>>
-                while (true) {
-                    //每次获取一个,没有信息返回null
-                    List<Map.Entry<String, List<StreamEntry>>> result = jedis.xreadGroup(groupName, consumerName, xReadGroupParams, streams);
+            try (Jedis jedis = jedisPool.getResource()) {
+                try {
 
-                    if (result != null && result.size() > 0) {
-                        Map.Entry<String, List<StreamEntry>> entry = result.get(0);
-                        List<StreamEntry> streamEntries = entry.getValue();
-                        //每次block(0).count(1);每次获取一个
-                        StreamEntry streamEntry = streamEntries.get(0);
-                        Map<String, String> fields = streamEntry.getFields();
-    //                    fields.forEach((k,v)->
-    //                    {
-    //                        String field=k;
-    //                        String value=v;
-    //                    });
+                    jedis.select(13);
+//                jedis.flushDB();
+                    Thread.sleep(2000);
+                    //Available since redis 6.2
+                    // jedis.xgroupCreateConsumer(redisQueueKey, groupName, consumerName);
+                    //0-0  相当于new StreamEntryID("0-0");
+                    StreamEntryID streamEntryID = new StreamEntryID();
 
-                        String name = fields.get("name");
-                        int age = Integer.parseInt(fields.get("age"));
-
-
-                        //业务处理
-
-                        //ack ,可以一次ack多个id (多个消息)
-                        jedis.xack(redisQueueKey, groupName, streamEntry.getID());
-                        int n = 0;
+                    //创建消费者组,如果消费者组已存在报异常“已存在”
+                    if (!groupExist(redisQueueKey, groupName)) {
+                        String groupCreate = jedis.xgroupCreate(redisQueueKey, groupName, streamEntryID, false);
                     }
+
+                    //消息消费时的参数 block 0 一直阻塞,单位毫秒10000
+                    XReadGroupParams xReadGroupParams = new XReadGroupParams().block(0).count(1);
+                    Map<String, StreamEntryID> streamEntryIDs = new HashMap<>();
+                    // 消费组游标last_delivered_id 变量就会前移一位 StreamEntryID.UNRECEIVED_ENTRY    toString() { return ">";}
+                    streamEntryIDs.put(redisQueueKey, StreamEntryID.UNRECEIVED_ENTRY);
+                    //消费  result：redisKey, List<StreamEntry>>
+                    while (true) {
+                        //每次获取一个,没有信息返回null
+                        List<Map.Entry<String, List<StreamEntry>>> result = jedis.xreadGroup(groupName, consumerName, xReadGroupParams, streamEntryIDs);
+
+                        if (result != null && result.size() > 0) {
+                            Map.Entry<String, List<StreamEntry>> entry = result.get(0);
+                            List<StreamEntry> streamEntries = entry.getValue();
+                            //每次block(0).count(1);每次获取一个
+                            StreamEntry streamEntry = streamEntries.get(0);
+                            Map<String, String> fields = streamEntry.getFields();
+                            //                    fields.forEach((k,v)->
+                            //                    {
+                            //                        String field=k;
+                            //                        String value=v;
+                            //                    });
+
+                            String name = fields.get("name");
+                            int age = Integer.parseInt(fields.get("age"));
+
+
+                            //业务处理
+
+
+                            //如果出现异常，消息一直存在pending 里，读取的时候游标前移，不会重复消费 消费组游标last_delivered_id 变量就会前移一位
+                            //可以另外开启一个sweep线程重新处理pending信息。pending 里有消费到现在的毫秒时间
+
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            //pending 列表
+                            StreamPendingSummary streamPendingSummary = jedis.xpending(redisQueueKey, groupName);
+
+                            //ack ,可以一次ack多个id (多个消息)
+                            jedis.xack(redisQueueKey, groupName, streamEntry.getID());
+                            int n = 0;
+                        }
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    LOGGER.error("", e);
                 }
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
             }
 
-
         });
+    }
+
+    private boolean groupExist(String redisQueueKey, String groupName) {
+        try (Jedis jedis = jedisPool.getResource()) {
+            jedis.select(13);
+            //创建消费者组,如果消费者组已存在报异常“已存在”
+            List<StreamGroupInfo> xinfoGroups = jedis.xinfoGroups(redisQueueKey);
+            if (xinfoGroups != null && xinfoGroups.size() > 0) {
+                //exist
+                boolean exist = xinfoGroups.stream().anyMatch(p -> p.getName().equals(groupName));
+                return exist;
+            }
+            return false;
+        }
     }
 
 
