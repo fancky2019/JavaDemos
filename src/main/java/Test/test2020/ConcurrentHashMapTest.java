@@ -76,9 +76,9 @@ public class ConcurrentHashMapTest {
 
         /*
         1、table未初始化，先初始化
-        2、如果table[hashcode]==null,cas设置table[hashcode]=val
+        2、如果table[(n - 1) & hash]==null,cas设置table[(n - 1) & hash]=val
         3、如果加入同时在扩容帮助转换（MOVED）
-        4、锁住table[hashcode]，
+        4、锁住table[(n - 1) & hash]，
           如果是链表 if (fh >= 0) 。   如果key相等，更新。否则添加到链表
           注:该table表中该结点的hash值大于0，表明是链表 当转换为树之后，hash值为-2。fh = f.hash
           如果是红黑树，直接添加到红黑树
