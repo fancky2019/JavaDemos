@@ -36,6 +36,12 @@ Linux IO多路复用:select
  */
 
 /*
+ Selector(选择器，也叫多路复用器):一个线程，处理多个的客户端连接,
+ 将socketChannel注册到Selector上,register(Selector sel, int ops), 一个selector上可以注册多个SocketChannel
+ Selector 能够检测多个注册的通道上是否有事件发生(注意:多个Channel以事件的方式可以注册到同一个Selector)，
+ 如果有事件发生，便获取事件然后针对每个事件进行相应的处理
+ */
+/*
 netty线程模型：reactor:Nio 异步事件驱动的线程模型。避免每个socket连接占用一个线程。Reactor 单线程模型-->多线程模型-->主从多线程模型
 
 主从多线程模型：Reactor分成两部分，mainReactor负责监听server socket，accept新连接；并将建立的socket分派给subReactor。
@@ -78,8 +84,14 @@ public class NettySampleServer {
     //    private static final NettySampleServerHandler handler = new NettySampleServerHandler();
     private void runServer() {
         //设置1 单线程模式
-//        bossGroup = new NioEventLoopGroup(1);//设置线程1 单线程 --阻塞模式，一个线程连接、io操作
-//        bossGroup = new NioEventLoopGroup();//单reactor 多线程模式
+//        bossGroup = new NioEventLoopGroup(1);//设置线程1 单线程 --阻塞模式，一个线程连接、io read操作、发送操作
+                                               //只有一个reactor线程负责操作。
+        //多线程模式
+//        bossGroup = new NioEventLoopGroup(1);//单reactor：一个reactor  线程多个消费小城  多线程模式--多线程处理业务
+//        workerGroup = new NioEventLoopGroup();
+
+
+        //主从多线程模式
         bossGroup = new NioEventLoopGroup();
         workerGroup = new NioEventLoopGroup();//reactor主从多线程模式，添加次
         try {
