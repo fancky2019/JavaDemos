@@ -77,10 +77,14 @@ public class NettySampleServer {
 
     //    private static final NettySampleServerHandler handler = new NettySampleServerHandler();
     private void runServer() {
-        bossGroup = new NioEventLoopGroup(1);
-        workerGroup = new NioEventLoopGroup();
+        //设置1 单线程模式
+//        bossGroup = new NioEventLoopGroup(1);//设置线程1 单线程 --阻塞模式，一个线程连接、io操作
+//        bossGroup = new NioEventLoopGroup();//单reactor 多线程模式
+        bossGroup = new NioEventLoopGroup();
+        workerGroup = new NioEventLoopGroup();//reactor主从多线程模式，添加次
         try {
             ServerBootstrap b = new ServerBootstrap();
+//            b.group(bossGroup) //单线程模式
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
