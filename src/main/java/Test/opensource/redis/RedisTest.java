@@ -476,6 +476,8 @@ public class RedisTest {
      *        要加分布式锁，要么lua保证原子操作。
      * 如果只有一个连接时候不会有并发问题，但是有两个连接的时候就会有客户端并发问题，要加事务。
      * 一主多从，主写从读。
+     *
+     * watch 相当于乐观锁，只能有一个操作。但是redis不支持回滚。
      */
     private void transactionTest() {
         //redis 事务内不会回滚:a命令成功，b 命令失败，不会回滚a. 要在事务提交前通过watch(key).可以用lua进行原子操作。
@@ -485,7 +487,7 @@ public class RedisTest {
         //事务不具原子性，其中一条失败，不会回滚。.可以用lua进行原子操作。
         try {
 
-
+            jedis.flushDB();
             //监控key 是否变化
             //watch的可以一定要存在，否则无法控制事务。
             String watchKey = "lockKey";
@@ -498,6 +500,7 @@ public class RedisTest {
 
             transaction.set("transactionStringKey", "transactionStringValue");
             transaction.incr("jedis");
+            //字符串自增异常。
             transaction.incr("transactionStringKey");
 
             transaction.incr("jedis1");
@@ -505,10 +508,23 @@ public class RedisTest {
 //            jedis.watch(watchKey);
             //EXEC命令进行提交事务:如果watch的值改变，将不执行事务。EXEC被调用，所有的键都将不被监视，无论所讨论的事务是否被中止
             //exec  之后不能  discard 有点类似数据库commit之后不能rollback
+            //watch的值改变执行失败返回null,否则返回执行各个命令的结果。
             List<Object> result = transaction.exec();
+
 
             if (result == null) {
                 System.out.println("fail");
+            }else {
+                //redis 不支持回滚，事务失败有些操作入库的将不会滚
+               for(Object p:result)
+                {
+                    if(p instanceof  Exception)
+                    {
+
+
+                    }
+                }
+
             }
             // 放弃事务
 //        transaction.discard();
