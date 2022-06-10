@@ -35,6 +35,7 @@ public class HashCodeTest {
 //        getHashCode();
 //        hashSetSameHashCode();
 //        hashMapSameHashCode();
+//        Object 的 equals(a,b) 比较同一个对象;
     }
 
     private void getHashCode() {
