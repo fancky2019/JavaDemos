@@ -157,10 +157,10 @@ public class RedisTest {
 //        set();
 //        sortedSet();
 //        increment();
-//        transactionTest();
+        transactionTest();
 //        keyExpire();
 //        redisQueue();
-        streamQueue();
+//        streamQueue();
 //        pubSub();
 
 
@@ -472,18 +472,21 @@ public class RedisTest {
 
     /**
      * 事务
-     * Redis 单线程。
-     * 如果只有一个连接时候不会有并发问题，但是有两个连接的时候就会有并发问题要加事务。
+     * Redis 服务端单线程执行命令、但是不保证客户端多线程线程安全。如客户端读key1=1,然后key1进行desc操作，B读取也是1，也-- 已经超卖了。
+     *        要加分布式锁，要么lua保证原子操作。
+     * 如果只有一个连接时候不会有并发问题，但是有两个连接的时候就会有客户端并发问题，要加事务。
      * 一主多从，主写从读。
      */
     private void transactionTest() {
+        //redis 事务内不会回滚:a命令成功，b 命令失败，不会回滚a. 要在事务提交前通过watch(key).可以用lua进行原子操作。
         //启动事务前watch  key,如果key在exec执行是否改变了，将不执行，否则执行。exec后将取消watch key。
         //乐观锁:原理有点像CAS(比较交换compare and swap).CAS 存在ABA问题，解决 乐观锁（version、时间戳).
 
-        //事务不具原子性，其中一条失败，不会回滚。
+        //事务不具原子性，其中一条失败，不会回滚。.可以用lua进行原子操作。
         try {
 
 
+            //监控key 是否变化
             //watch的可以一定要存在，否则无法控制事务。
             String watchKey = "lockKey";
             if (!jedis.exists(watchKey)) {
@@ -499,18 +502,21 @@ public class RedisTest {
 
             transaction.incr("jedis1");
 
-
-            //EXEC命令进行提交事务:如果watch的值改变，将不执行事务。
+//            jedis.watch(watchKey);
+            //EXEC命令进行提交事务:如果watch的值改变，将不执行事务。EXEC被调用，所有的键都将不被监视，无论所讨论的事务是否被中止
             //exec  之后不能  discard 有点类似数据库commit之后不能rollback
-            transaction.exec();
+            List<Object> result = transaction.exec();
 
-
+            if (result == null) {
+                System.out.println("fail");
+            }
             // 放弃事务
 //        transaction.discard();
         } catch (Exception ex) {
             ex.printStackTrace();
             int m = 0;
         }
+//        jedis.unwatch();
         jedis.close();
     }
     //endregion
