@@ -49,6 +49,8 @@ import java.util.stream.Collectors;
  * 若有一个节点的主从都宕机，集群就不可用。每个节点保存其他节点的主从配置信息，主节点不可用就切换从节点同事更新配置。
  *
  *
+ * redis 集群不支持批量操作key,因为key mod 16384 可能得到不同的slot,节点就不同
+ *
  * rabbitMQ集群：https://www.cnblogs.com/lonely-wolf/p/14397704.html
  *
  * 元数据:指的是包括队列名字属性、交换机的类型名字属性、绑定信息、vhost等基础信息，不包括队列中的消息数据。
