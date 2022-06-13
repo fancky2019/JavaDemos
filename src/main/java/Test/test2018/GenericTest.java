@@ -23,7 +23,8 @@ N - Number（数值类型）
 
 
 
-
+extends也称为上界通配符，就是指定上边界。即泛型中的类必须为当前类的子类或当前类。
+super也称为下届通配符，就是指定下边界。即泛型中的类必须为当前类或者其父类。
 
 注：泛型方法： 参数类型的位置：C#放在方法后<T>,java放在访问修饰符后，返回类型前。  public <T> T funT(Class<T> clazz)、
   public <T> void funT(Class<T> clazz)、
