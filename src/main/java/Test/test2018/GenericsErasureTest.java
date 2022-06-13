@@ -14,9 +14,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 /*
 泛型类型变量不能是基本数据类型，C#可以是基本数据类型
 
+extends也称为上界通配符，就是指定上边界。即泛型中的类必须为当前类的子类或当前类。
+super也称为下届通配符，就是指定下边界。即泛型中的类必须为当前类或者其父类。
+
 泛型类型擦除:Java在编译期间，所有的泛型信息都会被擦掉.
 类型擦除后保留的原始类型
-泛型擦除之后类型： T-->object(没有指定上下界)、上界(如果指定上界)、下界（如果指定下界）
+泛型擦除之后类型： T-->object(没有指定上下界)、上界(如果指定上界 extends)、下界（如果指定下界 super）
  */
 public class GenericsErasureTest {
     public void test() {
