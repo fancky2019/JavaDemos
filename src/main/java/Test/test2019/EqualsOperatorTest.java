@@ -3,12 +3,12 @@ package Test.test2019;
 import Model.Student;
 import Test.test2018.Person;
 
-/**
+/*
  * = =:对于预定义的值类型，如果操作数的值相等，则相等运算符 (==) 返回 true，否则返回 false。
  * 对于引用类型，如果两个操作数引用同一个对象，则 == 返回 true。
  * String 类型，== 同一个对象，注意内存驻留。
  * equals:number类型值一样，String逐个字符比较是否一样，具体看String类的equals方法
- * <p>
+ *
  * == 比较地址，如果没重写equal 则对象地址比较，否则调用equal
  */
 public class EqualsOperatorTest {

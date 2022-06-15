@@ -24,6 +24,7 @@ public class ListArrayTest {
 
         Integer[] arr1 = new Integer[]{1, 2, 3, 4};
         fun1(2, arr1);
+
     }
 
     private void fun1() {
