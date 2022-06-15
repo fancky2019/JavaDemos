@@ -14,7 +14,7 @@ import java.util.Map;
 //            服务器。
 
 
-
+//延迟队列插件：rabbitmq_delayed_message_exchange
 
 
 
