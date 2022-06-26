@@ -18,9 +18,20 @@ public class ExtendTest extends ParentTest {
         System.out.println("ExtendTest:publicFunction1()");
     }
 
+    public AbstractParent getAbstractParent()
+    {
+        //直接new 抽象类或接口
+        return new AbstractParent() {
+            @Override
+            void fun1() {
+
+            }
+        };
+    }
+
 }
 
-class ParentTest {
+class ParentTest extends AbstractParent {
 
     protected void protectedFunction() {
         System.out.println("ParentTest:protectedFunction()");
@@ -37,4 +48,15 @@ class ParentTest {
     public void publicFunction2() {
         System.out.println("ParentTest:publicFunction2()");
     }
+
+    @Override
+    void fun1() {
+        
+    }
+}
+
+abstract class AbstractParent {
+    private int age;
+
+    abstract void fun1();
 }

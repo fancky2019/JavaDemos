@@ -304,10 +304,19 @@ public class ThreadTest {
                 Runtime.getRuntime().availableProcessors() * 2,
                 0,
                 TimeUnit.MILLISECONDS,
-                new ArrayBlockingQueue<>(Integer.MAX_VALUE));
+                new ArrayBlockingQueue<>(1000));
+//                new ArrayBlockingQueue<>(Integer.MAX_VALUE));
 
+        cachedThreadPool1.execute(()->
+        {
 
+        });
 
+        //submit 最终调用execute
+        Future future=  cachedThreadPool1.submit(()->
+        {
+
+        });
         //定长线程个数
         ExecutorService SynchronousQueue1 = Executors.newFixedThreadPool(10);
         //队列
