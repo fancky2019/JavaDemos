@@ -108,8 +108,8 @@ public class RedisTest {
         return jedisPool.getResource();
     }
 
-    class RedisTestStaticInnner {
-        public static RedisTest redisTest = new RedisTest();
+    static class RedisTestStaticInnner {
+        static RedisTest redisTest = new RedisTest();
     }
 
 
@@ -475,10 +475,10 @@ public class RedisTest {
     /**
      * 事务
      * Redis 服务端单线程执行命令、但是不保证客户端多线程线程安全。如客户端读key1=1,然后key1进行desc操作，B读取也是1，也-- 已经超卖了。
-     *        要加分布式锁，要么lua保证原子操作。
+     * 要加分布式锁，要么lua保证原子操作。
      * 如果只有一个连接时候不会有并发问题，但是有两个连接的时候就会有客户端并发问题，要加事务。
      * 一主多从，主写从读。
-     *
+     * <p>
      * watch 相当于乐观锁，只能有一个操作。但是redis不支持回滚。
      */
     private void transactionTest() {
@@ -516,12 +516,10 @@ public class RedisTest {
 
             if (result == null) {
                 System.out.println("fail");
-            }else {
+            } else {
                 //redis 不支持回滚，事务失败有些操作入库的将不会滚
-               for(Object p:result)
-                {
-                    if(p instanceof  Exception)
-                    {
+                for (Object p : result) {
+                    if (p instanceof Exception) {
 
 
                     }

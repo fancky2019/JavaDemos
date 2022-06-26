@@ -7,6 +7,7 @@ import Test.opensource.redis.RedisTest;
 import Test.test2018.JDBCTest;
 import Test.test2018.ReflectDemo;
 import Test.test2018.SetTest;
+import Test.test2019.ThreadLocalTest;
 import Test.test2019.TimerTest;
 import Test.test2019.TryTest;
 import Test.test2019.VolatileTest;
@@ -115,7 +116,7 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-              new RedisTest().test();
+//              new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
@@ -189,7 +190,7 @@ public class Main {
             // new ParamsTest().test();
 
 //            new JestTest().test();
-//            new ThreadLocalTest().test();
+            new ThreadLocalTest().test();
 //            new Log4j2Demo().test();
 
 //            new LinkedBlockingQueueTest().test();

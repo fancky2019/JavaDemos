@@ -1,7 +1,6 @@
 package Test.test2019;
 
 import Model.Student;
-import Test.test2018.Person;
 
 import java.text.MessageFormat;
 import java.util.LinkedList;
@@ -13,16 +12,25 @@ import java.util.concurrent.CompletableFuture;
  * 空间换时间
  *
  * 避免加锁用ThreadLocal
+ *
+ *
+ * ThreadLocalMap 存储在Thread 类中，ThreadLocalMap内部 Entry[] key -->ThreadLocal  value-->data
+ * 当GC 时候若ThreadLocal没有强引用，则会回收Entry 里的key.若没有remove 会造成内存泄漏，直到线程结束时候 Thread 释放空间 ThreadLocalMap。
  */
 public class ThreadLocalTest {
 
-    ThreadLocal<Student> student = new ThreadLocal<Student>();
+    ThreadLocal<Student> threadLocal = new ThreadLocal<Student>();
 
     ThreadLocal<List<Student>> studentList = new ThreadLocal<List<Student>>();
 
     public void test() {
 
-        multiThread();
+        try {
+            utilityFunction("fancky", 27);
+//            multiThread();
+        } catch (Throwable  e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -43,25 +51,30 @@ public class ThreadLocalTest {
                 utilityFunction("lr1", 26);
                 utilityFunction1("fancky1", 26);
                 utilityFunction1("fancky11", 26);
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 System.out.println(ex.getMessage());
             }
         });
     }
 
-    private void utilityFunction(String name, int age) throws Exception {
+    private void utilityFunction(String name, int age)  {
         Student student = new Student(name, age);
         //设置
-        this.student.set(student);
-        Thread.sleep(3000);
-        System.out.println();
+        this.threadLocal.set(student);
+        try {
+            System.gc();
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         //取值
-        System.out.println(MessageFormat.format("utilityFunction ThreadID:{0} Person:{1}", Thread.currentThread().getId(), this.student.get().toString()));
+        System.out.println(MessageFormat.format("utilityFunction ThreadID:{0} Person:{1}", Thread.currentThread().getId(), this.threadLocal.get().toString()));
         //删除本地线程的值。
-        this.student.remove();
+        this.threadLocal.remove();
     }
 
-    private void utilityFunction1(String name, int age) throws Exception {
+    private void utilityFunction1(String name, int age)  {
         Student student = new Student(name, age);
         List<Student> list = this.studentList.get();
         if (list != null) {
@@ -71,7 +84,11 @@ public class ThreadLocalTest {
             students.add(student);
             studentList.set(students);
         }
-        Thread.sleep(3000);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<Student> students = this.studentList.get();
         Student lastStudent = students.get(students.size() - 1);
         System.out.println(MessageFormat.format("utilityFunction1 ThreadID:{0} Person:{1}", Thread.currentThread().getId(), lastStudent.toString()));
