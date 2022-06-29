@@ -12,4 +12,8 @@ public abstract class BaseClass implements InterfaceA {
     public String funB() {
         return "BaseClass+funB";
     }
+
+    private String funC() {
+        return "BaseClass+funB";
+    }
 }
