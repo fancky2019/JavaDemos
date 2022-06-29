@@ -18,6 +18,7 @@ import Test.test2021.ThreadTest;
 import Test.test2021.designpattern.SingletonPattern;
 import Test.test2022.ArrayTest;
 import Test.test2022.ListArrayTest;
+import Test.test2022.OverRideVarTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -190,7 +191,7 @@ public class Main {
             // new ParamsTest().test();
 
 //            new JestTest().test();
-            new ThreadLocalTest().test();
+//            new ThreadLocalTest().test();
 //            new Log4j2Demo().test();
 
 //            new LinkedBlockingQueueTest().test();
@@ -261,6 +262,8 @@ public class Main {
 //            new StringBufferTest().test();
 //            SingletonPattern.test();
 //            new ListArrayTest().test();
+//            new OverRideVarTest().test();
+            new Test.test2022.FinalTest().test();
 
             //endregion
 
