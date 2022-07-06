@@ -4,7 +4,7 @@ import Model.Student;
 
 import java.lang.reflect.Array;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 public class SetTest {
@@ -58,14 +58,21 @@ peek，element区别：
         Integer m = 0;
     }
 
-    private void sets() {
+    private void sets() throws InterruptedException {
 
-        //region List--->C# List
+        //region List--->C# List   底层object[]
         //list
         //类型不能使基础类型,可以使用包装器。
 //        List<int> list11111=new LinkedList<>();
 
-        List<Integer> list = new ArrayList<Integer>();
+        //不指定泛型就是object
+        List list111 = new ArrayList();
+        list111.add(1);
+        list111.add("sd");
+
+
+
+        ArrayList<Integer> list = new ArrayList<Integer>();
         list.add(9);
         List<Integer> list1 = new ArrayList<Integer>();
         list1.add(2);
@@ -92,7 +99,7 @@ peek，element区别：
         }
         //endregion
 
-        //region Vector --->C#ArrayList
+        //region Vector --->C#ArrayList   底层object[]
         Vector vector = new Vector();
         vector.add(1);
         vector.add("sd");
@@ -101,10 +108,13 @@ peek，element区别：
         }
         //endregion
 
-        //region HashTable 线程安全性能差
+        //region HashTable 线程安全性能差  put get 都用 synchronized 修饰，底层 Entry<?,?>[] table;
+        Hashtable<Integer, Integer> hashtable = new Hashtable<>();
+        hashtable.put(1,1);
+        hashtable.get(1);
         //endregion
 
-        //region hashMap <Key,Value> --->c# Dictionary
+        //region hashMap <Key,Value> --->c# Dictionary   底层 Node<K,V>[] table;
         //hashMap <Key,Value>
         HashMap<String, Integer> map = new HashMap<String, Integer>();
         map.put("key1", 1);
@@ -145,7 +155,7 @@ peek，element区别：
 
         //endregion
 
-        //region HashSet  底层hashmap  哈希表
+        //region HashSet  底层hashmap存储  哈希表
         HashSet<Integer> hashSet = new HashSet<Integer>();
         hashSet.add(2);
         hashSet.add(1);
@@ -186,7 +196,7 @@ peek，element区别：
         treeSet.remove(1);
         //endregion
 
-        //region LinkedHashSet
+        //region LinkedHashSet 底层hashmap存储
         LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<Integer>();
         linkedHashSet.add(2);
         linkedHashSet.add(1);
@@ -205,7 +215,7 @@ peek，element区别：
         });
         //endregion
 
-        //region LinkedHashMap
+        //region LinkedHashMap 底层hashmap存储
         LinkedHashMap<String, Integer> linkedHashMap = new LinkedHashMap<String, Integer>();
         linkedHashMap.put("key1", 1);
         //如果添加了重复的Key,后面添加的KeyValue会更新之前添加的
@@ -213,12 +223,30 @@ peek，element区别：
         linkedHashMap.put("key3", 3);
         //endregion
 
-        //region ConcurrentHashMap
+        //region ConcurrentHashMap  锁slot hash槽 ，node 首节点
+        ConcurrentHashMap<String, Integer> concurrentHashMap = new ConcurrentHashMap<String, Integer>();
+        concurrentHashMap.put("key1", 1);
         //endregion
 
-        //region ConcurrentSkipListMap
-        // ConcurrentNavigableMap是基于SkipList跳跃表实现的线程安全的NavigableMap实现类
+        // 底层Object[] items;
+        ArrayBlockingQueue<Integer> arrayBlockingQueue=new ArrayBlockingQueue<>(100);
+        arrayBlockingQueue.offer(1);
+        // 底层Object[] items;
+        ArrayBlockingQueue<Integer> arrayBlockingQueue1=new ArrayBlockingQueue<>(100);
+        arrayBlockingQueue1.put(1);
+        //底层单向链表
+        LinkedBlockingQueue<Integer> linkedBlockingQueue=new LinkedBlockingQueue();
+        linkedBlockingQueue.offer(1);
 
+
+        //底层单向链表
+        ConcurrentLinkedQueue<Integer> concurrentLinkedQueue=new ConcurrentLinkedQueue();
+        concurrentLinkedQueue.offer(1);
+        //region ConcurrentSkipListMap
+
+        // ConcurrentNavigableMap是基于SkipList跳跃表实现的线程安全的NavigableMap实现类
+        ConcurrentSkipListMap<String, Integer> concurrentSkipListMap = new ConcurrentSkipListMap<String, Integer>();
+        concurrentSkipListMap.put("key1", 1);
         //TreeMap 、TreeSet
         //endregion
 
@@ -258,7 +286,7 @@ peek，element区别：
         //第一个
         Student first = filterList.get(0);
         //最后一个
-        Student last = filterList.get(filterList.size()-1);
+        Student last = filterList.get(filterList.size() - 1);
         //对象集合排序：实现Comparable接口，然后重写compareTo方法。
         filterList.sort((a, b) -> a.getAge().compareTo(b.getAge()));
         //java8 Comparator
@@ -278,7 +306,7 @@ peek，element区别：
         //逆序
         Collections.reverse(ageList);
         //多个字段排序
-        List<Student> studentList = list1.stream().sorted(Comparator.comparing((Student p)->p.getAge())
+        List<Student> studentList = list1.stream().sorted(Comparator.comparing((Student p) -> p.getAge())
                         .thenComparing(Student::getName, Comparator.reverseOrder()))
 //                        .thenComparing(Student::getName))
                 .collect(Collectors.toList());
@@ -290,22 +318,21 @@ peek，element区别：
                 .collect(Collectors.toList());
 
 
-        studentList = list1.stream().sorted(Comparator.<Student, Integer>comparing(p->p.getAge()).reversed())
+        studentList = list1.stream().sorted(Comparator.<Student, Integer>comparing(p -> p.getAge()).reversed())
 
 //                        .thenComparing(Student::getName))
                 .collect(Collectors.toList());
 
 
-
-        Comparator<Student> comparator=   Comparator.comparing(Student::getAge)
+        Comparator<Student> comparator = Comparator.comparing(Student::getAge)
                 .thenComparing(Student::getName, Comparator.reverseOrder())
 //                        .thenComparing(Student::getName))
-                 ;
-        List<Student> studentList1= list1.stream().sorted(comparator)
+                ;
+        List<Student> studentList1 = list1.stream().sorted(comparator)
                 .collect(Collectors.toList());
 
         //截取
-        List<Student> studentList11 = list1.subList(0,1);
+        List<Student> studentList11 = list1.subList(0, 1);
 
         //最大、最小
         Integer maxAge = Collections.max(ageList);
