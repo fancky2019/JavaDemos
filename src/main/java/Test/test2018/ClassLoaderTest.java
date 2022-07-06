@@ -86,12 +86,16 @@ public class ClassLoaderTest {
         //   new ChildClass().getChildStr1();
 
         try {
+            //classLoader 在class 类中定义
             //Launcher&AppClassLoader
-//            ClassLoader cl=   ClassLoaderTest.class.getClassLoader();
-//            if(cl==null)
-//            {
-//                cl.loadClass("Test.test2018.ChildClass");
-//            }
+            //当前classLoader 判断类是否加载，如果没有加载先判断父classLoader是否为空，不空就调用父类加载，
+            //否则就找父类加载器直到bootstrap classLoader
+            ClassLoader cl=   ClassLoaderTest.class.getClassLoader();
+            if(cl==null)
+            {
+//                cl.getParent()
+                cl.loadClass("Test.test2018.ChildClass");
+            }
 
         } catch (Exception ex) {
 

@@ -6,22 +6,24 @@ import java.text.MessageFormat;
 
 /**
  * jdk8中字符串常量池存放在堆中
- *字面量(interned strings)转移到了java heap；类的静态变量(class statics)转移到了java heap。
- *
+ * 字面量(interned strings)转移到了java heap；类的静态变量(class statics)转移到了java heap。
+ * <p>
  * jdk1.7的HotSpot中，已经把原本放在方法区中的静态变量、字符串常量池等移到堆内存中。字符串常量和静态类型变量存储在普通的堆区中。
- * 在jdk1.8中，永久代已经不存在，存储的类信息、编译后的代码数据等已经移动到了元空间(MetaSpace)中，元空间并没有处于堆内存上，
+ * 在jdk1.8中，永久代已经不存在，存储的类信息、编译后的代码数据等已经移动到了元空间(MetaSpace 堆外内存--本地内存)中，元空间并没有处于堆内存上，
  * 而是直接占用的本地内存(NativeMemory)。
- *
- *方法区：永久代和元空间是方法区的一种实现。
- *
- *
+ * <p>
+ * 元空间：类、字段、方法的修饰信息，常量也存储在元空间。
+ * <p>
+ * 方法区：永久代和元空间是方法区的一种实现。
+ * <p>
+ * <p>
  * 变量存储：
  * 类常量和静态变量：元空间(方法区的一种实现)
  * 除静态变量之外的类变量：类变量只有在对象创建之后才分配内存，所以基本类型的话在堆中的对象中，引用类型的话在堆中、堆中的对象保存引用
  * 局部变量：局部变量也是只有对象才有的，但是它在方法中，所以其实它是在栈上的：如果是基本类型，就保存在栈上；如果是引用类型，就保存在堆上，然后在栈中保存一个引用
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * = =:对于预定义的值类型，如果操作数的值相等，则相等运算符 (==) 返回 true，否则返回 false。
  * 对于引用类型，如果两个操作数引用同一个对象，则 == 返回 true。
  * String 类型，== 同一个对象，注意内存驻留。
@@ -29,6 +31,7 @@ import java.text.MessageFormat;
  */
 public class StringTest {
     public void test() {
+//        static  int a; static不能用在方法内部
         concat();
         //  format();
         stringIntern();
@@ -47,6 +50,7 @@ public class StringTest {
     }
 
     private void concat() {
+
         int m = 1;
         //可以直接转成str，类似javascript
         String str = m + "";

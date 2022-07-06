@@ -366,6 +366,21 @@ public class ThreadTest {
             {
             }, Executors.newCachedThreadPool());
 
+
+
+            ExecutorService   cachedThreadPool1
+                    = new ThreadPoolExecutor(
+                    Runtime.getRuntime().availableProcessors()-1,
+                    Runtime.getRuntime().availableProcessors() * 2,
+                    0,
+                    TimeUnit.MILLISECONDS,
+                    new ArrayBlockingQueue<>(1000));
+
+            CompletableFuture.runAsync(() ->
+            {
+            }, cachedThreadPool1);
+
+
             //没有返回值
             CompletableFuture<Void> voidCompletableFuture = CompletableFuture.runAsync(() ->
             {
