@@ -8,8 +8,7 @@ package Test.test2018;
 import javax.management.loading.PrivateClassLoader;
 
 @FunctionalInterface
-public interface
-FuncInterface {
+public interface FuncInterface {
 
     //接口成员字段访问修饰符默认：public static final
     static String name = "";
@@ -47,3 +46,5 @@ FuncInterface {
 //    }
 
 }
+
+
