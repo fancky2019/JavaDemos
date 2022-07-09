@@ -45,7 +45,9 @@ public class LockTest {
 
     SynchronizedClass synchronizedClass1 = new SynchronizedClass();
     SynchronizedClass synchronizedClass2 = new SynchronizedClass();
-
+    SynchronizedClass synchronizedClass3 = new SynchronizedClass();
+    SynchronizedClass synchronizedClass4 = new SynchronizedClass();
+    SynchronizedClass synchronizedClass5 = new SynchronizedClass();
     public static Object lockObj = new Object();
 
     public static int i = 0;
@@ -59,7 +61,49 @@ public class LockTest {
 //            synchronizedReentrantTest();
 //        });
 
-        synchronizedSleepTest();
+//        synchronizedSleepTest();
+
+
+        // synchronized 使用区别
+        //锁静态方法、 synchronized (SynchronizedClass.class)、synchronized (SynchronizedClass.class) 等同
+        //锁普通方法、   synchronized (this) 等同
+        //锁对象快锁被锁的对象，如果被锁的对象是静态的所有对象调用都将同步
+
+        CompletableFuture.runAsync(() ->
+        {
+            SynchronizedClass.staticFun();
+        });
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedClass1.synchronizedBlock1();
+        });
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedClass2.synchronizedBlock2();
+        });
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedClass3.objectFun();
+        });
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedClass3.thisFun();
+        });
+
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedClass5.thisFun1();
+        });
+
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedClass1.lockStaticObject();
+        });
+
+        CompletableFuture.runAsync(() ->
+        {
+            synchronizedClass2.lockStaticObject();
+        });
     }
 
     private final int lockInt = 5;
@@ -348,6 +392,13 @@ class SynchronizedClass {
 
     }
 
+
+    public void test() {
+
+    }
+
+    private static Object staticObject = new SynchronizedClass();
+
     public void synchronizedTest1() {
 
         /*
@@ -365,6 +416,88 @@ class SynchronizedClass {
 
 
     }
+
+    public synchronized static void staticFun() {
+        System.out.println("staticFun");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void synchronizedBlock1() {
+        synchronized (SynchronizedClass.class) {
+            System.out.println("SynchronizedClass.class");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public void synchronizedBlock2() {
+        synchronized (this.getClass()) {
+            System.out.println("this.getClass()");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public synchronized void objectFun() {
+        System.out.println("objectFun");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void thisFun() {
+        synchronized (this) {
+            System.out.println("thisFun");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public synchronized void thisFun1() {
+
+        System.out.println("thisFun1");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void lockStaticObject() {
+        synchronized (staticObject) {
+            System.out.println("lockStaticObject");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
+
+
 }
 
 
