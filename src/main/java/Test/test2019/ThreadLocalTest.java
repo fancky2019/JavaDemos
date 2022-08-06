@@ -1,6 +1,7 @@
 package Test.test2019;
 
 import Model.Student;
+import scala.Int;
 
 import java.text.MessageFormat;
 import java.util.LinkedList;
@@ -10,10 +11,10 @@ import java.util.concurrent.CompletableFuture;
 /**
  * 将全局变量设置为  ThreadLocal，可达到多线程访问同步的效果。
  * 空间换时间
- *
+ * <p>
  * 避免加锁用ThreadLocal
- *
- *
+ * <p>
+ * <p>
  * ThreadLocalMap 存储在Thread 类中，ThreadLocalMap内部 Entry[] key -->ThreadLocal  value-->data
  * 当GC 时候若ThreadLocal没有强引用，则会回收Entry 里的key.若没有remove 会造成内存泄漏，直到线程结束时候 Thread 释放空间 ThreadLocalMap。
  */
@@ -23,12 +24,20 @@ public class ThreadLocalTest {
 
     ThreadLocal<List<Student>> studentList = new ThreadLocal<List<Student>>();
 
+    ThreadLocal<Integer> threadLocalInt = new ThreadLocal<>();
+
     public void test() {
 
         try {
+            //线程一般采用线程池思想，服用，所以threadLocal 内部ThreadLocalMap 采用 Entry[] 存储。就造成内存泄漏。
+            threadLocalInt.set(1);
+            threadLocalInt.set(2);//替换之前的值
+            Integer num = threadLocalInt.get();
+            threadLocalInt.remove();
+            num = threadLocalInt.get();//null
             utilityFunction("fancky", 27);
 //            multiThread();
-        } catch (Throwable  e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
 
@@ -57,7 +66,7 @@ public class ThreadLocalTest {
         });
     }
 
-    private void utilityFunction(String name, int age)  {
+    private void utilityFunction(String name, int age) {
         Student student = new Student(name, age);
         //设置
         this.threadLocal.set(student);
@@ -74,7 +83,7 @@ public class ThreadLocalTest {
         this.threadLocal.remove();
     }
 
-    private void utilityFunction1(String name, int age)  {
+    private void utilityFunction1(String name, int age) {
         Student student = new Student(name, age);
         List<Student> list = this.studentList.get();
         if (list != null) {

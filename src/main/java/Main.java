@@ -13,6 +13,7 @@ import Test.test2021.CompletableFutureTest;
 import Test.test2021.StringBufferTest;
 import Test.test2021.ThreadTest;
 import Test.test2021.designpattern.SingletonPattern;
+import Test.test2021.extendImplement.ExtendImplementTest;
 import Test.test2022.ArrayTest;
 import Test.test2022.ListArrayTest;
 import Test.test2022.OverRideVarTest;
@@ -188,12 +189,12 @@ public class Main {
             // new ParamsTest().test();
 
 //            new JestTest().test();
-//            new ThreadLocalTest().test();
+            new ThreadLocalTest().test();
 //            new Log4j2Demo().test();
 
 //            new LinkedBlockingQueueTest().test();
 
-            new LockTest().test();
+//            new LockTest().test();
 //            new SocketTcpTest().test();
 
             //endregion
