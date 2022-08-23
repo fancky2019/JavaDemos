@@ -1,6 +1,9 @@
 
+import Test.opensource.commonspool.CommonPoolTest;
+import Test.opensource.encache.EhcacheTest;
 import Test.test2018.ReflectDemo;
 import Test.test2021.designpattern.SingletonPattern;
+import Test.test2022.ThreadSafetyCollectionTest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -27,7 +30,7 @@ public class Main {
             int m = -131;
             int n = -m;
             int mmm = 0;
-            int yy=21;
+            int yy = 21;
 //          String dir=  System.getProperty("user.home");
 
 //            Log4j2 完全异步模式
@@ -68,7 +71,7 @@ public class Main {
             //  new SetTest().test();
 
             //  new FileTest().test();
-            new ReflectDemo().test();
+//            new ReflectDemo().test();
 //            new EnumTest().test();
 
 //              new ClassExecutionSequenceTest().test();
@@ -225,8 +228,13 @@ public class Main {
 //            new SynchronousQueueTest().test();
 //            new StringBufferTest().test();
 //            SingletonPattern.test();
+//            new EhcacheTest().test();
+
+//            new CommonPoolTest().test();
+            new ThreadSafetyCollectionTest().test();
 
             //endregion
+
 
 
             System.out.println(MessageFormat.format("main:{0}", "completed !"));
