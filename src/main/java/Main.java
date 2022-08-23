@@ -8,6 +8,7 @@ import Test.test2018.JDBCTest;
 import Test.opensource.commonspool.CommonPoolTest;
 import Test.opensource.encache.EhcacheTest;
 import Test.test2018.ReflectDemo;
+import Test.test2019.ThreadLocalTest;
 import Test.test2021.designpattern.SingletonPattern;
 import Test.test2022.ThreadSafetyCollectionTest;
 import Test.test2021.extendImplement.ExtendImplementTest;
@@ -187,7 +188,7 @@ public class Main {
             // new ParamsTest().test();
 
 //            new JestTest().test();
-            new ThreadLocalTest().test();
+//            new ThreadLocalTest().test();
 //            new Log4j2Demo().test();
 
 //            new LinkedBlockingQueueTest().test();
