@@ -5,14 +5,11 @@ import Test.opensource.jwt.JwtTest;
 import Test.opensource.msgpack.MsgPackTest;
 import Test.opensource.redis.RedisTest;
 import Test.test2018.JDBCTest;
+import Test.opensource.commonspool.CommonPoolTest;
+import Test.opensource.encache.EhcacheTest;
 import Test.test2018.ReflectDemo;
-import Test.test2018.SetTest;
-import Test.test2019.*;
-import Test.test2020.ConcurrentHashMapTest;
-import Test.test2021.CompletableFutureTest;
-import Test.test2021.StringBufferTest;
-import Test.test2021.ThreadTest;
 import Test.test2021.designpattern.SingletonPattern;
+import Test.test2022.ThreadSafetyCollectionTest;
 import Test.test2021.extendImplement.ExtendImplementTest;
 import Test.test2022.ArrayTest;
 import Test.test2022.ListArrayTest;
@@ -53,6 +50,7 @@ public class Main {
             {
                 int mtt=0;
             }
+            int yy = 21;
 //          String dir=  System.getProperty("user.home");
 
 //            Log4j2 完全异步模式
@@ -262,8 +260,13 @@ public class Main {
 //            new ListArrayTest().test();
 //            new OverRideVarTest().test();
 //            new Test.test2022.FinalTest().test();
+//            new EhcacheTest().test();
+
+//            new CommonPoolTest().test();
+            new ThreadSafetyCollectionTest().test();
 
             //endregion
+
 
 
             System.out.println(MessageFormat.format("main:{0}", "completed !"));
