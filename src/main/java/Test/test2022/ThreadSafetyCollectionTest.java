@@ -1,7 +1,5 @@
 package Test.test2022;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import org.checkerframework.checker.units.qual.K;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
