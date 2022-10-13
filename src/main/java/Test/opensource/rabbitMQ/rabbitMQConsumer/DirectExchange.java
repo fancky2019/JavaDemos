@@ -37,8 +37,8 @@ public class DirectExchange {
 
 
             factory.setPort(5672);
-            factory.setUsername("fancky");
-            factory.setPassword("123456");
+            factory.setUsername("guest");
+            factory.setPassword("guest");
 
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
@@ -59,8 +59,8 @@ public class DirectExchange {
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
 //                Student student = JSONObject.parseObject(message, Student.class);
-                channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);//发送客户端消息任务完成的应答
-                System.out.println("Received: key=" + delivery.getEnvelope().getRoutingKey() + "     msg=" + message);
+//                channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);//发送客户端消息任务完成的应答
+//                System.out.println("Received: key=" + delivery.getEnvelope().getRoutingKey() + "     msg=" + message);
             };
             //消费指定队列
             channel.basicConsume(QUEUE_NAME, false, deliverCallback, consumerTag -> {

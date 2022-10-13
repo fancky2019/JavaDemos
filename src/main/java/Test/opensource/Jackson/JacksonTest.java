@@ -104,14 +104,18 @@ public class JacksonTest {
             pojo.setName("张三");
             pojoHashMap.put(pojo.getName(), pojo);
             String jsonPojoMapStr = mapper.writeValueAsString(pojoHashMap);
-            HashMap<String, JacksonPojo> pojoHashMap1 = mapper.readValue(jsonPojoMapStr, new TypeReference<HashMap<String, JacksonPojo>>() {
-            });
+            HashMap<String, JacksonPojo> pojoHashMap1 = mapper.readValue(jsonPojoMapStr, new TypeReference<HashMap<String, JacksonPojo>>() {});
 
             //String jsonStr ="{\"uid\":100003,\"password\":\"123456\"},";
             // 2
             JavaType javaType = mapper.getTypeFactory().constructParametricType(HashMap.class, String.class, JacksonPojo.class);
             HashMap<String, JacksonPojo> pojoHashMap2 = mapper.readValue(jsonPojoMapStr, javaType);
 
+
+            //读取json 写入hashmap
+            String jStr="{\"code\":200,\"msg\":null,\"content\":\"9\"}";
+
+            HashMap<String, String> pojoHashMap11 = mapper.readValue(jStr, new TypeReference<HashMap<String, String>>() {});
 
             int m = 0;
         } catch (Exception e) {

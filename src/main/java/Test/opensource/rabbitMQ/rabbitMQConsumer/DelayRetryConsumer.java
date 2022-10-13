@@ -72,7 +72,8 @@ public class DelayRetryConsumer {
             channel.exchangeDeclare(EXCHANGE_RETRY_NAME, ExchangeType.DIRECT);
             Map<String, Object> mapRetry = new HashMap<>();
             ////设置死信进入消费队列
-            mapRetry.put("x-message-ttl", 10000);//TTL 延迟进入工作队列
+            //TTL 延迟进入工作队列。设置整个队列的消息过期时间。也可也在发送消息的时候设置消息的过期时间
+            mapRetry.put("x-message-ttl", 10000);//TTL 延迟进入工作队列。设置整个队列的消息过期时间。
             mapRetry.put("x-dead-letter-exchange", EXCHANGE_NAME);
             mapRetry.put("x-dead-letter-routing-key", ROUTING_KEY);
             channel.queueDeclare(QUEUE_RETRY_NAME, true, false, false, mapRetry);
@@ -88,9 +89,9 @@ public class DelayRetryConsumer {
 
             //region 消费者
             channel.exchangeDeclare(EXCHANGE_NAME, ExchangeType.DIRECT);
-            Boolean durable = true;
-            Boolean exclusive = false;
-            Boolean autoDelete = false;
+            boolean durable = true;
+            boolean exclusive = false;
+            boolean autoDelete = false;
             Map<String, Object> mapConsumer = new HashMap<>();
             //设置死信进入重试队列
             mapConsumer.put("x-dead-letter-exchange", EXCHANGE_RETRY_NAME);
@@ -117,11 +118,11 @@ public class DelayRetryConsumer {
                         //把消息发送到失败队列同时Ack掉此条消息
                         //发送到失败队列
                         channel.basicPublish(EXCHANGE_FAILED_NAME, ROUTING_FAILED_KEY, null, delivery.getBody());
-                        //Ack掉
+                        //Ack掉，false:不重新入队
                         channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);//发送客户端消息任务完成的应答
                         //ack 之后设置redis中的messageId的key ttl 可以设置1天，尽量大点
                     } else {
-                        //重试不足3次，继续拒绝（死信）以加入重试队列。
+                        //重试不足3次，继续拒绝（死信）以加入重试队列。 false:不重新入队
                         channel.basicReject(delivery.getEnvelope().getDeliveryTag(), false);
                     }
 
