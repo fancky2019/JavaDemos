@@ -86,6 +86,13 @@ public class DivisionTest {
         BigDecimal rbd2 = bd1.divide(bd2);//1.5
         BigDecimal rbd3 = bd1.add(bd2);//0.05
         BigDecimal rbd4 = bd1.subtract(bd2);//0.01
+
+        //比较大小
+        //compareTo  1 0 -1
+       if(bd2.compareTo(bd1)==0)
+       {
+
+       }
         Integer m = 0;
     }
 }

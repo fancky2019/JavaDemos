@@ -251,11 +251,13 @@ public class Java8Test {
         if (optionalStudent.isPresent()) {
             val = optionalStudent.get();
         }
-        //如果值不存在就用Null
+        //如果值存在就返回值，若不存在就返回指定的Null
         Student st = optionalStudent.orElse(null);
         optionalStudent = Optional.ofNullable(null);
         //  Student st1 = optionalStudent.orElse(null);
 
+
+        Optional<Student> studentNull=Optional.ofNullable(student);
 
 //      Optional<Student> fla=  optionalStudent.flatMap(p->Optional.of(p));
         //flatmap可以将一个2维的集合转成1维度,map只能将分割结果转成一个List,所以输出为list对象

@@ -3,6 +3,7 @@ import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.Netty.NettyTest;
 import Test.opensource.jwt.JwtTest;
 import Test.opensource.msgpack.MsgPackTest;
+import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
 import Test.test2018.JDBCTest;
 import Test.opensource.commonspool.CommonPoolTest;
@@ -15,6 +16,7 @@ import Test.test2021.extendImplement.ExtendImplementTest;
 import Test.test2022.ArrayTest;
 import Test.test2022.ListArrayTest;
 import Test.test2022.OverRideVarTest;
+import Test.test2022.annotation.AnnotationTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -132,7 +134,7 @@ public class Main {
 //              new ConvertTest().test();
             //  new AnnotationTest().test();
 
-//            new RabbitMQTest().test();
+            new RabbitMQTest().test();
             //  new  QueueTest().test();
 
 //               new  GenericTest().test();
@@ -264,8 +266,8 @@ public class Main {
 //            new EhcacheTest().test();
 
 //            new CommonPoolTest().test();
-            new ThreadSafetyCollectionTest().test();
-
+//            new ThreadSafetyCollectionTest().test();
+//            new AnnotationTest().test();
             //endregion
 
 
