@@ -1,6 +1,7 @@
 package Test.test2018;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -35,6 +36,14 @@ public class GenericTest {
 
     public void test() {
 
+        // 如果定义了泛型，实例化时没有指明类的泛型，则认为此泛型类型为Object
+        List list11 = new LinkedList<>();
+        list11.add(123);
+        list11.add("123");
+
+        //由于没有指定类型参数，泛型类型为Object
+        int e1 = (Integer) list11.get(0);
+        String str1 = list11.get(1).toString();
         //泛型如果不指定类型参数，其类型就是object类型。
 //        List list=new ArrayList();
 //        list.add(1);
@@ -218,10 +227,9 @@ class GenaTest<T> {
     }
 
     //和类的类型占位符不一样，就要设置泛型类型生命。
-    static <E>  void Display11(E e ){
+    static <E> void Display11(E e) {
 
     }
-
 
 
     public static <T extends GenS> List<T> funVoid21112(T t) {

@@ -5,6 +5,7 @@ import Test.opensource.jwt.JwtTest;
 import Test.opensource.msgpack.MsgPackTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
+import Test.test2018.GenericTest;
 import Test.test2018.JDBCTest;
 import Test.opensource.commonspool.CommonPoolTest;
 import Test.opensource.encache.EhcacheTest;
@@ -134,10 +135,10 @@ public class Main {
 //              new ConvertTest().test();
             //  new AnnotationTest().test();
 
-            new RabbitMQTest().test();
+//            new RabbitMQTest().test();
             //  new  QueueTest().test();
 
-//               new  GenericTest().test();
+               new GenericTest().test();
 //            new  GenericsErasureTest().test();
 
             //endregion
