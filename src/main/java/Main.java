@@ -35,6 +35,7 @@ Java 包名按惯例一律小写，即使中间的单词也需要小写，与驼
  */
 public class Main {
     private static final Logger LOGGER = LogManager.getLogger();
+
     public static void main(String[] args) {
         try {
             long epochMillis = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
@@ -49,10 +50,9 @@ public class Main {
             int n = -m;
             int mmm = 0;
 
-            long l1=1;
-            if(l1==1)
-            {
-                int mtt=0;
+            long l1 = 1;
+            if (l1 == 1) {
+                int mtt = 0;
             }
             int yy = 21;
 //          String dir=  System.getProperty("user.home");
@@ -64,10 +64,10 @@ public class Main {
             //主线程设置捕获子线程的异常
             Thread.setDefaultUncaughtExceptionHandler((thread, throwable) ->
             {
-                String msg=throwable.getMessage();
-                String msg1=throwable.toString();
+                String msg = throwable.getMessage();
+                String msg1 = throwable.toString();
                 LOGGER.error("", throwable);//用此重载，打印异常
-                int m10=0;
+                int m10 = 0;
             });
 
             //region test2018
@@ -138,7 +138,7 @@ public class Main {
 //            new RabbitMQTest().test();
             //  new  QueueTest().test();
 
-               new GenericTest().test();
+//               new GenericTest().test();
 //            new  GenericsErasureTest().test();
 
             //endregion
@@ -262,6 +262,7 @@ public class Main {
 //            new StringBufferTest().test();
 //            SingletonPattern.test();
 //            new ListArrayTest().test();
+            new ArrayTest().test();
 //            new OverRideVarTest().test();
 //            new Test.test2022.FinalTest().test();
 //            new EhcacheTest().test();
@@ -270,7 +271,6 @@ public class Main {
 //            new ThreadSafetyCollectionTest().test();
 //            new AnnotationTest().test();
             //endregion
-
 
 
             System.out.println(MessageFormat.format("main:{0}", "completed !"));
