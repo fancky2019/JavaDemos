@@ -61,7 +61,7 @@ public class Main {
 //            System.setProperty("Log4jContextSelector", "org.apache.logging.log4j.core.async.AsyncLoggerContextSelector");
 
 //            1
-            //4
+            //5
 
             //主线程设置捕获子线程的异常
             Thread.setDefaultUncaughtExceptionHandler((thread, throwable) ->
