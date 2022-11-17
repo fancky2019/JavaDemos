@@ -115,8 +115,11 @@ public class Java8Test {
                         new Student("fancky5", 7, "农民"),
                         new Student("fancky9", 12, "教师")
                 ));
-        //分组 groupingBy多：单个属性分组
+        //分组 groupingBy多：单个属性分组,默认hashMao
         Map<String, List<Student>> studentsGroupBy = listGroup.stream().collect(Collectors.groupingBy(Student::getName));
+
+
+        HashMap<String, List<Student>> studentsGroupBy1 = listGroup.stream().collect(Collectors.groupingBy(Student::getName,HashMap::new,Collectors.toList()));
         //分组：多个属性分组--将多个属性拼接成一个属性
         Map<String, List<Student>> multiFieldGroupBy = listGroup.stream().collect(Collectors.groupingBy(p -> MessageFormat.format("{0}_{1}", p.getName(), p.getJob())));
         //对分组后形成的字典进行迭代

@@ -46,6 +46,8 @@ public class ReflectDemo {
             Boolean ree = student instanceof StudentParent;
             Boolean rei = student instanceof StudentInterface;
 
+            //getField()只能获取公有属性字段，getDeclaredField()能获取全部属性字段。
+            // 其中还需要注意的时getDeclaredField()方法获取私有属性字段时需要将 设置accessible属性为true
             //反射字段、方法
             Field[] fields = clas.getDeclaredFields();
             //给字段赋值

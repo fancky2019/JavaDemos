@@ -11,6 +11,7 @@ import Test.opensource.commonspool.CommonPoolTest;
 import Test.opensource.encache.EhcacheTest;
 import Test.test2018.ReflectDemo;
 import Test.test2019.ThreadLocalTest;
+import Test.test2021.CollectionTest;
 import Test.test2021.designpattern.SingletonPattern;
 import Test.test2022.ThreadSafetyCollectionTest;
 import Test.test2021.extendImplement.ExtendImplementTest;
@@ -253,7 +254,7 @@ public class Main {
 //            new MathTest().test();
 
 //            new PrimitiveTypeCacheTest().test();
-//            new CollectionTest().test();
+            new CollectionTest().test();
 //            new IOStreamTest().test();
 //            new HashMapSetTest().test();
 
@@ -264,7 +265,7 @@ public class Main {
 //            new StringBufferTest().test();
 //            SingletonPattern.test();
 //            new ListArrayTest().test();
-            new ArrayTest().test();
+//            new ArrayTest().test();
 //            new OverRideVarTest().test();
 //            new Test.test2022.FinalTest().test();
 //            new EhcacheTest().test();

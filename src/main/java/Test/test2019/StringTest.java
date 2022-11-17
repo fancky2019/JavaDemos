@@ -3,6 +3,7 @@ package Test.test2019;
 import Model.Student;
 
 import java.text.MessageFormat;
+import java.util.StringJoiner;
 
 /**
  * jdk8中字符串常量池存放在堆中
@@ -152,6 +153,19 @@ public class StringTest {
         name = new String("r");
 
         student.setName("rui");
+    }
+
+    private void join() {
+        String[] names = {"Bob", "Alice", "Grace"};
+        String joinStr = String.join(",", names);
+        StringJoiner stringJoiner = new StringJoiner(",", "(", ")");
+
+        for (String name : names) {
+            stringJoiner.add(name);
+        }
+
+        String str = stringJoiner.toString();
+        int m = 0;
     }
 
 

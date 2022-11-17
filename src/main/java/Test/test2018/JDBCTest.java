@@ -382,7 +382,7 @@ public class JDBCTest {
 //        PreparedStatement preparedStatement = con.prepareStatement(insertCommand, PreparedStatement.RETURN_GENERATED_KEYS);
 
         try {
-            for (int i = 0; i < 2000000; i++) {
+            for (int i = 0; i < 200000; i++) {
                 //设置参数
                 //每个参数生成一个Parameter对象加入Parameter[]中。
                 preparedStatement.setString(1, UUID.randomUUID().toString());
