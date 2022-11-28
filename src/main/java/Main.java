@@ -5,11 +5,13 @@ import Test.opensource.jwt.JwtTest;
 import Test.opensource.msgpack.MsgPackTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
+import Test.test2018.CalendarTest;
 import Test.test2018.GenericTest;
 import Test.test2018.JDBCTest;
 import Test.opensource.commonspool.CommonPoolTest;
 import Test.opensource.encache.EhcacheTest;
 import Test.test2018.ReflectDemo;
+import Test.test2019.StringTest;
 import Test.test2019.ThreadLocalTest;
 import Test.test2021.CollectionTest;
 import Test.test2021.designpattern.SingletonPattern;
@@ -161,7 +163,7 @@ public class Main {
 
 //            new NettyTest().nettyWebSocket();
 
-//            new StringTest().test();
+            new StringTest().test();
             //  new TimerTest().test();
 //              new TryTest().test();
 
@@ -254,7 +256,7 @@ public class Main {
 //            new MathTest().test();
 
 //            new PrimitiveTypeCacheTest().test();
-            new CollectionTest().test();
+//            new CollectionTest().test();
 //            new IOStreamTest().test();
 //            new HashMapSetTest().test();
 

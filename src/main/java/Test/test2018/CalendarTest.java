@@ -8,9 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,8 +30,10 @@ public class CalendarTest {
 
     public void test() {
         try {
+
+
 //            zonedDateTimeTest();
-//            operation();
+            operation();
 //            formatter();
             timeZone();
         } catch (Exception ex) {
@@ -92,6 +92,10 @@ public class CalendarTest {
         //.net 是yyyy-MM-dd HH:mm:ss.fff
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
         String dateStr = simpleDateFormat.format(date);
+
+
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateStr1 = simpleDateFormat1.format(date);
 
         //转换
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");

@@ -3,6 +3,8 @@ package Test.test2019;
 import Model.Student;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 /**
@@ -34,6 +36,10 @@ public class StringTest {
     public void test() {
 //        static  int a; static不能用在方法内部
         concat();
+
+
+        String str = "sdsd(%)";
+        String newStr = remove(str);
         //  format();
         stringIntern();
         String str1 = StringTest.trimEnd("sd..", '.');
@@ -48,6 +54,18 @@ public class StringTest {
         student.setName(name);
         parametersFunction("name", student);
         System.out.println(name);
+    }
+
+    private String remove(String str) {
+        List<String> list = new ArrayList<String>();
+        list.add("(");
+        list.add(")");
+        list.add("%");
+
+        for (String character : list) {
+            str=   str.replace(character, "");
+        }
+        return str;
     }
 
     private void concat() {
