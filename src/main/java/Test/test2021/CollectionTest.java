@@ -106,7 +106,8 @@ public class CollectionTest {
         //分组 groupingBy多：单个属性分组,默认hashMao
         Map<String, List<Student>> studentsGroupBy = listGroup.stream().collect(Collectors.groupingBy(Student::getName));
 
-
+        //平铺转list  平铺数组 .flatMap(Arrays::stream) 平铺listCollection::stream
+        List<Student> listStu=  studentsGroupBy.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
         HashMap<String, List<Student>> studentsGroupBy1 = listGroup.stream().collect(Collectors.groupingBy(Student::getName,HashMap::new,Collectors.toList()));
         //分组：多个属性分组--将多个属性拼接成一个属性
         Map<String, List<Student>> multiFieldGroupBy = listGroup.stream().collect(Collectors.groupingBy(p -> MessageFormat.format("{0}_{1}", p.getName(), p.getJob())));

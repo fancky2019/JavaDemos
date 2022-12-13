@@ -72,7 +72,7 @@ public class DelayRetryConsumer {
             channel.exchangeDeclare(EXCHANGE_RETRY_NAME, ExchangeType.DIRECT);
             Map<String, Object> mapRetry = new HashMap<>();
             ////设置死信进入消费队列
-            //TTL 延迟进入工作队列。设置整个队列的消息过期时间。也可也在发送消息的时候设置消息的过期时间
+            //TTL（ms） 延迟进入工作队列。设置整个队列的消息过期时间。也可也在发送消息的时候设置消息的过期时间
             mapRetry.put("x-message-ttl", 10000);//TTL 延迟进入工作队列。设置整个队列的消息过期时间。
             mapRetry.put("x-dead-letter-exchange", EXCHANGE_NAME);
             mapRetry.put("x-dead-letter-routing-key", ROUTING_KEY);

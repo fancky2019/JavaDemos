@@ -11,6 +11,8 @@ import Test.test2018.JDBCTest;
 import Test.opensource.commonspool.CommonPoolTest;
 import Test.opensource.encache.EhcacheTest;
 import Test.test2018.ReflectDemo;
+import Test.test2019.DivisionTest;
+import Test.test2019.HashCodeTest;
 import Test.test2019.StringTest;
 import Test.test2019.ThreadLocalTest;
 import Test.test2021.CollectionTest;
@@ -163,7 +165,7 @@ public class Main {
 
 //            new NettyTest().nettyWebSocket();
 
-            new StringTest().test();
+//            new StringTest().test();
             //  new TimerTest().test();
 //              new TryTest().test();
 
@@ -172,8 +174,8 @@ public class Main {
             //   new BlockingQueueTest().test();
             // new TypeJudgeTest().test();
 
-            //  new DivisionTest().test();
-//            new HashCodeTest().test();
+//              new DivisionTest().test();
+            new HashCodeTest().test();
             //   new LeftMoveTest().test();
 //              new RedissonTest().test();
 //              new ConstructorTest().test();

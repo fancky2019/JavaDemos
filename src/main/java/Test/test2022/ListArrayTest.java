@@ -47,6 +47,14 @@ public class ListArrayTest {
         //[1, 2, 3, 4]
         String str = list.toString();
 
+
+        Integer[] array11 = new Integer[list.size()];
+        array11 = list.toArray(array11);
+
+        //list1111只读
+        List<Integer> list1111 = Arrays.asList(array11);
+//        list1111.add(12);
+
         int[] array = new int[4];
         array[0] = 1;
         array[1] = 2;

@@ -6,14 +6,14 @@ import java.util.function.Consumer;
 
 public class CallBackRunnable<T> implements Runnable {
     private Action action;
-    private Consumer consumer;
+    private Consumer<T> consumer;
     private T parameter;
 
     public CallBackRunnable(Action action) {
         this.action = action;
     }
 
-    public CallBackRunnable(Consumer consumer, T parameter) {
+    public CallBackRunnable(Consumer<T> consumer, T parameter) {
         this.consumer = consumer;
         this.parameter = parameter;
     }

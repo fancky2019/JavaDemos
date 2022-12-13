@@ -11,6 +11,7 @@ import java.util.TimerTask;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /*
@@ -39,7 +40,7 @@ public class ThreadTest {
 
 
             //   functionBlockingQueue();
-             threadPool();
+            threadPool();
 
 
 //            threadException();
@@ -272,8 +273,6 @@ public class ThreadTest {
          */
 
 
-
-
         // 4个线程池差异看源码ThreadPoolExecutor实例的参数
 
         /*newCachedThreadPool:使用默认，如果短时间高并发会创建大量线程
@@ -289,31 +288,32 @@ public class ThreadTest {
             doWork();
         });
 
-        ExecutorService   cachedThreadPool
+        ExecutorService cachedThreadPool
                 = new ThreadPoolExecutor(
-                Runtime.getRuntime().availableProcessors()-1,
+                Runtime.getRuntime().availableProcessors() - 1,
                 Runtime.getRuntime().availableProcessors() * 2,
                 0,
                 TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>());//LinkedBlockingQueue:默认容量Integer.MAX_VALUE
 
+//        new LinkedBlockingQueue<>(1000)
 
-        ExecutorService   cachedThreadPool1
+        ExecutorService cachedThreadPool1
                 = new ThreadPoolExecutor(
-                Runtime.getRuntime().availableProcessors()-1,
+                Runtime.getRuntime().availableProcessors() - 1,
                 Runtime.getRuntime().availableProcessors() * 2,
                 0,
                 TimeUnit.MILLISECONDS,
                 new ArrayBlockingQueue<>(1000));
 //                new ArrayBlockingQueue<>(Integer.MAX_VALUE));
 
-        cachedThreadPool1.execute(()->
+        cachedThreadPool1.execute(() ->
         {
 
         });
 
         //submit 最终调用execute
-        Future future=  cachedThreadPool1.submit(()->
+        Future future = cachedThreadPool1.submit(() ->
         {
 
         });
@@ -357,7 +357,6 @@ public class ThreadTest {
             });
 
 
-
             // 指定Executor， CompletableFuture 内部创建 Integer.MAX_VALUE个线程
             /*
              不指定线程池，就用默认的ForkJoinPool
@@ -367,20 +366,29 @@ public class ThreadTest {
             }, Executors.newCachedThreadPool());
 
 
-
-            ExecutorService   cachedThreadPool1
+            ExecutorService cachedThreadPool1
                     = new ThreadPoolExecutor(
-                    Runtime.getRuntime().availableProcessors()-1,
+                    Runtime.getRuntime().availableProcessors() - 1,
                     Runtime.getRuntime().availableProcessors() * 2,
                     0,
                     TimeUnit.MILLISECONDS,
                     new ArrayBlockingQueue<>(1000));
 
+
+            ExecutorService cachedThreadPool11
+                    = new ThreadPoolExecutor(
+                    Runtime.getRuntime().availableProcessors() - 1,
+                    Runtime.getRuntime().availableProcessors() * 2,
+                    0,
+                    TimeUnit.MILLISECONDS,
+                    new ArrayBlockingQueue<>(1000),
+                    Executors.defaultThreadFactory(),
+                    new ThreadPoolExecutor.AbortPolicy());
+
             CompletableFuture.runAsync(() ->
             {
             }, cachedThreadPool1);
-
-
+//            Function
             //没有返回值
             CompletableFuture<Void> voidCompletableFuture = CompletableFuture.runAsync(() ->
             {

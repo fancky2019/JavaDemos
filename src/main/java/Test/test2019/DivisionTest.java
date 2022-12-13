@@ -1,6 +1,7 @@
 package Test.test2019;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
@@ -29,6 +30,12 @@ public class DivisionTest {
             Integer m = 0;
         }
 
+        long l1 = 10L;
+        long l2 = 3L;
+
+        long l3 = l1 / l2;
+        long yu=l1%l2;
+        int m = 0;
     }
 
     void multiplicative() {
@@ -89,10 +96,9 @@ public class DivisionTest {
 
         //比较大小
         //compareTo  1 0 -1
-       if(bd2.compareTo(bd1)==0)
-       {
+        if (bd2.compareTo(bd1) == 0) {
 
-       }
+        }
         Integer m = 0;
     }
 }

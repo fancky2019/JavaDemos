@@ -31,9 +31,9 @@ hashCode() 的默认行为是对堆上的对象产生独特值。如果没有重
  */
 public class HashCodeTest {
     public void test() {
-        primaryTypeHashCode();
+//        primaryTypeHashCode();
 //        getHashCode();
-//        hashSetSameHashCode();
+        hashSetSameHashCode();
 //        hashMapSameHashCode();
 //        Object 的 equals(a,b) 比较同一个对象;
     }
@@ -88,6 +88,9 @@ public class HashCodeTest {
     private void hashSetSameHashCode() {
         HashSet<Student> hashSet = new HashSet<Student>();
         Student student1 = new Student("fancky", 32);
+        hashSet.add(student1);
+        student1 = new Student("fancky", 32);
+        student1.setAddress("sdssd");
         hashSet.add(student1);
         Student student2 = new Student("fancky", 321);
         hashSet.add(student2);

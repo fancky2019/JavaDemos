@@ -2,6 +2,8 @@ package Model;
 
 
 import Test.test2018.Description;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.text.MessageFormat;
 import java.util.Objects;
@@ -12,6 +14,9 @@ import java.util.Objects;
  * <p>
  * 如果不重写hashCode，则返回的是对象的内存地址。
  */
+
+@Data
+@EqualsAndHashCode(callSuper = true)//设置true 调用父类的equal  and hashCode,不设置 false不比较
 public class Student extends StudentParent implements StudentInterface {
     // @SuppressWarnings("")
     @Description("姓名")
@@ -19,47 +24,9 @@ public class Student extends StudentParent implements StudentInterface {
     private String name;
     @Description(value = "年龄", color = "red", age = 25)
     private Integer age;
-
-
     private String job;
-
     private Integer id;
 
-
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return this.age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-        //  System.out.println("setAgefddffddf");
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
-    }
 
     public Student() {
 
@@ -80,26 +47,26 @@ public class Student extends StudentParent implements StudentInterface {
     HashSet会重复添加，尽管两个对象的字段值一样
     如果重写了，只能添加一次。
      */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return Objects.equals(name, student.name) &&
-                Objects.equals(age, student.age);
-    }
-
-    /**
-     * 如果不重写hashCode，则返回的是对象的内存地址的整数值。
-     * HashCode不同， HashSet<Person> 对此调用同一对象add,只添加一次
-     *
-     * @return
-     */
-    @Override
-    public int hashCode() {
-        //变长参数可以隐士转换成数组
-        return Objects.hash(name, age);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Student student = (Student) o;
+//        return Objects.equals(name, student.name) &&
+//                Objects.equals(age, student.age);
+//    }
+//
+//    /**
+//     * 如果不重写hashCode，则返回的是对象的内存地址的整数值。
+//     * HashCode不同， HashSet<Person> 对此调用同一对象add,只添加一次
+//     *
+//     * @return
+//     */
+//    @Override
+//    public int hashCode() {
+//        //变长参数可以隐士转换成数组
+//        return Objects.hash(name, age);
+//    }
 
 
     /**
