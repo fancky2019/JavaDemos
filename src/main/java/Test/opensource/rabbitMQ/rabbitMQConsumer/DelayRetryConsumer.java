@@ -40,6 +40,12 @@ import java.util.Map;
 
     消费顺序性问题：搭建集群一台服务只去取一个队列（消息在一个队列是有序的），具体做法类似kafka的消息根据key存储到partition。把订单ID进行取模然后放大不同queue里
                  相当于把一个大的queue分解成几个小的queue然后每个队列只分给一个consumer。
+
+
+
+  消息状态：ready:准备发送给消费之
+          unacked:发送给消费者消费还没有ack
+          total：总消息数量=ready+unacked
  */
 public class DelayRetryConsumer {
     public static final String EXCHANGE_NAME = "DirectExchangeJava";
@@ -150,6 +156,7 @@ public class DelayRetryConsumer {
         long retryCount = 0L;
         //在头部自定义一些信息，类似http的请求头
         Map<String, Object> header = properties.getHeaders();
+        //私信队列头部x-death查看消费次数
         if (header != null && header.containsKey("x-death")) {
             List<Map<String, Object>> deaths = (List<Map<String, Object>>) header.get("x-death");
             if (deaths.size() > 0) {

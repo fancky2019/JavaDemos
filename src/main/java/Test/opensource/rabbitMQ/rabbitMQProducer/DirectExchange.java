@@ -273,7 +273,7 @@ public class DirectExchange {
 
                 AMQP.BasicProperties basicProperties1 = new AMQP.BasicProperties().builder()
                         //  .deliveryMode(2) //   // Sets RabbitMQ.Client.IBasicProperties.DeliveryMode to either persistent (2)  or non-persistent (1).
-                        //                //2:持久化，1：不持久化
+                        //                //2:持久化，1：不持久化 delivery_mode = 2 声明消息在队列中持久化，delivery_mod = 1 消息非持久化
                         //   .contentEncoding("UTF-8") // 编码方式
                         //  .expiration("10000") // 过期时间
                         // .headers(headers) //自定义属性

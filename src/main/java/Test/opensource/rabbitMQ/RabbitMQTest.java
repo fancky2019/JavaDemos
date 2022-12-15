@@ -10,12 +10,20 @@ import java.util.concurrent.CompletableFuture;
  * rabbitMQ集群采用镜像模式
  *
  *避免重复消费：消费前messageId入redis ,ack 之后设置redis中的messageId的key ttl 可以设置1天，尽量大点
+ *
+ * rabbitmq则不支持批量生产,支持批量消费
  */
 public class RabbitMQTest {
 
 
     /*
      rabbitMQ集群：https://www.cnblogs.com/lonely-wolf/p/14397704.html
+RabbitMQ的集群根据存储类型可以分成两种类型：内存节点和磁盘节点。这里存储的是metadata，内存节点保存在内存中，磁盘节点保存在磁盘中。
+
+   普通模式：默认的集群模式。所谓的普通模式就是，多台机器上启动多个Rabbitmq实例，每台机器启动一个实例。但是创建的queue，
+   只会放在一个Rabbtimq实例上，每个实例都会同步queue的元数据。消费的时候，
+   如果连接到了另外一个实例，那么那个实例会从queue所在实例上拉取数据过来
+
 
     元数据:指的是包括队列名字属性、交换机的类型名字属性、绑定信息、vhost等基础信息，不包括队列中的消息数据。
     集群主要有两种模式：普通集群模式和镜像队列模式。
@@ -23,6 +31,13 @@ public class RabbitMQTest {
                             如果一个节点宕机则消息无法消费，只能等待重启，且消息磁盘持久化。
                    镜像队列模式：各个节点保存相同的元数据和消息。类似redis主从模式。由于各节点同步会消耗带宽。
                               搭建： HAProxy + Keepalived 高可用集群
+
+//        消息状态：ready:准备发送给消费之
+//        unacked:发送给消费者消费还没有ack
+//        total：总消息数量=ready+unacked
+        //prefetchCount:每次预取10条信息放在线程的消费队列里，该线程还是1条一条从从该线程的缓冲队列里取消费。直到
+        //缓冲队列里的消息消费完，再从mq的队列里取。
+        // 调试可到mq插件查看 ready unacked 消息数量，打印消费者消费线程的消息id
      */
 
     public void test() {
