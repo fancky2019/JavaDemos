@@ -37,6 +37,7 @@ synchronized：内部生成monitorEnter 和monitorExit 指令。
 
 
 
+synchronized默认有jvm内部实现控制的，是非公平锁
 
 synchronized，锁是保存在对象头里面的，根据对象头数据来标识是否有线程获得锁/争抢锁；
 ReentrantLock锁的是线程，根据进入的线程和int类型的state标识锁的获得/争抢。
@@ -63,47 +64,48 @@ public class LockTest {
 
 //        synchronizedSleepTest();
 
+        reentrantLockTest();
 
         // synchronized 使用区别
         //锁静态方法、 synchronized (SynchronizedClass.class)、synchronized (SynchronizedClass.class) 等同
         //锁普通方法、   synchronized (this) 等同
         //锁对象快锁被锁的对象，如果被锁的对象是静态的所有对象调用都将同步
 
-        CompletableFuture.runAsync(() ->
-        {
-            SynchronizedClass.staticFun();
-        });
-        CompletableFuture.runAsync(() ->
-        {
-            synchronizedClass1.synchronizedBlock1();
-        });
-        CompletableFuture.runAsync(() ->
-        {
-            synchronizedClass2.synchronizedBlock2();
-        });
-        CompletableFuture.runAsync(() ->
-        {
-            synchronizedClass3.objectFun();
-        });
-        CompletableFuture.runAsync(() ->
-        {
-            synchronizedClass3.thisFun();
-        });
-
-        CompletableFuture.runAsync(() ->
-        {
-            synchronizedClass5.thisFun1();
-        });
-
-        CompletableFuture.runAsync(() ->
-        {
-            synchronizedClass1.lockStaticObject();
-        });
-
-        CompletableFuture.runAsync(() ->
-        {
-            synchronizedClass2.lockStaticObject();
-        });
+//        CompletableFuture.runAsync(() ->
+//        {
+//            SynchronizedClass.staticFun();
+//        });
+//        CompletableFuture.runAsync(() ->
+//        {
+//            synchronizedClass1.synchronizedBlock1();
+//        });
+//        CompletableFuture.runAsync(() ->
+//        {
+//            synchronizedClass2.synchronizedBlock2();
+//        });
+//        CompletableFuture.runAsync(() ->
+//        {
+//            synchronizedClass3.objectFun();
+//        });
+//        CompletableFuture.runAsync(() ->
+//        {
+//            synchronizedClass3.thisFun();
+//        });
+//
+//        CompletableFuture.runAsync(() ->
+//        {
+//            synchronizedClass5.thisFun1();
+//        });
+//
+//        CompletableFuture.runAsync(() ->
+//        {
+//            synchronizedClass1.lockStaticObject();
+//        });
+//
+//        CompletableFuture.runAsync(() ->
+//        {
+//            synchronizedClass2.lockStaticObject();
+//        });
     }
 
     private final int lockInt = 5;
@@ -280,6 +282,54 @@ public class LockTest {
         });
 
     }
+
+
+    ReentrantLock reentrantLock = new ReentrantLock(true);
+
+    final Object reentrantLockObj = new Object();
+    volatile boolean sync = false;
+
+    void reentrantLockTest() {
+
+        CompletableFuture.runAsync(() ->
+        {
+            while (true) {
+                synchronized (reentrantLockObj) {
+                    System.out.println("ThreadId - " + Thread.currentThread().getId());
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                }
+                if (sync) {
+                    System.out.println("sync data ");
+                    sync = false;
+                }
+            }
+        });
+
+        CompletableFuture.runAsync(() ->
+        {
+            lock.lock();
+            lock.unlock();
+//            synchronized (reentrantLockObj) {
+//                System.out.println("ThreadId - " + Thread.currentThread().getId());
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//
+//            }
+            sync = true;
+        });
+    }
+
+
 }
 
 /*
@@ -494,8 +544,6 @@ class SynchronizedClass {
         }
 
     }
-
-
 
 
 }

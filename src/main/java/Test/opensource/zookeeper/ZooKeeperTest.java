@@ -310,7 +310,7 @@ public class ZooKeeperTest {
         //一个线程操作
         CompletableFuture.runAsync(() ->
         {
-            String path = "/example/cache";
+//            String path = "/example/cache";
             String connectString = "localhost:2181";
             CuratorFramework client = null;
 
@@ -333,12 +333,12 @@ public class ZooKeeperTest {
 //                    .forPath("/example/cache/test2", "payload1".getBytes());//注意节点前要已"/"开头
 
 
-                String pathWatcher = "/example/cache/test3";
-                Stat stat = client.checkExists().forPath(pathWatcher);
+                String path = "/example/cache/test3";
+                Stat stat = client.checkExists().forPath(path);
                 if (stat != null) {
-                    client.setData().forPath(pathWatcher, "nodeDataChange".getBytes());//注意节点前要已"/"开头
+                    client.setData().forPath(path, "nodeDataChange".getBytes());//注意节点前要已"/"开头
                 } else {
-                    client.create().creatingParentsIfNeeded().forPath(pathWatcher, "nodeData".getBytes());
+                    client.create().creatingParentsIfNeeded().forPath(path, "nodeData".getBytes());
                 }
 
 //            client.delete().guaranteed().deletingChildrenIfNeeded().forPath(pathWatcher);
@@ -406,6 +406,8 @@ public class ZooKeeperTest {
             String connectString = null;
             try {
                 connectString = "localhost:2181";
+                //监听节点上下线：节点上线时候添加node,date(ip) 下线删除node
+                //监听父节点：监听该节点下的节点创建、节点内容变更，子节点创建。
                 String path = "/example/cache";
                 CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, new ExponentialBackoffRetry(1000, 3));
                 client.start();

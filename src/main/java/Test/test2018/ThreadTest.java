@@ -349,7 +349,7 @@ public class ThreadTest {
     //region CompletableFuture
     private CompletableFuture<Integer> completableFutureDemo() {
         try {
-
+            
             //不指定线程池。内部采用 ForkJoinPool.makeCommonPool()
             //CompletableFuture 内部默认最多启动处理器个数 -1 个线程执行任务。
             CompletableFuture.runAsync(() ->

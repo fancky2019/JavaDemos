@@ -285,9 +285,15 @@ public class RedisTest {
         System.out.println(jedis.hkeys("hashKey1"));//返回map对象中的所有key
         System.out.println(jedis.hvals("hashKey1"));//返回map对象中的所有value
 
-        Iterator<String> iter = jedis.hkeys("hashKey1").iterator();
+        //获取redis key 下的所有hash key 的hash
+        Set<String> keys = jedis.hkeys("hashKey1");
+        Iterator<String> iter = keys.iterator();
         while (iter.hasNext()) {
             String key = iter.next();
+        }
+        for(String val:keys)
+        {
+            String v=val;
         }
         jedis.close();
     }
