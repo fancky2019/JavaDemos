@@ -324,9 +324,11 @@ public class ThreadTest {
         //创建固定10个核心线程
         Executors.newScheduledThreadPool(10);
     }
-//endregion
+   //endregion
 
     //region futureTask
+
+   // 线程池ThreadPoolExecutor 无法执行带有返回值的任务。
     private void futureTask() throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -349,7 +351,7 @@ public class ThreadTest {
     //region CompletableFuture
     private CompletableFuture<Integer> completableFutureDemo() {
         try {
-            
+            int par = ForkJoinPool.commonPool().getParallelism();
             //不指定线程池。内部采用 ForkJoinPool.makeCommonPool()
             //CompletableFuture 内部默认最多启动处理器个数 -1 个线程执行任务。
             CompletableFuture.runAsync(() ->
@@ -372,7 +374,7 @@ public class ThreadTest {
                     Runtime.getRuntime().availableProcessors() * 2,
                     0,
                     TimeUnit.MILLISECONDS,
-                    new ArrayBlockingQueue<>(1000));
+                    new ArrayBlockingQueue<Runnable>(1000));
 
 
             ExecutorService cachedThreadPool11

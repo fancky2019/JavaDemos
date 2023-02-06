@@ -4,6 +4,7 @@ import Model.Student;
 import com.rabbitmq.client.Return;
 
 import java.math.BigDecimal;
+import java.text.Collator;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -13,6 +14,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 日期占位符
@@ -60,6 +62,11 @@ public class Java8Test {
 
         //lambda表达式
         List<String> nameList = list.stream().map(p -> p.getName()).collect(Collectors.toList());
+
+
+//        list.parallelStream()
+//        list.stream().parallel().forEach();
+
         //方法引用::
         List<String> nameList1 = list.stream().map(Student::getName).collect(Collectors.toList());
         List<Integer> ageList = list.stream().map(p -> p.getAge()).collect(Collectors.toList());
@@ -82,18 +89,47 @@ public class Java8Test {
 //            }
 //        });
 
+        //java  stream
+
+       /* stream是顺序流，由主线程按顺序对流执行操作，
+        parallelStream是并行流，内部以多线程并行执行的方式对流进行操作，
+        需要注意使用并行流的前提是流中的数据处理没有顺序要求（会乱序，即使用了forEachOrdered）
+        */
         java.util.List<Integer> listRe = new ArrayList<>();
-        //并行处理，类似C#的Parallel
+        //并行处理，不保证元素顺序执行，类似C#的Parallel
         list.stream().parallel().forEach(p ->
         {
             //todo
         });
 
-        //按照顺序执行
+        //按照元素顺序执行
         list.stream().parallel().forEachOrdered(p ->
         {
             //todo
         });
+
+        Stream.of(list).parallel().forEach(p -> System.out.println(p));
+
+        List<Student> listGroup = new ArrayList<>(
+                Arrays.asList(new Student(1, "fancky5", 6, "农民"),
+                        new Student(2, "fancky6", 5, "程序员"),
+                        new Student(3, "fancky7", 8, "农民"),
+                        new Student(4, "fancky5", 7, "农民"),
+                        new Student(5, "fancky9", 12, "教师")
+                ));
+        //Function.identity()返回t -> t形式的Lambda表达式。
+        Map<Integer, Student> map = listGroup.stream().collect(Collectors.toMap(Student::getId, Function.identity()));
+        Map<Integer, Student> map1 = listGroup.stream().collect(Collectors.toMap(p -> p.getId(), p -> p));
+
+        List<Student> listGroup1 = map.values().stream().collect(Collectors.toList());
+        listGroup1 = new ArrayList<>(map.values());
+        //分组 groupingBy多：单个属性分组,默认hashMao
+        Map<String, List<Student>> studentsGroupBy = listGroup.stream().collect(Collectors.groupingBy(Student::getName));
+        studentsGroupBy = listGroup.stream().collect(Collectors.groupingBy(p->p.getName()));
+
+        List<Student> listStu = studentsGroupBy.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
+
+        List<Student> listStu1 = studentsGroupBy.values().stream().flatMap(p->p.stream()).collect(Collectors.toList());
 
         //exist
         boolean exist = list.stream().anyMatch(p -> p.getName().equals("fancky"));
@@ -108,18 +144,9 @@ public class Java8Test {
         Integer sum3 = list.stream().map(p -> p.getAge()).reduce(Integer::sum).get();
         Integer sum4 = list.stream().map(p -> p.getAge()).reduce((a, b) -> a + b).get();
         Integer sum5 = list.stream().mapToInt(p -> p.getAge()).sum();
-        List<Student> listGroup = new ArrayList<>(
-                Arrays.asList(new Student("fancky5", 6, "农民"),
-                        new Student("fancky6", 5, "程序员"),
-                        new Student("fancky7", 8, "农民"),
-                        new Student("fancky5", 7, "农民"),
-                        new Student("fancky9", 12, "教师")
-                ));
-        //分组 groupingBy多：单个属性分组,默认hashMao
-        Map<String, List<Student>> studentsGroupBy = listGroup.stream().collect(Collectors.groupingBy(Student::getName));
 
 
-        HashMap<String, List<Student>> studentsGroupBy1 = listGroup.stream().collect(Collectors.groupingBy(Student::getName,HashMap::new,Collectors.toList()));
+        HashMap<String, List<Student>> studentsGroupBy1 = listGroup.stream().collect(Collectors.groupingBy(Student::getName, HashMap::new, Collectors.toList()));
         //分组：多个属性分组--将多个属性拼接成一个属性
         Map<String, List<Student>> multiFieldGroupBy = listGroup.stream().collect(Collectors.groupingBy(p -> MessageFormat.format("{0}_{1}", p.getName(), p.getJob())));
         //对分组后形成的字典进行迭代
@@ -160,6 +187,8 @@ public class Java8Test {
         Collections.sort(ageList);
         //逆序
         Collections.reverse(ageList);
+
+
         //最大、最小
         Integer maxAge = Collections.max(ageList);
         Integer minAge = Collections.min(ageList);
@@ -198,8 +227,8 @@ public class Java8Test {
         Duration duration = Duration.between(localDateTime4, localDateTime);
 
         Long day = duration.toDays();
-        Long days = duration.getSeconds() / (24l * 60l * 60l);
-        Integer idays = days.intValue();
+        long days = duration.getSeconds() / (24L * 60L * 60L);
+        Integer idays = (int) days;
 
         LocalDate tomorrow1111 = LocalDate.parse("2020-01-14", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDateTime localDateTime1111 = LocalDateTime.of(tomorrow1111, LocalTime.of(0, 0, 0));
@@ -260,7 +289,7 @@ public class Java8Test {
         //  Student st1 = optionalStudent.orElse(null);
 
 
-        Optional<Student> studentNull=Optional.ofNullable(student);
+        Optional<Student> studentNull = Optional.ofNullable(student);
 
 //      Optional<Student> fla=  optionalStudent.flatMap(p->Optional.of(p));
         //flatmap可以将一个2维的集合转成1维度,map只能将分割结果转成一个List,所以输出为list对象

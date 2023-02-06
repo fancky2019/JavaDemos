@@ -42,6 +42,11 @@ public class Student extends StudentParent implements StudentInterface {
         this.job = job;
     }
 
+    public Student(Integer id, String name, Integer age, String job) {
+        this(name, age);
+        this.job = job;
+        this.id=id;
+    }
     /*
     不重写equals，比较的是内存地址，不同对象地址不同。
     HashSet会重复添加，尽管两个对象的字段值一样

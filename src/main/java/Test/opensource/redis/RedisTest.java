@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-/*
+/**
  * 数据类型的首字母找对应的数据类型的操作
  * 操作命令中文文档：http://www.redis.cn/commands/lpushx.html
  * https://redis.io/commands/
@@ -69,6 +69,11 @@ import java.util.stream.Collectors;
  * 各个memcached服务器之间互不通信，各自独立存取数据，不共享任何信息。服务器并不具有分布式功能
  *
  * MongoDB 文档性的数据库，支持字段索引、游标操作，其优势在于查询功能比较强大，擅长查询 JSON 数据，能存储海量数据，但是不支持事务。
+ *
+ * 雪崩：随机过期时间
+ * 击穿：分布式锁（表名），没有取到锁，sleep(50)+重试
+ * 穿透：分布式锁（表名）+设置一段时间的null值，没有取到锁，sleep(50)+重试
+ *
  *
  * 文件夹：指定前缀的key放在一个文件夹下。如：key_sb:UserInfo:1 路径前缀之间用冒号分开，当key超过两个RedisDesktop会显示在一个文件夹下。
  */

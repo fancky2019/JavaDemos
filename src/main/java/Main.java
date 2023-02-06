@@ -5,16 +5,11 @@ import Test.opensource.jwt.JwtTest;
 import Test.opensource.msgpack.MsgPackTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
 import Test.opensource.redis.RedisTest;
-import Test.test2018.CalendarTest;
-import Test.test2018.GenericTest;
-import Test.test2018.JDBCTest;
+import Test.opensource.zookeeper.ZooKeeperTest;
+import Test.test2018.*;
 import Test.opensource.commonspool.CommonPoolTest;
 import Test.opensource.encache.EhcacheTest;
-import Test.test2018.ReflectDemo;
-import Test.test2019.DivisionTest;
-import Test.test2019.HashCodeTest;
-import Test.test2019.StringTest;
-import Test.test2019.ThreadLocalTest;
+import Test.test2019.*;
 import Test.test2021.CollectionTest;
 import Test.test2021.designpattern.SingletonPattern;
 import Test.test2022.ThreadSafetyCollectionTest;
@@ -120,7 +115,7 @@ public class Main {
 
 
 //               new LambdaTest().test();
-//             new Java8Test().test();
+             new Java8Test().test();
 //               new OptionalTest().test();
             //   new Configs().test();
 
@@ -175,7 +170,7 @@ public class Main {
             // new TypeJudgeTest().test();
 
 //              new DivisionTest().test();
-            new HashCodeTest().test();
+//            new HashCodeTest().test();
             //   new LeftMoveTest().test();
 //              new RedissonTest().test();
 //              new ConstructorTest().test();

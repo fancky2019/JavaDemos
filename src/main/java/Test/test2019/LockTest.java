@@ -427,6 +427,15 @@ class SynchronizedClass {
             }
         }
 
+        //从驻留池取
+        synchronized ("123".intern()) {
+            try {
+                System.out.println("lock string");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         /*
         锁公共变量，有点类似分布式锁的原理
          */
