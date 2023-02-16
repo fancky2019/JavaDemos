@@ -57,6 +57,7 @@ public class StringTest {
         student.setName(name);
         parametersFunction("name", student);
         System.out.println(name);
+
     }
 
     private String remove(String str) {
