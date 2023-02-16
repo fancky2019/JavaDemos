@@ -115,7 +115,7 @@ public class Main {
 
 
 //               new LambdaTest().test();
-             new Java8Test().test();
+//             new Java8Test().test();
 //               new OptionalTest().test();
             //   new Configs().test();
 
@@ -160,7 +160,7 @@ public class Main {
 
 //            new NettyTest().nettyWebSocket();
 
-//            new StringTest().test();
+            new StringTest().test();
             //  new TimerTest().test();
 //              new TryTest().test();
 

@@ -37,6 +37,9 @@ public class StringTest {
 //        static  int a; static不能用在方法内部
         concat();
 
+        String test = "@@@@";
+        String[] arrayTest1= test.split("\\@");//[] ,空数组
+        String[] arrayTest = test.split("\\@",-1);//长度为5
 
         String str = "sdsd(%)";
         String newStr = remove(str);
