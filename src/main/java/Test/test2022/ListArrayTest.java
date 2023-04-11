@@ -7,7 +7,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class ListArrayTest {
     public void test() {
-
+        delete();
         fun1();
         fun(1);
 
@@ -102,4 +102,42 @@ public class ListArrayTest {
 //        }
 //
 //    }
+
+
+    private void delete() {
+        //倒叙删除，集合长度改变不影响遍历--删除的元素已经遍历过
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(9);
+        list.add(6);
+        list.add(8);
+        list.add(5);
+        list.add(6);
+        list.add(9);
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (i == 0) {
+                int m = 0;
+            }
+            int num = list.get(i);
+            if (num == 6) {
+                //remove  内部还是循环从0索引未知开始便利删除，只会删除第一个匹配的索引未知
+//                list.remove((Object)num);
+                //int 默认匹配索引的重载，不是object而是索引，比删除元素少了一层遍历
+                list.remove(i);
+            }
+        }
+
+
+        Iterator<Integer> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Integer num = iterator.next();
+            if (num == 6) {
+                iterator.remove();
+            }
+        }
+
+        list.removeIf(item -> item == 6);
+
+        int m = 0;
+    }
+
 }

@@ -160,7 +160,7 @@ public class Main {
 
 //            new NettyTest().nettyWebSocket();
 
-            new StringTest().test();
+//            new StringTest().test();
             //  new TimerTest().test();
 //              new TryTest().test();
 
@@ -216,7 +216,7 @@ public class Main {
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
-//            new JacksonTest().test();
+            new JacksonTest().test();
 
 //            new SQLiteTest().test();
 //            new ZooKeeperTest().test();

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.alibaba.fastjson.JSONPatch.OperationType.test;
+
 /**
  * Jackson对枚举进行序列化，将只能简单的输出枚举的String名称：
  */
@@ -104,7 +106,8 @@ public class JacksonTest {
             pojo.setName("张三");
             pojoHashMap.put(pojo.getName(), pojo);
             String jsonPojoMapStr = mapper.writeValueAsString(pojoHashMap);
-            HashMap<String, JacksonPojo> pojoHashMap1 = mapper.readValue(jsonPojoMapStr, new TypeReference<HashMap<String, JacksonPojo>>() {});
+            HashMap<String, JacksonPojo> pojoHashMap1 = mapper.readValue(jsonPojoMapStr, new TypeReference<HashMap<String, JacksonPojo>>() {
+            });
 
             //String jsonStr ="{\"uid\":100003,\"password\":\"123456\"},";
             // 2
@@ -112,10 +115,14 @@ public class JacksonTest {
             HashMap<String, JacksonPojo> pojoHashMap2 = mapper.readValue(jsonPojoMapStr, javaType);
 
 
-            //读取json 写入hashmap
-            String jStr="{\"code\":200,\"msg\":null,\"content\":\"9\"}";
-
-            HashMap<String, String> pojoHashMap11 = mapper.readValue(jStr, new TypeReference<HashMap<String, String>>() {});
+            //读取json 写入hashmap  将嵌套多层json 转hashmap，注意hashmap的类型参数 HashMap<String, Object>
+            //不能是 HashMap<String, String>
+            String jStr = "{\"code\":200,\"msg\":null,\"content\":\"9\",\"test\":{\"name\":\"test\",\"name1\":\"test1\"}}";
+            HashMap<String, Object> pojoHashMap1111 = mapper.readValue(jStr, mapper.getTypeFactory().constructParametricType(HashMap.class, String.class, Object.class));
+            HashMap<String, String> testHashMap = (HashMap<String, String>) pojoHashMap1111.get("test");
+            String testVal = testHashMap.get("name");
+            HashMap<String, String> pojoHashMap11 = mapper.readValue(jStr, new TypeReference<HashMap<String, String>>() {
+            });
 
             int m = 0;
         } catch (Exception e) {

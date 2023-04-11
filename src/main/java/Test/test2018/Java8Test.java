@@ -123,10 +123,20 @@ public class Java8Test {
 
         List<Student> listGroup1 = map.values().stream().collect(Collectors.toList());
         listGroup1 = new ArrayList<>(map.values());
+
+        //元素出现的次数 分组
         //分组 groupingBy多：单个属性分组,默认hashMao
         Map<String, List<Student>> studentsGroupBy = listGroup.stream().collect(Collectors.groupingBy(Student::getName));
         studentsGroupBy = listGroup.stream().collect(Collectors.groupingBy(p->p.getName()));
 
+        for(String key:studentsGroupBy.keySet())
+        {
+            List<Student> ll=studentsGroupBy.get(key);
+            if(ll.size()>1)
+            {
+                //重复
+            }
+        }
         List<Student> listStu = studentsGroupBy.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
 
         List<Student> listStu1 = studentsGroupBy.values().stream().flatMap(p->p.stream()).collect(Collectors.toList());
@@ -180,7 +190,7 @@ public class Java8Test {
 
         //List对象进行排序
         //排序 正序
-        list.stream().sorted(Comparator.comparing(Student::getAge)).collect(Collectors.toList());
+        list.stream().sorted(Comparator.comparing(Student::getId)).collect(Collectors.toList());
         //排序 逆序.reversed()
         list.stream().sorted(Comparator.comparing(Student::getAge).reversed()).collect(Collectors.toList());
         //正序
