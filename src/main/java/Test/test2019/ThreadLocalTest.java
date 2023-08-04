@@ -27,6 +27,9 @@ public class ThreadLocalTest {
     ThreadLocal<Integer> threadLocalInt = new ThreadLocal<>();
 
     public void test() {
+        //ThreadLocal 存储在Thread类内通过 ThreadLocal 的get()方法查看
+        Thread thread=Thread.currentThread();
+//        ThreadLocal.ThreadLocalMap threadLocals
 
         try {
             //线程一般采用线程池思想，服用，所以threadLocal 内部ThreadLocalMap 采用 Entry[] 存储。就造成内存泄漏。

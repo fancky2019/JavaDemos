@@ -8,7 +8,10 @@ import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPClient;
 import Test.opensource.Netty.NettySample.NettyUdp.NettyUDPServer;
 import Test.opensource.Netty.WebSocketDemo.WebSocketClient;
 import Test.opensource.Netty.WebSocketDemo.WebSocketsServer;
+import io.netty.buffer.*;
+import org.apache.http.nio.util.DirectByteBufferAllocator;
 
+import java.nio.ByteBuffer;
 import java.text.MessageFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -16,6 +19,14 @@ import java.util.concurrent.CompletableFuture;
 
 public class NettyTest {
 
+    /*
+     1、基于epoll的reactor线程模型
+     2、0拷贝，直接内存（堆外内存），网络发送需要拷贝到网卡发送。
+     3、堆栈内存，剩下的就都是堆外内存了，DirectByteBuffer。堆内内存需用用户态内核之间拷贝，
+        直接内存不需要
+     4、池化思想，其他框架都有
+     5、protobuf，socket也可以使用
+     */
     /*
     --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
 --add-opens java.base/sun.security.x509=ALL-UNNAMED
@@ -30,7 +41,17 @@ public class NettyTest {
         </dependency>
      */
     public void test() {
-
+//        ByteBuf可以分为两类 DirectByteBuf 和HeapByteBuf
+        ByteBuf byteBuf = Unpooled.buffer();//heapBuffer
+        //PooledUnsafeDirectByteBuf.安卓平台unpooled，其他pooled
+        byteBuf = ByteBufAllocator.DEFAULT.buffer();//PooledByteBufAllocator 或者UnpooledByteBufAllocator
+        //PooledUnsafeDirectByteBuf(ridx: 0, widx: 0, cap: 256)
+        byteBuf =   ByteBufAllocator.DEFAULT.directBuffer();
+        //PooledUnsafeDirectByteBuf(ridx: 0, widx: 0, cap: 256)
+        byteBuf = PooledByteBufAllocator.DEFAULT.buffer();
+        byteBuf = UnpooledByteBufAllocator.DEFAULT.buffer();
+        //建议使用ByteBuf
+        ByteBuffer byteBuffer =   DirectByteBufferAllocator.INSTANCE.allocate(100);
 //        nettyTest();
 //        nettyWebSocket();
 //        nettySampleTest();

@@ -42,13 +42,20 @@ cookie:客户端，有跨域问题
 session:服务端
 token：指点单点登录，返回客户端token
 
-token  stateless
+token  stateless JWT要非常明确的一点：JWT失效的唯一途径就是等待时间过期。
 token 验证
 设计：1、登录成功将token写入redis(string 类型，key:token,value:任意),以后请求携带token，后端到redis中取token，如果token不存在，则登录，
      否则校验token。
      登出、修改密码等操作，删除redis中的token。
      2、黑名单token 入redis,每次修改、登出将原token入redis黑名单，每次请求判断token在不在黑名单中。黑名单的过期时间，设置比token的过期时间
      要长，但是设计token续签还要维护黑名单过期时间，比较复杂。但是不如第一种运维简单。
+
+
+ jwt payload 中的jti id:  "jti": "662795c6-b2bc-4cc5-b995-59c802bfe384",
+ 可以放入redis中作为key区分黑名单
+
+
+
 
 token 续签：
 ① 类似于 Session 认证中的做法： 假设服务端给的 token 有效期设置为30分钟，服务端每次进行校验时，如果发现 token 的有效期马上快过期了，

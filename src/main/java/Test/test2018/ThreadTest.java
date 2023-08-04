@@ -460,6 +460,16 @@ public class ThreadTest {
     }
     //endregion
 
+    //region CountDownLatch
+//    CountDownLatch 可用CompleteFuture allOf 方法代替
+    //endregion
+
+    //region Semaphore 同时访问共享资源的线程上限
+//    Semaphore（信号量）可以用来限制能同时访问共享资源的线程上限，它内部维护了一个许可的变量，也就是线程许可的数量
+//    Semaphore的许可数量如果小于0个，就会阻塞获取，直到有线程释放许可
+//    Semaphore是一个非重入锁
+    //endregion
+
     //region 阻塞队列生产者消费者 LinkedBlockingQueue
     LinkedBlockingQueue<Student> linkedBlockingQueue = null;
 

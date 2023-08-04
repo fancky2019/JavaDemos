@@ -1,6 +1,7 @@
 
 import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.Netty.NettyTest;
+import Test.opensource.Netty.mqtt.MqttTest;
 import Test.opensource.jwt.JwtTest;
 import Test.opensource.msgpack.MsgPackTest;
 import Test.opensource.rabbitMQ.RabbitMQTest;
@@ -94,8 +95,10 @@ public class Main {
 
 
 //        System.out.println("Hello World!");
-//        Person person=new PersonImp();
-//        person.getName();
+//            Person person = new PersonImp();
+//            person.getName();
+//
+//            String s = "@person.getName()";
 //
 //             new SetTest().test();
 //            new ThreadTest().test();
@@ -156,7 +159,7 @@ public class Main {
             // new  EqualsOperatorTest().test();
             //    new  BoxingUnboxingTest().test();
 
-//            new NettyTest().test();
+            new NettyTest().test();
 
 //            new NettyTest().nettyWebSocket();
 
@@ -216,7 +219,7 @@ public class Main {
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
-            new JacksonTest().test();
+//            new JacksonTest().test();
 
 //            new SQLiteTest().test();
 //            new ZooKeeperTest().test();
@@ -228,7 +231,7 @@ public class Main {
 
             //endregion
 
-            //region 20121
+            //region 2021
 //            new StringCommons().test();
 //            new CollectionsCommons().test();
 
@@ -272,6 +275,7 @@ public class Main {
 //            new CommonPoolTest().test();
 //            new ThreadSafetyCollectionTest().test();
 //            new AnnotationTest().test();
+//            new MqttTest().test();
             //endregion
 
 

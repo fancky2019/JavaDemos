@@ -68,6 +68,7 @@ public class KafkaProducerClient {
                 /*如果客户端开启多个线程消费：要指定Key（可以是订单ID snowflakeId），因为同一Key数据分配到同一partition。
                   同一partition的数据只会分配给一个消费者，这样可以保证一个订单的新增、修改、删除的有序进行。
 
+                 topIC 业务队列：   1个topic就是一类数据，有多少种数据就建多少个topic就行
                   topic 有点像rabbitMQ的queue,存储消息，不过rabbitMQ消息是发到交换机根据生产指定的key路由到绑定的队列上
                         kafka直接将消息发送到指定的topic。
                          消费的时候跟rabbitMQ一样都是指定要消费的队列，kafka指定要消费的topic
