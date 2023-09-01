@@ -29,7 +29,7 @@ public class MysqlTest {
      客户端解决方案（应用层）：TDDL、 Sharding-Jdbc (常用shardding-jdbc)
       中间件解决方案（代理层）：mysql proxy、mycat、altas  (常用mycat)
 
-      MySQL主从复制的原理：异步复制、半同步复制、并行复制
+      MySQL主从复制的原理：同步复制、异步复制、半同步复制、并行复制
       https://blog.csdn.net/litianxiang_kaola/article/details/105160469?utm_medium=distribute.wap_relevant_download.none-task-blog-blogcommendfrombaidu-2.nonecase&depth_1-utm_source=distribute.wap_relevant_download.none-task-blog-blogcommendfrombaidu-2.nonecase
 
 

@@ -19,8 +19,8 @@ import java.util.concurrent.TimeUnit;
 public class MqttNettyClient {
     Bootstrap bootstrap;
     Channel channel;
-    String host = "localhost";
-    int port = 23450;
+    String host =  "192.168.108.126";//"localhost";
+    int port = 1883;//23450;
     private String userName="test";
 
 

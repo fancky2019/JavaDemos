@@ -30,12 +30,15 @@ import java.util.Properties;
          topic各分区都存在已提交的offset时，从offset后开始消费；只要有一个分区不存在已提交的offset，则抛出异常
 
 
-         消费：
+         重复消费：
+          消息被广播到所有订阅的消费者组。
          每个分区内的同一消息只会分同一消费组内的一个消费者，该分区的不同消息可分配给部分消费组的不同消费者
          一个partition只能被一个消费组A内的一个消费者消费，但是可以被消费组B重复消费。即可被多个消费组消费，产生了重复消费
+          kafka目前只提供单个分区内的消息顺序，而不会维护全局消息顺序
+          指定消费者组，避免多组重复消费。
+         同一消息会被不通消费组消费，造成重复消费。不同消费者组消费不同topic,
+         一个消息只会被一个消费组内的一个消费者消费
 
-         *
-         *
 
           顺序性消费：生产时候指定key
          *        //  Messages 中Key 决定消息的partion,内部hash(key)，如果不指定Key将随机指定分区（partition）
@@ -48,6 +51,7 @@ public class KafkaConsumerClient {
     public void consumer() {
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        //指定消费者组，避免多组重复消费。不同消费者组消费不同topic,
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "DemoConsumer");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");

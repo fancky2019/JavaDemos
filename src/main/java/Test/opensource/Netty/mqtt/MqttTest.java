@@ -45,7 +45,7 @@ public class MqttTest {
 
         CompletableFuture.runAsync(() ->
         {
-            new MqttNettyServer().test();
+          //  new MqttNettyServer().test();
 
         });
         try {
