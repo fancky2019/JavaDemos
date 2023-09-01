@@ -4,7 +4,15 @@ package Test.opensource.architecturedesign;
 前端高可用的组合:LVS+Keepalived、Nginx+Keepalived、HAproxy+Keepalived
  */
 public class Design {
-    //region  HA
+
+    //region 主备
+    /*
+    nginx 反向代理 backup
+    keepalived 主备 vip 漂移
+     */
+    //endregion
+
+    //region  nginx HA
 
     /*
     热备方案：中间件， Keepalived、nginx、roseHA
@@ -89,5 +97,45 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
     消息队列是系统级、模块级的通信。RPC是对象级、函数级通信。
     */
 
+    //endregion
+
+    //region mysql ha
+
+    /*
+     主主+keepalived  masterA和masterB互为主从，keepalived vip保证A写，B同步A，B和slave之间同步，slave会有延迟
+     */
+
+    /*
+    mysql  mgr 高可用
+     mysql 分片：用分库来实现
+     */
+
+     /*
+      MySQL主从复制默认异步复制进行同步。
+      MySQL主从复制的原理：同步复制、异步复制（默认）、半同步复制、并行复制
+      全同步复制（组复制 5.7支持）：配置、当master节点写数据的时候，会等待所有的slave节点完成数据的复制，然后才继续往下进行；组复制的每一个节点都可能是slave
+      异步复制：主库 提交不关心从库是否提交、
+      半同步复制：至少一个从库提交（内网环境，通信要求）、需要安装插件并启用
+      并行复制：
+
+
+     sharding-jdbc、mycat 读写分离，配置
+     //sharding-jdbc 强制下一据查询主读
+    HintManager.getInstance().setMasterRouteOnly();
+    List<Order> b2 = orderMapper.findByUserId(6);
+
+
+      mysql 主   备：
+            主   从：建议一主多从，半同步复制
+            多主多从：
+
+
+      双主互为主从： mysql + keepalived  性能不如MMM，但MMM高并发有问题
+
+      MHA：在主宕机，可以在从中选择（半同步复制）同步主日志的从作为主。
+      mysql8 HA解决方案：
+      (MMM 不维护) replication-manager:两主多从，只有一个主写，热备vip，每台服务器都要代理
+      orchestrator:https://github.com/openark/orchestrator
+      */
     //endregion
 }

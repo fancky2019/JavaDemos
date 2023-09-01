@@ -16,6 +16,11 @@ import java.util.concurrent.ExecutionException;
     * partition:对应一个消费者。资源利用最大化。
     * 增加broker、partition、consumer增加吞吐量。
     *
+    *
+    * kafka 没有提供同步刷盘机制，由操作系统刷盘，消息发到broker 没刷盘就可能丢失
+    * 设置过半副本同步
+    *
+    *
     生产者确认生产成功。
     ACKS_CONFIG：
     acks=0: producer 不等待 Leader 确认，只管发出即可；最可能丢失消息，适用于高吞吐可丢失的业务；

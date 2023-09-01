@@ -4,6 +4,7 @@ import Test.opensource.Netty.MessageInfo;
 import Test.opensource.Netty.MessageType;
 import Test.opensource.Netty.mqtt.client.MqttMsgBack;
 import Test.opensource.Netty.mqtt.protocol.MqttNettyClient;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.handler.codec.mqtt.*;
 import io.netty.handler.timeout.IdleStateEvent;
@@ -67,6 +68,11 @@ public class MqttNettyClientHandler extends ChannelInboundHandlerAdapter {
                     break;
                 // ----------------------接收消息端（客户端）可能会触发的事件----------------------------------------------------------------
                 case PUBLISH:
+                    ByteBuf byteBuf = (ByteBuf) mqttMessage.payload();
+                    byte[] tmp = new byte[byteBuf.readableBytes()];
+                    byteBuf.readBytes(tmp);
+                    String content= new String(tmp);
+                    log.info("收到订阅消息:"+content);
                     //	收到消息，返回确认，PUBACK报文是对QoS 1等级的PUBLISH报文的响应,PUBREC报文是对PUBLISH报文的响应
                     mqttMsgBack.publishAck(ctx, mqttMessage);
                     break;
