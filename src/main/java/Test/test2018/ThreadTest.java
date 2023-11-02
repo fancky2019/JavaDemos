@@ -349,6 +349,7 @@ public class ThreadTest {
     //endregion
 
     //region CompletableFuture
+
     private CompletableFuture<Integer> completableFutureDemo() {
         try {
             int par = ForkJoinPool.commonPool().getParallelism();
@@ -418,6 +419,14 @@ public class ThreadTest {
             //   Integer result = completableFuture.get();
 
             Integer m = 0;
+
+//            //所有任务都完成
+//            CompletableFuture<Void> allFutures = CompletableFuture.allOf(future1, future2, future3);
+//
+//            allFutures.thenRun(() -> {
+//                System.out.println("All tasks completed");
+//                // 在这里执行下一步操作
+//            });
 
 
             Thread.currentThread().getName();
