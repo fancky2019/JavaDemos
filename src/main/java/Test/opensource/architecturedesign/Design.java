@@ -5,6 +5,14 @@ package Test.opensource.architecturedesign;
  */
 public class Design {
 
+    /*
+    lvs :LVS（Linux Virtual Server）：LVS是基于Linux操作系统的负载均衡软件，它通过网络地址转换（NAT）
+         或直接路由（DR）的方式将请求分发到后端服务器群集。LVS使用IP负载均衡技术，可以根据不同的负载均衡算法（如轮询、加权轮询、源IP哈希等）
+         将请求分发给后端服务器，并支持实现高可用性和故障恢复。
+   F5:硬件负载均衡，作用于网络层，请求转发到对应服务机器
+   nginx:应用层负载均衡
+    */
+
     //region 主备
     /*
     nginx 反向代理 backup
@@ -38,7 +46,7 @@ public class Design {
     windows 自带的NLB 代替linux 的keepalived ，每台机器装一个keepalived，nginx 互为主备
 
     访问虚拟IP:keepalived 配置虚拟ip地址，虚拟ip地址在和nginx关联，就可以访问nginx.  几台Nginx 配置一样。 两台互为主备的Keepalived根据网络情况路由访问哪一台机器的nginx
-
+             执行脚本判断nginx服务是否存在，不存在就杀掉keepalived进程。
     Keepalive 三大组件中的check 组件，监控nginx进程的脚本，如果nginx进程挂了，没有重启成功，keepalived自己停止服务，这样keepalived集群就知道应用状态。
 
      */
@@ -119,7 +127,7 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
       并行复制：
 
 
-     sharding-jdbc、mycat 读写分离，配置
+     sharding-jdbc（shardingsphere）、mycat 读写分离，配置
      //sharding-jdbc 强制下一据查询主读
     HintManager.getInstance().setMasterRouteOnly();
     List<Order> b2 = orderMapper.findByUserId(6);
@@ -138,4 +146,27 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
       orchestrator:https://github.com/openark/orchestrator
       */
     //endregion
+
+
+    //region rbac
+    //user
+    //menu（树形结构）：区分menu_type 菜单和按钮权限
+    //role
+    //用户角色
+    //角色菜单：包含按钮
+
+
+    /*优化设计
+    用户组（树形结构） ：用户加入用户组，指定用户组的角色。就不用新增用户时候赋值每个角色
+    角色组 （树形结构）：角色组可避免新增功能时候为每个角色分配菜单权限
+    */
+
+    //不设计权限表：直接设计菜单权限，按钮权限和菜单区分，
+    //endregion
+
+    //蓝绿发布：两套环境并行， 可以快速回滚。   数据库采用一套新版本兼容老版本，其中一个版本只读（看情况），回滚时候
+    //        任何添加到新版本的新数据也必须在回滚时传递给旧数据库。
+
+
+
 }
