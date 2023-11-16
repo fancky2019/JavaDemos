@@ -29,6 +29,7 @@ import java.text.MessageFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
 
@@ -46,6 +47,17 @@ public class Main {
             LocalDateTime tempTime1 = LocalDateTime.ofInstant(Instant.ofEpochMilli(1644651159696L), ZoneId.systemDefault());
 
 
+            String dateString = "2021-10-01T12:00:00.965Z";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+            LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
+
+
+
+            String esTimestamp = "2023-11-06'T'06:29:14.965Z";
+           // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSZ");
+
+            LocalDateTime localDateTime=LocalDateTime.parse(esTimestamp,formatter);
             //Main
             String className = Main.class.getSimpleName();
             int m = -131;
@@ -191,7 +203,7 @@ public class Main {
 //            new SerializableTest().test();
 //            new JwtTest().test();
 
-            new KafkaTest().test();
+//            new KafkaTest().test();
 //            new SemaphoreTest().test();
 //            new AtomicIntegerTest().test();
 //            new AtomicStampedReferenceTest().test();
@@ -281,8 +293,8 @@ public class Main {
 
 //            new CommonPoolTest().test();
 //            new ThreadSafetyCollectionTest().test();
-//            new AnnotationTest().test();
-            new MqttTest().test();
+            new AnnotationTest().test();
+//            new MqttTest().test();
             //endregion
 
 

@@ -1,9 +1,16 @@
 package Test.test2021.designpattern;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
+/*
+一般用于配置文件等只读的类
+
+核心思想是：通过builder ，将builder对象成员赋值给 对象（builder成员和对象成员完全匹配）
+ */
 @Getter
+//@Builder //不会赋值默认值
 public class BuilderPattern {
     private String name;
     private Integer age;
@@ -14,32 +21,40 @@ public class BuilderPattern {
 //
 //    }
 
+    public static void test()
+    {
+        BuilderPattern builderPattern=new Builder()
+                .name("fancky")
+                .age(27)
+                .builder();
+    }
 
-    private BuilderPattern(BuilderTestBuilder builder) {
+    //将builder 成员赋值对象成员
+    private BuilderPattern(Builder builder) {
         this.name = builder.name;
         this.age = builder.age;
     }
 
 //    public static final class Builder{}
     @Data
-    public static class BuilderTestBuilder {
+    public static class Builder {
         private String name;
         private Integer age;
 
-        public BuilderTestBuilder () {
+        public Builder() {
         }
 
-        public BuilderTestBuilder (String name, int age) {
+        public Builder(String name, int age) {
             this.name =name;
             this.age = age;
         }
 
-        public BuilderTestBuilder name(String name) {
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public BuilderTestBuilder age(int age) {
+        public Builder age(int age) {
             this.age = age;
             return this;
         }
