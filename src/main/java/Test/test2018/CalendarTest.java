@@ -93,7 +93,10 @@ public class CalendarTest {
 
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateStr1 = simpleDateFormat1.format(date);
-
+        //时间格式化
+        String dateString = "2021-10-01T12:00:00.965Z";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
         //转换
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         Date date1 = format1.parse("2018-11-26");

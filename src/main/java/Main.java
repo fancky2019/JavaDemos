@@ -49,15 +49,9 @@ public class Main {
 
             String dateString = "2021-10-01T12:00:00.965Z";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
             LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
 
 
-
-            String esTimestamp = "2023-11-06'T'06:29:14.965Z";
-           // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSZ");
-
-            LocalDateTime localDateTime=LocalDateTime.parse(esTimestamp,formatter);
             //Main
             String className = Main.class.getSimpleName();
             int m = -131;
