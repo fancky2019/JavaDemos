@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
 
 /*
  *
- *ZK ： 文件系统、通知机制
+ *ZK ： 文件系统、通知机制 zab协议(zookeeper atomic broadcast)原子广播协议
  *
  *
  *

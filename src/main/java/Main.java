@@ -1,25 +1,5 @@
 
-import Test.opensource.Jackson.JacksonTest;
-import Test.opensource.Netty.NettyTest;
-import Test.opensource.Netty.mqtt.MqttTest;
-import Test.opensource.jwt.JwtTest;
-import Test.opensource.kafka.KafkaTest;
-import Test.opensource.msgpack.MsgPackTest;
-import Test.opensource.rabbitMQ.RabbitMQTest;
-import Test.opensource.redis.RedisTest;
-import Test.opensource.zookeeper.ZooKeeperTest;
-import Test.test2018.*;
-import Test.opensource.commonspool.CommonPoolTest;
-import Test.opensource.encache.EhcacheTest;
-import Test.test2019.*;
-import Test.test2021.CollectionTest;
-import Test.test2021.designpattern.SingletonPattern;
-import Test.test2022.ThreadSafetyCollectionTest;
-import Test.test2021.extendImplement.ExtendImplementTest;
-import Test.test2022.ArrayTest;
-import Test.test2022.ListArrayTest;
-import Test.test2022.OverRideVarTest;
-import Test.test2022.annotation.AnnotationTest;
+import Test.test2023.flinkcdc.ClickHouseTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,7 +10,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
 
 
 /*
@@ -287,11 +266,11 @@ public class Main {
 
 //            new CommonPoolTest().test();
 //            new ThreadSafetyCollectionTest().test();
-            new AnnotationTest().test();
+//            new AnnotationTest().test();
 //            new MqttTest().test();
             //endregion
 
-
+            new ClickHouseTest().test();
             System.out.println(MessageFormat.format("main:{0}", "completed !"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             //阻塞主线程用
