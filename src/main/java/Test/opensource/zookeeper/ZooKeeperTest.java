@@ -27,7 +27,7 @@ import java.util.concurrent.CompletableFuture;
  *
  *ZK ： 文件系统、通知机制 zab协议(zookeeper atomic broadcast)原子广播协议
  *
- *
+ *多个ZK客户端向ZK 注册Znode 的子节点 并和ZK进行tcp 通信，ZK发现客户端掉线删除子节点客户端端并通知。
  *
  *
  * 有序节点：假如当前有一个父节点为/lock，我们可以在这个父节点下面创建子节点；
@@ -53,6 +53,8 @@ import java.util.concurrent.CompletableFuture;
  * 命名服务：一个服务名称路径下有多个子节点ip；ServerNamePath:server1IP、server2IP、server3IP。通过服务名称获取节点下可用的ip.
  * 配置管理： 监听配置节点变化，获取最新配置节点信息
  * 集群管理：集群管理无在乎两点：是否有机器退出和加入、选举master。监听一个节点下所有的子节点（各个服务ip）的上线下线，然后选举编号最小master
+ *
+ * ZK集群搭建 三台机器
  * */
 public class ZooKeeperTest {
     /*
@@ -269,7 +271,6 @@ public class ZooKeeperTest {
         for (CuratorTransactionResult result : results) {
             System.out.println(result.getForPath() + " - " + result.getType());
         }
-
         return results;
     }
 
@@ -285,6 +286,7 @@ public class ZooKeeperTest {
             client.getData().usingWatcher((CuratorWatcher) curatorWatcher ->
             {
                 Watcher.Event.EventType t = curatorWatcher.getType();
+//                EventType 枚举 增删改等事件
             }).forPath("/Test/node2");
             Thread.sleep(10000);
             int m = 0;
