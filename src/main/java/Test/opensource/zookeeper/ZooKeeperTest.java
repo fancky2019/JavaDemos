@@ -23,13 +23,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-/*
- *
- *ZK ： 文件系统、通知机制 zab协议(zookeeper atomic broadcast)原子广播协议
- *
- *多个ZK客户端向ZK 注册Znode 的子节点 并和ZK进行tcp 通信，ZK发现客户端掉线删除子节点客户端端并通知。
- *
- *
+/**
+ * ZK ： 文件系统、通知机制 zab协议(zookeeper atomic broadcast)原子广播协议
+ * <p>
+ * 多个ZK客户端向ZK 注册Znode 的子节点 并和ZK进行tcp 通信，ZK发现客户端掉线删除子节点客户端端并通知。
+ * <p>
+ * <p>
  * 有序节点：假如当前有一个父节点为/lock，我们可以在这个父节点下面创建子节点；
  * zookeeper提供了一个可选的有序特性，例如我们可以创建子节点“/lock/node-”并且指明有序，那么zookeeper在生成子节点时会根据当前的子节点数量自动添加整数序号
  * 也就是说，如果是第一个创建的子节点，那么生成的子节点为/lock/node-0000000000，下一个节点则为/lock/node-0000000001，依次类推。
@@ -39,24 +38,29 @@ import java.util.concurrent.CompletableFuture;
  * 节点删除
  * 节点数据修改
  * 子节点变更
- *
- *1.命名服务   2.配置管理   3.集群管理   4.分布式锁  5.队列管理
+ * <p>
+ * 1.命名服务   2.配置管理   3.集群管理   4.分布式锁  5.队列管理
  * 分布式锁：创建临时有序节点，监听当前线程创建的节点的序号是否未最小，则获取锁，否则监听前一个序号的事件，删除则获取锁。
- *         分布式锁独占、控制时序。编号最小获取锁。
- *
- *         代码逻辑：
- *         查看当前有序path在所有排序之后path中的索引是否是第一个，是则获取到锁，否则监测它的前一个有序path,同时代码执行this.wait(),watcher
- *         内调用 notifyAll()
- *
- *
- *
+ * 分布式锁独占、控制时序。编号最小获取锁。
+ * <p>
+ * 代码逻辑：
+ * 查看当前有序path在所有排序之后path中的索引是否是第一个，是则获取到锁，否则监测它的前一个有序path,同时代码执行this.wait(),watcher
+ * 内调用 notifyAll()
+ * <p>
+ * <p>
+ * <p>
  * 命名服务：一个服务名称路径下有多个子节点ip；ServerNamePath:server1IP、server2IP、server3IP。通过服务名称获取节点下可用的ip.
  * 配置管理： 监听配置节点变化，获取最新配置节点信息
  * 集群管理：集群管理无在乎两点：是否有机器退出和加入、选举master。监听一个节点下所有的子节点（各个服务ip）的上线下线，然后选举编号最小master
- *
+ * <p>
  * ZK集群搭建 三台机器
- * */
+ *
+ * @author fancky
+ * @date 2016/10/31
+ */
 public class ZooKeeperTest {
+
+
     /*
       Maven添加zookeeper、curator-framework、curator-recipes依赖
 
@@ -68,6 +72,13 @@ public class ZooKeeperTest {
 
     http://curator.apache.org/releases.html下载：apache-curator-5.1.0-source-release.zip里面有curator-examples
     curator-examples有curator的常用操作
+
+
+
+
+    ZK 配置：
+    tickTime：Client和Server通信心跳数。
+    maxClientCnxns=60 #一个ip所对应的客户端，和zk服务器维持的连接数。默认60
      */
 
     public void test() {
@@ -99,6 +110,10 @@ public class ZooKeeperTest {
         }
     }
 
+    //集群 类似redis ，es，eureka 的连接字符串
+//    private String connectString = "master:2181,slave01:2181,slave02:2181";
+
+    private String connectString = "192.168.154.133:2181,192.168.154.134:2181,192.168.154.135:2181";
 
     public CuratorFramework createClient() {
         String connectString = "localhost:2181";
@@ -285,7 +300,20 @@ public class ZooKeeperTest {
             CuratorFramework client = createClient();
             client.getData().usingWatcher((CuratorWatcher) curatorWatcher ->
             {
-                Watcher.Event.EventType t = curatorWatcher.getType();
+
+                //客户端和服务端都watch节点：
+                //可以在node 的data节点区分是 其他客户端还是server 上下线
+                Watcher.Event.EventType eventType = curatorWatcher.getType();
+                switch (eventType) {
+                    case NodeCreated:
+                        break;
+                    case NodeDeleted:
+                        break;
+                    case DataWatchRemoved:
+                        break;
+                    default:
+                        break;
+                }
 //                EventType 枚举 增删改等事件
             }).forPath("/Test/node2");
             Thread.sleep(10000);

@@ -25,6 +25,8 @@ import java.util.function.Supplier;
  * .最主要是sleep方法没有释放锁,而wait方法释放了锁,使得其他线程可以使用同步控制块
  *
  * 避免加锁用ThreadLocal
+ *
+ * 2021  CompletableFutureTest
  */
 public class ThreadTest {
 
@@ -275,12 +277,14 @@ public class ThreadTest {
 
         // 4个线程池差异看源码ThreadPoolExecutor实例的参数
 
-        /*newCachedThreadPool:使用默认，如果短时间高并发会创建大量线程
+        /*newCachedThreadPool:使用默认，如果短时间高并发会创建大量线程，核心线程参数:0,SynchronousQueue 队列长度0，就造成
+                创建最大线程数Integer.MAX_VALUE,个线程
         SynchronousQueue是无界的，是一种无缓冲的等待队列，但是由于该Queue本身的特性，
         在某次添加元素后必须等待其他线程取走后才能继续添加；可以认为SynchronousQueue是一个缓存值为1的阻塞队列，
         但是 isEmpty()方法永远返回是true，remainingCapacity() 方法永远返回是0，remove()和removeAll()
         方法永远返回是false，iterator()方法永远返回空，peek()方法永远返回null。
          */
+//        SynchronousQueue
         ExecutorService executorService = Executors.newCachedThreadPool();
         //submit() 返回一个 Future<T> 而execute()没有返回值
         executorService.execute(() ->
@@ -292,7 +296,7 @@ public class ThreadTest {
                 = new ThreadPoolExecutor(
                 Runtime.getRuntime().availableProcessors() - 1,
                 Runtime.getRuntime().availableProcessors() * 2,
-                0,
+                6000,
                 TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>());//LinkedBlockingQueue:默认容量Integer.MAX_VALUE
 
@@ -302,7 +306,7 @@ public class ThreadTest {
                 = new ThreadPoolExecutor(
                 Runtime.getRuntime().availableProcessors() - 1,
                 Runtime.getRuntime().availableProcessors() * 2,
-                0,
+                6000,
                 TimeUnit.MILLISECONDS,
                 new ArrayBlockingQueue<>(1000));
 //                new ArrayBlockingQueue<>(Integer.MAX_VALUE));
@@ -422,7 +426,11 @@ public class ThreadTest {
 
 //            //所有任务都完成
 //            CompletableFuture<Void> allFutures = CompletableFuture.allOf(future1, future2, future3);
+//allFutures.join();
+//if(allFutures.isDone())
+//            {
 //
+//            }
 //            allFutures.thenRun(() -> {
 //                System.out.println("All tasks completed");
 //                // 在这里执行下一步操作
@@ -516,7 +524,7 @@ public class ThreadTest {
         CompletableFuture.runAsync(() ->
         {
             try {
-                Integer i = 0;
+                int i = 0;
                 while (true) {
                     Student student = linkedBlockingQueue.take();
                     i++;
@@ -628,8 +636,8 @@ public class ThreadTest {
     //endregion
 
     //region 死锁
-    static Object a = new Object();
-    static Object b = new Object();
+    static final Object a = new Object();
+    static final Object b = new Object();
 
     /*
     当发生的死锁后，JDK自带了两个工具(jstack和JConsole)，可以用来监测分析死锁的发生原因。

@@ -20,12 +20,17 @@ import java.util.concurrent.CompletableFuture;
 public class NettyTest {
 
     /*
-     1、基于epoll的reactor线程模型
+     NIO  同步非阻塞
+
+     */
+    /*
+     1、基于epoll LT （Level trigger）的reactor线程模型
      2、0拷贝，直接内存（堆外内存），网络发送需要拷贝到网卡发送。
      3、堆栈内存，剩下的就都是堆外内存了，DirectByteBuffer。堆内内存需用用户态内核之间拷贝，
         直接内存不需要
      4、池化思想，其他框架都有
      5、protobuf，socket也可以使用
+     6、面向buffer,传统基于stream
      */
     /*
     --add-opens java.base/jdk.internal.misc=ALL-UNNAMED

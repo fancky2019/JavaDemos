@@ -40,6 +40,16 @@ public class EnumTest {
 //        Integer  nunm=null;
 //        String messageType2= MessageType.getdescription(nunm);
         Integer m = 0;
+
+        switch (enumDemo)
+        {
+            case Blue:
+                break;
+            case Grey:
+                break;
+            default:
+                break;
+        }
     }
 
     //枚举可以声明在类内

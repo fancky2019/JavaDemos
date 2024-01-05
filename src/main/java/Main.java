@@ -1,4 +1,5 @@
 
+import Test.test2021.CompletableFutureTest;
 import Test.test2023.flinkcdc.ClickHouseTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -240,7 +241,7 @@ public class Main {
 
 //            new Log4J2Test().test();
 //            new CountdownLatchTest().test();
-//            new CompletableFutureTest().test();
+            new CompletableFutureTest().test();
 //            new LockSupportTest().test();
 //            new Test.test2018.ThreadTest().test();
 //            new Test.test2021.ThreadTest().test();
@@ -270,7 +271,7 @@ public class Main {
 //            new MqttTest().test();
             //endregion
 
-            new ClickHouseTest().test();
+//            new ClickHouseTest().test();
             System.out.println(MessageFormat.format("main:{0}", "completed !"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             //阻塞主线程用
