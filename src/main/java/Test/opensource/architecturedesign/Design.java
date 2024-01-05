@@ -73,6 +73,8 @@ public class Design {
 
    LVS（Linux Virtual Server）即Linux虚拟服务器，
 
+  吞吐量：tomcat<nginx <lvs < F5
+  nginx 吞吐量 5--10W
      */
 //endregion
 

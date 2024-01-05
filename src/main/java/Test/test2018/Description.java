@@ -25,6 +25,27 @@ Annotation
 
 
 
+SPI（ Service Provider Interface）服务发现机制
+配置的key就是接口完整限定名，value就是接口的各个实现类，用","号隔开。
+META-INF文件夹spring.factories文件
+
+
+组合注解:
+@Retention修饰注解，用来表示注解的生命周期，生命周期的长短取决于@Retention的属性RetentionPolicy指定的值
+@Documented 元注解 生成文档(idea--tools--generate javadoc)是否包含此类或注解
+@Inherited 如果父类加了Inherited修饰的注解，子类默认会拥有父类@nherited修饰的注解
+@Configuration标注在某个类上，表示这是一个 springboot的配置类。可以向容器中注入组件。内部继承@Component注解
+@Component 注入到容器,类
+@Bean 方法
+@ComponentScan 果没有定义特定的包，将从“声明该注解的类的包”开始扫描。
+@Indexed之后，编译打包的时候会在项目中自动生成META-INT/spring.components文件。
+当Spring应用上下文执行ComponentScan扫描时，META-INT/spring.components将会被CandidateComponentsIndexLoader
+ 读取并加载，转换为CandidateComponentsIndex对象，这样的话@ComponentScan不在扫描指定的package，
+ 而是读取CandidateComponentsIndex对象，从而达到提升性能的目的。
+
+
+
+
 使用：
     @Description("姓名")
      @Description(value = "姓名")
