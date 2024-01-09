@@ -22,7 +22,7 @@ redisson-examples：https://github.com/redisson/redisson-examples
 doc:https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95
  */
 
-/*
+/**
 红锁问题： redis 网络脑裂问题
 主从设计；一主多从
 N:为奇数，  至少三台机器
@@ -39,7 +39,7 @@ watch dog 自动延期机制
 2.watch dog 机制启动，且代码中没有释放锁操作时，watch dog 会不断的给锁续期；
 3.从可2得出，如果程序释放锁操作时因为异常没有被执行，那么锁无法被释放，所以释放锁操作一定要放到 finally {} 中；
 
-
+ 写入hash类型数据：redisKey:lock hashKey  uuid:线程id  hashValue:thread id
  redisson 可重入：  uuid+threadId  。
        UUID id = UUID.randomUUID();
        同一个系统内线程id唯一，每个连接一个uuid，就保证key唯一。
@@ -123,6 +123,7 @@ public class RedissonTest {
 
 
     private void useRedLock() throws Exception {
+        //写入hash类型数据：redisKey:lock hashKey  uuid:线程id  hashValue:thread id
         RLock lock = redisson.getLock("lock");
 //        while (lock.isLocked()) {
 //            condition.await(10,TimeUnit.SECONDS);

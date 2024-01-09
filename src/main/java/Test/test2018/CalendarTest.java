@@ -53,9 +53,11 @@ public class CalendarTest {
     private void zonedDateTimeTest() {
         //返回的是默认的时区
         ZonedDateTime zonedDateTimeNow = ZonedDateTime.now();
+        //LocalDateTime(LocalDate date, LocalTime time) 内部分为：date+time
         LocalDateTime localDateTime = zonedDateTimeNow.toLocalDateTime();
         LocalDate localDate = zonedDateTimeNow.toLocalDate();
         LocalTime localTime = zonedDateTimeNow.toLocalTime();
+
         long epochMilli = zonedDateTimeNow.toInstant().toEpochMilli();
         //
         long epochMilli1 = localDateTime.toInstant(ZoneOffset.of("+08:00")).toEpochMilli();
