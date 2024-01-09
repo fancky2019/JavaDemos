@@ -12,7 +12,7 @@ public class TryCatchFinallyReturnTest {
                                  是基本数据类型不受finally语句影响，如果是引用类型将改变暂存值。
         二、finally有return：如果finally里有return将会覆盖try、catch里的return值。C#return块内不允许有return。
         */
-
+        throwTest();
         globalStudent.setName("global");
         System.out.printf("Get()=%d\n", get());//异常：2，正常：1。
         System.out.printf("a=%d\n", a);//2
@@ -93,5 +93,19 @@ public class TryCatchFinallyReturnTest {
 
     }
 
+    int throwTest() {
+
+        try {
+            int m = Integer.parseInt("m");
+            return m;
+        } catch (Exception ex) {
+            System.out.println("catch exception");
+            throw ex;
+        } finally {
+            System.out.println("finally when catch throw");
+//            return student;
+        }
+
+    }
 
 }
