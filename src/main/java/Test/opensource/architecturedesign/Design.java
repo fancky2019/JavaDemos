@@ -128,7 +128,9 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
       半同步复制：至少一个从库提交（内网环境，通信要求）、需要安装插件并启用
       并行复制：
 
+      GTID 主从：可以自动选主
 
+      spring boot mysql 主从 ：sharding-jdbc-spring-boot-starter
      sharding-jdbc（shardingsphere）、mycat 读写分离，配置
      //sharding-jdbc 强制下一据查询主读
     HintManager.getInstance().setMasterRouteOnly();
@@ -138,6 +140,8 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
       mysql 主   备：
             主   从：建议一主多从，半同步复制
             多主多从：
+
+
 
 
       双主互为主从： mysql + keepalived  性能不如MMM，但MMM高并发有问题
