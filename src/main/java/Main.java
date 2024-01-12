@@ -1,5 +1,6 @@
 
 import Test.opensource.Netty.mqtt.MqttTest;
+import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
 import Test.test2019.TryCatchFinallyReturnTest;
 import Test.test2021.CompletableFutureTest;
@@ -113,7 +114,7 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-//              new RedisTest().test();
+              new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
@@ -276,7 +277,7 @@ public class Main {
             //endregion
 
             //region 2023
-            new TimestampTest().test();
+//            new TimestampTest().test();
             //endregion
 //            new ClickHouseTest().test();
             System.out.println(MessageFormat.format("main:{0}", "completed !"));

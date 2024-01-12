@@ -89,6 +89,9 @@ public class RedissonTest {
         });
     }
 
+    /**
+     * 参照useRedLock
+     */
     private void lock() {
         RLock lock = redisson.getLock("lock");
         //判断是否有锁
