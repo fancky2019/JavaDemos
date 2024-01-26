@@ -136,23 +136,48 @@ public class RedissonTest {
 //        while (lock.isLocked()) {
 //            Thread.sleep(1);
 //        }
+
+
+        //            long maxRetryTimes = 3;
+//            int retryTimes = 1;
+//            long step = 5;
+//
+//            while (true) {
+//                if (lock.isLocked()) {
+//                    Thread.sleep(step * retryTimes);
+//                    retryTimes++;
+//                    lock = redissonClient.getLock(lockKey);
+//                } else {
+//                    break;
+//                }
+//                if (retryTimes > maxRetryTimes) {
+//                    log.info("Thread - {} 获得锁 {}失败！锁被占用！", Thread.currentThread().getId(), lockKey);
+//                    return null;
+//                }
+//
+//            }
+
+
+
         try {
-            boolean isLocked = lock.isLocked();
-            if (isLocked) {
-                logger.error(MessageFormat.format("Thread - {0} 获得锁失败！锁被占用！", Thread.currentThread().getId()));
-            }
+//            boolean isLocked = lock.isLocked();
+//            if (isLocked) {
+//                logger.error(MessageFormat.format("Thread - {0} 获得锁失败！锁被占用！", Thread.currentThread().getId()));
+//            }
             //500MS 获取锁，3000锁维持时间
             //内部采用信号量控制等待时间  Semaphore
             //    public boolean tryLock(long waitTime, long leaseTime, TimeUnit unit)
-            //注：waitTime 设置时间长一点
+            //注：waitTime 获取锁时间，leaseTime：持有锁时间，超时释放锁
             //写入hash类型数据：redisKey:lock hashKey  uuid:线程id  hashValue:thread id
-            boolean lockSuccessfully = lock.tryLock(1, 30, TimeUnit.SECONDS);
-//            lock.lock();
+            boolean lockSuccessfully = lock.tryLock(30, 60, TimeUnit.SECONDS);
+
+            //不会释放锁 leaseTime=-1
+            //            lock.lock();
 //            lock.lock(10, TimeUnit.SECONDS);
             //或者直接返回
-            isLocked = lock.isLocked();
+//            isLocked = lock.isLocked();
 
-            if(isLocked)
+            if(lockSuccessfully)
             {
                 logger.info(MessageFormat.format("Thread - {0} 获得锁！", Thread.currentThread().getId()));
             }
@@ -164,7 +189,9 @@ public class RedissonTest {
             logger.error(ex.toString());
         } finally {
             Thread.sleep(60 * 1000);
-            lock.unlock();//释放锁 unlock 删除key
+            //释放锁 unlock 删除key
+            // 如果锁因超时（leaseTime）会抛异常
+            lock.unlock();
             // condition.notify();
         }
 
