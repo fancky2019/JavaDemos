@@ -16,7 +16,7 @@ public class Design {
     //region 主备
     /*
     nginx 反向代理 backup
-    keepalived 主备 vip 漂移
+    keepalived 主备 vip 漂移  。解决单点故障
      */
     //endregion
 
@@ -49,21 +49,37 @@ public class Design {
              执行脚本判断nginx服务是否存在，不存在就杀掉keepalived进程。
     Keepalive 三大组件中的check 组件，监控nginx进程的脚本，如果nginx进程挂了，没有重启成功，keepalived自己停止服务，这样keepalived集群就知道应用状态。
 
+   keepalived 配置 ： 虚拟地址-->虚拟服务器地址-->真是服务器地址
+nginx keepalived 配置参考
      */
 
 
 
 /*
- 每台服务器安装 keepalived 和 haproxy nginx
+ 集群高可用设计：
+ 每台服务器安装 Keepalived 和 haproxy nginx
  keepalive 解决haproxy的单点故障问题。保证haproxy的高可用。
  haproxy反向代理nginx实现负载均衡。haproxy一般非web服务器。
  nginx web服务器动静分离。
 
  客户端直接访问haproxy,haproxy反向代理到nginx,nginx反向代理到真正web服务器。
+
+ 部署参考链接
+ https://blog.csdn.net/zhou641694375/article/details/127549434?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-127549434-blog-127729911.235%5Ev40%5Epc_relevant_anti_vip&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-127549434-blog-127729911.235%5Ev40%5Epc_relevant_anti_vip&utm_relevant_index=2
+
+ HAProxy 用作LB（负载均衡）反向代理， 不能以web server 的方式工作。
+ 可作web server 的是Apache 或Nginx。
+ HAProxy 可安装在其前端提供提供负载均衡和高可用。
+
+web 服务器：Apache nginx tomcat iis
+          同时使用apache和nginx，静态网页有nginx处理，动态交由apache处理，
+
+
+          Tomcat是一个Java Servlet容器，可以运行Java Web应用程序
  */
-    /*
-     rabbitmq 镜像模式
-     */
+
+
+
 
     /*
     软件
@@ -95,6 +111,7 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
  */
 
 //endregion
+
     //endregion
 
     //region rpc mq
@@ -112,7 +129,13 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
     //region mysql ha
 
     /*
+     主主互为主从+keepalived :
      主主+keepalived  masterA和masterB互为主从，keepalived vip保证A写，B同步A，B和slave之间同步，slave会有延迟
+     两台机器都装keepalived 、mysq,  java通过vip访问mysql 。两台mysql 互为主从
+
+
+     主从：master--- keepalive--vip-- mysqlA 和mysqlB
+          slave---keepalive--vip-- mysqlC mysqlD mysqlE
      */
 
     /*
@@ -173,6 +196,9 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
     //蓝绿发布：两套环境并行， 可以快速回滚。   数据库采用一套新版本兼容老版本，其中一个版本只读（看情况），回滚时候
     //        任何添加到新版本的新数据也必须在回滚时传递给旧数据库。
 
-
-
+    //region rabbitmq
+    /*
+     rabbitmq 镜像模式
+     */
+    //endregion
 }
