@@ -2,10 +2,7 @@ package Test.test2018;
 
 import Model.Student;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -28,7 +25,7 @@ public class LambdaTest {
             System.out.println(p);
         });
         funcClass.testFuncInterface(p -> System.out.println(p));
-        sysytemFunctionalInterface();
+        systemFunctionalInterface();
 
         //匿名方法赋值给函数接口，像是C#直接将匿名方法赋值给委托
         Consumer<String> consumer = p -> System.out.println(p);
@@ -77,39 +74,39 @@ public class LambdaTest {
     /**
      * 系统自带的函数接口
      */
-    private void sysytemFunctionalInterface() {
+    private void systemFunctionalInterface() {
         //Consumer<T>：一个参数没有返回值的
-        ConsumerFunctionalInterface((String str) ->
+        consumerFunctionalInterface((String str) ->
         {
             System.out.println(str);
         });
         // Function<T, R>:一个入参一个返回值
         //  Function<String,Integer>
-        FunctionFunctionalInterface(p ->
+        functionFunctionalInterface(p ->
         {
             return Integer.parseInt(p) + 2;
         });
         // Predicate<T>:一个参数返回boolean
-        PredicateFunctionalInterface(b ->
+        predicateFunctionalInterface(b ->
         {
-            Boolean b1 = !b;
-            Integer m = 0;
+            boolean b1 = !b;
+            int m = 0;
             return b1;
         });
     }
 
-    private void ConsumerFunctionalInterface(Consumer<String> consumer) {
+    private void consumerFunctionalInterface(Consumer<String> consumer) {
         consumer.accept("ConsumerFunctionalInterface");
     }
 
-    private void PredicateFunctionalInterface(Predicate<Boolean> predicate) {
-        Boolean bo = predicate.test(false);
-        Integer m = 0;
+    private void predicateFunctionalInterface(Predicate<Boolean> predicate) {
+        boolean bo = predicate.test(false);
+        int m = 0;
     }
 
-    private void FunctionFunctionalInterface(Function<String, Integer> function) {
-        Integer re = function.apply("1");
-        Integer m = 0;
+    private void functionFunctionalInterface(Function<String, Integer> function) {
+        int re = function.apply("1");
+        int m = 0;
     }
 
     private int returnInt(Predicate<Integer> predicate) {

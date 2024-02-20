@@ -1,5 +1,7 @@
 package Test.test2018;
 
+import org.checkerframework.checker.units.qual.K;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -248,7 +250,7 @@ class Gena {
 
     }
 
-    static <T> void Display1(Class cl) throws Exception {
+    static <T> void Display1(Class<T> cl) throws Exception {
         T t = (T) cl.newInstance();
     }
 
@@ -256,7 +258,7 @@ class Gena {
 
     }
 
-    <T> T getT(Class classT) {
+    public static <T> T getT(Class<T> classT) {
         T t = null;
         try {
             t = (T) classT.newInstance();
@@ -264,6 +266,10 @@ class Gena {
 
         }
         return t;
+    }
+
+    public static <T> void getT(T str) {
+
     }
 }
 
@@ -294,7 +300,7 @@ class StaticGenericTest<T> {
 ////        T t = singleInstance.getClass().newInstance();
 ////    }
 
-    private <T> void Fun(Class cl) throws Exception {
+    private <T> void fun(Class<K> cl) throws Exception {
         T t = (T) cl.newInstance();
     }
 }

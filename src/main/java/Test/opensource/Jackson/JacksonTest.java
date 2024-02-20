@@ -3,6 +3,7 @@ package Test.opensource.Jackson;
 import Model.JacksonPojo;
 import Test.opensource.Netty.MessageInfo;
 import Test.opensource.Netty.MessageType;
+import Test.test2018.EnumUnit;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
@@ -59,6 +60,7 @@ public class JacksonTest {
     }
 
     private void fun() {
+
         JacksonPojo jacksonPojo = new JacksonPojo();
         jacksonPojo.setName("fancky");
         jacksonPojo.setAddress("上海");
@@ -95,6 +97,7 @@ public class JacksonTest {
             HashMap<Integer, String> hashMap = new HashMap<>();
             hashMap.put(1, "li");
             hashMap.put(2, "si");
+            //{"1":"li","2":"si"}
             String jsonMapStr = mapper.writeValueAsString(hashMap);
             HashMap<Integer, String> hashMap1 = mapper.readValue(jsonMapStr, new TypeReference<HashMap<Integer, String>>() {
             });
@@ -121,8 +124,14 @@ public class JacksonTest {
             HashMap<String, Object> pojoHashMap1111 = mapper.readValue(jStr, mapper.getTypeFactory().constructParametricType(HashMap.class, String.class, Object.class));
             HashMap<String, String> testHashMap = (HashMap<String, String>) pojoHashMap1111.get("test");
             String testVal = testHashMap.get("name");
-            HashMap<String, String> pojoHashMap11 = mapper.readValue(jStr, new TypeReference<HashMap<String, String>>() {
+            HashMap<String, String> pojoHashMap11 = mapper.readValue(jStr, new TypeReference<HashMap<String, Object>>() {
             });
+
+            //region 枚举
+
+            String enumJson = mapper.writeValueAsString(EnumUnit.values());
+            String enumJson1 = EnumUnit.getJsonStr();
+            //endregion
 
             int m = 0;
         } catch (Exception e) {

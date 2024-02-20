@@ -3,7 +3,6 @@ package Test.test2018;
 import Model.Student;
 import Model.StudentInterface;
 import Model.StudentParent;
-import Test.test2018.Description;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -20,23 +19,23 @@ public class ReflectDemo {
             //创建class的三种方式
             Student student = new Student();
             Class<?> clazz = student.getClass();
-            Class clas = Student.class;
-            Class clssForName = Class.forName("Model.Student");
+            Class<Student> clas = Student.class;
+            Class<?> classForName = Class.forName("Model.Student");
             //class创建对象的两种方式
             Student st = (Student) clazz.newInstance();
-            Constructor constructor = clazz.getConstructor();
+            Constructor<?> constructor = clazz.getConstructor();
             Student stude = (Student) constructor.newInstance();
 
             //clazz.newInstance();//实例化一个类，前提是该类存在无参构造参数
 
             //得到构造器，String.class是即将实例化类clazz的构造参数的类型,Integer.class 第二个参数
-            Constructor constructorParam=clazz.getConstructor(String.class,Integer.class);
+            Constructor<?> constructorParam = clazz.getConstructor(String.class, Integer.class);
             //传入构造函数的参数进行实例化
-            Student objParam= (Student)constructorParam.newInstance("test",23);
+            Student objParam = (Student) constructorParam.newInstance("test", 23);
 
 
             String className = clas.getName();
-            Class cls = Class.forName(className);
+            Class<?> cls = Class.forName(className);
 
             //是否继承类、接口
             Boolean extendss = StudentParent.class.isAssignableFrom(cls);
@@ -72,9 +71,7 @@ public class ReflectDemo {
             Object instance = cls.getConstructor().newInstance();
 
 
-
             method.invoke(object, 2);
-
 
 
             //必须是某实例才能强制转换，否则抛异常
