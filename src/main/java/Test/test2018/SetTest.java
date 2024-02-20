@@ -9,22 +9,21 @@ import java.util.stream.Collectors;
 
 public class SetTest {
 
-    /*
-add/offer/put的区别：
-1、 add: 和collection的add一样，当队列满时，调用add()方法抛出异常IllegalStateException异常
-2、 调用off()方法当队列满时返回的 false。
-3、调用put方法时候，当当前队列等于设置的最大长度时，将阻塞，直到能够有空间插入元素
-
-remove/poll/take的区别
-1、remove，remove()是从队列中删除第一个元素。remove() 的行为与 Collection 接口的相似
-2、poll，但是新的 poll() 方法时有值时返回值，在空集合调用时不是抛出异常，只是返回 null,
-3、take: 获取并移除此队列的头部，在元素变得可用之前一直等待 。queue的长度 == 0 的时候，一直阻塞
-
-peek，element区别：
-检测操作，element() 和 peek() 用于在队列的头部查询元素。与 remove() 方法类似，在队列为空时， element() 抛出一个IllegalStateException异常，
-而 peek() 返回 null，Queue.java源码
-
- */
+    /**
+     * add/offer/put的区别：
+     * 1、 add: 和collection的add一样，当队列满时，调用add()方法抛出异常IllegalStateException异常
+     * 2、 调用off()方法当队列满时返回的 false。
+     * 3、调用put方法时候，当当前队列等于设置的最大长度时，将阻塞，直到能够有空间插入元素
+     * <p>
+     * remove/poll/take的区别
+     * 1、remove，remove()是从队列中删除第一个元素。remove() 的行为与 Collection 接口的相似
+     * 2、poll，但是新的 poll() 方法时有值时返回值，在空集合调用时不是抛出异常，只是返回 null,
+     * 3、take: 获取并移除此队列的头部，在元素变得可用之前一直等待 。queue的长度 == 0 的时候，一直阻塞
+     * <p>
+     * peek，element区别：
+     * 检测操作，element() 和 peek() 用于在队列的头部查询元素。与 remove() 方法类似，在队列为空时， element() 抛出一个IllegalStateException异常，
+     * 而 peek() 返回 null，Queue.java源码
+     */
 
     public void test() {
 //        operation();
@@ -71,7 +70,6 @@ peek，element区别：
         list111.add("sd");
 
 
-
         ArrayList<Integer> list = new ArrayList<Integer>();
         list.add(9);
         List<Integer> list1 = new ArrayList<Integer>();
@@ -110,7 +108,7 @@ peek，element区别：
 
         //region HashTable 线程安全性能差  put get 都用 synchronized 修饰，底层 Entry<?,?>[] table;
         Hashtable<Integer, Integer> hashtable = new Hashtable<>();
-        hashtable.put(1,1);
+        hashtable.put(1, 1);
         hashtable.get(1);
         //endregion
 
@@ -206,7 +204,7 @@ peek，element区别：
         while (ll.hasNext()) {
             Integer str = ll.next();
         }
-        /**
+        /*
          * 尽量别用迭代器，用forEach
          */
         linkedHashSet.forEach(p ->
@@ -229,18 +227,18 @@ peek，element区别：
         //endregion
 
         // 底层Object[] items;
-        ArrayBlockingQueue<Integer> arrayBlockingQueue=new ArrayBlockingQueue<>(100);
+        ArrayBlockingQueue<Integer> arrayBlockingQueue = new ArrayBlockingQueue<>(100);
         arrayBlockingQueue.offer(1);
         // 底层Object[] items;
-        ArrayBlockingQueue<Integer> arrayBlockingQueue1=new ArrayBlockingQueue<>(100);
+        ArrayBlockingQueue<Integer> arrayBlockingQueue1 = new ArrayBlockingQueue<>(100);
         arrayBlockingQueue1.put(1);
         //底层单向链表
-        LinkedBlockingQueue<Integer> linkedBlockingQueue=new LinkedBlockingQueue();
+        LinkedBlockingQueue<Integer> linkedBlockingQueue = new LinkedBlockingQueue();
         linkedBlockingQueue.offer(1);
 
 
         //底层单向链表
-        ConcurrentLinkedQueue<Integer> concurrentLinkedQueue=new ConcurrentLinkedQueue();
+        ConcurrentLinkedQueue<Integer> concurrentLinkedQueue = new ConcurrentLinkedQueue();
         concurrentLinkedQueue.offer(1);
         //region ConcurrentSkipListMap
 

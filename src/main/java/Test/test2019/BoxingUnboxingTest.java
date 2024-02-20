@@ -5,6 +5,8 @@ package Test.test2019;
  * string 字符串内存驻留
  *
  * test2021.PrimitiveTypeCacheTest
+ * 包装类型初始值为null
+ * 泛型只能用包装类型、数组基本数据类型。 方法内部使用基本数据类型  其他地方使用包装类
  */
 public class BoxingUnboxingTest {
     public void test() {
@@ -13,6 +15,7 @@ public class BoxingUnboxingTest {
     }
 
     private void equalsOperate() {
+        Integer[] a=new Integer[10];
         Integer a1 = new Integer(2);
         Integer a11 = 2;
         Integer a12 = 150;

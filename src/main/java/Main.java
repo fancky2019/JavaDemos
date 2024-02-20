@@ -1,4 +1,5 @@
 
+import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.Netty.mqtt.MqttTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
@@ -114,7 +115,7 @@ public class Main {
 //               new OptionalTest().test();
             //   new Configs().test();
 
-              new RedisTest().test();
+//              new RedisTest().test();
 
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
@@ -217,7 +218,7 @@ public class Main {
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
-//            new JacksonTest().test();
+            new JacksonTest().test();
 
 //            new SQLiteTest().test();
 //            new ZooKeeperTest().test();

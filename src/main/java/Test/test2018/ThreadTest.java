@@ -14,18 +14,20 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-/*
+/**
  * callable和runnable 区别在test2019.VolatileTest类内有描述。
- *
+ * <p>
  * ThreadPoolExecutor :线程池具体的执行内部逻辑。参照ThreadPoolExecutor类内的<dt>Queuing</dt>介绍
- *
- *
+ * <p>
  * sleep()和wait()  区别
  * sleep()方法导致了程序暂停执行指定的时间,让出cpu该其他线程,但是他的监控状态依然保持者,当指定的时间到了又会自动恢复...
  * .最主要是sleep方法没有释放锁,而wait方法释放了锁,使得其他线程可以使用同步控制块
- *
+ * <p>
+ * 3）调用sleep进入阻塞状态；调用wait进入等待状态，调用notify进入就绪状态
+ * Thread.Sleep(0)的作用是“触发操作系统立刻重新进行一次CPU竞争”。
+ * <p>
  * 避免加锁用ThreadLocal
- *
+ * <p>
  * 2021  CompletableFutureTest
  */
 public class ThreadTest {
@@ -328,11 +330,11 @@ public class ThreadTest {
         //创建固定10个核心线程
         Executors.newScheduledThreadPool(10);
     }
-   //endregion
+    //endregion
 
     //region futureTask
 
-   // 线程池ThreadPoolExecutor 无法执行带有返回值的任务。
+    // 线程池ThreadPoolExecutor 无法执行带有返回值的任务。
     private void futureTask() throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();
 
