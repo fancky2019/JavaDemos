@@ -69,6 +69,16 @@ public class SetTest {
         list111.add(1);
         list111.add("sd");
 
+        /*
+        Comparable;类实现该接口，compareTo 方法
+        Comparator；类外比较，工具类实现该接口 compare 方法
+          */
+        //双向链表
+        LinkedList<Integer> linkedList = new LinkedList<>();
+        //默认尾差,可以指定插入位置 头查尾插
+        linkedList.add(1);
+
+        linkedList.get(0);
 
         ArrayList<Integer> list = new ArrayList<Integer>();
         list.add(9);

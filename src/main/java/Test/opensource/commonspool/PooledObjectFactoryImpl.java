@@ -6,11 +6,11 @@ import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class DemoPooledObjectFactory<T> implements PooledObjectFactory<T> {
+public class PooledObjectFactoryImpl<T> implements PooledObjectFactory<T> {
     private static final Logger LOGGER = LogManager.getLogger();
     private Class<T> tClass;
 
-    public DemoPooledObjectFactory(Class<T> tClass) {
+    public PooledObjectFactoryImpl(Class<T> tClass) {
         this.tClass = tClass;
     }
 

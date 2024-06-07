@@ -176,7 +176,7 @@ public class MsgPackTest {
             byte[] bytes = objectMapper.writeValueAsBytes(list);
 
             // Deserialize the byte array to a List
-            List<Object> deserialized = objectMapper.readValue(bytes, new TypeReference<Object>() {
+            List<Object> deserialized = objectMapper.readValue(bytes, new TypeReference<  List<Object>>() {
             });
 
 

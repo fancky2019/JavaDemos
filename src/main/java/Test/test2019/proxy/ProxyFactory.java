@@ -27,7 +27,7 @@ public class ProxyFactory {
 
 
     //给目标对象生成代理对象
-    public Object getProxyInstance() {
+    public <T> T getProxyInstance() {
 //        return Proxy.newProxyInstance(
 //                target.getClass().getClassLoader(),
 //                target.getClass().getInterfaces(),
@@ -46,7 +46,32 @@ public class ProxyFactory {
         /*
        参数 (ClassLoader loader, Class<?>[] interfaces,InvocationHandler h)
          */
-        return Proxy.newProxyInstance(
+//        return Proxy.newProxyInstance(
+//                interfaceImp.getClass().getClassLoader(),
+//                interfaceImp.getClass().getInterfaces(),
+//                (proxy, method, args) -> {
+//                    //调用目标方法之前执行，对已有方法进行功能拓展
+//                    Stopwatch stopwatch = Stopwatch.createStarted();
+//                    System.out.println("Before Invoke");
+//                    //执行目标对象方法
+//                    Object returnValue = method.invoke(interfaceImp, args);
+//
+//                    stopwatch.stop();
+//                    //199 milliSeconds:没有重置接着从第一次start()的时候计时
+//                    System.out.println(MessageFormat.format("{0} milliSeconds", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
+//
+//                    //调用目标方法之后执行，对已有方法进行功能拓展
+//                    System.out.println("After Invoke");
+//                    return returnValue;
+//                }
+//
+//        );
+
+        /*
+       jdk 内部会生成 实现接口  final  修饰的方法
+         */
+
+        T t= (T)Proxy.newProxyInstance(
                 interfaceImp.getClass().getClassLoader(),
                 interfaceImp.getClass().getInterfaces(),
                 (proxy, method, args) -> {
@@ -55,7 +80,12 @@ public class ProxyFactory {
                     System.out.println("Before Invoke");
                     //执行目标对象方法
                     Object returnValue = method.invoke(interfaceImp, args);
-
+//                    Object returnValue=null;
+//                    if (Object.class.equals(method.getDeclaringClass())) {
+//                         returnValue = method.invoke(this, args);
+//                    } else {
+//                        returnValue = description( args);
+//                    }
                     stopwatch.stop();
                     //199 milliSeconds:没有重置接着从第一次start()的时候计时
                     System.out.println(MessageFormat.format("{0} milliSeconds", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
@@ -66,6 +96,14 @@ public class ProxyFactory {
                 }
 
         );
+        return  t;
+
+    }
+    private Object description( Object... args)
+    {
+        System.out.println("没有走");
+        return  null;
+
     }
 
 }

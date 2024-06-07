@@ -50,7 +50,7 @@ public class Design {
     Keepalive 三大组件中的check 组件，监控nginx进程的脚本，如果nginx进程挂了，没有重启成功，keepalived自己停止服务，这样keepalived集群就知道应用状态。
 
    keepalived 配置 ： 虚拟地址-->虚拟服务器地址-->真是服务器地址
-nginx keepalived 配置参考
+   nginx keepalived 配置参考
      */
 
 
