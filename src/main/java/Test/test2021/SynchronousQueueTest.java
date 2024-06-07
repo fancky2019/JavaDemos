@@ -4,6 +4,9 @@ import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.SynchronousQueue;
 
+/**
+ * SynchronousQueue 只有take 之后才能put 也就是队列长度是1
+ */
 public class SynchronousQueueTest {
     SynchronousQueue<Integer> synchronousQueue = new SynchronousQueue<>();
 

@@ -5,7 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-/*
+/**
 Lock:实现线程同步。
 
 synchronized实现同步的基础：
@@ -41,6 +41,13 @@ synchronized默认有jvm内部实现控制的，是非公平锁
 
 synchronized，锁是保存在对象头里面的，根据对象头数据来标识是否有线程获得锁/争抢锁；
 ReentrantLock锁的是线程，根据进入的线程和int类型的state标识锁的获得/争抢。
+
+
+ * synchronized 同步语句块的实现使用的是 monitorenter 和 monitorexit 指令，
+ * 其中 monitorenter 指令指向同步代码块的开始位置，monitorexit 指令则指明同步代码块的结束位置。
+ *
+ * synchronized 修饰的方法并没有 monitorenter 指令和 monitorexit 指令，
+ * 取得代之的确实是 ACC_SYNCHRONIZED 标识，该标识指明了该方法是一个同步方法。
  */
 public class LockTest {
 
@@ -68,7 +75,7 @@ public class LockTest {
 
         // synchronized 使用区别
         //锁静态方法、 synchronized (SynchronizedClass.class)、synchronized (SynchronizedClass.class) 等同
-        //锁普通方法、   synchronized (this) 等同
+        //锁普通方法、 synchronized (this) 等同
         //锁对象快锁被锁的对象，如果被锁的对象是静态的所有对象调用都将同步
 
 //        CompletableFuture.runAsync(() ->

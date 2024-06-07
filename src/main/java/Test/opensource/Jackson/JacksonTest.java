@@ -124,7 +124,7 @@ public class JacksonTest {
             HashMap<String, Object> pojoHashMap1111 = mapper.readValue(jStr, mapper.getTypeFactory().constructParametricType(HashMap.class, String.class, Object.class));
             HashMap<String, String> testHashMap = (HashMap<String, String>) pojoHashMap1111.get("test");
             String testVal = testHashMap.get("name");
-            HashMap<String, String> pojoHashMap11 = mapper.readValue(jStr, new TypeReference<HashMap<String, Object>>() {
+            HashMap<String, Object> pojoHashMap11 = mapper.readValue(jStr, new TypeReference<HashMap<String, Object>>() {
             });
 
             //region 枚举

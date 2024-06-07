@@ -14,6 +14,14 @@ import java.util.concurrent.locks.ReentrantLock;
  * 线程id 在一台操作系统内是唯一的。线程标识符永远不会是0。
  * <p>
  * 一旦所涉及的线程和进程终止，操作系统可以重用进程ID和线程ID。
+ *
+ *
+ * synchronized 同步语句块的实现使用的是 monitorenter 和 monitorexit 指令，
+ * 其中 monitorenter 指令指向同步代码块的开始位置，monitorexit 指令则指明同步代码块的结束位置。
+ *
+ * synchronized 修饰的方法并没有 monitorenter 指令和 monitorexit 指令，
+ * 取得代之的确实是 ACC_SYNCHRONIZED 标识，该标识指明了该方法是一个同步方法。
+
  */
 public class ThreadTest {
 

@@ -60,6 +60,12 @@ import java.util.stream.Collectors;
  * 镜像队列模式：各个节点保存相同的元数据和消息。类似redis主从模式。由于各节点同步会消耗带宽。
  * 搭建： HAProxy + Keepalived 高可用集群
  *
+ *集群脑裂解决：配置，强一致性使用zk
+ * min-slaves-to-write：与主节点通信的从节点数量必须大于等于该值主节点，否则主节点拒绝写入。
+ *
+ * min-slaves-max-lag：主节点与从节点通信的ACK消息延迟必须小于该值，否则主节点拒绝写入。
+ *
+ *
  *
  * redis key 过期订阅：
  *
@@ -71,11 +77,19 @@ import java.util.stream.Collectors;
  * MongoDB 文档性的数据库，支持字段索引、游标操作，其优势在于查询功能比较强大，擅长查询 JSON 数据，能存储海量数据，但是不支持事务。
  *
  * 雪崩：随机过期时间
- * 击穿：分布式锁（表名），没有取到锁，sleep(50)+重试
- * 穿透：分布式锁（表名）+设置一段时间的null值，没有取到锁，sleep(50)+重试
+ * 击穿(db数据存在)：分布式锁（表名），没有取到锁，sleep(50)+重试
+ * 穿透（db数据不存在）：分布式锁（表名）+设置一段时间的null值，没有取到锁，sleep(50)+重试
  *
  *
  * 文件夹：指定前缀的key放在一个文件夹下。如：key_sb:UserInfo:1 路径前缀之间用冒号分开，当key超过两个RedisDesktop会显示在一个文件夹下。
+ *
+ * 缓存和DB一致性：延迟双删保证最终一致性，强一致性要加锁。CAP 。
+ *              第二次删除：确保事务完成后删除： 线程异步延迟、事务回调、mq、db cdc
+ *
+ *
+ *
+ *
+ *
  */
 public class RedisTest {
     private static final Logger LOGGER = LogManager.getLogger();

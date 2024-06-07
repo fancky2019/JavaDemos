@@ -21,6 +21,7 @@ public class CompletableFutureTest {
         return m;
     }
     private void batchTask() {
+
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
                 Runtime.getRuntime().availableProcessors() - 1,
                 Runtime.getRuntime().availableProcessors() * 2,

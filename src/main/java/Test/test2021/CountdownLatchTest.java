@@ -16,7 +16,7 @@ public class CountdownLatchTest {
     public void test() throws InterruptedException {
         fun1();
     }
-
+//    SynchronousQueue 只有take 之后才能put 也就是队列长度是1
     private void fun1() throws InterruptedException {
         ExecutorService service = Executors.newCachedThreadPool();
         final CountDownLatch latch = new CountDownLatch(3);

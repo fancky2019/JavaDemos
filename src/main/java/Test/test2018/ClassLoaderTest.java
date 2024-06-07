@@ -1,6 +1,6 @@
 package Test.test2018;
 
-/*
+/**
 类加载过程：
             加载:new、反射等类被使用时候，类被加载。
             验证：
@@ -13,15 +13,15 @@ package Test.test2018;
      父类静态字段、父类静态块（按出现顺序）--》子类静态字段、子类静态块-（按出现顺序）-》父类构造块、字段（按出现顺序）--》父类构造函数--》
      子类构造块、字段（按出现顺序）--》子类构造函数
 
-             说明：静态构造执行条件---当前类的静态成员被调用、new时候执行。当前类----静态成员声明的类中。
-             调用子类静态成员：父类静态块、成员（按出现顺序）-->子类静态块、成员（按出现顺序）
-             调用父类静态成员：父类静态块、成员（按出现顺序）
+     说明：静态构造执行条件---当前类的静态成员被调用、new时候执行。当前类----静态成员声明的类中。
+     调用子类静态成员：父类静态块、成员（按出现顺序）-->子类静态块、成员（按出现顺序）
+     调用父类静态成员：父类静态块、成员（按出现顺序）
  */
 public class ClassLoaderTest {
     public void test() {
 
 
-        //        ChildClass.class.getClassLoader().
+        //ChildClass.class.getClassLoader().
         //BootstrapClassLoader：加载路径%JAVA_HOME%/lib下的jar
         // ExtensionClassLoader:加载%JRE_HOME%/lib/ext下的jar
         // AppClassLoader：加载应用程序ClassPath下的类
@@ -34,7 +34,7 @@ public class ClassLoaderTest {
 
         //双亲委派机制
         //每个类都有一个ClassLoader
-        //右下道上（子类到父类）检查类是否加载，由上到下（父类到子类）加载类
+        //右下到上（子类到父类）检查类是否加载，由上到下（父类到子类）加载类
         //如果ClassLoader==null  则加载该类
 
 

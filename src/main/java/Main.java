@@ -4,6 +4,7 @@ import Test.opensource.Netty.mqtt.MqttTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
 import Test.test2019.TryCatchFinallyReturnTest;
+import Test.test2019.proxy.ProxyTest;
 import Test.test2021.CompletableFutureTest;
 import Test.test2023.TimestampTest;
 import Test.test2023.flinkcdc.ClickHouseTest;
@@ -174,7 +175,7 @@ public class Main {
 //              new DivisionTest().test();
 //            new HashCodeTest().test();
             //   new LeftMoveTest().test();
-//              new RedissonTest().test();
+              new RedissonTest().test();
 //              new ConstructorTest().test();
 //            new JDBCTest().test();
 //            new MysqlTest().test();
@@ -218,7 +219,7 @@ public class Main {
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
-            new JacksonTest().test();
+//            new JacksonTest().test();
 
 //            new SQLiteTest().test();
 //            new ZooKeeperTest().test();

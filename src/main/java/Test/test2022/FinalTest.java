@@ -3,7 +3,7 @@ package Test.test2022;
 import Model.Student;
 import Test.opensource.protobuf.model.PersonProto;
 
-/*
+/**
  类：不能继承
  方法：不能重写
  成员变量：声明时候赋初值，或者构造函数中赋值  此时final=C# readonly+const

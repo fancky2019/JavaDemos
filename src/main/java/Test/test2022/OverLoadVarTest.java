@@ -1,9 +1,9 @@
 package Test.test2022;
 
-/*
+/**
 优先调用重载
  */
-public class OverRideVarTest {
+public class OverLoadVarTest {
     public void test() {
         fun(1, 3);//1
         fun(1, 2,3);//2

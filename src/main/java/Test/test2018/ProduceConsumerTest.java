@@ -59,6 +59,7 @@ public class ProduceConsumerTest {
             //貌似if也可以，没有像C#那么大的毛病，
             while (queue.size() == maxLength) {
                 try {
+                    //。调用wait()会使Java线程进入到WAITING状态，调用wait(long time)会使Java线程进入到TIMED_WAITING状态。
                     lockObject.wait();
                 } catch (InterruptedException ex) {
 

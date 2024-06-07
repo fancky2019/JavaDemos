@@ -29,6 +29,12 @@ import java.util.function.Supplier;
  * 避免加锁用ThreadLocal
  * <p>
  * 2021  CompletableFutureTest
+ *
+ * synchronized 同步语句块的实现使用的是 monitorenter 和 monitorexit 指令，
+ * 其中 monitorenter 指令指向同步代码块的开始位置，monitorexit 指令则指明同步代码块的结束位置。
+ *
+ * synchronized 修饰的方法并没有 monitorenter 指令和 monitorexit 指令，
+ * 取得代之的确实是 ACC_SYNCHRONIZED 标识，该标识指明了该方法是一个同步方法。
  */
 public class ThreadTest {
 
@@ -78,6 +84,7 @@ public class ThreadTest {
             Integer n = 1;
             //whenComplete();
         } catch (Exception ex) {
+//            RuntimeException
             String str = ex.getMessage();
             Integer m = 0;
         }
@@ -171,7 +178,6 @@ public class ThreadTest {
             System.out.println(MessageFormat.format("threadException inner :{0}", ex.getMessage()));
             Integer n = 0;
         }
-
         //异常抛不出都主线程
         try {
 
@@ -286,6 +292,7 @@ public class ThreadTest {
         但是 isEmpty()方法永远返回是true，remainingCapacity() 方法永远返回是0，remove()和removeAll()
         方法永远返回是false，iterator()方法永远返回空，peek()方法永远返回null。
          */
+        //    SynchronousQueue 只有take 之后才能put 也就是队列长度是1
 //        SynchronousQueue
         ExecutorService executorService = Executors.newCachedThreadPool();
         //submit() 返回一个 Future<T> 而execute()没有返回值

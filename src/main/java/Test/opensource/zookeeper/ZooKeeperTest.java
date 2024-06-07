@@ -142,19 +142,18 @@ public class ZooKeeperTest {
     }
 
 
-    /*
-    Zookeeper的节点创建模式：
-    PERSISTENT：持久化
-    PERSISTENT_SEQUENTIAL：持久化并且带序列号
-    EPHEMERAL：临时
-    EPHEMERAL_SEQUENTIAL：临时并且带序列号
-
-
-1、PERSISTENT-持久化目录节点 :户端与zookeeper断开连接后，该节点依旧存在
-2、PERSISTENT_SEQUENTIAL-持久化顺序编号目录节点 :客户端与zookeeper断开连接后，该节点依旧存在，只是Zookeeper给该节点名称进行顺序编号
-3、EPHEMERAL-临时目录节点 :户端与zookeeper断开连接后，该节点被删除
-4、EPHEMERAL_SEQUENTIAL-临时顺序编号目录节点 :客户端与zookeeper断开连接后，该节点被删除，只是Zookeeper给该节点名称进行顺序编号
-
+    /**
+     * Zookeeper的节点创建模式：
+     * PERSISTENT：持久化
+     * PERSISTENT_SEQUENTIAL：持久化并且带序列号
+     * EPHEMERAL：临时
+     * EPHEMERAL_SEQUENTIAL：临时并且带序列号
+     * <p>
+     * <p>
+     * 1、PERSISTENT-持久化目录节点 :户端与zookeeper断开连接后，该节点依旧存在
+     * 2、PERSISTENT_SEQUENTIAL-持久化顺序编号目录节点 :客户端与zookeeper断开连接后，该节点依旧存在，只是Zookeeper给该节点名称进行顺序编号
+     * 3、EPHEMERAL-临时目录节点 :户端与zookeeper断开连接后，该节点被删除
+     * 4、EPHEMERAL_SEQUENTIAL-临时顺序编号目录节点 :客户端与zookeeper断开连接后，该节点被删除，只是Zookeeper给该节点名称进行顺序编号
      */
     private void createNode() {
 
@@ -552,7 +551,7 @@ public class ZooKeeperTest {
     }
 
 
-    //region 分布式锁
+    //region 分布式锁: 创建一个永久有序的节点
 //Curator是一个zookeeper的开源客户端，也提供了分布式锁的实现。
     private void distributeLock() {
         String path = "/lock";

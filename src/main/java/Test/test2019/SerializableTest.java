@@ -7,10 +7,15 @@ import java.io.*;
 /**
  * 实体类实现Serializable接口（空接口），该实体类可以序列化，否则不能序列化
  * 将实体类序列化成二进制，有点像C#的 [Serializable]特性
- * transient：忽略该字段的序列化。和C# [NonSerialized]特性。
+ * 关键字 transient：忽略该字段的序列化。和C# [NonSerialized]特性。
  */
-public class SerializableTest {
-
+public class SerializableTest implements Serializable {
+    /*
+    如果没有手动指定serialVersionUID，Java 会根据类的结构自动生成一个版本号。
+    生成规则是基于类的字段、方法和父类等信息进行计算，并使用哈希算法生成一个唯一标识。
+     */
+    //自动生成的，由于类文件变化(增加字段或减少字段)，它也会发生变化，就会出现不一致的问题，导致反序列化失败。
+    static final long serialVersionUID = -3387516993124229948L;
     /**
      * 忽略该字段的序列化。和C# [NonSerialized]特性。
      */
