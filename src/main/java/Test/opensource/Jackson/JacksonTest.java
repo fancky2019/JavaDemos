@@ -3,6 +3,7 @@ package Test.opensource.Jackson;
 import Model.JacksonPojo;
 import Test.opensource.Netty.MessageInfo;
 import Test.opensource.Netty.MessageType;
+import Test.opensource.orgapachecommons.commonpool.ShipOrderInfo;
 import Test.test2018.EnumUnit;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -102,6 +103,7 @@ public class JacksonTest {
             HashMap<Integer, String> hashMap1 = mapper.readValue(jsonMapStr, new TypeReference<HashMap<Integer, String>>() {
             });
 
+
             //泛型map
             HashMap<String, JacksonPojo> pojoHashMap = new HashMap<>();
             pojoHashMap.put(jacksonPojo.getName(), jacksonPojo);
@@ -116,6 +118,10 @@ public class JacksonTest {
             // 2
             JavaType javaType = mapper.getTypeFactory().constructParametricType(HashMap.class, String.class, JacksonPojo.class);
             HashMap<String, JacksonPojo> pojoHashMap2 = mapper.readValue(jsonPojoMapStr, javaType);
+
+            //可将字段 key value 的map  转 java 对象
+//            String json=  searchHit.getSourceAsString();
+//            ShipOrderInfo shipOrderInfo=    objectMapper.readValue(json, ShipOrderInfo.class);
 
 
             //读取json 写入hashmap  将嵌套多层json 转hashmap，注意hashmap的类型参数 HashMap<String, Object>

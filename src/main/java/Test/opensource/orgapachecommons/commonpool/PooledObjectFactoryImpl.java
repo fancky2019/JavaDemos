@@ -1,4 +1,4 @@
-package Test.opensource.commonspool;
+package Test.opensource.orgapachecommons.commonpool;
 
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;
@@ -22,22 +22,22 @@ public class PooledObjectFactoryImpl<T> implements PooledObjectFactory<T> {
 
     @Override
     public void destroyObject(PooledObject<T> pooledObject) throws Exception {
-        LOGGER.info("destroyObject..state = {} {}", pooledObject.getState() ,pooledObject.toString());
+     //   LOGGER.info("destroyObject..state = {} {}", pooledObject.getState() ,pooledObject.toString());
     }
 
     @Override
     public boolean validateObject(PooledObject<T> pooledObject) {
-        LOGGER.info("validateObject..state = {}", pooledObject.getState());
+      //  LOGGER.info("validateObject..state = {}", pooledObject.getState());
         return true;
     }
 
     @Override
     public void activateObject(PooledObject<T> pooledObject) throws Exception {
-        LOGGER.info("activateObject..state = {}", pooledObject.getState());
+     //   LOGGER.info("activateObject..state = {}", pooledObject.getState());
     }
 
     @Override
     public void passivateObject(PooledObject<T> pooledObject) throws Exception {
-        LOGGER.info("passivateObject..state = {}", pooledObject.getState());
+      //  LOGGER.info("passivateObject..state = {}", pooledObject.getState());
     }
 }
