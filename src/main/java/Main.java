@@ -1,6 +1,7 @@
 
 import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.Netty.mqtt.MqttTest;
+import Test.opensource.orgapachecommons.commonpool.CommonPoolTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
 import Test.test2019.TryCatchFinallyReturnTest;
@@ -8,6 +9,7 @@ import Test.test2019.proxy.ProxyTest;
 import Test.test2021.CompletableFutureTest;
 import Test.test2023.TimestampTest;
 import Test.test2023.flinkcdc.ClickHouseTest;
+import Test.test2024.ThreadStateDemo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -175,7 +177,7 @@ public class Main {
 //              new DivisionTest().test();
 //            new HashCodeTest().test();
             //   new LeftMoveTest().test();
-              new RedissonTest().test();
+//              new RedissonTest().test();
 //              new ConstructorTest().test();
 //            new JDBCTest().test();
 //            new MysqlTest().test();
@@ -219,7 +221,7 @@ public class Main {
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
-//            new JacksonTest().test();
+            new JacksonTest().test();
 
 //            new SQLiteTest().test();
 //            new ZooKeeperTest().test();
@@ -280,8 +282,14 @@ public class Main {
 
             //region 2023
 //            new TimestampTest().test();
+            //            new ClickHouseTest().test();
             //endregion
-//            new ClickHouseTest().test();
+
+            //region 2023
+//            new ThreadStateDemo().test();
+            //endregion
+
+
             System.out.println(MessageFormat.format("main:{0}", "completed !"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
             //阻塞主线程用

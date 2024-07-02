@@ -9,7 +9,7 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
-/*
+/**
       *  Kafka 每个topic下有多个partition,每个partition有一个leader多个follower，
       *  Kafka 采用leader读写，follower备份，leader宕机，从zookeeper从follower中选举一个leader.
       *        producer往partition的leader写，follower发起同步。
