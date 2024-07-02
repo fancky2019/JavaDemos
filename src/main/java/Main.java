@@ -221,7 +221,7 @@ public class Main {
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
-//            new JacksonTest().test();
+            new JacksonTest().test();
 
 //            new SQLiteTest().test();
 //            new ZooKeeperTest().test();
@@ -286,7 +286,7 @@ public class Main {
             //endregion
 
             //region 2023
-            new ThreadStateDemo().test();
+//            new ThreadStateDemo().test();
             //endregion
 
 

@@ -12,6 +12,8 @@ import java.util.concurrent.CompletableFuture;
  *避免重复消费：消费前messageId入redis ,ack 之后设置redis中的messageId的key ttl 可以设置1天，尽量大点
  *
  * rabbitmq则不支持批量生产,支持批量消费
+ *
+ * 可用性：rabbitmq 生产者默认异步发送消息路由到绑定队列，暂时没找到同步发送。不像rocketmq和kafka 支生产者持同步发送异步发送
  */
 public class RabbitMQTest {
 

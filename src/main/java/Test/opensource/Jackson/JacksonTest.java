@@ -104,7 +104,7 @@ public class JacksonTest {
             });
 
 
-            //泛型map
+            //泛型map。hashmap json 序列化，通过添加每个字段值的hashmao 可代替java 对象，避免声明对象
             HashMap<String, JacksonPojo> pojoHashMap = new HashMap<>();
             pojoHashMap.put(jacksonPojo.getName(), jacksonPojo);
             //key  重加入不了HashMap。C#报错
