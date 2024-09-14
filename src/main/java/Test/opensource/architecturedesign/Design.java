@@ -127,7 +127,7 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
     //endregion
 
     //region mysql ha
-
+//    无法做到严格的主从同步，都会有延迟，如果强制从主库读就违反了，读写分离原则。如果将写入数据同步到redis 缓存，加大复杂性
     /*
      主主互为主从+keepalived :
      主主+keepalived  masterA和masterB互为主从，keepalived vip保证A写，B同步A，B和slave之间同步，slave会有延迟

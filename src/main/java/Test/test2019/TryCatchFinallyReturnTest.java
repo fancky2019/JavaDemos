@@ -6,12 +6,32 @@ import Test.test2018.Person;
 import java.io.Console;
 
 public class TryCatchFinallyReturnTest {
-    public void test() {
+    public void test() throws Exception {
         /*
         一、finally没return:try、catch有return 执行return之后再执行finally块，try、catch内return的值如果
                                  是基本数据类型不受finally语句影响，如果是引用类型将改变暂存值。
         二、finally有return：如果finally里有return将会覆盖try、catch里的return值。C#return块内不允许有return。
         */
+
+        //catch 可不要
+//        try {
+//
+//        } finally {
+//
+//            //finally里的return会覆盖try、catch里的return值
+//            // return m;
+//        }
+
+
+        try {
+            int m = Integer.parseInt("ds");
+        } catch (Exception ex) {
+            throw new Exception(ex);
+//            throw new Exception(ex.getMessage());
+            //finally里的return会覆盖try、catch里的return值
+            // return m;
+        }
+
         throwTest();
         globalStudent.setName("global");
         System.out.printf("Get()=%d\n", get());//异常：2，正常：1。

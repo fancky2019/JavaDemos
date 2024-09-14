@@ -14,6 +14,16 @@ import java.util.concurrent.CompletableFuture;
  * rabbitmq则不支持批量生产,支持批量消费
  *
  * 可用性：rabbitmq 生产者默认异步发送消息路由到绑定队列，暂时没找到同步发送。不像rocketmq和kafka 支生产者持同步发送异步发送
+ *
+ *
+ * RabbitMQ 的消费模式分为两种：推模式和拉模式。
+ *
+ * 推模式（Push）：消息中间件主动将消息推送给消费者，推模式采用 Basic.Consume 进行消费。
+ * 拉模式（Pull）：消费者主动从消息中间件拉取消息，拉模式则是调用 Basic.Get 进行消费。
+ *
+ *
+ *
+ *
  */
 public class RabbitMQTest {
 

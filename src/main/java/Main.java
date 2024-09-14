@@ -7,6 +7,8 @@ import Test.opensource.redis.RedissonTest;
 import Test.test2019.TryCatchFinallyReturnTest;
 import Test.test2019.proxy.ProxyTest;
 import Test.test2021.CompletableFutureTest;
+import Test.test2021.RandomTest;
+import Test.test2021.designpattern.TemplateMethodPattern;
 import Test.test2023.TimestampTest;
 import Test.test2023.flinkcdc.ClickHouseTest;
 import Test.test2024.ThreadStateDemo;
@@ -146,7 +148,7 @@ public class Main {
 
 
             //region test2019
-//                new TryCatchFinallyReturnTest().test();
+                new TryCatchFinallyReturnTest().test();
 //              new ProxyTest().test();
 
 //            new CglibProxy<ProxyImp>().test();
@@ -221,7 +223,7 @@ public class Main {
 
 //            new JacksonDataformatMsgpack().test();
 //            new ByteConverterTest().test();
-            new JacksonTest().test();
+//            new JacksonTest().test();
 
 //            new SQLiteTest().test();
 //            new ZooKeeperTest().test();
@@ -247,6 +249,7 @@ public class Main {
 
 //            new StringJoinerTest().test();
 //            new RandomTest().test();
+//            new TemplateMethodPattern().test();
 
 //            new Log4J2Test().test();
 //            new CountdownLatchTest().test();
@@ -307,8 +310,8 @@ public class Main {
             Runtime.getRuntime().exit(0);
             Integer a = 0;
         } catch (Exception ex) {
-            String str = ex.getMessage();
-            System.out.println(MessageFormat.format("main :{0}", str));
+           // String str = ex.getMessage();
+            System.out.println(MessageFormat.format("main :{0}", ex));
             Integer a = 0;
         }
     }
