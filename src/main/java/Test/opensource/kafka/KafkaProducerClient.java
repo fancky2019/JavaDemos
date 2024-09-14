@@ -9,6 +9,13 @@ import java.util.concurrent.ExecutionException;
 
 
 /**
+ *
+ * kafka 对于业务量不是太大有延迟：producer要等到一定消息数量才会发送到broker，异步批量思想
+ *
+ *卡发卡支持 延迟消息、死信队列、
+ *
+ * 优先级的队列暂时未找到：网上说在生产消息时候用key 代替优先级 1-10 数字
+ *
  * kafka 一个topic可以有多个partition,这些partition可以放在kafka的集群上（多个kafka broker）
  * 达到高可用，这些partition中只有一个leader,其他都是follower。kafka采用leader读写，replica
  * 备份。
@@ -27,7 +34,9 @@ import java.util.concurrent.ExecutionException;
  * //
  * //# 设置至少有2个副本 同步了数据
  * //replication.factor=2
- *
+ *主写主读
+ *同一个Partition可能会有多个Replica，Replication之间选出一个Leader，Producer和Consumer只与这个Leader交互，
+ * 其它Replica作为Follower从Leader中复制数据
  *
  *
  生产者确认生产成功。
@@ -88,7 +97,7 @@ public class KafkaProducerClient {
                         kafka直接将消息发送到指定的topic。
                          消费的时候跟rabbitMQ一样都是指定要消费的队列，kafka指定要消费的topic
                 */
-                // Send asynchronously
+                // Send asynchronously  异步发送
                 producer.send(new ProducerRecord<>(topic, keyStr, messageStr),
                         (RecordMetadata recordMetadata, Exception e) ->
                         {
@@ -105,7 +114,7 @@ public class KafkaProducerClient {
                         }
                 );
 
-            } else { // Send synchronously
+            } else { // Send synchronously 同步发送
                 try {
 
                     producer.send(new ProducerRecord<>(topic, keyStr, messageStr)).get();

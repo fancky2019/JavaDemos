@@ -163,7 +163,23 @@ public class RedissonTest {
         //   redisson.shutdown();
     }
 
+    public void redissonTest() throws Exception {
+        String operationLockKey="redissonTest";
+        RLock lock = redisson.getLock(operationLockKey);
+        //不释放锁，锁会一直占用
+        lock.lock();
+        throw new Exception("dssdsd");
 
+//        try {
+//            lock.lock();
+//            throw new Exception("dssdsd");
+//        }  finally {
+//            //先释放锁，然后在统一异常处理的时候 ，捕获异常
+//            lock.unlock();;
+//        }
+
+
+    }
     private void useRedLock() throws Exception {
         //写入hash类型数据：redisKey:lock hashKey  uuid:线程id  hashValue:thread id
         RLock lock = redisson.getLock("lock");

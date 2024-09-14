@@ -363,6 +363,7 @@ public class JDBCTest {
 
     /**
      * 利用SQL Insert() values(),()
+     *  jdbc 的batch  操作update 和insert 都是   preparedStatement.addBatch();  preparedStatement.executeBatch();
      *
      * @throws Exception
      */
@@ -418,7 +419,6 @@ public class JDBCTest {
             //执行命令并接受结果
             int[] result = preparedStatement.executeBatch();
             con.commit();
-
             //sqlserver批量插入获取自增key报异常
 //            ResultSet rs = preparedStatement.getGeneratedKeys();
 //            if (rs.next()) {

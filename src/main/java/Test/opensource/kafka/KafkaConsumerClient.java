@@ -15,7 +15,7 @@ import java.util.Properties;
       *        producer往partition的leader写，follower发起同步。
       *        consumer从partition的leader读
       *
-      *
+      *Kafka的消费者是采用pull（拉）模式来获取消息的。
       *
       * enable.offset.commit设置为false,
       * auto.offset.reset=earliest/latest
@@ -41,10 +41,10 @@ import java.util.Properties;
 
 
           顺序性消费：生产时候指定key
-         *        //  Messages 中Key 决定消息的partion,内部hash(key)，如果不指定Key将随机指定分区（partition）
-                //一个topic的partition数量最好大于消费者的数量
-                /*如果客户端开启多个线程消费：要指定Key（可以是订单ID），因为同一Key数据分配到同一partition。
-                  同一partition的数据只会分配给一个消费之，这样可以保证一个订单的新增、修改、删除的有序进行。
+         *  Messages 中Key 决定消息的partition,内部hash(key)，如果不指定Key将随机指定分区（partition）
+           一个topic的partition数量最好大于消费者的数量
+           *如果客户端开启多个线程消费：要指定Key（可以是订单ID），因为同一Key数据分配到同一partition。
+        同一partition的数据只会分配给一个消费之，这样可以保证一个订单的新增、修改、删除的有序进行。
 
       */
 public class KafkaConsumerClient {
