@@ -108,7 +108,8 @@ public class RedissonTest {
 
     public void test() throws Exception {
 //        lock();
-        useRedLock();
+//        useRedLock();
+        reentrantLockTest();
 //        CompletableFuture.runAsync(() ->
 //        {
 //            try {
@@ -258,6 +259,93 @@ public class RedissonTest {
         }
 
     }
+
+
+    /**
+     * redisson 支持可重入
+     * @throws Exception
+     */
+    public void reentrantLockTest() throws Exception {
+        //写入hash类型数据：redisKey:lock hashKey  uuid:线程id  hashValue:thread id
+        RLock lock = redisson.getLock("lock");
+//        while (lock.isLocked()) {
+//            condition.await(10,TimeUnit.SECONDS);
+//        }
+
+        //如果锁被占用,轮询
+//        while (lock.isLocked()) {
+//            Thread.sleep(1);
+//        }
+
+
+        //            long maxRetryTimes = 3;
+//            int retryTimes = 1;
+//            long step = 5;
+//
+//            while (true) {
+//                if (lock.isLocked()) {
+//                    Thread.sleep(step * retryTimes);
+//                    retryTimes++;
+//                    lock = redissonClient.getLock(lockKey);
+//                } else {
+//                    break;
+//                }
+//                if (retryTimes > maxRetryTimes) {
+//                    log.info("Thread - {} 获得锁 {}失败！锁被占用！", Thread.currentThread().getId(), lockKey);
+//                    return null;
+//                }
+//
+//            }
+
+
+        try {
+//            boolean isLocked = lock.isLocked();
+//            if (isLocked) {
+//                logger.error(MessageFormat.format("Thread - {0} 获得锁失败！锁被占用！", Thread.currentThread().getId()));
+//            }
+            //500MS 获取锁，3000锁维持时间
+            //内部采用信号量控制等待时间  Semaphore
+            //    public boolean tryLock(long waitTime, long leaseTime, TimeUnit unit)
+            //注：waitTime 获取锁时间，leaseTime：持有锁时间，超时释放锁
+            //写入hash类型数据：redisKey:lock hashKey  uuid:线程id  hashValue:thread id
+            //只要不指定leaseTime 就会自动续期
+            boolean lockSuccessfully = lock.tryLock(30, 60, TimeUnit.SECONDS);
+            if (lockSuccessfully) {
+                logger.info(MessageFormat.format("Thread - {0} 获得锁！", Thread.currentThread().getId()));
+            }
+//            boolean lockSuccessfully = lock.tryLock(30,  TimeUnit.SECONDS);
+//            if(lockSuccessfully)
+//            {
+//                logger.info(MessageFormat.format("Thread - {0} 获得锁！", Thread.currentThread().getId()));
+//            }
+
+            //不会释放锁 leaseTime=-1
+//            lock.lock();
+            //模拟耗时任务，redis HashedWheelTimer 会自动续期。不能打断点调试看redis 过期时间，此时代码不执行其他代码（续期代码），redis
+            //就不会续期
+
+            useRedLock();
+            Thread.sleep(60 * 1000);
+//            lock.lock(10, TimeUnit.SECONDS);
+            //或者直接返回
+            boolean isLocked = lock.isLocked();
+            int m = 0;
+
+        } catch (Exception ex) {
+            String msg = ex.getMessage();
+            Integer m = 0;
+            logger.error(ex.toString());
+        } finally {
+            //模拟耗时任务，redis HashedWheelTimer 会自动续期
+            Thread.sleep(60 * 1000);
+            //释放锁 unlock 删除key
+            // 如果锁因超时（leaseTime）会抛异常
+            lock.unlock();
+            // condition.notify();
+        }
+
+    }
+
 
 
 }

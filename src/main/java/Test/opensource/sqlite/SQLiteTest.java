@@ -242,7 +242,7 @@ public class SQLiteTest {
         } catch (Exception ex) {
             //已经插入了数据库
             //回滚了再从数据库中删除
-            con.rollback();
+
             String msg = ex.getMessage();
             Integer m = 0;
         } finally {

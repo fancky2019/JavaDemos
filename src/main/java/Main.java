@@ -4,6 +4,7 @@ import Test.opensource.Netty.mqtt.MqttTest;
 import Test.opensource.orgapachecommons.commonpool.CommonPoolTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
+import Test.test2018.Java8Test;
 import Test.test2019.TryCatchFinallyReturnTest;
 import Test.test2019.proxy.ProxyTest;
 import Test.test2021.CompletableFutureTest;
@@ -148,7 +149,7 @@ public class Main {
 
 
             //region test2019
-                new TryCatchFinallyReturnTest().test();
+//                new TryCatchFinallyReturnTest().test();
 //              new ProxyTest().test();
 
 //            new CglibProxy<ProxyImp>().test();
@@ -179,7 +180,7 @@ public class Main {
 //              new DivisionTest().test();
 //            new HashCodeTest().test();
             //   new LeftMoveTest().test();
-//              new RedissonTest().test();
+              new RedissonTest().test();
 //              new ConstructorTest().test();
 //            new JDBCTest().test();
 //            new MysqlTest().test();

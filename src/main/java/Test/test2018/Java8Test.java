@@ -190,7 +190,7 @@ public class Java8Test {
 
         //List对象进行排序
         //排序 正序
-        list.stream().sorted(Comparator.comparing(Student::getId)).collect(Collectors.toList());
+        list.stream().sorted(Comparator.comparing(Student::getAge)).collect(Collectors.toList());
         //排序 逆序.reversed()
         list.stream().sorted(Comparator.comparing(Student::getAge).reversed()).collect(Collectors.toList());
         //正序
@@ -199,9 +199,7 @@ public class Java8Test {
         Collections.reverse(ageList);
 
 
-        //最大、最小
-        Integer maxAge = Collections.max(ageList);
-        Integer minAge = Collections.min(ageList);
+
 
 
         //添加
@@ -214,10 +212,21 @@ public class Java8Test {
         students.add(new Student("fancky9", 10));
 
         List<Student> students1 = new ArrayList<>();
-        students.add(new Student("fancky11", 11));
-        students.add(new Student("fancky12", 12));
+        students1.add(new Student("fancky11", 11));
+        students1.add(new Student("fancky12", 12));
 
         students.addAll(students1);
+
+
+        //最大、最小
+        Integer maxAge = Collections.max(ageList);
+        Integer minAge = Collections.min(ageList);
+        int maxAge11= students1.stream().map(p->p.getAge()).mapToInt(Integer::intValue).max().orElse(0);
+        Student maxAgeStudent12=   students1.stream().max(Comparator.comparing(Student::getAge)).orElse(null);
+        int maxAge13=  students1.stream().map(p->p.getAge()).max(Comparator.comparing(Integer::intValue)).orElse(0);
+        //年龄最大的对象
+        Student oldestPerson = Collections.max(students1, Comparator.comparingInt(Student::getAge));
+
         Integer m = 0;
     }
 
