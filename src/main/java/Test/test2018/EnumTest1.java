@@ -5,10 +5,11 @@ package Test.test2018;
  */
 
 import Test.opensource.Netty.MessageType;
+import Test.test2018.reflection.Job;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum EnumTest1 {
+public enum EnumTest1{
 
     REGISTER(100000, "注册使用"),
     FORGET_PASSWORD(100001, "忘记密码使用"),
@@ -64,4 +65,5 @@ public enum EnumTest1 {
         System.out.println(EnumTest1.FORGET_PASSWORD.getMessage());
         System.out.println(EnumTest1.FORGET_PASSWORD.toString());
     }
+
 }

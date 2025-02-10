@@ -26,26 +26,26 @@ doc:https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95
  * 红锁问题： redis 网络脑裂问题
  * 主从设计；一主多从
  * N:为奇数，  至少三台机器
- * <p>
+ *
  * redisson ：redis 集群存在脑裂问题，master A 数据未同步到 slave B C,A 宕机了  B成为Master，
  * 此时 其他线程就能获取锁。设置redis 写 min-slaves-to-write=2，否则主节点A  拒绝写入。
  * 强一致性 考虑ZK
- * <p>
+ *
  * redisson中的watchdog只有在没有指定锁过期时间的时候才会被使用，如果指定了过期时间，业务超时锁自动释放会
  * watch dog 自动延期机制
  * 锁到期任务未完成：看门狗线程会不断的延长锁超时时间，锁不会因为超时而被释放。
  * 默认情况下，看门狗的续期时间是30s，也可以通过修改Config.lockWatchdogTimeout来另行指定。
- * <p>
+ *
  * TimerTask 定时任务不听续期，新版本采用HashedWheelTimer （netty 内实现的工具类） 定时任务
  * private void scheduleExpirationRenewal(long threadId) {
  * if (EXPIRATION_RENEWAL_MAP.containsKey(getEntryName())) {
  * return;
  * }
- * <p>
+ *
  * Timeout task = commandExecutor.getConnectionManager().newTimeout(new TimerTask() {
  *
  * @Override public void run(Timeout timeout) throws Exception {
- * <p>
+ *
  * RFuture<Boolean> future = renewExpirationAsync(threadId);
  * future.onComplete((res, e) -> {
  * EXPIRATION_RENEWAL_MAP.remove(getEntryName());
@@ -53,30 +53,30 @@ doc:https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95
  * log.error("Can't update lock " + getName() + " expiration", e);
  * return;
  * }
- * <p>
+ *
  * if (res) {
  * // reschedule itself
  * scheduleExpirationRenewal(threadId);
  * }
  * });
  * }
- * <p>
+ *
  * }, internalLockLeaseTime / 3, TimeUnit.MILLISECONDS);
- * <p>
+ *
  * if (EXPIRATION_RENEWAL_MAP.putIfAbsent(getEntryName(), new ExpirationEntry(threadId, task)) != null) {
  * task.cancel();
  * }
  * }
- * <p>
- * <p>
- * <p>
- * <p>
- * <p>
+ *
+ *
+ *
+ *
+ *
  * .watch dog 自动延期机制（前提没有设置锁的过期时间（leaseTime））
  * 1.watch dog 在当前节点存活时每10s给分布式锁的key续期 30s；  internalLockLeaseTime 重新设置租赁时间30s
  * 2.watch dog 机制启动，且代码中没有释放锁操作时，watch dog 会不断的给锁续期；
  * 3.从可2得出，如果程序释放锁操作时因为异常没有被执行，那么锁无法被释放，所以释放锁操作一定要放到 finally {} 中；
- * <
+ *
  * 写入hash类型数据：redisKey:lock hashKey  uuid:线程id  hashValue:thread id
  * redisson 可重入：  uuid+threadId  。
  * UUID id = UUID.randomUUID();

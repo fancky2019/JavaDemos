@@ -79,6 +79,7 @@
             <artifactId>amqp-client</artifactId>
             <version>5.6.0</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
         <!--<dependency>-->
         <!--<groupId>org.slf4j</groupId>-->
@@ -293,6 +294,25 @@
             <version>1.7.2</version>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/com.baidu/jprotobuf -->
+        <dependency>
+            <groupId>com.baidu</groupId>
+            <artifactId>jprotobuf</artifactId>
+            <version>2.4.23</version>
+        </dependency>
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -497,6 +517,30 @@
 <!--                    <skip>true</skip>-->
 <!--                </configuration>-->
 <!--            </plugin>-->
+
+
+<!--            maven执行命令 mvn jprotobuf:precompile-->
+            <plugin>
+                <groupId>com.baidu</groupId>
+                <artifactId>jprotobuf-precompile-plugin</artifactId>
+                <version>2.2.12</version>
+                <configuration>
+<!--                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>-->
+<!--                    要生成protobuf类的包名-->
+                    <filterClassPackage>Test.opensource</filterClassPackage>
+                    <generateProtoFile>true</generateProtoFile>
+                    <compileDependencies>true</compileDependencies>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>precompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
 
         </plugins>
     </build>

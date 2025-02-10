@@ -141,6 +141,11 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
     /*
     mysql  mgr 高可用
      mysql 分片：用分库来实现
+
+    高可用：中间件
+     ProxySQL
+     MySQL Router ：高可用建议通过Percona XtraDB Cluster或MariaDB Galera或MySQL官方的group replication实现，
+                   如果实在没有选择，还可以通过MHA实现。
      */
 
      /*

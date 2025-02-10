@@ -13,6 +13,11 @@ public class BigDecimalTest {
     }
 
     private void foramt() {
+
+       //推荐使用它的BigDecimal(String val)构造方法或者 BigDecimal.valueOf(double val) 静态方法来创建对象。
+        BigDecimal a = new BigDecimal("1.0");
+        BigDecimal b = BigDecimal.valueOf(1);
+
         BigDecimal bigDecimal = new BigDecimal(1.2366);
         //保留两位小数
         bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);

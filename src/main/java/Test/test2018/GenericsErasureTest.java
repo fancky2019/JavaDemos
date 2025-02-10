@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/*
+/**
 泛型类型变量不能是基本数据类型，C#可以是基本数据类型
 ?：通配符，变量只读。不能修改
 extends也称为上界通配符，就是指定上边界。即泛型中的类必须为当前类的子类或当前类。

@@ -18,6 +18,12 @@ public class SerializableTest implements Serializable {
     static final long serialVersionUID = -3387516993124229948L;
     /**
      * 忽略该字段的序列化。和C# [NonSerialized]特性。
+     *
+     *
+     * transient 只能修饰变量，不能修饰类和方法。
+     * transient 修饰的变量，在反序列化后变量值将会被置成类型的默认值。例如，如果是修饰 int 类型，那么反序列后结果就是 0。
+     * static 变量因为不属于任何对象(Object)，所以无论有没有 transient 关键字修饰，均不会被序列化。常见序
+     *
      */
     private transient String name = "fancky";
 

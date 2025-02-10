@@ -1,9 +1,9 @@
 package Test.opensource.snowflake;
 
 /**
- * Twitter_Snowflake<br>
- * SnowFlake的结构如下(每部分用-分开):<br>
- * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000 <br>
+ * Twitter_Snowflake
+ * SnowFlake的结构如下(每部分用-分开):
+ * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000
  * SnowFlake的优点是，整体上按照时间自增排序，并且整个分布式系统内不会产生ID碰撞(由数据中心ID和机器ID作区分)
  */
 public class SnowFlake {

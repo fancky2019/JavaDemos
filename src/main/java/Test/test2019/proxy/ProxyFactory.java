@@ -67,8 +67,12 @@ public class ProxyFactory {
 //
 //        );
 
-        /*
-       jdk 内部会生成 实现接口  final  修饰的方法
+        /**
+          jdk 内部会生成 实现接口  final  修饰的方法
+
+         loader :类加载器，用于加载代理对象。
+         interfaces : 被代理类实现的一些接口；
+         h : 实现了 InvocationHandler 接口的对象；
          */
 
         T t= (T)Proxy.newProxyInstance(

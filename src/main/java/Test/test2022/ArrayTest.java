@@ -1,6 +1,9 @@
 package Test.test2022;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,14 +12,15 @@ public class ArrayTest {
 //        fun();
 //        mergeSortedArray();
 //        sort();
-        print();
+//        print();
+        calculateCollectionSimilarity();
     }
 
     private void fun() {
 
         Integer[] myArray = {1, 2, 3};
         List myList = Arrays.stream(myArray).collect(Collectors.toList());
-       //基本类型也可以实现转换（依赖boxed的装箱操作）
+        //基本类型也可以实现转换（依赖boxed的装箱操作）
         int[] myArray2 = {1, 2, 3};
         List myList2 = Arrays.stream(myArray2).boxed().collect(Collectors.toList());
 
@@ -117,6 +121,28 @@ public class ArrayTest {
         List<Integer> list = Arrays.asList(array);
         System.out.println(list);
         System.out.println(Arrays.toString(array));
+        int m = 0;
+    }
+
+    private void calculateCollectionSimilarity() {
+        Integer[] array = new Integer[]{1, 2, 3, 3, 5};
+        Integer[] array1 = new Integer[]{2, 3, 5, 6};
+        List<Integer> list = Arrays.asList(array);
+        List<Integer> list1 = Arrays.asList(array1);
+        Collection<Integer> newCollection = CollectionUtils.intersection(list, list1);
+        int commonElements = 0;
+        for (Integer integer : list) {
+            if (newCollection.contains(integer)) {
+                commonElements++;
+            }
+        }
+
+        for (Integer integer : list1) {
+            if (newCollection.contains(integer)) {
+                commonElements++;
+            }
+        }
+
         int m = 0;
     }
 }

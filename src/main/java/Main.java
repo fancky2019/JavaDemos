@@ -1,17 +1,22 @@
 
 import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.Netty.mqtt.MqttTest;
+import Test.opensource.orgapachecommons.CollectionsCommons;
 import Test.opensource.orgapachecommons.commonpool.CommonPoolTest;
+import Test.opensource.protobuf.JprotobufTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
 import Test.test2018.Java8Test;
 import Test.test2019.TryCatchFinallyReturnTest;
+import Test.test2019.TryTest;
 import Test.test2019.proxy.ProxyTest;
 import Test.test2021.CompletableFutureTest;
 import Test.test2021.RandomTest;
 import Test.test2021.designpattern.TemplateMethodPattern;
+import Test.test2022.ArrayTest;
 import Test.test2023.TimestampTest;
 import Test.test2023.flinkcdc.ClickHouseTest;
+import Test.test2024.DateTimeSequence;
 import Test.test2024.ThreadStateDemo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -170,7 +175,7 @@ public class Main {
 
 //            new StringTest().test();
             //  new TimerTest().test();
-//              new TryTest().test();
+              new TryTest().test();
 
 
             //   new CharTest().test();
@@ -180,7 +185,7 @@ public class Main {
 //              new DivisionTest().test();
 //            new HashCodeTest().test();
             //   new LeftMoveTest().test();
-              new RedissonTest().test();
+//              new RedissonTest().test();
 //              new ConstructorTest().test();
 //            new JDBCTest().test();
 //            new MysqlTest().test();
@@ -291,8 +296,14 @@ public class Main {
 
             //region 2023
 //            new ThreadStateDemo().test();
+//            new JprotobufTest().test();
+
             //endregion
 
+            //region 2024
+//            new DateTimeSequence().test();
+
+            //endregion
 
             System.out.println(MessageFormat.format("main:{0}", "completed !"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));

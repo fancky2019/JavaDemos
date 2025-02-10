@@ -13,8 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/*
+/**
  依赖：commons-pool2
+
+ 1、适合对象池的场景
+对象的创建或销毁成本很高，比如：
+数据库连接（JDBC Connection）。
+网络连接（HttpClient）。
+线程池中的线程。
+复杂计算对象或需要大量资源的对象。
+对象的生命周期短且需要频繁使用。
+
+2、适合直接创建的场景
+对象是轻量级的，创建成本很低（例如，简单的 DTO 类）。
+对象生命周期较长或实例需求较少时，池化的开销可能得不偿失。
  */
 public class CommonPoolTest {
     GenericObjectPool<ShipOrderInfo> objectPool =null;
@@ -22,13 +34,20 @@ public class CommonPoolTest {
     {
         GenericObjectPoolConfig config = new GenericObjectPoolConfig();
         config.setMaxIdle(1010);
+        config.setMinIdle(1010);
         //默认8个
         config.setMaxTotal(1050);
+
         objectPool = new GenericObjectPool<>(new ShipOrderInfoBasePooledObjectFactoryImp(), config);
 
     }
     public void test() throws Exception {
 //        fun();
+        for(int i=0;i<10;i++)
+        {
+            costTimePool();
+//            costTimeUnPool();
+        }
 
         for(int i=0;i<10;i++)
         {
@@ -41,7 +60,11 @@ public class CommonPoolTest {
             costTimePool();
 //            costTimeUnPool();
         }
-
+        for(int i=0;i<10;i++)
+        {
+//            costTimePool();
+            costTimeUnPool();
+        }
     }
 
     private void fun() {
