@@ -1,6 +1,7 @@
 
 import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.Netty.mqtt.MqttTest;
+import Test.opensource.log.Log4j2Demo;
 import Test.opensource.orgapachecommons.CollectionsCommons;
 import Test.opensource.orgapachecommons.commonpool.CommonPoolTest;
 import Test.opensource.protobuf.JprotobufTest;
@@ -18,6 +19,7 @@ import Test.test2023.TimestampTest;
 import Test.test2023.flinkcdc.ClickHouseTest;
 import Test.test2024.DateTimeSequence;
 import Test.test2024.ThreadStateDemo;
+import Test.test2025.HashedWheelTimerTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -175,7 +177,7 @@ public class Main {
 
 //            new StringTest().test();
             //  new TimerTest().test();
-              new TryTest().test();
+//              new TryTest().test();
 
 
             //   new CharTest().test();
@@ -207,7 +209,7 @@ public class Main {
 
 //            new JestTest().test();
 //            new ThreadLocalTest().test();
-//            new Log4j2Demo().test();
+            new Log4j2Demo().test();
 
 //            new LinkedBlockingQueueTest().test();
 
@@ -304,6 +306,12 @@ public class Main {
 //            new DateTimeSequence().test();
 
             //endregion
+
+            //region 2024
+//            new HashedWheelTimerTest().test();
+
+            //endregion
+
 
             System.out.println(MessageFormat.format("main:{0}", "completed !"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));

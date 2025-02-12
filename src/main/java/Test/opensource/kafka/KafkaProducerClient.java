@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
  *
  * kafka 对于业务量不是太大有延迟：producer要等到一定消息数量才会发送到broker，异步批量思想
  *
- *卡发卡支持 延迟消息、死信队列、
+ *kafka支持 延迟消息、死信队列、
  *
  * 优先级的队列暂时未找到：网上说在生产消息时候用key 代替优先级 1-10 数字
  *

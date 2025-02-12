@@ -198,12 +198,34 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
     //不设计权限表：直接设计菜单权限，按钮权限和菜单区分，
     //endregion
 
-    //蓝绿发布：两套环境并行， 可以快速回滚。   数据库采用一套新版本兼容老版本，其中一个版本只读（看情况），回滚时候
-    //        任何添加到新版本的新数据也必须在回滚时传递给旧数据库。
+    //region 发布
+    /*蓝绿发布：两套环境并行， 可以快速回滚。   数据库采用一套新版本兼容老版本，其中一个版本只读（看情况），回滚时候
+        任何添加到新版本的新数据也必须在回滚时传递给旧数据库。
+        */
+
+   //endregion
 
     //region rabbitmq
     /*
      rabbitmq 镜像模式
+     */
+    //endregion
+
+    //region 订单超时取消
+    /*
+    高并发、高精度要求	时间轮算法(netty HashedWheelTimer ) + 数据库批处理
+
+    中小规模、低并发	Redis 过期事件 + 定时任务兜底
+    高并发、高精度要求	时间轮算法 + 数据库批处理
+    需要动态调整延迟时间	定时任务 + 外部配置（如 Apollo）
+    已有 MQ 基础设施	MQ 延迟消息 + 定时任务补偿机制
+
+
+    xxl-job  订单超时设计
+    SELECT o FROM Order o WHERE o.status = 'PENDING' AND o.createTime < :expireTime
+
+    查出超时未支付的订单，修改其状态为取消
+
      */
     //endregion
 }
