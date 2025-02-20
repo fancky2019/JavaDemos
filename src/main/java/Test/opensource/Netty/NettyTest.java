@@ -19,31 +19,30 @@ import java.util.concurrent.CompletableFuture;
 
 public class NettyTest {
 
-    /*
+    /**
      NIO  同步非阻塞
 
-     */
-    /*
+
      1、基于epoll LT （Level trigger）的reactor线程模型
      2、0拷贝，直接内存（堆外内存），网络发送需要拷贝到网卡发送。
      3、堆栈内存，剩下的就都是堆外内存了，DirectByteBuffer。堆内内存需用用户态内核之间拷贝，
-        直接内存不需要
+       直接内存不需要
      4、池化思想，其他框架都有
      5、protobuf，socket也可以使用
      6、面向buffer,传统基于stream
-     */
-    /*
-    --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
---add-opens java.base/sun.security.x509=ALL-UNNAMED
---add-opens java.base/java.nio=ALL-UNNAMED
--Dio.netty.tryReflectionSetAccessible=true
+
+
+     --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
+     --add-opens java.base/sun.security.x509=ALL-UNNAMED
+     --add-opens java.base/java.nio=ALL-UNNAMED
+     -Dio.netty.tryReflectionSetAccessible=true
 
 
      <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcpkix-jdk15on</artifactId>
-            <version>1.70</version>
-        </dependency>
+     <groupId>org.bouncycastle</groupId>
+     <artifactId>bcpkix-jdk15on</artifactId>
+     <version>1.70</version>
+     </dependency>
      */
     public void test() {
 //        ByteBuf可以分为两类 DirectByteBuf 和HeapByteBuf
@@ -51,12 +50,12 @@ public class NettyTest {
         //PooledUnsafeDirectByteBuf.安卓平台unpooled，其他pooled
         byteBuf = ByteBufAllocator.DEFAULT.buffer();//PooledByteBufAllocator 或者UnpooledByteBufAllocator
         //PooledUnsafeDirectByteBuf(ridx: 0, widx: 0, cap: 256)
-        byteBuf =   ByteBufAllocator.DEFAULT.directBuffer();
+        byteBuf = ByteBufAllocator.DEFAULT.directBuffer();
         //PooledUnsafeDirectByteBuf(ridx: 0, widx: 0, cap: 256)
         byteBuf = PooledByteBufAllocator.DEFAULT.buffer();
         byteBuf = UnpooledByteBufAllocator.DEFAULT.buffer();
         //建议使用ByteBuf
-        ByteBuffer byteBuffer =   DirectByteBufferAllocator.INSTANCE.allocate(100);
+        ByteBuffer byteBuffer = DirectByteBufferAllocator.INSTANCE.allocate(100);
 //        nettyTest();
 //        nettyWebSocket();
 //        nettySampleTest();

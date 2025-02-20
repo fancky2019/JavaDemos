@@ -207,7 +207,7 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
 
     //region rabbitmq
     /*
-     rabbitmq 镜像模式
+     rabbitmq 镜像模式  、仲裁队列（Quorum Queue）
      */
     //endregion
 
