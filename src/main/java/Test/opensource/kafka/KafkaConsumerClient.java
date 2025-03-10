@@ -19,6 +19,7 @@ import java.util.Properties;
       *
       * enable.offset.commit设置为false,
       * auto.offset.reset=earliest/latest
+      * spring.kafka.consumer.auto-offset-reset=earliest
       *  默认是latest。
       *
       *  Earliest
@@ -56,7 +57,10 @@ public class KafkaConsumerClient {
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "30000");
-        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "1");//每次消费poll的个数
+        //每次消费poll的个数
+        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "1");
+        //默认是latestinstanceof
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
 //        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.IntegerDeserializer");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");

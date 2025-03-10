@@ -8,16 +8,16 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/*
+/**
 volatile 只能保证对单次读/写的原子性。i++ 这种操作不能保证原子性。
-如果你有多个线程对变量写入，volatile 无法解决你的问题，并且你必须使用 synchronized 来防止竞争条件。
+如果你有多个线程对变量写入，volatile 无法解决并发的问题，并发必须使用 synchronized 来防止竞争条件。
 原子性可以应用于除 long 和 double 之外的所有基本类型之上的 “简单操作”。
 
-并发特征：原子性 可见性 有序性。volative 不保证原子性。内存屏障防止cpu优化的指令重排保证有序性。强制刷新到主存可见性。
+并发特征：原子性 可见性 有序性。volatile 不保证原子性。内存屏障防止cpu优化的指令重排保证有序性。强制刷新到主存可见性。
 
 
 
-volative  内存屏障 ， happen fefore 原则 读之前要等所有写操作要完成。强制从cpu缓存中把数据刷新到主内存
+volatile  内存屏障 ， happen before 原则 读之前要等所有写操作要完成。强制从cpu缓存中把数据刷新到主内存
 主内存线程间数据共享，
  */
 public class VolatileTest {

@@ -36,6 +36,8 @@ public class ReflectDemo {
 
             String className = clas.getName();
             Class<?> cls = Class.forName(className);
+//            clas.getClassLoader().getClass()
+//            ClassLoader.getSystemClassLoader().loadClass("cn.javaguide.TargetObject");
 
             //是否继承类、接口
             Boolean extendss = StudentParent.class.isAssignableFrom(cls);

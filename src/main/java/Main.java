@@ -1,17 +1,25 @@
 
 import Test.opensource.Jackson.JacksonTest;
 import Test.opensource.Netty.mqtt.MqttTest;
+import Test.opensource.log.Log4j2Demo;
+import Test.opensource.orgapachecommons.CollectionsCommons;
 import Test.opensource.orgapachecommons.commonpool.CommonPoolTest;
+import Test.opensource.protobuf.JprotobufTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
+import Test.test2018.Java8Test;
 import Test.test2019.TryCatchFinallyReturnTest;
+import Test.test2019.TryTest;
 import Test.test2019.proxy.ProxyTest;
 import Test.test2021.CompletableFutureTest;
 import Test.test2021.RandomTest;
 import Test.test2021.designpattern.TemplateMethodPattern;
+import Test.test2022.ArrayTest;
 import Test.test2023.TimestampTest;
 import Test.test2023.flinkcdc.ClickHouseTest;
+import Test.test2024.DateTimeSequence;
 import Test.test2024.ThreadStateDemo;
+import Test.test2025.HashedWheelTimerTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -148,7 +156,7 @@ public class Main {
 
 
             //region test2019
-                new TryCatchFinallyReturnTest().test();
+//                new TryCatchFinallyReturnTest().test();
 //              new ProxyTest().test();
 
 //            new CglibProxy<ProxyImp>().test();
@@ -201,7 +209,7 @@ public class Main {
 
 //            new JestTest().test();
 //            new ThreadLocalTest().test();
-//            new Log4j2Demo().test();
+            new Log4j2Demo().test();
 
 //            new LinkedBlockingQueueTest().test();
 
@@ -290,6 +298,18 @@ public class Main {
 
             //region 2023
 //            new ThreadStateDemo().test();
+//            new JprotobufTest().test();
+
+            //endregion
+
+            //region 2024
+//            new DateTimeSequence().test();
+
+            //endregion
+
+            //region 2024
+//            new HashedWheelTimerTest().test();
+
             //endregion
 
 

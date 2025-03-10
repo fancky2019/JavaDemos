@@ -11,6 +11,19 @@ public class TryCatchFinallyReturnTest {
         一、finally没return:try、catch有return 执行return之后再执行finally块，try、catch内return的值如果
                                  是基本数据类型不受finally语句影响，如果是引用类型将改变暂存值。
         二、finally有return：如果finally里有return将会覆盖try、catch里的return值。C#return块内不允许有return。
+
+
+        try块：用于捕获异常。其后可接零个或多个 catch 块，如果没有 catch 块，则必须跟一个 finally 块。
+        catch块：用于处理 try 捕获到的异常。
+        finally 块：无论是否捕获或处理异常，finally 块里的语句都会被执行。当在 try 块或 catch 块中遇到 return 语句时，
+                  finally 语句块将在方法返回之前被执行。
+
+        不要在 finally 语句块中使用 return
+
+        finally 中的代码不一定会被执行：
+        finally 之前虚拟机被终止运行的话，try  或catch  内 System.exit(1);
+        程序所在的线程死亡。
+        关闭 CPU。
         */
 
         //catch 可不要
@@ -123,7 +136,11 @@ public class TryCatchFinallyReturnTest {
             throw ex;
         } finally {
             System.out.println("finally when catch throw");
-//            return student;
+//            注意：不要在 finally 语句块中使用 return! 当 try 语句和 finally 语句中都有 return 语句时，
+//            try 语句块中的 return 语句会被忽略。这是因为 try 语句中的 return 返回值会先被暂存在一个本地变量中，
+//            当执行到 finally 语句中的 return 之后，这个本地变量的值就变为了 finally 语句中的 return 返回值。
+
+//            return 1;
         }
 
     }

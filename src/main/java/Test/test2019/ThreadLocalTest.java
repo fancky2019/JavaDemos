@@ -11,10 +11,12 @@ import java.util.concurrent.CompletableFuture;
 /**
  * 将全局变量设置为  ThreadLocal，可达到多线程访问同步的效果。
  * 空间换时间
- * <p>
+ *
  * 避免加锁用ThreadLocal
- * <p>
- * <p>
+ *
+ *
+ * ThreadLocal 好像是对Thread 类中的ThreadLocalMap 类的封装
+ *
  * ThreadLocalMap 存储在Thread 类中，ThreadLocalMap内部 Entry[] key -->ThreadLocal  value-->data
  * 当GC 时候若ThreadLocal没有强引用，则会回收Entry 里的key.若没有remove 会造成内存泄漏，直到线程结束时候 Thread 释放空间 ThreadLocalMap。
  */

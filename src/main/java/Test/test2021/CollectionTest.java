@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-/*
+/**
 泛型如果不指定类型参数，其类型就是object类型。C#里必须要指定类型参数
 E - Element (在集合中使用，因为集合中存放的是元素)
 T - Type（Java 类）
@@ -17,11 +17,19 @@ K - Key（键）
 V - Value（值）
 N - Number（数值类型）
 ？ - 表示不确定的java类型
+
+
+(ArrayList)顺序表‌：顺序表的存储方式是顺序存储，在内存中申请一块连续的空间，通过下标(实现RandomAccess 接口)来进行存储。
+                 顺序表在物理上是连续的，。‌不能扩容
+ (LinkedList)链表‌：链表的存储方式是链式存储，申请的空间未必连续，扩容 n+n/2
+
+
  */
 public class CollectionTest {
     public void test() {
         getListObjectProperty();
         fun();
+//        RandomAccess
     }
 
 

@@ -27,6 +27,12 @@ public class EnumTest {
     public void test() {
 
 
+      // 获取枚举类对象
+        Class<EnumDemo> enumClass = EnumDemo.class;
+       // 获取所有枚举常量
+        Object[] enumConstants = enumClass.getEnumConstants();
+
+
         EnumDemo enumDemo = EnumDemo.Blue;
 
         String enumName = EnumDemo.Black.toString();//Black

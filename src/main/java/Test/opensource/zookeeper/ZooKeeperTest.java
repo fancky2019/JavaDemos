@@ -148,8 +148,8 @@ public class ZooKeeperTest {
      * PERSISTENT_SEQUENTIAL：持久化并且带序列号
      * EPHEMERAL：临时
      * EPHEMERAL_SEQUENTIAL：临时并且带序列号
-     * <p>
-     * <p>
+     *
+     *
      * 1、PERSISTENT-持久化目录节点 :户端与zookeeper断开连接后，该节点依旧存在
      * 2、PERSISTENT_SEQUENTIAL-持久化顺序编号目录节点 :客户端与zookeeper断开连接后，该节点依旧存在，只是Zookeeper给该节点名称进行顺序编号
      * 3、EPHEMERAL-临时目录节点 :户端与zookeeper断开连接后，该节点被删除

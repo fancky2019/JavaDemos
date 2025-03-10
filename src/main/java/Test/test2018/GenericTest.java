@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 
-/*
+/**
 泛型类型变量不能是基本数据类型，C#可以是基本数据类型
 
 
@@ -33,6 +33,10 @@ super也称为下届通配符，就是指定下边界。即泛型中的类必须
   public <T> void funT(Class<T> clazz)、
   public static <T, U extends Comparable<? super U>> Comparator<T> comparing( Function<? super T, ? extends U> keyExtractor)
    泛型类：和C#一样在类名后<T>
+
+
+ //指定泛型类型
+ List<?> listyyy11 = GenaTest.<GenS>funVoid21112(new GenS());
  */
 public class GenericTest {
 
@@ -66,7 +70,8 @@ public class GenericTest {
         GenaTest.<String>Display1("sd");
         //类型参数可以省略
         GenaTest.Display1("sd");
-
+        //指定泛型类型
+        List<?> listyyy11 = GenaTest.<GenS>funVoid21112(new GenS());
 
         List<?> listyyy = GenaTest.<GenS>funVoid21112(new GenS());
         listyyy = GenaTest.funVoid21112(new GenS());
@@ -228,7 +233,7 @@ class GenaTest<T> {
 
     }
 
-    //和类的类型占位符不一样，就要设置泛型类型生命。
+    //和类的类型占位符不一样，就要设置泛型类型声明。
     static <E> void Display11(E e) {
 
     }

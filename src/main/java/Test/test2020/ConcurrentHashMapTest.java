@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/*
+/**
 遍历参见：Test.test2021.CollectionTest
  */
 public class ConcurrentHashMapTest {
@@ -19,7 +19,7 @@ public class ConcurrentHashMapTest {
      ^：位运算，相同为0，不同为1。
      */
 
-    /*
+    /**
      thread.yield() 方法，使当前线程由执行状态，变成为就绪状态，让出cpu时间，在下一个线程执行时候，
      此线程有可能被执行，也有可能没有被执行。
 
@@ -34,6 +34,7 @@ public class ConcurrentHashMapTest {
      */
     public void test() {
         // Hashtable采用的是数组 + 链表，当链表过长会影响查询效率，而ConcurrentHashMap采用数组 + 链表 + 红黑树，当链表长度超过8，则将链表转成红黑树，提高查询效率。
+
         /*
         static class Node<K,V> implements Map.Entry<K,V> {
         final int hash;
