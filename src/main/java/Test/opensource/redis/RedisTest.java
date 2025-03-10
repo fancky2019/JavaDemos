@@ -62,7 +62,6 @@ import java.util.stream.Collectors;
  *
  *集群脑裂解决：配置，强一致性使用zk
  * min-slaves-to-write：与主节点通信的从节点数量必须大于等于该值主节点，否则主节点拒绝写入。
- *
  * min-slaves-max-lag：主节点与从节点通信的ACK消息延迟必须小于该值，否则主节点拒绝写入。
  *
  *

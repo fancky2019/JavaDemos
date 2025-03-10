@@ -5,6 +5,21 @@ package Test.opensource.architecturedesign;
  */
 public class Design {
 
+
+    //region 高可用集群设计
+    /*
+    nginx: keepalived + haproxy
+    服务：nginx 反向代理
+    redis: lua 脚本实现写入至少有一个副本写入
+    rabbitMq:仲裁队列（不能实现水平扩容问题）取代镜像队列
+    mysql:keepalived(vip)+半同步复制（不要全同步复制性能差）+GTID
+    */
+
+    //endregion
+
+
+
+
     /*
     lvs :LVS（Linux Virtual Server）：LVS是基于Linux操作系统的负载均衡软件，它通过网络地址转换（NAT）
          或直接路由（DR）的方式将请求分发到后端服务器群集。LVS使用IP负载均衡技术，可以根据不同的负载均衡算法（如轮询、加权轮询、源IP哈希等）
@@ -35,8 +50,44 @@ public class Design {
 
     //region  Keepalived
     /*
+    VRRP的出现是为了解决静态路由的单点故障。
     Keepalived高可用设计。VRRP全称 Virtual Router Redundancy Protocol，即 虚拟路由冗余协议。
     虚拟ip 漂移
+
+
+    //keepalived 通过检测服务器的mysql 服务判断可用不可用关闭 mysql 服务
+//#!/bin/bash
+//# 检查 MySQL 服务是否正常运行
+//if systemctl is-active --quiet mysqld; then
+//    exit 0  # MySQL 正常，返回 0
+//            else
+//    exit 1  # MySQL 异常，返回 1
+//    fi
+
+
+    //region 工作流程
+    3. Keepalived 的工作流程
+    3.1 初始化
+    每个节点启动 Keepalived 服务，读取配置文件。
+    根据配置的优先级和虚拟路由器 ID，参与 VRRP 选举。
+
+    3.2 主节点工作
+    主节点定期发送 VRRP 通告消息，告知备份节点自己的状态。
+    主节点绑定 VIP 并开始处理数据流量。
+    主节点执行健康检查脚本，监控服务的状态。
+
+    3.3 故障检测与切换
+    如果主节点的健康检查失败，Keepalived 会降低主节点的优先级。
+    备份节点检测到主节点的优先级降低或未收到通告消息，触发选举机制。
+    优先级最高的备份节点成为新的主节点，并绑定 VIP。
+
+     3.4 恢复
+    当原主节点恢复后，Keepalived 会重新参与选举。
+    如果原主节点的优先级高于当前主节点，VIP 会切换回原主节点。
+   //endregion
+
+
+
 
 
     每台机器都装keepalived、haproxy ,他们只能用于linux服务器
@@ -94,6 +145,67 @@ web 服务器：Apache nginx tomcat iis
      */
 //endregion
 
+    //region  Keepalived使用
+    /*
+    notify_master：在Keepalived状态切换到Master时执行指定的脚本
+
+notify_backup：在Keepalived状态切换到backup时执行指定的脚本
+
+notify_fault：在Keepalived检测到故障时执行指定的脚本
+
+notify：在任何状态变化（Master、Backup或Fault）时执行指定的脚本
+
+notify_stop：在Keepalived服务挂掉时执行指定的脚本，kill或者stop等停止keepalived的命令有效
+
+
+ notify_master "/path/to/your/script.sh INSTANCE MASTER"
+    notify_backup "/path/to/your/script.sh INSTANCE BACKUP"
+    notify_fault "/path/to/your/script.sh INSTANCE FAULT"
+
+#!/bin/bash
+
+# Keepalived 传递的参数：
+# $1 = "GROUP" 或 "INSTANCE"
+# $2 = "MASTER" 或 "BACKUP" 或 "FAULT"
+# $3 = 优先级（可选）
+
+CONFIG_FILE="/path/to/your/springboot/application.yml"  # Spring Boot 配置文件路径
+ACTUATOR_URL="http://localhost:8080/actuator/refresh"  # Spring Boot Actuator 刷新配置的URL
+NEW_MYSQL_HOST="new_mysql_host"  # 新的 MySQL 主机地址
+NEW_MYSQL_PORT="3306"            # 新的 MySQL 端口
+NEW_MYSQL_USER="root"            # 新的 MySQL 用户名
+NEW_MYSQL_PASSWORD="password"    # 新的 MySQL 密码
+
+# 根据 Keepalived 状态执行操作
+case "$2" in
+    "MASTER")
+        echo "切换为 MASTER 状态，更新 MySQL 配置..."
+        # 更新 Spring Boot 配置文件中的 MySQL 连接信息
+        sed -i "s/^\(spring.datasource.url: jdbc:mysql://\).*:\([0-9]*\/.*\)$/\1${NEW_MYSQL_HOST}:${NEW_MYSQL_PORT}\/\2/" $CONFIG_FILE
+        sed -i "s/^\(spring.datasource.username: \).*$/\1${NEW_MYSQL_USER}/" $CONFIG_FILE
+        sed -i "s/^\(spring.datasource.password: \).*$/\1${NEW_MYSQL_PASSWORD}/" $CONFIG_FILE
+
+        # 调用 Spring Boot Actuator 刷新配置
+        curl -X POST $ACTUATOR_URL
+        ;;
+    "BACKUP" | "FAULT")
+        echo "切换为 BACKUP 或 FAULT 状态，无需更新配置。"
+        ;;
+    *)
+        echo "未知状态: $2"
+        exit 1
+        ;;
+esac
+
+exit 0
+
+
+
+
+
+     */
+    //endregion
+
     //region  nginx
 /*
 upstream blance {#配置服务器的分别对应的应用ip和的端口
@@ -126,6 +238,9 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
 
     //endregion
 
+
+
+
     //region mysql ha
 //    无法做到严格的主从同步，都会有延迟，如果强制从主库读就违反了，读写分离原则。如果将写入数据同步到redis 缓存，加大复杂性
     /*
@@ -133,7 +248,7 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
      主主+keepalived  masterA和masterB互为主从，keepalived vip保证A写，B同步A，B和slave之间同步，slave会有延迟
      两台机器都装keepalived 、mysq,  java通过vip访问mysql 。两台mysql 互为主从
 
-
+      MHA :会尝试保存故障主库的 binlog，但无法保证 100% 数据一致性。建议结合半同步复制使用。
      主从：master--- keepalive--vip-- mysqlA 和mysqlB
           slave---keepalive--vip-- mysqlC mysqlD mysqlE
      */
@@ -149,12 +264,68 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
      */
 
      /*
+      mysql主从同步：建议半同步复制+GTID
       MySQL主从复制默认异步复制进行同步。
       MySQL主从复制的原理：同步复制、异步复制（默认）、半同步复制、并行复制
       全同步复制（组复制 5.7支持）：配置、当master节点写数据的时候，会等待所有的slave节点完成数据的复制，然后才继续往下进行；组复制的每一个节点都可能是slave
-      异步复制：主库 提交不关心从库是否提交、
-      半同步复制：至少一个从库提交（内网环境，通信要求）、需要安装插件并启用
+      异步复制（默认）：主库 提交不关心从库是否提交、
+      半同步复制：主库在执行完事务后，会等待至少一个从库接收并写入 Relay Log 后，才返回结果给客户端、
+                需要安装插件并启用。只保证中继日志复制到从库，不保证日志被写入mysql .需要结合GTID或MHA保证数据一致性
       并行复制：
+
+
+
+      GTID 复制：（GTID-Based Replication）： MySQL 5.6 引入的特性，为每个事务分配一个全局唯一的标识符
+                      。从库通过 GTID 来追踪主库的事务，而不是通过二进制日志的文件名和位置。
+                  流程：
+                  1. 主库生成 GTID 并记录事务
+                事务提交：
+                当主库上执行一个事务时，MySQL 会为该事务生成一个全局唯一的 GTID。
+                GTID 的格式为：source_id:transaction_id，其中：
+                source_id 是主库的唯一标识（通常是 server_uuid）。
+                transaction_id 是事务的唯一标识，从 1 开始递增。
+                记录到二进制日志：
+                主库将事务的 GTID 和事务内容记录到二进制日志（Binary Log）中。
+                二进制日志中会包含 GTID 事件（GTID_LOG_EVENT），用于标识事务的 GTID。
+
+                返回结果给客户端：
+                主库在事务提交后，立即返回结果给客户端（如果是异步复制）。
+                如果是半同步复制，主库会等待至少一个从库确认接收事务后，再返回结果。
+
+                2. 从库获取 GTID 并应用事务
+                从库连接主库：
+                从库通过配置的复制用户连接到主库，并请求获取二进制日志。
+                读取 GTID 事件：
+                从库从主库的二进制日志中读取 GTID 事件，获取事务的 GTID 和事务内容。
+                从库会记录已经接收到的 GTID 集合（Retrieved_Gtid_Set）。
+                检查 GTID 是否已执行：
+                从库会检查当前事务的 GTID 是否已经存在于自己的 gtid_executed 集合中。
+                如果 GTID 已经存在，说明该事务已经执行过，从库会跳过该事务，避免重复执行。
+                应用事务：
+                如果 GTID 不存在于 gtid_executed 集合中，从库会将事务内容写入自己的 Relay Log（中继日志）。
+                从库的 SQL 线程会读取 Relay Log 中的事务，并在本地执行。
+                更新 GTID 集合：
+                从事务成功执行后，从库会将该事务的 GTID 添加到自己的 gtid_executed 集合中。
+                从库会定期将 gtid_executed 集合持久化到 mysql.gtid_executed 表中。
+
+                4. GTID 复制的故障恢复
+                如果从库在复制过程中遇到错误（如主键冲突或数据不一致），可以通过以下步骤恢复：
+
+                停止从库复制：
+                STOP SLAVE;
+
+                跳过错误事务：
+
+                手动设置 GTID，跳过错误事务：
+                SET GTID_NEXT='source_id:transaction_id';
+                BEGIN; COMMIT;
+                SET GTID_NEXT='AUTOMATIC';
+                将错误事务的 GTID 添加到 gtid_executed 集合中。
+
+                重新启动从库复制：
+                START SLAVE;
+
+
 
       GTID 主从：可以自动选主
 
@@ -179,8 +350,80 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
       (MMM 不维护) replication-manager:两主多从，只有一个主写，热备vip，每台服务器都要代理
       orchestrator:https://github.com/openark/orchestrator
       */
+
+
+
+
+
+/*
+方法 2：Orchestrator（官方推荐）
+Orchestrator 是一个开源的 MySQL 高可用工具，支持 主从复制（Replication） 和 Group Replication，可以自动提升新的 Master。
+
+工作流程
+监控主库（Master）。
+发现主库故障后，选择合适的 Slave 作为新 Master，并自动切换主从关系。
+支持 自动 DNS 更新 或 VIP 变更，让应用程序透明地连接到新 Master。
+优点
+
+轻量级，MySQL 官方推荐。
+Web 界面可视化管理数据库拓扑结构。
+适用于大规模 MySQL 集群。
+缺点
+需要额外部署 Orchestrator 服务器。
+
+
+
+
+
+
+
+应用程序连接配置更新
+无论使用哪种方案，应用程序连接都需要更新，可以通过以下方式实现：
+
+VIP（Virtual IP）：使用 Keepalived 绑定 VIP 到主库，Failover 时自动切换 VIP。
+DNS 动态解析：更新 DNS 记录，指向新的 Master。
+ProxySQL / HAProxy：应用程序连接 ProxySQL，由 ProxySQL 负责路由到正确的 Master。
+环境变量：使用配置管理工具（如 Consul、Zookeeper）动态更新数据库连接。
+ */
+
+
     //endregion
 
+    //region   mysql ha 服务器架构
+    /*
+    3.2 基于 GTID 和半同步复制的高可用架构
+        架构组成：
+        1 台主库（Master）。
+        2 台从库（Slave）。
+        1 台管理节点（用于故障检测和切换）。
+        工作流程：
+        主库处理写操作，并通过 GTID 和半同步复制确保至少一个从库接收数据。
+        管理节点监控主库和从库的状态。
+        如果主库故障，管理节点选择一个从库提升为新的主库，并自动调整复制拓扑。
+        优点：
+        数据一致性更强。
+        支持自动故障切换。
+        缺点：
+        需要更多服务器资源（至少 3 台）。
+        配置和管理复杂度较高。
+
+
+    3.4 基于 MHA（Master High Availability）的高可用架构
+    架构组成：
+            1 台主库（Master）。
+            2 台从库（Slave）。
+            1 台管理节点（MHA Manager）。
+    工作流程：
+    MHA Manager 监控主库和从库的状态。
+    如果主库故障，MHA Manager 自动选择一个从库提升为新的主库，并调整其他从库的复制配置。
+    优点：
+    支持自动故障切换。
+    配置相对简单。
+    缺点：
+    需要额外的管理节点。
+    对网络和服务器性能有一定要求。
+*/
+    //endregion
 
     //region rbac
     //user

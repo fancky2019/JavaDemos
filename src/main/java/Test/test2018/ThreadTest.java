@@ -277,6 +277,12 @@ public class ThreadTest {
     //endregion
 
     //region  threadPool
+
+    /**
+     * execute 适用于简单的 Runnable 任务，没有返回值，异常由线程池处理。
+     *
+     * submit 适用于需要返回值或需要捕获异常的任务，返回 Future 对象。submit 最终调用execute
+     */
     public void threadPool() throws Exception {
 
         int N_CPUS = Runtime.getRuntime().availableProcessors();
