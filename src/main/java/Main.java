@@ -7,10 +7,13 @@ import Test.opensource.orgapachecommons.commonpool.CommonPoolTest;
 import Test.opensource.protobuf.JprotobufTest;
 import Test.opensource.redis.RedisTest;
 import Test.opensource.redis.RedissonTest;
+import Test.opensource.snowflake.SnowFlake;
+import Test.test2018.AnonymousInternalClassTest;
 import Test.test2018.Java8Test;
 import Test.test2019.TryCatchFinallyReturnTest;
 import Test.test2019.TryTest;
 import Test.test2019.proxy.ProxyTest;
+import Test.test2020.ConcurrentHashMapTest;
 import Test.test2021.CompletableFutureTest;
 import Test.test2021.RandomTest;
 import Test.test2021.designpattern.TemplateMethodPattern;
@@ -20,6 +23,7 @@ import Test.test2023.flinkcdc.ClickHouseTest;
 import Test.test2024.DateTimeSequence;
 import Test.test2024.ThreadStateDemo;
 import Test.test2025.HashedWheelTimerTest;
+import Test.test2025.SortedMapTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -129,13 +133,14 @@ public class Main {
             //   new Configs().test();
 
 //              new RedisTest().test();
-
+//            long id = new SnowFlake(1, 0).nextId();
+//            int mmm111=0;
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
 
             //  new ProducerConsumerTPSTest(100,5).Test();
 
-            //   new AnonymousInternalClassTest().test();
+               new AnonymousInternalClassTest().test();
 
 
 //            ExtendTest extendTest=new ExtendTest() ;
@@ -209,7 +214,7 @@ public class Main {
 
 //            new JestTest().test();
 //            new ThreadLocalTest().test();
-            new Log4j2Demo().test();
+//            new Log4j2Demo().test();
 
 //            new LinkedBlockingQueueTest().test();
 
@@ -264,7 +269,6 @@ public class Main {
 //            new CompletableFutureTest().test();
 //            new LockSupportTest().test();
 //            new Test.test2018.ThreadTest().test();
-//            new Test.test2021.ThreadTest().test();
 //            new DelayQueueTest().test();
 //            new MathTest().test();
 
@@ -312,6 +316,11 @@ public class Main {
 
             //endregion
 
+            //region 2025
+//            new SortedMapTest().test();
+
+            //endregion
+
 
             System.out.println(MessageFormat.format("main:{0}", "completed !"));
             BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
@@ -330,7 +339,7 @@ public class Main {
             Runtime.getRuntime().exit(0);
             Integer a = 0;
         } catch (Exception ex) {
-           // String str = ex.getMessage();
+            // String str = ex.getMessage();
             System.out.println(MessageFormat.format("main :{0}", ex));
             Integer a = 0;
         }

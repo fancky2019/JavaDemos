@@ -177,10 +177,10 @@ public class RedisTest {
 //        set();
 //        sortedSet();
 //        increment();
-        transactionTest();
+//        transactionTest();
 //        keyExpire();
 //        redisQueue();
-//        streamQueue();
+        streamQueue();
 //        pubSub();
 
 
@@ -761,9 +761,41 @@ public class RedisTest {
 
     //endregion
 
-    //region stream 队列
+    //region Redis Stream + Sorted Set（ZSET） 实现优先级队列 .考虑直接用ZSET 简单
 
     /*
+    注：使用lua 脚本代替原子操作
+    1. 实现步骤
+    生产者逻辑
+    写入 Stream：发送消息到 Stream，获取自动生成的 消息ID（如 "1665581234567-0"）。
+    更新 ZSET：将 消息ID 和 优先级分数 存入 ZSET（分数越高优先级越高）。
+
+
+    消费者逻辑
+    从 ZSET 获取最高优先级的消息ID：
+    根据消息ID从 Stream 读取具体内容：
+    消费后删除消息（避免重复消费）：
+    */
+
+
+
+    //endregion
+
+    //region Redis ZSET 实现优先级队列
+        /*
+        基本实现原理
+        元素作为成员(member)：队列中的每个元素作为 ZSET 的成员
+        优先级作为分数(score)：元素的优先级对应 ZSET 的分数
+        排序规则：ZSET 会按照分数自动排序，分数越小优先级越高(或越大优先级越高，取决于你的设计)
+
+        1. 阻塞式出队
+        Redis 5.0+ 提供了 BZPOPMIN 和 BZPOPMAX 命令，可以阻塞直到有元素可用：
+         */
+        //endregion
+
+    //region stream 队列
+
+    /**
 
     xinfo help 查看stream 成员命令
 
@@ -850,9 +882,15 @@ public class RedisTest {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("name", "fancky2");
                 hashMap.put("age", "27");
+
+                //根据key 排序，默认升序
+                SortedMap<Long,String> sortedMap=new TreeMap<>() ;
+                sortedMap.put(Long.valueOf(2),"b");
+                sortedMap.put(Long.valueOf(1),"a");
+
 //                //0-0  相当于new StreamEntryID("0-0");
 //                StreamEntryID streamEntryID = new StreamEntryID();
-                // 消息的id 时间戳-序列号  1654594218003-0  ; StreamEntryID.NEW_ENTRY toString= "*"
+                //消息ID默认按时间戳排序（格式为<timestamp>-<sequence>）： 消息的id 时间戳-序列号  1654594218003-0  ; StreamEntryID.NEW_ENTRY toString= "*"
                 StreamEntryID msgId = jedis.xadd(redisQueueKey, StreamEntryID.NEW_ENTRY, hashMap);
                 int m = 0;
             } catch (Exception e) {
@@ -861,7 +899,8 @@ public class RedisTest {
 
         });
 
-        //consumer
+//        return;
+//        //consumer
         CompletableFuture.runAsync(() ->
         {
             try (Jedis jedis = jedisPool.getResource()) {
@@ -880,7 +919,7 @@ public class RedisTest {
                         String groupCreate = jedis.xgroupCreate(redisQueueKey, groupName, streamEntryID, false);
                     }
 
-                    //消息消费时的参数 block 0 一直阻塞,单位毫秒10000
+                    //消息消费时的参数 block 0 一直阻塞,单位毫秒10000 , 每次block(0).count(1);每次获取一个
                     XReadGroupParams xReadGroupParams = new XReadGroupParams().block(0).count(1);
                     Map<String, StreamEntryID> streamEntryIDs = new HashMap<>();
                     // 消费组游标last_delivered_id 变量就会前移一位 StreamEntryID.UNRECEIVED_ENTRY    toString() { return ">";}
@@ -921,7 +960,7 @@ public class RedisTest {
                             StreamPendingSummary streamPendingSummary = jedis.xpending(redisQueueKey, groupName);
 
                             //ack ,可以一次ack多个id (多个消息)
-                            jedis.xack(redisQueueKey, groupName, streamEntry.getID());
+//                            jedis.xack(redisQueueKey, groupName, streamEntry.getID());
                             int n = 0;
                         }
                     }
@@ -934,6 +973,16 @@ public class RedisTest {
             }
 
         });
+
+
+
+
+
+
+
+
+
+
     }
 
     private boolean groupExist(String redisQueueKey, String groupName) {

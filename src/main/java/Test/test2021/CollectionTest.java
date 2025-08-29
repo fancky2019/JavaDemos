@@ -9,18 +9,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
-泛型如果不指定类型参数，其类型就是object类型。C#里必须要指定类型参数
-E - Element (在集合中使用，因为集合中存放的是元素)
-T - Type（Java 类）
-R - Return
-K - Key（键）
-V - Value（值）
-N - Number（数值类型）
-？ - 表示不确定的java类型
+ 泛型如果不指定类型参数，其类型就是object类型。C#里必须要指定类型参数
+ E - Element (在集合中使用，因为集合中存放的是元素)
+ T - Type（Java 类）
+ R - Return
+ K - Key（键）
+ V - Value（值）
+ N - Number（数值类型）
+ ？ - 表示不确定的java类型
 
 
-(ArrayList)顺序表‌：顺序表的存储方式是顺序存储，在内存中申请一块连续的空间，通过下标(实现RandomAccess 接口)来进行存储。
-                 顺序表在物理上是连续的，。‌不能扩容
+ (ArrayList)顺序表‌：顺序表的存储方式是顺序存储，在内存中申请一块连续的空间，通过下标(实现RandomAccess 接口)来进行存储。
+ 顺序表在物理上是连续的，。‌不能扩容
  (LinkedList)链表‌：链表的存储方式是链式存储，申请的空间未必连续，扩容 n+n/2
 
 
@@ -63,9 +63,11 @@ public class CollectionTest {
         List<Student> filterList = list.stream().filter(p -> p.getAge() > 3).collect(Collectors.toList());
         //去重
         List<Integer> eosStudentIds = list.stream().map(p -> p.getAge()).distinct().collect(Collectors.toList());
-        //取一个
+        //取第一个
         Optional<Student> s1 = list.stream().filter(p -> p.getAge() > 20).findFirst();
         Student s11 = s1.orElse(null);
+        //FirstOrDefault
+        Student st1112 = list.stream().filter(p -> p.getAge() > 20).findFirst().orElse(null);
 //        //实现Comparable接口，然后重写compareTo方法。
 //        ageList.sort((a, b) ->
 //        {
@@ -115,8 +117,8 @@ public class CollectionTest {
         Map<String, List<Student>> studentsGroupBy = listGroup.stream().collect(Collectors.groupingBy(Student::getName));
 
         //平铺转list  平铺数组 .flatMap(Arrays::stream) 平铺listCollection::stream
-        List<Student> listStu=  studentsGroupBy.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
-        HashMap<String, List<Student>> studentsGroupBy1 = listGroup.stream().collect(Collectors.groupingBy(Student::getName,HashMap::new,Collectors.toList()));
+        List<Student> listStu = studentsGroupBy.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
+        HashMap<String, List<Student>> studentsGroupBy1 = listGroup.stream().collect(Collectors.groupingBy(Student::getName, HashMap::new, Collectors.toList()));
         //分组：多个属性分组--将多个属性拼接成一个属性
         Map<String, List<Student>> multiFieldGroupBy = listGroup.stream().collect(Collectors.groupingBy(p -> MessageFormat.format("{0}_{1}", p.getName(), p.getJob())));
         //对分组后形成的字典进行迭代
@@ -132,6 +134,14 @@ public class CollectionTest {
         {
             System.out.println(MessageFormat.format("name:{0},age sum:{1}", groupByFiled, intSummaryStatistics.getSum()));
         });
+
+//        list转map  当尝试获取一个不存在的键时，会返回null
+        Map<Integer, Student> locationDOMap = listGroup.stream().collect(Collectors.toMap(Student::getId, item -> item));
+//        orgnizationMap=orgnizationList.stream().collect(Collectors.toMap(p->p.getId().toString(), item -> item));
+
+
+        //FirstOrDefault
+        Student st111 = list.stream().filter(p -> p.getAge() > 20).findFirst().orElse(null);
 
 
         HashMap<Integer, String> hashMap = null;
@@ -198,11 +208,10 @@ public class CollectionTest {
 
 
         //key 集合
-        ConcurrentHashMap.KeySetView<String, String> keySet= concurrentHashMap.keySet();
+        ConcurrentHashMap.KeySetView<String, String> keySet = concurrentHashMap.keySet();
         //value 集合
-        Collection<String> valuesView= concurrentHashMap.values();
+        Collection<String> valuesView = concurrentHashMap.values();
         concurrentHashMap.keys();
-
 
 
         concurrentHashMap.forEach((k, v) ->
@@ -278,7 +287,7 @@ public class CollectionTest {
         set.add("aaa");
         set.add("bbb");
         set.add("ccc");
-        for (String s:set) {
+        for (String s : set) {
             System.out.println(s);
         }
 

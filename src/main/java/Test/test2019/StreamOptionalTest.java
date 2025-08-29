@@ -122,7 +122,7 @@ public class StreamOptionalTest {
         //平均
         Double avg = list.stream().collect(Collectors.averagingDouble(p -> p.getAge()));
 
-        //分组
+        //分组  MultiKey addTruckOrderAndItem
         //Key分组的字段,分组的数据
         Map<String, List<Student>> group1 = list.stream().collect(Collectors.groupingBy(p -> p.getName()));
         //单个字段分组统计个数
