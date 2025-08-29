@@ -5,9 +5,10 @@ import org.checkerframework.checker.units.qual.K;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorCompletionService;
 
 /**
-遍历参见：Test.test2021.CollectionTest
+ 遍历参见：Test.test2021.CollectionTest
  */
 public class ConcurrentHashMapTest {
 
@@ -25,11 +26,11 @@ public class ConcurrentHashMapTest {
 
 
      sizeCtl ：默认为0，用来控制table的初始化和扩容操作，具体应用在后续会体现出来。
-                -1 代表table正在初始化
-                -N 表示有N-1个线程正在进行扩容操作
-                其余情况：
-                1、如果table未初始化，表示table需要初始化的大小。
-                2、如果table初始化完成，表示table的容量，默认是table大小的0.75倍
+     -1 代表table正在初始化
+     -N 表示有N-1个线程正在进行扩容操作
+     其余情况：
+     1、如果table未初始化，表示table需要初始化的大小。
+     2、如果table初始化完成，表示table的容量，默认是table大小的0.75倍
 
      */
     public void test() {
@@ -52,6 +53,12 @@ public class ConcurrentHashMapTest {
         Node<K,V> next;
          */
         HashMap<Integer, Integer> hashMap = new HashMap<>();
+        //key 不存在返回null,C#dic 抛异常。
+        Integer i1 = hashMap.get(1);
+        Integer i11 = hashMap.get(null);
+        //可以添加重复的key，后面值覆盖之前添加的值
+        hashMap.put(1, 1);
+        hashMap.put(1, 2);
         //hashmap 初始容量，16 阈值：16*0.75，每次添加完之后判断超过阈值扩容
         for (int i = 1; i <= 16 * 0.75; i++) {
             hashMap.put(i, 1);

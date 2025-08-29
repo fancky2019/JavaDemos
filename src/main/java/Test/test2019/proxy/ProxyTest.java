@@ -6,10 +6,15 @@ import java.lang.reflect.Proxy;
 import java.text.MessageFormat;
 import java.util.concurrent.TimeUnit;
 
-/*
-JDK动态代理的两个核心接口(类)分别是InvocationHandler和Proxy。注意：只能代理接口。
-
-CGLIB动态代理模拟
+/**
+ * 代理模式是一种结构型设计模式，主要用于控制对对象的访问，并在访问前后添加额外逻辑。
+*JDK动态代理的两个核心接口(类)分别是InvocationHandler和Proxy。注意：只能代理接口。
+*CGLIB动态代理模拟
+ *
+ *
+ *  代理模式："控制访问"（隐藏对象，增强非业务逻辑）。
+ *  装饰器模式："增强功能"（透明扩展，支持嵌套组合）。
+ *  两者选择取决于需求：需控制权限或隐藏细节时用代理；需动态扩展功能时用装饰器
  */
 public class ProxyTest {
     public void test() {

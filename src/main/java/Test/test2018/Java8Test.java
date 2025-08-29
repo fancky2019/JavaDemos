@@ -30,6 +30,10 @@ import java.util.stream.Stream;
  */
 /*
 java8:接口中可以有default 方法和静态方法
+
+
+
+stream:对集合元素批量进行数据处理操作的元素序列
  */
 public class Java8Test {
     public void test() {
@@ -120,6 +124,11 @@ public class Java8Test {
         //Function.identity()返回t -> t形式的Lambda表达式。
         Map<Integer, Student> map = listGroup.stream().collect(Collectors.toMap(Student::getId, Function.identity()));
         Map<Integer, Student> map1 = listGroup.stream().collect(Collectors.toMap(p -> p.getId(), p -> p));
+        //
+        Map<Integer, String> map11 = listGroup.stream().collect(Collectors.toMap(p -> p.getId(), p -> p.getName()));
+
+
+
 
         List<Student> listGroup1 = map.values().stream().collect(Collectors.toList());
         listGroup1 = new ArrayList<>(map.values());
@@ -155,6 +164,11 @@ public class Java8Test {
         Integer sum4 = list.stream().map(p -> p.getAge()).reduce((a, b) -> a + b).get();
         Integer sum5 = list.stream().mapToInt(p -> p.getAge()).sum();
 
+//        BigDecimal 类型求和
+//        BigDecimal sum = shipOrderItemResponseList.stream()
+//                .map(ShipOrderItemResponse::getRequiredPkgQuantity)
+//                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
 
         HashMap<String, List<Student>> studentsGroupBy1 = listGroup.stream().collect(Collectors.groupingBy(Student::getName, HashMap::new, Collectors.toList()));
         //分组：多个属性分组--将多个属性拼接成一个属性
@@ -167,7 +181,15 @@ public class Java8Test {
         });
         //分组求和
         Map<String, IntSummaryStatistics> groupBySummaryStatistics = listGroup.stream().collect(Collectors.groupingBy(Student::getName, Collectors.summarizingInt(Student::getAge)));
-
+//        Map<Long, BigDecimal> sumByProduct = materialInventoryInfoList.stream()
+//                .collect(Collectors.groupingBy(
+//                        InventoryInfo::getMaterialId,
+//                        Collectors.reducing(
+//                                BigDecimal.ZERO,
+//                                InventoryInfo::getPackageQuantity,
+//                                BigDecimal::add
+//                        )
+//                ));
         groupBySummaryStatistics.forEach((groupByFiled, intSummaryStatistics) ->
         {
             System.out.println(MessageFormat.format("name:{0},age sum:{1}", groupByFiled, intSummaryStatistics.getSum()));

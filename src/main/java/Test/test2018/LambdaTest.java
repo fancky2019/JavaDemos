@@ -13,6 +13,11 @@ import java.util.function.Predicate;
  *
  *
  * lambda 不能引用外部原始类型数据，可以引用引用类型数据
+ *
+ *
+ * Lambda 会被转换为：
+ * 私有静态方法（如果 Lambda 没有引用外部的final 变量）。
+ * 实例方法（如果 Lambda 引用外部的final 变量）。
  * @author cc
  */
 public class LambdaTest {

@@ -50,8 +50,8 @@ public class ThreadTest {
 
 
             //   functionBlockingQueue();
-            threadPool();
-
+//            threadPool();
+            whenComplete();
             /**
              *
              */
@@ -374,6 +374,7 @@ public class ThreadTest {
 
     private CompletableFuture<Integer> completableFutureDemo() {
         try {
+            // 处理器个数    Runtime.getRuntime().availableProcessors()
             int par = ForkJoinPool.commonPool().getParallelism();
             //不指定线程池。内部采用 ForkJoinPool.makeCommonPool()
             //CompletableFuture 内部默认最多启动处理器个数 -1 个线程执行任务。
@@ -471,27 +472,43 @@ public class ThreadTest {
 
 
     public void whenComplete() {
-        String threadName = Thread.currentThread().getName();
-        Thread.currentThread().getId();
-        String result = CompletableFuture.supplyAsync(() -> {
-            try {
-                String threadName1 = Thread.currentThread().getName();
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (1 == 1) {
-                throw new RuntimeException("测试一下异常情况");
-            }
-            return "s1";
-        }).whenComplete((s, t) -> {
-            System.out.println(s);
-            System.out.println(t.getMessage());
-        }).exceptionally(e -> {
-            System.out.println(e.getMessage());
-            return "hello world";
-        }).join();
-        System.out.println(result);
+
+        try {
+            String threadName = Thread.currentThread().getName();
+            Thread.currentThread().getId();
+            String result = CompletableFuture.supplyAsync(() -> {
+                try {
+                    String threadName1 = Thread.currentThread().getName();
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (1 == 1) {
+                    throw new RuntimeException("测试一下异常情况");
+                }
+                return "s1";
+            }).whenComplete((s, t) -> {
+                System.out.println(s);
+                System.out.println(t.getMessage());
+            }).exceptionally(e -> {
+                System.out.println(e.getMessage());
+                //不能直接throw e;要用try catch 包一下
+                try {
+                    throw  e;
+                } catch (Throwable ex) {
+                    //可以抛出到外层的 catch
+                    throw new RuntimeException(ex);
+                }
+//                return "默认值"; // 提供默认值
+//                return "hello world";
+            }).join();
+            System.out.println(result);
+        }
+        catch (Exception ex)
+        {
+            int m=0;
+        }
+
     }
     //endregion
 
