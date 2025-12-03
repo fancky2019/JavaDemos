@@ -142,13 +142,20 @@ public class CalendarTest {
         //获取毫秒数时间戳 class ZoneOffset     extends ZoneId
         long expireTime = LocalDateTime.now().toInstant(ZoneOffset.of("+08:00")).toEpochMilli();
 
+        //时间戳毫秒13 位，秒9位
         //采用时间戳比较  class ZoneOffset     extends ZoneId
         long localDateTimeMillis = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
         long localDateTimeMillis1 = localDateTime.atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
         if (System.currentTimeMillis() >= localDateTimeMillis) {
 
         }
-        //时间戳转localDateTime
+
+        LocalDateTime lNow=  LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(localDateTimeMillis),
+                ZoneId.systemDefault()
+        );
+
+        //时间戳转localDateTime    ZoneId.systemDefault()
         LocalDateTime l1 = LocalDateTime.ofInstant(Instant.ofEpochMilli(localDateTimeMillis), ZoneOffset.of("+8"));
 
 

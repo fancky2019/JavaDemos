@@ -67,7 +67,7 @@ public class ProxyFactory {
 //
 //        );
 
-        /**
+        /*
           jdk 内部会生成 实现接口  final  修饰的方法
 
          loader :类加载器，用于加载代理对象。

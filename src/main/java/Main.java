@@ -23,6 +23,7 @@ import Test.test2023.flinkcdc.ClickHouseTest;
 import Test.test2024.DateTimeSequence;
 import Test.test2024.ThreadStateDemo;
 import Test.test2025.HashedWheelTimerTest;
+import Test.test2025.MultipleFieldGroupTest;
 import Test.test2025.SortedMapTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -133,14 +134,19 @@ public class Main {
             //   new Configs().test();
 
 //              new RedisTest().test();
-//            long id = new SnowFlake(1, 0).nextId();
+            SnowFlake snowFlake= new SnowFlake(1, 0);
+            long id = snowFlake.nextId();
+            snowFlake.analyze(id);
+            snowFlake.analyze(722389759819847L);
+
+
 //            int mmm111=0;
             //  new ProduceConsumerTest(100).Test();
             //   new ProduceConsumerConditionTest(100).Test();
 
             //  new ProducerConsumerTPSTest(100,5).Test();
 
-               new AnonymousInternalClassTest().test();
+//               new AnonymousInternalClassTest().test();
 
 
 //            ExtendTest extendTest=new ExtendTest() ;
@@ -318,6 +324,7 @@ public class Main {
 
             //region 2025
 //            new SortedMapTest().test();
+//            new MultipleFieldGroupTest().test();
 
             //endregion
 

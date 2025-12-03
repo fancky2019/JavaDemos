@@ -2,7 +2,7 @@ package Test.test2019;
 
 import Test.test2018.Person;
 
-/*
+/**
 Java不能声明静态类：只能声明静态内部类
 静态内部类： 静态类内可以有非静态成员，只能访问外部类的静态成员
 非静态内部类：内部类不能声明静态成员， 可以访问外部类的静态、非静态成员
@@ -49,7 +49,7 @@ class OuterClass {
         System.out.println("OuterClassStaticFun");
     }
 
-    /*
+    /**
     Java不能声明静态类：只能声明静态内部类
     静态类内可以有非静态成员
     只能访问外部类的静态成员
@@ -88,7 +88,7 @@ class OuterClass {
 
     }
 
-    /*
+    /**
     非静态内部类不能声明静态成员
     可以访问外部类的静态、非静态成员
      */

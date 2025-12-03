@@ -1,6 +1,7 @@
 package Test.test2018;
 
 import Model.Student;
+import lombok.AllArgsConstructor;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -8,6 +9,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
+ * 随便找一个springboot 项目把jar包内生成的带有@data注解的实体类.class文件拖入idea中可以看到生成后的class
  * lambda 表达式的执行原理是会构建一个内部类，其中表达式中用到的外部变量，都会通过内部类的构造函数，作为参数引入。
  * Lambda 表达式引用的局部变量必须是 final 或者是等同 final 效果的即lambda内不会修改变量值
  *
@@ -19,7 +21,11 @@ import java.util.function.Predicate;
  * 私有静态方法（如果 Lambda 没有引用外部的final 变量）。
  * 实例方法（如果 Lambda 引用外部的final 变量）。
  * @author cc
+ *
+ *
+ * 参见 ZoneMaterialProject  类
  */
+
 public class LambdaTest {
     public void test() {
         finalFun(1, 2);

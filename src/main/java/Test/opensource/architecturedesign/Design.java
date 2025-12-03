@@ -11,8 +11,8 @@ public class Design {
     nginx: keepalived + haproxy
     服务：nginx 反向代理
     redis: lua 脚本实现写入至少有一个副本写入
-    rabbitMq:仲裁队列（不能实现水平扩容问题）取代镜像队列
-    mysql:keepalived(vip)+半同步复制（不要全同步复制性能差）+GTID
+    rabbitMq:仲裁队列（不能实现水平扩容问题）取代镜像队列。  强一致性：基于 Raft 算法，消息必须在超过半数的副本持久化后才确认，有效防止数据丢失。   不支持消息优先级、队列TTL、非持久化消息等高级特性。
+    mysql:keepalived(vip)+半同步复制（至少一个副本写入成功，不要全同步复制性能差）+GTID
     */
 
     //endregion
@@ -31,7 +31,7 @@ public class Design {
     //region 主备
     /*
     nginx 反向代理 backup
-    keepalived 主备 vip 漂移  。解决单点故障
+    Keepalived 主备 vip 漂移  。解决单点故障
      */
     //endregion
 
@@ -451,6 +451,20 @@ ProxySQL / HAProxy：应用程序连接 ProxySQL，由 ProxySQL 负责路由到�
     //region rabbitmq
     /*
      rabbitmq 镜像模式  、仲裁队列（Quorum Queue）
+
+
+  强一致性：基于 Raft 算法，消息必须在超过半数的副本持久化后才确认，有效防止数据丢失。   不支持消息优先级、队列TTL、非持久化消息等高级特性。
+
+
+     仲裁队列是 RabbitMQ 3.8 后引入的新队列类型，旨在解决镜像队列的一些痛点。
+核心优势：
+强一致性：基于 Raft 算法，消息必须在超过半数的副本持久化后才确认，有效防止数据丢失。
+非阻塞恢复：节点重新上线后，数据同步过程不会阻塞队列操作。
+
+重要限制：
+功能缺失：不支持消息优先级、队列TTL、非持久化消息等高级特性。
+内存与磁盘使用：所有消息常驻内存，且在发布-订阅模式下磁盘写入放大效应更明显。务必设置队列长度限制（如 x-max-length）并监控内存。
+多数节点要求：若可用副本数不足半数，队列将不可用且可能永久丢失数据。
      */
     //endregion
 

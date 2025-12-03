@@ -21,6 +21,11 @@ EqualsAndHashCode实则就是在比较两个对象的属性；
 
 
 不需要编译其他类就可以访问到getter、setter
+
+    /
+     *lombok不会生成Getter Setter
+     * @data lombox 生成的.class (应idea打开)会先生成get,然后生成set hashcode toString
+
  */
 
 import lombok.*;

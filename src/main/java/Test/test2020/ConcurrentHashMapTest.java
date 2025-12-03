@@ -34,8 +34,9 @@ public class ConcurrentHashMapTest {
 
      */
     public void test() {
-        // Hashtable采用的是数组 + 链表，当链表过长会影响查询效率，而ConcurrentHashMap采用数组 + 链表 + 红黑树，当链表长度超过8，则将链表转成红黑树，提高查询效率。
-
+        // Hashtable采用的是数组 + 链表，当链表过长会影响查询效率，而ConcurrentHashMap采用数组 + 链表 + 红黑树，扩容通hashmap
+//        HashMap 通过 key 的 hashcode 经过扰动函数处理过后得到 hash 值，然后通过 (n - 1) & hash 判断当前元素存放的位置
+//当链表长度大于阈值（默认为 8）（将链表转换成红黑树前会判断，如果当前数组的长度小于 64，那么会选择先进行数组扩容，而不是转换为红黑树）时，将链表转化为红黑树。
         /*
         static class Node<K,V> implements Map.Entry<K,V> {
         final int hash;

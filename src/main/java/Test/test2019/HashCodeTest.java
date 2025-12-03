@@ -18,7 +18,7 @@ JAVA 要求同一对象必须要有相同的hashCode，如果hashCode不同也�
  */
 
 
-/*
+/**
 
 hashcode只在散列表中起作用
 
