@@ -1,30 +1,4 @@
-
-import Test.opensource.Jackson.JacksonTest;
-import Test.opensource.Netty.mqtt.MqttTest;
-import Test.opensource.log.Log4j2Demo;
-import Test.opensource.orgapachecommons.CollectionsCommons;
-import Test.opensource.orgapachecommons.commonpool.CommonPoolTest;
-import Test.opensource.protobuf.JprotobufTest;
-import Test.opensource.redis.RedisTest;
-import Test.opensource.redis.RedissonTest;
-import Test.opensource.snowflake.SnowFlake;
-import Test.test2018.AnonymousInternalClassTest;
-import Test.test2018.Java8Test;
-import Test.test2019.TryCatchFinallyReturnTest;
-import Test.test2019.TryTest;
-import Test.test2019.proxy.ProxyTest;
-import Test.test2020.ConcurrentHashMapTest;
 import Test.test2021.CompletableFutureTest;
-import Test.test2021.RandomTest;
-import Test.test2021.designpattern.TemplateMethodPattern;
-import Test.test2022.ArrayTest;
-import Test.test2023.TimestampTest;
-import Test.test2023.flinkcdc.ClickHouseTest;
-import Test.test2024.DateTimeSequence;
-import Test.test2024.ThreadStateDemo;
-import Test.test2025.HashedWheelTimerTest;
-import Test.test2025.MultipleFieldGroupTest;
-import Test.test2025.SortedMapTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -134,10 +108,10 @@ public class Main {
             //   new Configs().test();
 
 //              new RedisTest().test();
-            SnowFlake snowFlake= new SnowFlake(1, 0);
-            long id = snowFlake.nextId();
-            snowFlake.analyze(id);
-            snowFlake.analyze(722389759819847L);
+//            SnowFlake snowFlake= new SnowFlake(1, 0);
+//            long id = snowFlake.nextId();
+//            snowFlake.analyze(id);
+//            snowFlake.analyze(722389759819847L);
 
 
 //            int mmm111=0;
@@ -274,7 +248,7 @@ public class Main {
 //            new CountdownLatchTest().test();
 //            new CompletableFutureTest().test();
 //            new LockSupportTest().test();
-//            new Test.test2018.ThreadTest().test();
+            new Test.test2018.ThreadTest().test();
 //            new DelayQueueTest().test();
 //            new MathTest().test();
 

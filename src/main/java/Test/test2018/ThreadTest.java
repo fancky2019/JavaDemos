@@ -1,6 +1,7 @@
 package Test.test2018;
 
 import Model.Student;
+import Test.test2025.ThreadFactoryImpl;
 import utility.CallBackRunnable;
 import utility.TXTFile;
 
@@ -50,12 +51,12 @@ public class ThreadTest {
 
 
             //   functionBlockingQueue();
-//            threadPool();
-            whenComplete();
+            threadPool();
+//            whenComplete();
             /**
              *
              */
-          Thread.State state= Thread.currentThread().getState();
+            Thread.State state = Thread.currentThread().getState();
 //            threadException();
 
 
@@ -279,9 +280,22 @@ public class ThreadTest {
     //region  threadPool
 
     /**
-     * execute 适用于简单的 Runnable 任务，没有返回值，异常由线程池处理。
      *
+     *
+     * execute 适用于简单的 Runnable 任务，没有返回值，异常由线程池处理。
      * submit 适用于需要返回值或需要捕获异常的任务，返回 Future 对象。submit 最终调用execute
+     *
+     * 线程工厂命名：
+     * Executors.defaultThreadFactory() 时，线程的命名规则是：
+     * pool-[pool编号]-thread-[线程编号]
+     * pool-1-thread-1
+     *
+     *
+     * 拒绝策略，默认hreadPoolExecutor.AbortPolicy
+     * AbortPolicy	ThreadPoolExecutor.AbortPolicy	抛出 RejectedExecutionException	默认策略，需要明确知道任务被拒绝时
+     * CallerRunsPolicy	ThreadPoolExecutor.CallerRunsPolicy	由调用者线程执行被拒绝的任务	不想丢失任务，且可接受调用者性能下降
+     * DiscardPolicy	ThreadPoolExecutor.DiscardPolicy	直接丢弃被拒绝的任务，不抛异常	允许丢弃一些不重要的任务
+     * DiscardOldestPolicy	ThreadPoolExecutor.DiscardOldestPolicy	丢弃队列中最老的任务，然后重试	允许丢弃旧任务来执行新任务
      */
     public void threadPool() throws Exception {
 
@@ -326,14 +340,21 @@ public class ThreadTest {
                 Runtime.getRuntime().availableProcessors() * 2,
                 6000,
                 TimeUnit.MILLISECONDS,
-                new ArrayBlockingQueue<>(1000));
+                new ArrayBlockingQueue<>(1000),
+                new ThreadFactoryImpl("ThreadTest","javaDemo"),
+                new ThreadPoolExecutor.AbortPolicy()  // 明确指定拒绝策略
+                );
 //                new ArrayBlockingQueue<>(Integer.MAX_VALUE));
 
         cachedThreadPool1.execute(() ->
         {
-
+            Thread currentThread = Thread.currentThread();
+            long threadId = currentThread.getId();
+            //pool-6-thread-1
+            String threadName = currentThread.getName();
+            int n1 = 0;
         });
-
+        int n = 0;
         //submit 最终调用execute
         Future future = cachedThreadPool1.submit(() ->
         {
@@ -494,7 +515,7 @@ public class ThreadTest {
                 System.out.println(e.getMessage());
                 //不能直接throw e;要用try catch 包一下
                 try {
-                    throw  e;
+                    throw e;
                 } catch (Throwable ex) {
                     //可以抛出到外层的 catch
                     throw new RuntimeException(ex);
@@ -503,10 +524,8 @@ public class ThreadTest {
 //                return "hello world";
             }).join();
             System.out.println(result);
-        }
-        catch (Exception ex)
-        {
-            int m=0;
+        } catch (Exception ex) {
+            int m = 0;
         }
 
     }

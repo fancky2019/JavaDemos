@@ -7,9 +7,12 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /*
-常用委托：Supplier：无入参，有返回
+常用委托：  Runnable: 无入参，无返回。java 没有Action ,可以实现一个Action 函数接口
+          Supplier：无入参，有返回
           Consumer：无返回，有入参
           Function：一个入参，一个返回
+          BiFunction 两个参数一个返回
+          BiConsumer 两个参数无返回
 
 E - Element (在集合中使用，因为集合中存放的是元素)
 T - Type（Java 类）
