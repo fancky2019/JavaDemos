@@ -86,6 +86,9 @@ public class SnowFlake {
 
         //如果是同一时间生成的，则进行毫秒内序列
         if (lastTimestamp == timestamp) {
+            //分片倾斜
+//            sequenceMask：111111111111 超过4096（1 000000000000 (第13位是1，后面12个0)）
+            //按位与运算：1 000000000000 & 0 111111111111 = 0 000000000000,序列号达到最大值之后从0 等到下一个毫秒，
             sequence = (sequence + 1) & sequenceMask;
             //毫秒内序列溢出
             if (sequence == 0) {
@@ -95,6 +98,7 @@ public class SnowFlake {
         }
         //时间戳改变，毫秒内序列重置
         else {
+            //分片倾斜 ,不让sequence=0
             sequence = 0L;
         }
 
