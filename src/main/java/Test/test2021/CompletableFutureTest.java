@@ -13,6 +13,29 @@ import java.util.stream.Collectors;
 /**
  * ForkJoinPool 的每个工作线程都维护着一个工作队列（WorkQueue），这是一个双端队列（Deque），
  * 里面存放的对象是任务（ForkJoinTask）
+ *
+ * 根据任务类型选择线程池
+ * IO密集型：可以创建更多线程。线程池过多确实不能提高性能，反而会降低性能
+ * CPU密集型： 线程数 ≈ CPU核心数
+ *
+ * // 错误的默认配置：
+ *     // ForkJoinPool.commonPool()默认线程数 = CPU核心数-1
+ *     // 对于IO任务来说严重不足！
+ *
+ * IO等待期间CPU是空闲的！
+ *线程在IO等待时会被操作系统挂起！
+ *  // 1. 线程运行状态（占用CPU）
+ *         // 2. 遇到阻塞调用（如Thread.sleep、socket.read）
+ *         // 3. 操作系统挂起该线程，释放CPU
+ *         // 4. CPU调度其他就绪线程
+ *         // 5. IO完成，线程恢复就绪状态
+ *         // 6. 等待CPU调度执行
+ *
+ *微服务和分布式系统设计的核心原则，需要资源隔离的业务线程
+ *1. 防止级联故障（最重要的原因）。整个链路崩溃
+ *2. 不同业务的不同SLA要求。SLA（Service Level Agreement）SLA = 服务等级协议
+ *
+ *
  */
 public class CompletableFutureTest {
     public void test() {
@@ -454,6 +477,42 @@ public class CompletableFutureTest {
 
             }
             int nn = 0;
+        });
+    }
+
+    //thenCombine 等待两个都完成之后执行一个 BiFunction 函数接口
+    private void handleTest() {
+
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(
+                Runtime.getRuntime().availableProcessors() - 1,
+                Runtime.getRuntime().availableProcessors() * 2,
+                6000, TimeUnit.MILLISECONDS,
+                new ArrayBlockingQueue<>(100),
+                new ThreadFactoryImpl("ThreadTest"),
+                new ThreadPoolExecutor.AbortPolicy());
+        CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(1000);
+//                int n = Integer.parseInt("n");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return "结果11";
+        }, executor);
+        //可以 try catch 捕获join  get 的异常
+        //whenComplete 内异常要处理掉，不能传播到主线程，thenApply/thenAccept join() get() 会传播到主线程。
+        future1.handle((futureResult, throwable) -> {
+            if (throwable != null) {
+
+                Throwable e = (Throwable) throwable;
+                String msg = e.toString();
+                String string = e.getStackTrace().toString();
+                int n = 0;
+                return "异常处理后的默认值";
+            }
+            int nn = 0;
+            //
+            return futureResult;
         });
     }
 

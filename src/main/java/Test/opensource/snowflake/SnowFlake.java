@@ -4,6 +4,7 @@ package Test.opensource.snowflake;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * Twitter_Snowflake
@@ -120,8 +121,32 @@ public class SnowFlake {
     protected long tilNextMillis(long lastTimestamp) {
         long timestamp = timeGen();
         while (timestamp <= lastTimestamp) {
+//            Thread.yield();
+//            LockSupport.parkNanos(1000); // 1微秒
+            // 很短的时间使用忙等待
+//            Thread.onSpinWait();//java 9+
             timestamp = timeGen();
         }
+        return timestamp;
+    }
+
+    protected long optimizeTilNextMillis(long lastTimestamp) {
+        long timestamp = timeGen();
+        while (timestamp <= lastTimestamp) {
+            // 计算需要等待到的时间点
+            long targetTimestamp = lastTimestamp + 1;
+
+            // 使用 parkNanos 进行精确等待
+            long waitNanos = (targetTimestamp - timestamp) * 1_000_000L;
+
+            if (waitNanos > 0) {
+                // 使用 parkNanos 代替 sleep，精度更高
+                LockSupport.parkNanos(waitNanos);
+            }
+            // 总是重新获取时间戳
+            timestamp = timeGen();
+        }
+
         return timestamp;
     }
 
@@ -146,7 +171,7 @@ public class SnowFlake {
         System.out.println("数据中心ID: " + datacenterId);
         System.out.println("时间戳: " + timestamp);
         //  ZoneId.systemDefault()  ZoneOffset.of("+8")
-        LocalDateTime localDateTime= LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneOffset.of("+8"));
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneOffset.of("+8"));
         System.out.println("生成时间: " + localDateTime);
 
     }

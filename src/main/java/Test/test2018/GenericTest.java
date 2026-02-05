@@ -8,6 +8,16 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
+ *
+ *
+ * 总结关键规则：
+ * 约束类型	      声明位置	                         作用	           示例
+ * 类型参数约束	 方法签名中，<T extends Bound>    	约束类型参数 T 本身	<T extends Number>
+ * 通配符约束	     参数类型中，? extends Bound	    约束参数接受的范围	        List<? extends Number>
+ * 接口约束	     方法签名中，<T extends A & B>	多个约束（类+接口）	    <T extends Number & Comparable>
+ *
+ * 记住：类型参数的约束总是写在方法前面的尖括号中！
+ *
 泛型类型变量不能是基本数据类型，C#可以是基本数据类型
 
 

@@ -121,7 +121,7 @@ public class ThreadTest {
         }
     }
 
-    //region Interrupt
+    //region Interrupt join
     private void interrupt() {
         Thread thread = new Thread(() ->
         {
@@ -141,6 +141,25 @@ public class ThreadTest {
             thread.join(10 * 1000);//阻塞调用线程30s.
             thread.interrupt();//相当于C#的Abort，此时线程可能还在继续执行，并没有立即终止。
             thread.join();//等待直到thread终止，
+
+            //sleep  1ms+200ns
+        Thread.sleep(1,200);
+            /*
+            Thread.yield(); 主要作用
+            主动放弃当前 CPU 时间片，让其他具有相同优先级的线程有机会运行
+            线程让步，让线程调度器重新选择要执行的线程
+            通常用于 避免一个线程长时间占用 CPU
+
+            只是提示：JVM 可能会忽略这个提示
+            不释放锁：与 wait() 不同，yield() 不会释放持有的锁
+            不改变线程状态：线程保持 RUNNABLE 状态
+            优先让给同优先级线程：如果有相同优先级的就绪线程，可能会先执行它们
+             */
+            //            Thread.yield();
+//            LockSupport.parkNanos(1000); // 1微秒
+            // 很短的时间使用忙等待
+//            Thread.onSpinWait();//java 9+
+            Thread.yield();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
