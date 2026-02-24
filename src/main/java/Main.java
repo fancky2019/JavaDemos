@@ -1,4 +1,5 @@
 import Test.test2021.CompletableFutureTest;
+import Test.test2024.ThreadStateDemo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -248,7 +249,7 @@ public class Main {
 //            new CountdownLatchTest().test();
 //            new CompletableFutureTest().test();
 //            new LockSupportTest().test();
-            new Test.test2018.ThreadTest().test();
+//            new Test.test2018.ThreadTest().test();
 //            new DelayQueueTest().test();
 //            new MathTest().test();
 
@@ -281,7 +282,7 @@ public class Main {
             //endregion
 
             //region 2023
-//            new ThreadStateDemo().test();
+            new ThreadStateDemo().test();
 //            new JprotobufTest().test();
 
             //endregion

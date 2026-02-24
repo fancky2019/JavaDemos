@@ -11,6 +11,17 @@ public class ThreadStateDemo implements Runnable {
     }
 
     public void test() {
+
+        /*
+        六大状态
+        NEW
+        RUNNABLE：running 、ready
+        BLOCKED
+        WAITING
+        TIMED_WAITING
+        TERMINATED
+         */
+        Thread.State threadState = Thread.State.NEW;
         ThreadStateDemo demo = new ThreadStateDemo();
         Thread thread = new Thread(demo);
         System.out.println("new Thread() 新建线程状态：" + thread.getState());

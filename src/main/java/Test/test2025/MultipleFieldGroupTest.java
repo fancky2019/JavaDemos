@@ -144,7 +144,7 @@ class ZoneMaterialProject {
 // 2. Product(Long id, String name, Double price) - 来自 @AllArgsConstructor
 // 3. Product(Long id) - 来自 @Data 隐含的 @RequiredArgsConstructor
 
-    //lombox 会生成类似下面的
+    //lombok 会生成类似下面的
 //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;
