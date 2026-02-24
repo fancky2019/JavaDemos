@@ -1,6 +1,6 @@
 package Test.test2021.designpattern;
 
-/*
+/**
 用一个已经创建的实例作为原型，通过复制该原型对象来创建一个和原型相同或相似的新对象
  */
 public class PrototypePattern implements Cloneable {

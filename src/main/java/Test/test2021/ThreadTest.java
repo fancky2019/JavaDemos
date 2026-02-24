@@ -12,22 +12,21 @@ import java.util.concurrent.locks.ReentrantLock;
  * 进程：是系统进行资源分配和调度的基本单位。进程是线程的容器。进程是程序的实体
  * 线程：操作系统能够进行运算调度的最小单位。
  * 线程id 在一台操作系统内是唯一的。线程标识符永远不会是0。
- * <p>
+ *
  * 一旦所涉及的线程和进程终止，操作系统可以重用进程ID和线程ID。
  *
  *
  * synchronized 同步语句块的实现使用的是 monitorenter 和 monitorexit 指令，
  * 其中 monitorenter 指令指向同步代码块的开始位置，monitorexit 指令则指明同步代码块的结束位置。
  *
- * synchronized 修饰的方法并没有 monitorenter 指令和 monitorexit 指令，
- * 取得代之的确实是 ACC_SYNCHRONIZED 标识，该标识指明了该方法是一个同步方法。
+ * synchronized 修饰的方法是 ACC_SYNCHRONIZED 标识，该标识指明了该方法是一个同步方法。
 
  */
 public class ThreadTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    /*
+    /**
      线程终止：Thread.currentThread().isInterrupted();//true   //终止掉线程
                     //设计一个变量通知线程thread1自己设置自己中断
                     isInterrupted = true;
@@ -43,7 +42,7 @@ public class ThreadTest {
         threadExceptionTestFun();
     }
 
-    /*
+    /**
     如果主线程代码执行完，此时子线程抛出异常，主线程是无法捕获的
      */
     private void threadPoolExceptionTest() {

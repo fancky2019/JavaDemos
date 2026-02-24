@@ -3,6 +3,7 @@ package Test.test2022;
 import Test.test2019.queue.BlockingQueueTest;
 
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class ListArrayTest {
@@ -67,6 +68,7 @@ public class ListArrayTest {
 
 
         List<Integer> ll1 = Collections.synchronizedList(ll);
+        ArrayBlockingQueue<String> arrayBlockingQueue=new ArrayBlockingQueue<>(Integer.MAX_VALUE);
         LinkedBlockingQueue<Integer> linkedBlockingQueue = new LinkedBlockingQueue<>();
 
     }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.StampedLock;
 
-/*
+/**
 
 
  primitive 类型数据
@@ -37,7 +37,7 @@ public class PrimitiveTypeCacheTest {
         fun();
     }
 
-    /*
+    /**
     valueOf 源码从缓存里取
      */
     private void fun() {

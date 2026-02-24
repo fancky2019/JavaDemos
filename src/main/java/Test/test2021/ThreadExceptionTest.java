@@ -3,7 +3,7 @@ package Test.test2021;
 
 import java.util.concurrent.CompletableFuture;
 
-/*
+/**
 不能跨线程捕获异常
  */
 public class ThreadExceptionTest {

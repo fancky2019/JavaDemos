@@ -13,6 +13,7 @@ public class ThreadSafetyCollectionTest {
         //弱数据一致性的
         //读不加锁，写加锁，会发生索引跳跃 因为for循环只读向前，期间删除了数据就发生索引跳跃逻辑bug
         //有可能发生索引越界
+        //ArrayList 对应的CopyOnWriteArrayList
         CopyOnWriteArrayList<Integer> copyOnWriteArrayList = new CopyOnWriteArrayList<>();
         //ReentrantLock 加锁
         copyOnWriteArrayList.add(1);

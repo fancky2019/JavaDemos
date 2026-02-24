@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 /*
@@ -28,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
  * MTU:1500,分片，组包
  * UPD:于Internet(非局域网)上的标准MTU值为576字节，最好548字节 (576-8-20)以内。
  */
-/*
+/**
 
 子网:向主机位借位作为网络位。子网划分是为了解决网络IP不够用的情况，向主机位借位
 子网内主机数（可用）=2的x次方-2（x是主机号的位数）  注意：全0的网络地址和全1的主机地址 两个地址去掉
@@ -105,7 +106,9 @@ public class SocketTcpTest {
 //        CompletableFuture.runAsync(this::clientSendByte);
     }
 
-    List<Socket> connectedSockets = new LinkedList<>();
+//    List<Socket> connectedSockets = new LinkedList<>();
+    // 存储所有客户端连接
+    private static List<Socket> connectedSockets = new CopyOnWriteArrayList<>();
 
     private void server() {
         try {
@@ -147,7 +150,7 @@ public class SocketTcpTest {
 
 
             //用心跳检测客户端是否断开连接
-
+            //独立线程池处理发送（推荐）
             //循环监听客户端的连接
             while (true) {
                 //阻塞：The method blocks until a connection is made.

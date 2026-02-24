@@ -53,5 +53,5 @@ import lombok.*;
 //@AllArgsConstructor
 //@NoArgsConstructor
 //@Builder//有问题
-public class LomBoxTest {
+public class LomBokTest {
 }

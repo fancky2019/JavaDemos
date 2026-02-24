@@ -7,7 +7,7 @@ import java.text.MessageFormat;
 import java.util.concurrent.*;
 
 
-/*
+/**
 并发执行所有任务，等待任务执行完。
 无法顺序执行任务  可用 notify  await. Semaphore --参见SemaphoreTest
 它只保证任务执行完。任务同时执行，直到执行完。

@@ -3,7 +3,7 @@ package Test.test2021;
 import java.text.MessageFormat;
 import java.util.concurrent.locks.LockSupport;
 
-/*
+/**
  Thread.State
 WAITING状态是：“一个线程在等待另一个线程执行一个动作时在这个状态”
 IMED_WAITING状态为：“一个线程在一个特定的等待时间内等待另一个线程完成一个动作会在这个状态”
@@ -61,7 +61,7 @@ public class LockSupportTest {
 
     private volatile boolean isInterrupted = false;
 
-    /*
+    /**
     终止掉线程
     设置线程中断不影响线程的继续执行
      */

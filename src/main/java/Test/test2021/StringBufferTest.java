@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-/*
+/**
 1、StringBuffer 与 StringBuilder 中的方法和功能完全是等价的，
 2、只是StringBuffer 中的方法大都采用了 synchronized 关键字进行修饰，因此是线程安全的，
 而 StringBuilder 没有这个修饰，可以被认为是线程不安全的。

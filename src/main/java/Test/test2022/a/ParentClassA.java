@@ -1,6 +1,6 @@
 package Test.test2022.a;
 
-/*
+/**
 在JAVA中有四种访问控制权限，分别为：private, default, protected, public:
 1、Private
 如果一个成员方法或变量名前使用了private， 那么这个成员只能在类的内部使用。

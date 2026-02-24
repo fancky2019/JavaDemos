@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-/*
+/**
 常用委托：  Runnable: 无入参，无返回。java 没有Action ,可以实现一个Action 函数接口
           Supplier：无入参，有返回
           Consumer：无返回，有入参

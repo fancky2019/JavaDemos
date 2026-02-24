@@ -2,7 +2,7 @@ package Test.test2021;
 
 import Model.ComparableModel;
 
-/*
+/**
 泛型接口
 Comparable<T> :类内比较，类内提供两个对象的比较
 Comparator<T> ：类外比较，借助第三方实现类，比较两个对象。
@@ -12,4 +12,10 @@ Comparator<T> ：类外比较，借助第三方实现类，比较两个对象。
  */
 public class ComparableComparatorTest {
 //    ComparableModel
+    //默认正序
+    //   truckOrderList = truckOrderList.stream().sorted(Comparator.comparingLong(TruckOrder::getId)).collect(Collectors.toList());
+
+   //逆序
+    //       truckOrderList = truckOrderList.stream().sorted(Comparator.comparingLong(TruckOrder::getId).reversed()).collect(Collectors.toList());
+    //
 }

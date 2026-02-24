@@ -11,7 +11,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-/*
+/**
 按照流的方向分为输入流（InputStream）与输出流(outputStream)：
 
 输入流：只能读取数据，不能写入数据。能读入

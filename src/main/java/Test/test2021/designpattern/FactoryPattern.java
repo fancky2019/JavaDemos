@@ -1,6 +1,6 @@
 package Test.test2021.designpattern;
 
-/*
+/**
 工厂模式主要有三种类型
 1、简单工厂
 2、工厂方法
