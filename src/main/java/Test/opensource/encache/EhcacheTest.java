@@ -9,8 +9,11 @@ import org.ehcache.config.builders.ResourcePoolsBuilder;
 
 import java.net.URL;
 
-/*
+/**
 官网： https://www.ehcache.org/
+
+
+ Java 本地缓存（堆内):Caffeine、Ehcache。建议 Caffeine
  */
 public class EhcacheTest {
     /*

@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class LinkedBlockingQueueTest {
-    /*
+    /**
     add/offer/put的区别：
 1、 add: 和collection的add一样，当队列满时，调用add()方法抛出异常IllegalStateException异常
 2、 调用offer()方法当队列满时返回的 false。

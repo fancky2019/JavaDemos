@@ -10,7 +10,7 @@ public class TryCatchFinallyReturnTest {
         /*
         一、finally没return:try、catch有return 执行return之后再执行finally块，try、catch内return的值如果
                                  是基本数据类型不受finally语句影响，如果是引用类型将改变暂存值。
-        二、finally有return：如果finally里有return将会覆盖try、catch里的return值。C#return块内不允许有return。
+        二、finally有return：如果finally里有return将会覆盖try、catch里的return值。C#finally块内不允许有return。
 
 
         try块：用于捕获异常。其后可接零个或多个 catch 块，如果没有 catch 块，则必须跟一个 finally 块。

@@ -5,7 +5,7 @@ import Model.Student;
 import java.util.concurrent.atomic.AtomicMarkableReference;
 import java.util.concurrent.atomic.AtomicStampedReference;
 
-/*
+/**
 封装了了一个转换标记的变量用于表示是否转换过，代替每次变动的版本号
  */
 public class AtomicMarkableReferenceTest {

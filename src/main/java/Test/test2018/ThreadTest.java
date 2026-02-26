@@ -144,6 +144,7 @@ public class ThreadTest {
 
             //sleep  1ms+200ns
         Thread.sleep(1,200);
+//            在需要让出CPU的场景，sleep(0) 更可靠
             /*
             Thread.yield(); 主要作用
             主动放弃当前 CPU 时间片，让其他具有相同优先级的线程有机会运行
@@ -310,7 +311,7 @@ public class ThreadTest {
      * pool-1-thread-1
      *
      *
-     * 拒绝策略，默认hreadPoolExecutor.AbortPolicy
+     * 拒绝策略，默认threadPoolExecutor.AbortPolicy
      * AbortPolicy	ThreadPoolExecutor.AbortPolicy	抛出 RejectedExecutionException	默认策略，需要明确知道任务被拒绝时
      * CallerRunsPolicy	ThreadPoolExecutor.CallerRunsPolicy	由调用者线程执行被拒绝的任务	不想丢失任务，且可接受调用者性能下降
      * DiscardPolicy	ThreadPoolExecutor.DiscardPolicy	直接丢弃被拒绝的任务，不抛异常	允许丢弃一些不重要的任务

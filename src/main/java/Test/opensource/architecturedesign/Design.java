@@ -13,6 +13,9 @@ public class Design {
     redis: lua 脚本实现写入至少有一个副本写入
     rabbitMq:仲裁队列（不能实现水平扩容问题）取代镜像队列。  强一致性：基于 Raft 算法，消息必须在超过半数的副本持久化后才确认，有效防止数据丢失。   不支持消息优先级、队列TTL、非持久化消息等高级特性。
     mysql:keepalived(vip)+半同步复制（至少一个副本写入成功，不要全同步复制性能差）+GTID
+          主库将事务写入Binlog后，需等待至少一个从库确认已接收并写入其中继日志（Relay Log），然后才向客户端返回成功。
+
+   MySQL InnoDB Cluster 代替双主
     */
 
     //endregion
@@ -100,7 +103,7 @@ public class Design {
              执行脚本判断nginx服务是否存在，不存在就杀掉keepalived进程。
     Keepalive 三大组件中的check 组件，监控nginx进程的脚本，如果nginx进程挂了，没有重启成功，keepalived自己停止服务，这样keepalived集群就知道应用状态。
 
-   keepalived 配置 ： 虚拟地址-->虚拟服务器地址-->真是服务器地址
+   keepalived 配置 ： 虚拟地址-->虚拟服务器地址-->真实服务器地址
    nginx keepalived 配置参考
      */
 
@@ -220,6 +223,10 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
 因为8001端口的server1服务设置的down，不参与负载均衡； （服务不可用）
 而8002端口的server2服务设置的backup，（备份）当其他节点服务正常时，不对外提供服务，当其他节点服务挂掉之后才会自动启用此备份服务；
 所以只能访问到8003端口的server3应用服务（可用）
+
+
+down：标记服务器为“永久下线”，不参与负载均衡。
+backup：标记服务器为“备用服务器”，平时不工作，只在主服务器都宕机时才上线。
  */
 
 //endregion
@@ -251,6 +258,11 @@ upstream blance {#配置服务器的分别对应的应用ip和的端口
       MHA :会尝试保存故障主库的 binlog，但无法保证 100% 数据一致性。建议结合半同步复制使用。
      主从：master--- keepalive--vip-- mysqlA 和mysqlB
           slave---keepalive--vip-- mysqlC mysqlD mysqlE
+
+  异步复制      主库将事务写入二进制日志（Binlog）后，立即向客户端返回成功，无需等待从库确认
+  半同步复制    主库将事务写入Binlog后，需等待至少一个从库确认已接收并写入其中继日志（Relay Log），然后才向客户端返回成功。
+  完全同步复制  主库需等待所有从库都提交了事务，才向客户端返回成功
+
      */
 
     /*

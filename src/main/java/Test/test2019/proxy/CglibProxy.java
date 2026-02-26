@@ -7,7 +7,7 @@ import net.sf.cglib.proxy.MethodProxy;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
-/*
+/**
 基于继承的方式实现
  */
 public class CglibProxy<T> implements MethodInterceptor {

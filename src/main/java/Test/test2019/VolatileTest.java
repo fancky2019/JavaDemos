@@ -65,7 +65,7 @@ public class VolatileTest {
         System.out.println(volParam);
     }
 
-    /*
+    /**
     submit(Callable<T> task) 内部实现：
     *public class FutureTask<V> implements RunnableFuture<V>
     public interface RunnableFuture<V> extends Runnable, Future<V> {

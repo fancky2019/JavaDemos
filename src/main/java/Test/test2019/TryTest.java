@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 
-/*
+/**
 try-with-resources  语句释放资源的类必须实现AutoCloseable 接口。
 
 Closeable extends AutoCloseable

@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicStampedReference;
 
 
-/*
+/**
   private static class Pair<T> {
         final T reference;
         final int stamp;
