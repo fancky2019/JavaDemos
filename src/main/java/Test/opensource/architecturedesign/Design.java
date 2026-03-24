@@ -506,7 +506,7 @@ ProxySQL / HAProxy：应用程序连接 ProxySQL，由 ProxySQL 负责路由到�
 
        /*
        1、 HTTPS + 前端哈希（带固定盐或用户名）
-       2、 HTTPS + RSA 加密。高安全
+       2、 HTTPS + RSA 加密。高安全  使用 bcrypt 类库
        采用 HTTPS 传输 前端SHA256哈希 到后端， 后端BCrypt加密的前端哈希值存储到数据库
         前端计算：传输哈希 = SHA256(用户的密码 + 后端下发的临时盐)。
         后端验证：
@@ -544,6 +544,9 @@ ProxySQL / HAProxy：应用程序连接 ProxySQL，由 ProxySQL 负责路由到�
 公式：Hash(密码 + 盐) 或 Hash(盐 + 密码)
 盐的特性：每个用户都应该有一个唯一的盐，并且盐的长度要足够长（至少16位以上）。
 
+
+
+返回前端一个短期有效的 accessToken 和一个长期有效的 refreshToken
         */
     //endregion
 }

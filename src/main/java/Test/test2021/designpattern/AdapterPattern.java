@@ -1,6 +1,28 @@
 package Test.test2021.designpattern;
 
 /**
+ *
+ *
+ * 1、单一职责原则	Single Responsibility Principle (SRP)	一个类只做一件事
+ * 2. 开闭原则	Open-Closed Principle (OCP)	对扩展开放，对修改关闭
+ * 3. 里氏替换原则	Liskov Substitution Principle (LSP)	子类必须能替换父类
+ * 4. 接口隔离原则	Interface Segregation Principle (ISP)	接口要小而专一
+ * 5. 依赖倒置原则	Dependency Inversion Principle (DIP)	依赖抽象，不依赖具体。要面向接口编程，而不是面向实现编程
+ *                 定义：
+ *                     高层模块不应该依赖低层模块，两者都应该依赖抽象
+ *                     抽象不应该依赖细节，细节应该依赖抽象
+ * 6. 迪米特法则	Law of Demeter (LoD)	最少知识原则 （尽量不要公开内部对象，通过封装返回对象成员信息）
+ * 7. 组合复用原则	Composition Over Inheritance	优先使用组合而非继承
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
 适配器模式：桥接，中转使其支持某种功能
 
  对外提供的接口支持现有的类功能：接口的实现类的方法实现中使用现有的实现类
