@@ -362,6 +362,8 @@ public class JDBCTest {
     //region 批量插入
 
     /**
+     *
+     * 连接设置不自动提交，执行完连接提交
      * 利用SQL Insert() values(),()
      *  jdbc 的batch  操作update 和insert 都是   preparedStatement.addBatch();  preparedStatement.executeBatch();
      *
