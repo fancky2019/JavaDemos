@@ -367,6 +367,11 @@ public class JDBCTest {
      * 利用SQL Insert() values(),()
      *  jdbc 的batch  操作update 和insert 都是   preparedStatement.addBatch();  preparedStatement.executeBatch();
      *
+     *
+     * autocommit  mySQL 连接的 autocommit 默认是 开启（true） 的。这实际上是 连接池（HikariCP）的默认配置，而不是 MySQL 服务端本身的设置
+     *
+     *
+     *
      * @throws Exception
      */
     private void batchInsert() throws Exception {
