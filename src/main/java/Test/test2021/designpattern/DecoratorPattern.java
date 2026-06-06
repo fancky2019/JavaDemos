@@ -28,6 +28,9 @@ package Test.test2021.designpattern;
  *
  *
  * 装饰器模式使用接口实现，不使用继承
+ *
+ *
+ * 装饰器模式关注功能增强，要求装饰器和被装饰对象实现同一接口；适配器模式关注接口兼容，将一个接口转换成客户端期望的另一个接口
  */
 public class DecoratorPattern {
 

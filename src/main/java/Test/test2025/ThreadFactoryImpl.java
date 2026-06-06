@@ -5,6 +5,7 @@ import net.bytebuddy.asm.Advice;
 import java.util.UUID;
 import java.util.concurrent.ThreadFactory;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -22,6 +23,13 @@ public class ThreadFactoryImpl implements ThreadFactory {
 
     public ThreadFactoryImpl(String poolName) {
         this(poolName, UUID.randomUUID().toString().replaceAll("-", ""), false);
+
+//        // 1. 获取当前线程的 ThreadLocalRandom 实例
+//        ThreadLocalRandom random = ThreadLocalRandom.current();
+//
+//        // 2. 生成一个随机的 int 值 (范围: 0 到 100, 不包括 100) [0,100)
+//        int randomInt = random.nextInt(100);
+
     }
 
     public ThreadFactoryImpl(String poolName, String serviceName) {

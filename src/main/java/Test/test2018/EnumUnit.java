@@ -15,10 +15,13 @@ import java.util.stream.Collectors;
  * 由于枚举类型的实例是常量，因此按照命名惯例，它们都用大写字母表示（如果名称中含有多个单词，使用下划线分隔）。
  * <p>
  * Jackson对枚举进行序列化,默认输出枚举的String名称。名字要对应，区分大小写。如:Zhi
- * 前端传枚举成员名称（注：不能加双引号）给枚举字段。
- */
-
-/**
+ *
+ * 前端传枚举成员名称（注：不能加双引号）给枚举字段。 public static final EnumUnit ZHI=new EnumUnit(1，“只”)
+ *默认修饰符：public static final。
+ * 不能有访问修饰符
+ *
+ * 枚举（enum）本质上就是一组 public static final 常量对象。
+ *
  * @JsonValue 不能和 @JsonFormat 同时使用
  * @JsonFormat(shape = JsonFormat.Shape.OBJECT) String enumJson = mapper.writeValueAsString( EnumUnit.values());
  * [{"value":0,"description":"只"},{"value":1,"description":"头"},{"value":2,"description":"ge"}]

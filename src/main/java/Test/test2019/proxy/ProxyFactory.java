@@ -75,7 +75,7 @@ public class ProxyFactory {
          h : 实现了 InvocationHandler 接口的对象；
          */
 
-        T t= (T)Proxy.newProxyInstance(
+        T t = (T) Proxy.newProxyInstance(
                 interfaceImp.getClass().getClassLoader(),
                 interfaceImp.getClass().getInterfaces(),
                 (proxy, method, args) -> {
@@ -100,13 +100,13 @@ public class ProxyFactory {
                 }
 
         );
-        return  t;
+        return t;
 
     }
-    private Object description( Object... args)
-    {
+
+    private Object description(Object... args) {
         System.out.println("没有走");
-        return  null;
+        return null;
 
     }
 
