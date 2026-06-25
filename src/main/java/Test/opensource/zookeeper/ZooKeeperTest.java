@@ -28,6 +28,9 @@ import java.util.concurrent.CompletableFuture;
  *
  * 多个ZK客户端向ZK 注册Znode 的子节点 并和ZK进行tcp 通信，ZK发现客户端掉线删除子节点客户端端并通知。
  *
+ *过半，永远是指“集群总节点数”的一半，而不是“当前存活节点数”的一半。
+ * ZooKeeper集群不是分片（Sharding）架构，而是全量复制（Replicated）架构。
+ * rabbitmq仲裁队列全量复制，redis、es分片
  *
  * 有序节点：假如当前有一个父节点为/lock，我们可以在这个父节点下面创建子节点；
  * zookeeper提供了一个可选的有序特性，例如我们可以创建子节点“/lock/node-”并且指明有序，那么zookeeper在生成子节点时会根据当前的子节点数量自动添加整数序号

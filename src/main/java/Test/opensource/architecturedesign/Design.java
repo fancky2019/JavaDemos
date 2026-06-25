@@ -7,10 +7,41 @@ public class Design {
 
 
     //region 高可用集群设计
+
+       /*
+    raft协议： RabbitMQ 仲裁队列
+             RocketMQ 的 Dledger 之外，
+             Kafka Apache Kafka 从 4.0 版本开始，也全面采用 Raft 协议（具体实现为 KRaft）来管理集群元数据了
+
+             message RequestVoteRequest {
+    int term;           // 任期号
+    int candidateId;    // 候选者ID
+    int lastLogIndex;   // 候选者最后一条日志的索引
+    int lastLogTerm;    // 候选者最后一条日志的任期
+}
+投票者（Voter）会做如下判断：
+如果候选者的 lastLogTerm > 投票者的 lastLogTerm：投票者投给候选者。
+如果 lastLogTerm 相等：比较 lastLogIndex，谁的更大（日志更新），就投给谁。
+如果候选者的日志比投票者旧：投票者拒绝投票。
+
+
+Raft 选举 Leader 时，必须比较日志的 (Term, Index)，确保选出的 Leader 拥有最完整的数据
+        */
+
+
+    /*
+    ZooKeeper (ZK) 用的是一种名叫 ZAB (ZooKeeper Atomic Broadcast) 的专有协议，并不是 Raft 协议。不过它们的设计思想很像“师出同门”，
+    都是对 Paxos 协议的工程化改进，核心都采用了主从（Leader/Follower）模式和过半确认（Quorum）机制。
+     */
+
     /*
     nginx: keepalived + haproxy
     服务：nginx 反向代理
-    redis: lua 脚本实现写入至少有一个副本写入
+
+    redis:集群分片部署， lua 脚本实现写入至少有一个副本写入。设置至少一个节点写入成功
+           Redis 选主 = 故障主节点的从节点（候选者） + 其他所有正常主节点（投票者）。 从节点不能投票，主节点不能竞选对方分片的主。
+
+
     rabbitMq:仲裁队列（不能实现水平扩容问题）取代镜像队列。  强一致性：基于 Raft 算法，消息必须在超过半数的副本持久化后才确认，有效防止数据丢失。   不支持消息优先级、队列TTL、非持久化消息等高级特性。
     mysql:主从复制模式：一主一从"或"一主多从
           keepalived(vip)+半同步复制（至少一个副本写入成功，不要全同步复制性能差）+GTID（优于主主模式）
@@ -19,11 +50,23 @@ public class Design {
 
    MySQL InnoDB Cluster 代替双主
    MySQL Group Replication (MGR) 多主模式
+
+
+   过半选举，永远是指“集群总节点数”的一半，而不是“当前存活节点数”的一半。
     */
 
     //endregion
 
 
+    //region redis 脑裂
+    /*
+    redis选主：3主3从。集群设置开启 min-replicas-to-write 1 和 min-replicas-max-lag 10 这两个参数。
+    从节点选举候选者，其他主节点推举候选者成为主节点，过半选举
+    需要“多数派”主节点：Redis 集群的故障转移，必须由超过半数（N/2 + 1）的主节点投票同意才能进行。如果只有 2 台机器，意味着最多只能有 2 个主节点。当其中 1 台宕机或网络隔离时，剩下的 1 个主节点无法独自完成“过半”投票，集群将无法进行自动故障转移。
+
+需要足够的从节点：防脑裂的配置 min-replicas-to-write 1，要求每个主节点至少有 1 个从节点保持实时同步。要实现这个要求，3 台机器是最小单位。例如，将 Master A 放在机器1，它的从节点 Slave A 放在机器2，这样任何一台机器故障，都不会让主从同时失联。
+     */
+    //endregion
 
 
     /*
